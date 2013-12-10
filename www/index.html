@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.ie.css" />
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+    <script src="data/overpassData.js"></script>
+    <script src="data/staticData.js"></script>
+    <style type="text/css">
+        body { padding:0; margin:0; }
+        html, body, #map { height: 100%; }
+        #message { position: absolute; top:0px; right:0px; background-color: white; padding:0 4px 2px; }
+    </style>
+    <script type="text/javascript">
+
+        // Set these up later on on body load.
+        var todoIcon;
+        var doneIcon;
+
+        function createMap(lat, lon)
+        {
+            var map = L.map('map').setView([lat, lon], 13);
+            var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: osmAttr
+            }).addTo(map);
+            return map;
+        }
+
+        function postLink(pub)
+        {
+            if (pub.post)
+                return "<a href=\"http://brewmook.wordpress.com" + pub.post + "\">" + pub.name + "</a>";
+            return pub.name;
+        }
+
+        function pubIcon(pub)
+        {
+            if (pub.post)
+                return doneIcon;
+            return todoIcon;
+        }
+
+        function addFlag(layer, pub)
+        {
+            var marker = L.marker([pub.lat, pub.lon],
+                                  { "title": pub.name,
+                                    "icon": pubIcon(pub) });
+            marker.addTo(layer);
+            marker.bindPopup(postLink(pub));
+        }
+
+        function displayPubs(pubsLayer, pubs)
+        {
+            var count = 0;
+            for (var i in pubs) {
+                addFlag(pubsLayer, pubs[i]);
+                ++count;
+            }
+            $('#message').text("Total " + pubs.length + " pubs");
+        }
+
+        function findPubs(pubsLayer)
+        {
+            pubsLayer.clearLayers();
+
+            $.ajax({
+                dataType: "json",
+                url: "data/overpassData.js",
+                success: function(data) { displayResults(pubsLayer, data); },
+                timeout: 10000
+            }).fail(function() { $('#message').text("Failed."); });
+        }
+
+        function addTargetToMap(target, map)
+        {
+            var circle = new L.circle([target.lat, target.lon],
+                                      target.radiusMetres,
+            {
+                color: '#c80',
+                fillColor: '#fc4',
+                fillOpacity: 0.15,
+            });
+            map.addLayer(circle);
+        }
+
+        function setupIcons()
+        {
+            // Setup icons
+            var Icon = L.Icon.extend({
+                options: {
+                    iconSize: [25, 39],
+                    iconAnchor:   [12, 36],
+                    popupAnchor: [0, -30]
+                }
+            });
+            todoIcon = new Icon({ iconUrl: "img/marker-gold.png", iconRetinaUrl: "img/marker-gold-2x.png" });
+            doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
+        }
+
+        function mergeData(overpass, static)
+        {
+            var result = [];
+            for (var o in overpass) {
+                var pub = JSON.parse(JSON.stringify(overpass[o]));
+                if (overpass[o].id in static)
+                    pub.post = static[overpass[o].id].post;
+                else
+                    pub.post = "";
+                result.push(pub);
+            }
+            return result;
+        }
+
+        function initialiseMap()
+        {
+            var target = { lat:55.94816654144937,
+                           lon:-3.1994622945785522,
+                           radiusMetres:1609 };
+            var map = createMap(target.lat, target.lon);
+            addTargetToMap(target, map);
+            setupIcons();
+
+            var pubsLayer = new L.LayerGroup().addTo(map);
+            var pubs = mergeData(overpassData, staticData);
+            displayPubs(pubsLayer, pubs);
+        }
+    </script>
+</head>
+<body onload="initialiseMap()">
+  <div id="map"></div>
+  <div id="message">Fetching data...</div>
+</body>
+</html>
