@@ -94,14 +94,11 @@ function csvify(pubs)
 
 function jsonify(pubs)
 {
-//    var result = {}
-//    pubs.forEach(function(pub) {
-//	result[pub.id] = {"name":pub.name,
-//			  "lat":pub.lat,
-//			  "lon":pub.lon};
-//    });
-//    return JSON.stringify(result);
-    return "var overpassData = " + JSON.stringify(pubs);
+    var strings = [];
+    pubs.forEach(function(pub) {
+	strings.push(JSON.stringify(pub));
+    });
+    return "var overpassData = [\n" + strings.join(",\n") + "];\n";
 }
 
 function findPubs(target, amenitiesRE)
@@ -110,7 +107,7 @@ function findPubs(target, amenitiesRE)
             function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 		    var pubs = parseResults(amenitiesRE, JSON.parse(body));
-                    fs.writeFileSync('www/data/overpassData.csv', csvify(pubs));
+                    //fs.writeFileSync('www/data/overpassData.csv', csvify(pubs));
                     fs.writeFileSync('www/data/overpassData.js', jsonify(pubs));
 		}
 	    });
