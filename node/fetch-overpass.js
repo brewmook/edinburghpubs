@@ -115,7 +115,7 @@ function findPubs(target, amenitiesRE)
 
 var target = { lat:55.94816654144937,
 	       lon:-3.1994622945785522,
-	       radiusMetres:1609 };
+	       radiusMetres:1610 };
 var amenities = /^(pub|bar)$/;
 
 findPubs(target, amenities);

@@ -58,6 +58,7 @@ var overpassData = [
 {"id":585214839,"lat":55.9589933,"lon":-3.2102219,"name":"St Bernards Bar"},
 {"id":585214840,"lat":55.9579851,"lon":-3.206169,"name":"The Antiquary"},
 {"id":585214845,"lat":55.9623588,"lon":-3.1972207,"name":"Cross & Corner"},
+{"id":585214846,"lat":55.9625467,"lon":-3.1963091,"name":"The Other Place"},
 {"id":613227823,"lat":55.9455262,"lon":-3.1909314,"name":"Doctors"},
 {"id":626986693,"lat":55.9503821,"lon":-3.1867507,"name":"The Royal Mile"},
 {"id":634806190,"lat":55.945705,"lon":-3.2037107,"name":"Monboddo"},
