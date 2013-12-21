@@ -9,7 +9,7 @@
     <![endif]-->
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-    <script src="data/overpassData.js"></script>
+    <!-- script src="data/overpassData.js"></script -->
     <script src="data/staticData.js"></script>
     <style type="text/css">
         body { padding:0; margin:0; }
@@ -41,7 +41,7 @@
 
         function pubIcon(pub)
         {
-            if (pub.post)
+            if (pub.done)
                 return doneIcon;
             return todoIcon;
         }
@@ -103,15 +103,14 @@
             doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
         }
 
-        function mergeData(overpass, static)
+        function patchData(staticpubs)
         {
             var result = [];
-            for (var o in overpass) {
-                var pub = JSON.parse(JSON.stringify(overpass[o]));
-                if (overpass[o].id in static)
-                    pub.post = static[overpass[o].id].post;
-                else
-                    pub.post = "";
+            for (var p in staticpubs) {
+                var pub = JSON.parse(JSON.stringify(staticpubs[p]));
+                if (!"done" in staticpubs)
+                    pub.done = false;
+                pub.post = "";
                 result.push(pub);
             }
             return result;
@@ -127,7 +126,7 @@
             setupIcons();
 
             var pubsLayer = new L.LayerGroup().addTo(map);
-            var pubs = mergeData(overpassData, staticData);
+            var pubs = patchData(staticData);
             displayPubs(pubsLayer, pubs);
         }
     </script>
