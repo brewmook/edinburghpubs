@@ -15,7 +15,7 @@ var overpassData = [
 {"id":41483872,"lat":55.9529787,"lon":-3.1964388,"name":"Milnes"},
 {"id":57542915,"lat":55.95385,"lon":-3.190459,"name":"Cafe Royal"},
 {"id":57543992,"lat":55.9589954,"lon":-3.1970753,"name":"Cumberland Bar"},
-{"id":248681867,"lat":55.942896,"lon":-3.1826115,"name":"McEwan's Alehouse"},
+{"id":248681867,"lat":55.942896,"lon":-3.1826115,"name":"McSorleys"},
 {"id":249967014,"lat":55.9500531,"lon":-3.1872733,"name":"The Inn On The Mile"},
 {"id":250351299,"lat":55.9480649,"lon":-3.1860717,"name":"The Royal Oak"},
 {"id":255760161,"lat":55.9435016,"lon":-3.1802683,"name":"The Auld Hoose"},
@@ -41,7 +41,7 @@ var overpassData = [
 {"id":474049045,"lat":55.9442324,"lon":-3.2020408,"name":"The Brauhaus"},
 {"id":482432721,"lat":55.9417488,"lon":-3.2032428,"name":"Bennets Bar"},
 {"id":483034256,"lat":55.9459457,"lon":-3.2032414,"name":"The Blue Blazer"},
-{"id":483035255,"lat":55.9467813,"lon":-3.1982231,"name":"WJ Christie & Sons"},
+{"id":483035255,"lat":55.946624,"lon":-3.1985887,"name":"WJ Christie & Sons"},
 {"id":483044126,"lat":55.9481951,"lon":-3.1915223,"name":"Sneaky Pete's"},
 {"id":483045947,"lat":55.948264,"lon":-3.1901285,"name":"Three Sisters"},
 {"id":499994553,"lat":55.9375137,"lon":-3.20286,"name":"Links Bar"},
@@ -241,7 +241,7 @@ var overpassData = [
 {"id":41973861,"lat":55.9505975,"lon":-3.1836095,"name":"White Horse"},
 {"id":42250626,"lat":55.95046595,"lon":-3.1843417,"name":"The World's End"},
 {"id":42250628,"lat":55.95042525,"lon":-3.1842372,"name":"The Waverley"},
-{"id":42556521,"lat":55.9481445,"lon":-3.1868134,"name":"Biblos"},
+{"id":42556521,"lat":55.948146449999996,"lon":-3.1868134,"name":"Biblos"},
 {"id":42556526,"lat":55.94837215,"lon":-3.1876253500000002,"name":"The GRV"},
 {"id":42556535,"lat":55.9481203,"lon":-3.1869573,"name":"The Jazz Bar"},
 {"id":60320790,"lat":55.935172,"lon":-3.2109829999999997,"name":"Napier Students' Association"},
@@ -251,4 +251,4 @@ var overpassData = [
 {"id":70955015,"lat":55.9507237,"lon":-3.18441215,"name":"No 1"},
 {"id":70980998,"lat":55.952162650000005,"lon":-3.17705125,"name":"The Kilderkin"},
 {"id":100871335,"lat":55.93960495,"lon":-3.1795709,"name":"The Abbey"},
-{"id":224262073,"lat":55.9458425,"lon":-3.217378,"name":"Ryries"}];
+{"id":224262073,"lat":55.945811250000006,"lon":-3.2173471,"name":"Ryries"}];
