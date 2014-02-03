@@ -103,15 +103,23 @@
             doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
         }
 
+        function pubIsDisqualified(pub)
+        {
+            return "status" in pub && pub["status"] == "disqualified";
+        }
+
         function patchData(staticpubs)
         {
             var result = [];
             for (var p in staticpubs) {
                 var pub = JSON.parse(JSON.stringify(staticpubs[p]));
-                if (!"done" in staticpubs)
-                    pub.done = false;
-                pub.post = "";
-                result.push(pub);
+                if (!pubIsDisqualified(pub))
+                {
+                    if (!"done" in staticpubs[p])
+                        pub.done = false;
+                    pub.post = "";
+                    result.push(pub);
+                }
             }
             return result;
         }
