@@ -82,6 +82,7 @@ var staticData = {
     736215229: {"id":736215229,"lat":55.9495501,"lon":-3.1929479,"name":"Deacon Brodie's Tavern","done":true},
     839139665: {"id":839139665,"lat":55.9495778,"lon":-3.1876132,"name":"The Tron"},
     913817636: {"id":913817636,"lat":55.9537781,"lon":-3.188174,"name":"The Newsroom","done":true},
+    910426589: {"id":910426589,"lat":55.9444999,"lon":-3.1852839,"name":"Counting House","done":true},
     1108860713: {"id":1108860713,"lat":55.9573885,"lon":-3.1870382,"name":"The Outhouse"},
     1234959188: {"id":1234959188,"lat":55.9537696,"lon":-3.1970675,"name":"All Bar One"},
     1249972539: {"id":1249972539,"lat":55.9584256,"lon":-3.1836422,"name":"Jeremiah's Tap Room"},
