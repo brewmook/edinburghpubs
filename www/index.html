@@ -14,7 +14,7 @@
     <style type="text/css">
         body { padding:0; margin:0; }
         html, body, #map { height: 100%; }
-        #message { position: absolute; top:0px; right:0px; background-color: white; padding:0 4px 2px; }
+        #message { position: absolute; top:0px; right:0px; background-color: white; padding:0 4px 2px; text-align:right; }
     </style>
     <script type="text/javascript">
 
@@ -57,12 +57,16 @@
 
         function displayPubs(pubsLayer, pubs)
         {
-            var count = 0;
+            var done = 0;
             for (var i in pubs) {
                 addFlag(pubsLayer, pubs[i]);
-                ++count;
+                if (pubs[i].done) {
+                    ++done;
+                }
             }
-            $('#message').text("Total " + pubs.length + " pubs");
+            $('#message').html("Total " + pubs.length + " pubs<br/>"
+                               + done + " done (blue)<br/>"
+                               + Math.round((done/pubs.length)*100) + "% complete");
         }
 
         function findPubs(pubsLayer)
