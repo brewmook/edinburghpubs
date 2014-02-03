@@ -9,8 +9,8 @@
     <![endif]-->
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-    <!-- script src="data/overpassData.js"></script -->
-    <script src="data/staticData.js"></script>
+    <script src="data/overpassData.js"></script>
+    <script src="data/extraPubsData.js"></script>
     <script src="data/visitData.js"></script>
     <style type="text/css">
         body { padding:0; margin:0; }
@@ -59,15 +59,17 @@
         function displayPubs(pubsLayer, pubs)
         {
             var done = 0;
+            var total = 0;
             for (var i in pubs) {
                 addFlag(pubsLayer, pubs[i]);
                 if (pubs[i].status == "done") {
                     ++done;
                 }
+                ++total;
             }
-            $('#message').html("Total " + pubs.length + " pubs<br/>"
+            $('#message').html("Total " + total + " pubs<br/>"
                                + done + " done (blue)<br/>"
-                               + Math.round((done/pubs.length)*100) + "% complete");
+                               + Math.round((done/total)*100) + "% complete");
         }
 
         function findPubs(pubsLayer)
@@ -119,16 +121,18 @@
 
         function getPubs()
         {
-            var result = [];
-            for (var i in staticData)
+            var result = {};
+            var allPubs = overpassData.concat(extraPubsData);
+
+            for (var i in allPubs)
             {
-                var pub = mergeVisitData(staticData[i]);
+                var pub = mergeVisitData(allPubs[i]);
 
                 pub.post = "";
 
-                if (pub.status != "disqualified")
+                if (!(pub.id in result) && pub.status != "disqualified")
                 {
-                    result.push(pub);
+                    result[pub.id] = pub;
                 }
             }
             return result;
