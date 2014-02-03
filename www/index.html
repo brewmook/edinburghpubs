@@ -114,18 +114,18 @@
 
         function patchData(staticpubs)
         {
-            var result = [];
-            for (var p in staticpubs) {
-                var pub = JSON.parse(JSON.stringify(staticpubs[p]));
-                if (!pubIsDisqualified(pub))
+            for (var i in staticpubs) {
+                var pub = staticpubs[i];
+                if (pubIsDisqualified(pub))
                 {
-                    if (!"done" in staticpubs[p])
-                        pub.done = false;
+                    staticpubs.splice(i,1);
+                }
+                else
+                {
                     pub.post = "";
-                    result.push(pub);
                 }
             }
-            return result;
+            return staticpubs;
         }
 
         function initialiseMap()
