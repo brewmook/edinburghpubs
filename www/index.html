@@ -11,6 +11,7 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
     <!-- script src="data/overpassData.js"></script -->
     <script src="data/staticData.js"></script>
+    <script src="data/visitData.js"></script>
     <style type="text/css">
         body { padding:0; margin:0; }
         html, body, #map { height: 100%; }
@@ -41,7 +42,7 @@
 
         function pubIcon(pub)
         {
-            if (pub.done)
+            if (pub.status == "done")
                 return doneIcon;
             return todoIcon;
         }
@@ -60,7 +61,7 @@
             var done = 0;
             for (var i in pubs) {
                 addFlag(pubsLayer, pubs[i]);
-                if (pubs[i].done) {
+                if (pubs[i].status == "done") {
                     ++done;
                 }
             }
@@ -107,25 +108,30 @@
             doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
         }
 
-        function pubIsDisqualified(pub)
+        function mergeVisitData(pub)
         {
-            return "status" in pub && pub["status"] == "disqualified";
+            if (pub.id in visitData)
+            {
+                pub.status = visitData[pub.id].status;
+            }
+            return pub;
         }
 
-        function patchData(staticpubs)
+        function getPubs()
         {
-            for (var i in staticpubs) {
-                var pub = staticpubs[i];
-                if (pubIsDisqualified(pub))
+            var result = [];
+            for (var i in staticData)
+            {
+                var pub = mergeVisitData(staticData[i]);
+
+                pub.post = "";
+
+                if (pub.status != "disqualified")
                 {
-                    staticpubs.splice(i,1);
-                }
-                else
-                {
-                    pub.post = "";
+                    result.push(pub);
                 }
             }
-            return staticpubs;
+            return result;
         }
 
         function initialiseMap()
@@ -138,8 +144,7 @@
             setupIcons();
 
             var pubsLayer = new L.LayerGroup().addTo(map);
-            var pubs = patchData(staticData);
-            displayPubs(pubsLayer, pubs);
+            displayPubs(pubsLayer, getPubs());
         }
     </script>
 </head>
