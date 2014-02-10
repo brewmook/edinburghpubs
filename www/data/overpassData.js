@@ -245,7 +245,7 @@ var overpassData = [
 {"id":42250626,"lat":55.95046595,"lon":-3.1843417,"name":"The World's End"},
 {"id":42250628,"lat":55.95042525,"lon":-3.1842372,"name":"The Waverley"},
 {"id":42556521,"lat":55.948146449999996,"lon":-3.1868134,"name":"Biblos"},
-{"id":42556526,"lat":55.94837215,"lon":-3.1876253500000002,"name":"The GRV"},
+{"id":42556526,"lat":55.948370600000004,"lon":-3.1876253500000002,"name":"The GRV"},
 {"id":42556535,"lat":55.9481203,"lon":-3.1869573,"name":"The Jazz Bar"},
 {"id":60320790,"lat":55.935172,"lon":-3.2109829999999997,"name":"Napier Students' Association"},
 {"id":70836456,"lat":55.9509574,"lon":-3.1889374,"name":"The Halfway House"},

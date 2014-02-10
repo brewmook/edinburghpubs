@@ -142,4 +142,10 @@ var visitData = {
 41973855:{"status":"done"},
 70836456:{"status":"done"},
 100871335:{"status":"done"},
+224262073:{"status":"done","name":"Ryries"},
+2338949040:{"status":"done","name":"Dickens"},
+367085460:{"status":"done","name":"The Fountain"},
+368877704:{"status":"done","name":"McCowans"},
+367085453:{"status":"done","name":"The Golden Rule"},
+367085451:{"status":"done","name":"The Polwarth Tavern"},
 };
