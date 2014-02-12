@@ -148,4 +148,9 @@ var visitData = {
 368877704:{"status":"done","name":"McCowans"},
 367085453:{"status":"done","name":"The Golden Rule"},
 367085451:{"status":"done","name":"The Polwarth Tavern"},
+333159415:{"status":"done","name":"The Standing Order"},
+2100296075:{"status":"done","name":"Grand Cru"},
+2345016950:{"status":"done","name":"Bramble"},
+2114384788:{"status":"done","name":"Soba"},
+2100295733:{"status":"done","name":"Jekyll & Hyde"},
 };

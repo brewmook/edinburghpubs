@@ -115,6 +115,9 @@
             if (pub.id in visitData)
             {
                 pub.status = visitData[pub.id].status;
+                if ("name" in visitData[pub.id]) {
+                    pub.name = visitData[pub.id].name;
+                }
             }
             return pub;
         }
