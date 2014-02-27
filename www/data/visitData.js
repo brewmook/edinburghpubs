@@ -178,4 +178,8 @@ var visitData = {
 42556533:{"status":"done","name":"Cafe Voltaire"},
 2323807241:{"status":"done","name":"The Advocate"},
 70836470:{"status":"done","name":"The Jinglin' Geordie"},
+634806195:{"status":"done","name":"The Chanter"},
+634806190:{"status":"done","name":"Monboddo"},
+1951364889:{"status":"done","name":"Timberyard"},
+2156953059:{"status":"done","name":"Dragonfly"},
 };
