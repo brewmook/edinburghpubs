@@ -182,4 +182,11 @@ var visitData = {
 634806190:{"status":"done","name":"Monboddo"},
 1951364889:{"status":"done","name":"Timberyard"},
 2156953059:{"status":"done","name":"Dragonfly"},
+2335634597:{"status":"done","name":"Moriarty"},
+33214208:{"status":"done","name":"The International Bar"},
+2089240094:{"status":"done","name":"Cameo Bar"},
+669951446:{"status":"done","name":"Bisque"},
+2277391529:{"status":"done","name":"Argyle Bar"},
+2395932599:{"status":"disqualified","name":"Cellar Monkey"},
+1880546995:{"status":"done","name":"The Earl of Marchmont"},
 };
