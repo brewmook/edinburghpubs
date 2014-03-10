@@ -35,8 +35,8 @@
 
         function postLink(pub)
         {
-            if (pub.post)
-                return "<a href=\"http://brewmook.wordpress.com" + pub.post + "\">" + pub.name + "</a>";
+            if ("link" in pub)
+                return "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
             return pub.name;
         }
 
@@ -110,14 +110,25 @@
             doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
         }
 
-        function mergeVisitData(pub)
+        function getVisitData(visitData)
+        {
+            var result = {};
+            for (var i in visitData)
+            {
+                result[visitData[i][0]] = {"name":   visitData[i][1],
+                                           "status": visitData[i][2],
+                                           "link":   visitData[i][3]};
+            }
+            return result;
+        }
+
+        function mergeVisitData(visitData, pub)
         {
             if (pub.id in visitData)
             {
                 pub.status = visitData[pub.id].status;
-                if ("name" in visitData[pub.id]) {
-                    pub.name = visitData[pub.id].name;
-                }
+                pub.name = visitData[pub.id].name;
+                pub.link = visitData[pub.id].link;
             }
             return pub;
         }
@@ -126,12 +137,11 @@
         {
             var result = {};
             var allPubs = overpassData.concat(extraPubsData);
+            var visitData = getVisitData(visitDataArray);
 
             for (var i in allPubs)
             {
-                var pub = mergeVisitData(allPubs[i]);
-
-                pub.post = "";
+                var pub = mergeVisitData(visitData, allPubs[i]);
 
                 if (!(pub.id in result) && pub.status != "disqualified")
                 {
