@@ -190,4 +190,9 @@ var visitDataArray = [
 [2277391529,"Argyle Bar","done","",0.00],
 [2395932599,"Cellar Monkey","disqualified","",0.00],
 [1880546995,"The Earl of Marchmont","done","",0.00],
+[2710784484,"Clerk's Bar","done","",3.95],
+[345251451,"The Montague","done","",3.17],
+[255760161,"The Auld Hoose","done","",0.00],
+[507003510,"Jeanie Deans Tryste","done","",0.00],
+[570329678,"Southsider","done","",3.40],
 ];
