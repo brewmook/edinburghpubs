@@ -7,4 +7,6 @@ var extraPubsData = [
 {"id":483043342,"lat":55.9481786,"lon":-3.1917,"name":"Opium"},
 {"id":1369539066,"lat":55.9493852,"lon":-3.1879006,"name":"City Cafe"},
 {"id":1951364889,"lat":55.9464746,"lon":-3.2019795,"name":"Timberyard"},
+{"id":2128258320,"lat":55.957258,"lon":-3.193373,"name":"Stac Polly"},
+{"id":1707107356,"lat":55.9567567,"lon":-3.1931081,"name":"The Magnum"},
 ];

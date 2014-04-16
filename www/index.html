@@ -35,7 +35,7 @@
 
         function postLink(pub)
         {
-            if ("link" in pub)
+            if ("link" in pub && pub.link != "")
                 return "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
             return pub.name;
         }
@@ -143,7 +143,7 @@
             {
                 var pub = mergeVisitData(visitData, allPubs[i]);
 
-                if (!(pub.id in result) && pub.status != "disqualified")
+                if (!(pub.id in result) && pub.status != "disqualified" && pub.status != "closed")
                 {
                     result[pub.id] = pub;
                 }
