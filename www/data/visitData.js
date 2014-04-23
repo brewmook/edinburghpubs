@@ -221,4 +221,9 @@ var visitDataArray = [
 [1108860713,"The Outhouse","done","",0.00],
 [2413993978,"Bangkok Bar","done","",0.00],
 [1327629876,"Treacle","done","",0.00],
+[1886873919,"Hemma","done","",0.00],
+[70980998,"The Kilderkin","done","",0.00],
+[41973844,"Canons' Gait","done","",0.00],
+[70955003,"Tollbooth Tavern","done","",0.00],
+[41973861,"White Horse","done","",0.00],
 ];

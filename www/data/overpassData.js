@@ -223,7 +223,6 @@ var overpassData = [
 {"id":2343257903,"lat":55.953995,"lon":-3.1997577,"name":"The Bon Vivant"},
 {"id":2344919701,"lat":55.9601534,"lon":-3.2010233,"name":"Clark's Bar"},
 {"id":2345016950,"lat":55.9548684,"lon":-3.1976469,"name":"Bramble Bar"},
-{"id":2345480633,"lat":55.9474201,"lon":-3.1856495,"name":"The Hispanola"},
 {"id":2367011957,"lat":55.952011,"lon":-3.2024405,"name":"International Vodka and Beer Bar"},
 {"id":2385912323,"lat":55.9525353,"lon":-3.2042549,"name":"Candy"},
 {"id":2395932599,"lat":55.9383007,"lon":-3.1916382,"name":"Cellar Monkey"},
