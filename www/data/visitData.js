@@ -226,4 +226,11 @@ var visitDataArray = [
 [41973844,"Canons' Gait","done","",0.00],
 [70955003,"Tollbooth Tavern","done","",0.00],
 [41973861,"White Horse","done","",0.00],
+[514064329,"Saint Vincent Bar","done","",0.00,"2014/04/29"],
+[123329926,"The Raeburn Hotel","done","",0.00,"2014/04/29"],
+[1770134135,"Boteco Do Brasil","done","",0.00,"2014/04/29"],
+[250351299,"The Royal Oak","done","",0.00,"2014/04/29"],
+[474034784,"Teviot","disqualified","",0.00,"2014/04/29"],
+[1770134134,"Library Bar","disqualified","",0.00,"2014/04/29"],
+[2774743770,"The Victoria Bar & Lounge","done","",0.00,"2014/04/29"],
 ];
