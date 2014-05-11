@@ -10,5 +10,7 @@ var extraPubsData = [
 {"id":2128258320,"lat":55.957258,"lon":-3.193373,"name":"Stac Polly"},
 {"id":1707107356,"lat":55.9567567,"lon":-3.1931081,"name":"The Magnum"},
 {"id":1770134135,"lat":55.9461633,"lon":-3.1891579,"name":"Boteco Do Brasil"},
-{"id":504319866,"lat":55.9380323,"lon":-3.1813643,"name":"The Meadows Hotel"}
+{"id":504319866,"lat":55.9380323,"lon":-3.1813643,"name":"The Meadows Hotel"},
+{"id":2112358147,"lat":55.9499027,"lon":-3.1937063,"name":"The Crafters Barn"},
+{"id":2112358148,"lat":55.9499057,"lon":-3.1935477,"name":"Whiski Rooms"}
 ];
