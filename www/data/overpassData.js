@@ -117,7 +117,7 @@ var overpassData = [
 {"id":1608938020,"lat":55.955739,"lon":-3.205059,"name":"Kay's Bar"},
 {"id":1608938025,"lat":55.9573533,"lon":-3.1954862,"name":"Star Bar"},
 {"id":1608938029,"lat":55.9582442,"lon":-3.1894327,"name":"The Barony Bar"},
-{"id":1608938041,"lat":55.9568401,"lon":-3.1985376,"name":"The Wally Dug"},
+{"id":1608938041,"lat":55.9568218,"lon":-3.1985851,"name":"The Wally Dug"},
 {"id":1710418042,"lat":55.955149,"lon":-3.1957714,"name":"The Jam House"},
 {"id":1754796173,"lat":55.9517896,"lon":-3.2034806,"name":"The Amber Rose"},
 {"id":1770134132,"lat":55.9462494,"lon":-3.1890654,"name":"Bristo"},
@@ -160,6 +160,7 @@ var overpassData = [
 {"id":2109786401,"lat":55.950724,"lon":-3.206321,"name":"Shandwick's"},
 {"id":2110838419,"lat":55.9498027,"lon":-3.2080511,"name":"Ghillie-Dhu"},
 {"id":2110964848,"lat":55.9536535,"lon":-3.1880989,"name":"Waterloo Bar"},
+{"id":2112358147,"lat":55.9499027,"lon":-3.1937063,"name":"The Crafters Barn"},
 {"id":2112358193,"lat":55.9498088,"lon":-3.1889427,"name":"Royal McGregor"},
 {"id":2112426253,"lat":55.9504073,"lon":-3.1865287,"name":"Whiski"},
 {"id":2112426299,"lat":55.9483588,"lon":-3.1898224,"name":"Brew Dog"},
@@ -173,7 +174,7 @@ var overpassData = [
 {"id":2114480005,"lat":55.9538364,"lon":-3.1966521,"name":"Tempus"},
 {"id":2119041375,"lat":55.9476208,"lon":-3.1922082,"name":"Under the Stairs"},
 {"id":2121794767,"lat":55.956558,"lon":-3.185734,"name":"Playfair"},
-{"id":2126282231,"lat":55.9515399,"lon":-3.2099298,"name":"Le Di Vin"},
+{"id":2126282231,"lat":55.9515458,"lon":-3.2099011,"name":"Le Di Vin"},
 {"id":2126282232,"lat":55.9511224,"lon":-3.2096268,"name":"Indigo Yard"},
 {"id":2127679448,"lat":55.9521704,"lon":-3.1996237,"name":"amicus apple"},
 {"id":2136096059,"lat":55.9509525,"lon":-3.1902172,"name":"Belushi's"},
@@ -260,5 +261,4 @@ var overpassData = [
 {"id":70980998,"lat":55.952162650000005,"lon":-3.17705125,"name":"The Kilderkin"},
 {"id":100871335,"lat":55.93960495,"lon":-3.1795709,"name":"The Abbey"},
 {"id":123329926,"lat":55.9595062,"lon":-3.21483535,"name":"The Raeburn"},
-{"id":224262073,"lat":55.945811250000006,"lon":-3.2173471,"name":"Ryries"},
-];
+{"id":224262073,"lat":55.945811250000006,"lon":-3.2173471,"name":"Ryries"}];
