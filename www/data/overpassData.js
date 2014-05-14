@@ -244,6 +244,7 @@ var overpassData = [
 {"id":2710784484,"lat":55.9396459,"lon":-3.180105,"name":"Clerk's Bar"},
 {"id":2774743770,"lat":55.9386748,"lon":-3.1815067,"name":"The Victoria Bar & Lounge"},
 {"id":2812023487,"lat":55.945707,"lon":-3.2036262,"name":"SkyBar"},
+{"id":2858902357,"lat":55.9511475,"lon":-3.1887923,"name":"Sportsters"},
 {"id":41973844,"lat":55.95080245,"lon":-3.1822788500000003,"name":"Canons' Gait"},
 {"id":41973855,"lat":55.94941155,"lon":-3.18271395,"name":"The Holyrood 9A"},
 {"id":41973861,"lat":55.9505975,"lon":-3.1836095,"name":"White Horse"},

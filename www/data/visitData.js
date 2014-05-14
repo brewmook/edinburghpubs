@@ -235,9 +235,13 @@ var visitDataArray = [
 [2774743770,"The Victoria Bar & Lounge","done","",0.00,"2014/04/29"],
 [1557683663,"Whistlebinkies","done","",0.00,"2014/05/06"],
 [2341263251,"The Globe Bar","done","",0.00,"2014/05/06"],
-[2339288044,"Rowantree","done","disqualified",0.00,"2014/05/06"],
-[1523647273,"The Caves","done","disqualified",0.00,"2014/05/06"],
+[2339288044,"Rowantree","disqualified","",0.00,"2014/05/06"],
+[1523647273,"The Caves","disqualified","",0.00,"2014/05/06"],
 [2112358147,"The Crafters Barn","done","",0.00,"2014/05/06"],
-[2112358148,"Whiski Rooms","done","",0.00,"2014/05/06"]
+[2112358148,"Whiski Rooms","done","",0.00,"2014/05/06"],
+[42250626,"The World's End","done","",0.00,"2014/05/13"],
+[2112358193,"Royal McGregor","done","",0.00,"2014/05/13"],
+[2112387184,"North Bridge Brasserie","done","",0.00,"2014/05/13"],
+[2858902357,"Sportsters","done","",0.00,"2014/05/13"],
+[1558429123,"The Hebrides","done","",0.00,"2014/05/13"]
 ];
-
