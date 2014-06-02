@@ -191,6 +191,7 @@ var overpassData = [
 {"id":2323807241,"lat":55.9495056,"lon":-3.1879534,"name":"The Advocate"},
 {"id":2324955570,"lat":55.9404848,"lon":-3.1808313,"name":"The Southern"},
 {"id":2325384958,"lat":55.9504304,"lon":-3.2083735,"name":"Ryan's Bar"},
+{"id":2333922708,"lat":55.9569412,"lon":-3.1875252,"name":"Clouds & Soil"},
 {"id":2335634557,"lat":55.9436843,"lon":-3.2029145,"name":"The Ventoux"},
 {"id":2335634597,"lat":55.9451633,"lon":-3.2049525,"name":"Moriarty"},
 {"id":2335634621,"lat":55.94155,"lon":-3.1817992,"name":"The Grapes"},
