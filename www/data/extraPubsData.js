@@ -13,4 +13,5 @@ var extraPubsData = [
 {"id":504319866,"lat":55.9380323,"lon":-3.1813643,"name":"The Meadows Hotel"},
 {"id":2112358148,"lat":55.9499057,"lon":-3.1935477,"name":"Whiski Rooms"},
 {"id":2112387184,"lat":55.951038,"lon":-3.1882238,"name":"North Bridge Brasserie"},
+{"id":2164008692,"lat":55.9564886,"lon":-3.1901957,"name":"The Place"},
 ];
