@@ -14,4 +14,6 @@ var extraPubsData = [
 {"id":2112358148,"lat":55.9499057,"lon":-3.1935477,"name":"Whiski Rooms"},
 {"id":2112387184,"lat":55.951038,"lon":-3.1882238,"name":"North Bridge Brasserie"},
 {"id":2164008692,"lat":55.9564886,"lon":-3.1901957,"name":"The Place"},
+{"id":81125134,"lat":55.9534277,"lon":-3.1955331,"name":"The Dome Bar and Grill"},
+{"id":2100296437,"lat":55.9524016,"lon":-3.2052183,"name":"Tigerlily"},
 ];
