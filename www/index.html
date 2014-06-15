@@ -22,6 +22,7 @@
         // Set these up later on on body load.
         var todoIcon;
         var doneIcon;
+        var skipIcon;
 
         function createMap(lat, lon)
         {
@@ -35,15 +36,20 @@
 
         function postLink(pub)
         {
+            var text = pub.name;
             if ("link" in pub && pub.link != "")
-                return "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
-            return pub.name;
+                text = "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
+            if ("statusinfo" in pub && pub.statusinfo != undefined)
+                text += "<br/><em>" + pub.statusinfo + "</em>";
+            return text;
         }
 
         function pubIcon(pub)
         {
             if (pub.status == "done")
                 return doneIcon;
+            if (pub.status == "disqualified" || pub.status == "closed")
+                return skipIcon;
             return todoIcon;
         }
 
@@ -60,16 +66,25 @@
         {
             var done = 0;
             var total = 0;
+            var skipped = 0;
             for (var i in pubs) {
                 addFlag(pubsLayer, pubs[i]);
                 if (pubs[i].status == "done") {
                     ++done;
                 }
-                ++total;
+                if (pubs[i].status != "disqualified"
+                    && pubs[i].status != "closed") {
+                    ++total;
+                }
+                else {
+                    ++skipped;
+                }
             }
-            $('#message').html("Total " + total + " pubs<br/>"
-                               + done + " done (blue)<br/>"
-                               + Math.round((done/total)*100) + "% complete");
+            $('#message').html(
+                "Total " + total + " pubs<br/>"
+                + done + " done (blue)<br/>"
+                + Math.round((done/total)*100) + "% complete<br/>"
+                + "<em>" + skipped + " skipped/closed (red)</em>");
         }
 
         function findPubs(pubsLayer)
@@ -108,6 +123,7 @@
             });
             todoIcon = new Icon({ iconUrl: "img/marker-gold.png", iconRetinaUrl: "img/marker-gold-2x.png" });
             doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
+            skipIcon = new Icon({ iconUrl: "img/marker-red.png", iconRetinaUrl: "img/marker-red-2x.png" });
         }
 
         function getVisitData(visitData)
@@ -116,7 +132,8 @@
             for (var i in visitData)
             {
                 result[visitData[i][0]] = {"name":   visitData[i][1],
-                                           "status": visitData[i][2],
+                                           "status": visitData[i][2].split(":")[0],
+                                           "statusinfo": visitData[i][2].split(":")[1],
                                            "link":   visitData[i][3]};
             }
             return result;
@@ -127,6 +144,7 @@
             if (pub.id in visitData)
             {
                 pub.status = visitData[pub.id].status;
+                pub.statusinfo = visitData[pub.id].statusinfo;
                 pub.name = visitData[pub.id].name;
                 pub.link = visitData[pub.id].link;
             }
@@ -142,11 +160,7 @@
             for (var i in allPubs)
             {
                 var pub = mergeVisitData(visitData, allPubs[i]);
-
-                if (!(pub.id in result) && pub.status != "disqualified" && pub.status != "closed")
-                {
-                    result[pub.id] = pub;
-                }
+                result[pub.id] = pub;
             }
             return result;
         }
