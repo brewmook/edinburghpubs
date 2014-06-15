@@ -22,7 +22,7 @@
         // Set these up later on on body load.
         var todoIcon;
         var doneIcon;
-        var skipIcon;
+        var excludedIcon;
 
         function createMap(lat, lon)
         {
@@ -49,7 +49,7 @@
             if (pub.status == "done")
                 return doneIcon;
             if (pub.status == "disqualified" || pub.status == "closed")
-                return skipIcon;
+                return excludedIcon;
             return todoIcon;
         }
 
@@ -62,41 +62,14 @@
             marker.bindPopup(postLink(pub));
         }
 
-        function displayPubs(pubsLayer, pubs)
+        function displayTotals(donePubs, todoPubs)
         {
-            var done = 0;
-            var total = 0;
-            var skipped = 0;
-            for (var i in pubs) {
-                addFlag(pubsLayer, pubs[i]);
-                if (pubs[i].status == "done") {
-                    ++done;
-                }
-                if (pubs[i].status != "disqualified"
-                    && pubs[i].status != "closed") {
-                    ++total;
-                }
-                else {
-                    ++skipped;
-                }
-            }
+            var done = donePubs.length;
+            var total = done + todoPubs.length;
             $('#message').html(
                 "Total " + total + " pubs<br/>"
-                + done + " done (blue)<br/>"
-                + Math.round((done/total)*100) + "% complete<br/>"
-                + "<em>" + skipped + " skipped/closed (red)</em>");
-        }
-
-        function findPubs(pubsLayer)
-        {
-            pubsLayer.clearLayers();
-
-            $.ajax({
-                dataType: "json",
-                url: "data/overpassData.js",
-                success: function(data) { displayResults(pubsLayer, data); },
-                timeout: 10000
-            }).fail(function() { $('#message').text("Failed."); });
+                + done + " done<br/>"
+                + Math.round((done/total)*100) + "% complete");
         }
 
         function addTargetToMap(target, map)
@@ -123,7 +96,7 @@
             });
             todoIcon = new Icon({ iconUrl: "img/marker-gold.png", iconRetinaUrl: "img/marker-gold-2x.png" });
             doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
-            skipIcon = new Icon({ iconUrl: "img/marker-red.png", iconRetinaUrl: "img/marker-red-2x.png" });
+            excludedIcon = new Icon({ iconUrl: "img/marker-red.png", iconRetinaUrl: "img/marker-red-2x.png" });
         }
 
         function getVisitData(visitData)
@@ -151,18 +124,44 @@
             return pub;
         }
 
+        function dictionaryToArray(dictionary)
+        {
+            var result = [];
+            for (var i in dictionary) {
+                result.push(dictionary[i]);
+            }
+            return result;
+        }
+
         function getPubs()
         {
-            var result = {};
+            var dictionary = {};
             var allPubs = overpassData.concat(extraPubsData);
             var visitData = getVisitData(visitDataArray);
 
             for (var i in allPubs)
             {
                 var pub = mergeVisitData(visitData, allPubs[i]);
-                result[pub.id] = pub;
+                dictionary[pub.id] = pub;
             }
-            return result;
+
+            return dictionaryToArray(dictionary);
+        }
+
+        function filterByStatus(pubs, statuses)
+        {
+            return pubs.filter(function(pub) {
+                return statuses.some(function(status) { return status == pub.status; });
+            });
+        }
+
+        function addPubsAsLayer(pubs, layerName, map, layersControl)
+        {
+            var layer = new L.LayerGroup().addTo(map);
+            pubs.forEach(function(pub) {
+                addFlag(layer, pub);
+            });
+            layersControl.addOverlay(layer, layerName + ": " + pubs.length);
         }
 
         function initialiseMap()
@@ -171,11 +170,23 @@
                            lon:-3.1994622945785522,
                            radiusMetres:1609 };
             var map = createMap(target.lat, target.lon);
+            var layersControl = L.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
+
             addTargetToMap(target, map);
             setupIcons();
 
-            var pubsLayer = new L.LayerGroup().addTo(map);
-            displayPubs(pubsLayer, getPubs());
+            var allPubs = getPubs();
+
+            var donePubs = filterByStatus(allPubs, ["done"]);
+            addPubsAsLayer(donePubs, "Done (blue)", map, layersControl);
+
+            var todoPubs = filterByStatus(allPubs, [undefined]);
+            addPubsAsLayer(todoPubs, "Todo (yellow)", map, layersControl);
+
+            var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
+            addPubsAsLayer(excludedPubs, "Excluded (red)", map, layersControl);
+
+            displayTotals(donePubs, todoPubs);
         }
     </script>
 </head>
