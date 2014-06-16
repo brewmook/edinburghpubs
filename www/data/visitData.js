@@ -274,4 +274,5 @@ var visitDataArray = [
 [60320790,"Napier Students' Association","disqualified:Student union","",0.00,"2014/06/10"],
 [2812023487,"SkyBar","disqualified:Only open one day per month! Great views of the castle though","",0.00,"2014/06/10"],
 [41483851,"The Shack","disqualified:Club","",0.00,"2014/06/10"],
+[504319866,"The Meadows Hotel","disqualified:Closed, now a flippin' Sainsbury's!","",0.00,"2014/06/16"],
 ];
