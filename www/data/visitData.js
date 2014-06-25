@@ -281,4 +281,9 @@ var visitDataArray = [
 [1361026044,"The Banshee Labyrinth","done","",0.00,"2014/06/17"],
 [2341228729,"Dropkick Murphys","done","",0.00,"2014/06/17"],
 [483044126,"Sneaky Pete's","disqualified:Fee on the door","",0.00,"2014/06/17"],
+[483035255,"WJ Christie & Sons","done",0.00,"2014/06/24"],
+[2922567339,"Heads & Tales","done",0.00,"2014/06/24"],
+[2112507655,"Henry's Cellar Bar","done",0.00,"2014/06/24"],
+[2684915194,"The Mad Hatter","done",0.00,"2014/06/24"],
+[2868039188,"Platform 5","done",0.00,"2014/06/24"],
 ];
