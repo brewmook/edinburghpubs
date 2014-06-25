@@ -19,11 +19,6 @@
     </style>
     <script type="text/javascript">
 
-        // Set these up later on on body load.
-        var todoIcon;
-        var doneIcon;
-        var excludedIcon;
-
         function createMap(lat, lon)
         {
             var map = L.map('map').setView([lat, lon], 13);
@@ -44,20 +39,11 @@
             return text;
         }
 
-        function pubIcon(pub)
-        {
-            if (pub.status == "done")
-                return doneIcon;
-            if (pub.status == "disqualified" || pub.status == "closed")
-                return excludedIcon;
-            return todoIcon;
-        }
-
-        function addFlag(layer, pub)
+        function addFlag(layer, pub, icon)
         {
             var marker = L.marker([pub.lat, pub.lon],
                                   { "title": pub.name,
-                                    "icon": pubIcon(pub) });
+                                    "icon": icon });
             marker.addTo(layer);
             marker.bindPopup(postLink(pub));
         }
@@ -84,7 +70,7 @@
             map.addLayer(circle);
         }
 
-        function setupIcons()
+        function createIcons()
         {
             // Setup icons
             var Icon = L.Icon.extend({
@@ -94,9 +80,13 @@
                     popupAnchor: [0, -30]
                 }
             });
-            todoIcon = new Icon({ iconUrl: "img/marker-gold.png", iconRetinaUrl: "img/marker-gold-2x.png" });
-            doneIcon = new Icon({ iconUrl: "img/marker-blue.png", iconRetinaUrl: "img/marker-blue-2x.png" });
-            excludedIcon = new Icon({ iconUrl: "img/marker-red.png", iconRetinaUrl: "img/marker-red-2x.png" });
+            var icons = ["gold", "blue", "red", "green"];
+            return icons.reduce(function(obj, icon) {
+                obj[icon] = new Icon({
+                    iconUrl: "img/marker-"+icon+".png",
+                    iconRetinaUrl: "img/marker-"+icon+"-2x.png" });
+                return obj;
+            }, {});
         }
 
         function getVisitData(visitData)
@@ -155,11 +145,18 @@
             });
         }
 
-        function addPubsAsLayer(pubs, layerName, map, layersControl)
+        function filterByLink(pubs, linkRegEx)
+        {
+            return pubs.filter(function(pub) {
+                return linkRegEx.test(pub.link);
+            });
+        }
+
+        function addPubsAsLayer(pubs, layerName, icon, map, layersControl)
         {
             var layer = new L.LayerGroup().addTo(map);
             pubs.forEach(function(pub) {
-                addFlag(layer, pub);
+                addFlag(layer, pub, icon);
             });
             layersControl.addOverlay(layer, layerName + ": " + pubs.length);
         }
@@ -173,18 +170,23 @@
             var layersControl = L.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
 
             addTargetToMap(target, map);
-            setupIcons();
+            var icons = createIcons();
 
             var allPubs = getPubs();
 
-            var donePubs = filterByStatus(allPubs, ["done"]);
-            addPubsAsLayer(donePubs, "Done (blue)", map, layersControl);
-
             var todoPubs = filterByStatus(allPubs, [undefined]);
-            addPubsAsLayer(todoPubs, "Todo (yellow)", map, layersControl);
+            addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, map, layersControl);
+
+            var donePubs = filterByStatus(allPubs, ["done"]);
+
+            var visitedPubs = filterByLink(donePubs, /^$/);
+            addPubsAsLayer(visitedPubs, "Visited (green)", icons.green, map, layersControl);
+
+            var bloggedPubs = filterByLink(donePubs, /.+/);
+            addPubsAsLayer(bloggedPubs, "Blogged (blue)", icons.blue, map, layersControl);
 
             var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
-            addPubsAsLayer(excludedPubs, "Excluded (red)", map, layersControl);
+            addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, map, layersControl);
 
             displayTotals(donePubs, todoPubs);
         }
