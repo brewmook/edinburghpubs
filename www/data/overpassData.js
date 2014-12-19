@@ -1,4 +1,4 @@
-var overpassData = [
+define(function() { return [
 {"id":33185107,"lat":55.9536786,"lon":-3.1901284,"name":"Guildford Arms"},
 {"id":33214208,"lat":55.9423554,"lon":-3.2011712,"name":"The International Bar"},
 {"id":41483825,"lat":55.951316,"lon":-3.2052494,"name":"Scotts"},
@@ -275,4 +275,5 @@ var overpassData = [
 {"id":224262073,"lat":55.945811250000006,"lon":-3.2173471,"name":"Ryries"},
 {"id":295029140,"lat":55.95184665,"lon":-3.2060434,"name":"George Street"},
 {"id":295029147,"lat":55.9518341,"lon":-3.20521865,"name":"The Alexander Graham Bell"},
-{"id":295032084,"lat":55.95282465,"lon":-3.1994702999999998,"name":"The Standing Order"}];
+{"id":295032084,"lat":55.95282465,"lon":-3.1994702999999998,"name":"The Standing Order"}
+];});

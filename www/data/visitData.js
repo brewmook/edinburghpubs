@@ -1,5 +1,5 @@
+define(function() { return [
 // [id,name,status,link,price]
-var visitDataArray = [
 [1951385562,"Bert's bar","done","/2013/07/30/1-berts-bar-william-street-edinburgh/",3.60,"2013/07/30"],
 [1427181454,"Teuchters","done","/2013/07/30/2-teuchters-william-street-edinburgh/",3.80,"2013/07/30"],
 [2075163263,"Melville","done","/2013/07/30/3-the-melville-william-street-edinburgh/",3.40,"2013/07/30"],
@@ -296,4 +296,4 @@ var visitDataArray = [
 [2100296461,"Browns","done","/2014/08/26/273-browns-george-street-edinburgh/",0.00,"2014/07/01"],
 [2966042013,"The Hive","disqualified:Club","",0.00,"2014/08/13"],
 [2977978100,"The Rabbie Burns","disqualified:Restaurant","",0.00,"2014/08/13"],
-];
+];});
