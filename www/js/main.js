@@ -34,10 +34,12 @@ function (overpassData, extraPubsData, visitDataArray) {
     {
         var done = donePubs.length;
         var total = done + todoPubs.length;
-        $('#message').html(
+        var message = document.getElementById('message');
+        message.innerHTML =
             "Total " + total + " pubs<br/>"
             + done + " done<br/>"
-            + Math.round((done/total)*100) + "% complete");
+            + Math.round((done/total)*100)
+            + "% complete";
     }
 
     function addTargetToMap(target, map)
@@ -47,7 +49,7 @@ function (overpassData, extraPubsData, visitDataArray) {
             {
                 color: '#c80',
                 fillColor: '#fc4',
-                fillOpacity: 0.15,
+                fillOpacity: 0.15
             });
         map.addLayer(circle);
     }
