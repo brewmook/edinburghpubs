@@ -1,11 +1,11 @@
-require(['../data/overpassData', '../data/extraPubsData', '../data/visitData'],
-function (overpassData, extraPubsData, visitDataArray) {
+require(['leaflet', '../../data/overpassData', '../../data/extraPubsData', '../../data/visitData'],
+function (leaflet, overpassData, extraPubsData, visitDataArray) {
 
     function createMap(lat, lon)
     {
-        var map = L.map('map').setView([lat, lon], 13);
+        var map = leaflet.map('map').setView([lat, lon], 13);
         var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: osmAttr
         }).addTo(map);
         return map;
@@ -23,7 +23,7 @@ function (overpassData, extraPubsData, visitDataArray) {
 
     function addFlag(layer, pub, icon)
     {
-        var marker = L.marker([pub.lat, pub.lon],
+        var marker = leaflet.marker([pub.lat, pub.lon],
             { "title": pub.name,
                 "icon": icon });
         marker.addTo(layer);
@@ -44,7 +44,7 @@ function (overpassData, extraPubsData, visitDataArray) {
 
     function addTargetToMap(target, map)
     {
-        var circle = new L.circle([target.lat, target.lon],
+        var circle = new leaflet.circle([target.lat, target.lon],
             target.radiusMetres,
             {
                 color: '#c80',
@@ -57,7 +57,7 @@ function (overpassData, extraPubsData, visitDataArray) {
     function createIcons()
     {
         // Setup icons
-        var Icon = L.Icon.extend({
+        var Icon = leaflet.Icon.extend({
             options: {
                 iconSize: [25, 39],
                 iconAnchor:   [12, 36],
@@ -138,7 +138,7 @@ function (overpassData, extraPubsData, visitDataArray) {
 
     function addPubsAsLayer(pubs, layerName, icon, map, layersControl)
     {
-        var layer = new L.LayerGroup().addTo(map);
+        var layer = new leaflet.LayerGroup().addTo(map);
         pubs.forEach(function(pub) {
             addFlag(layer, pub, icon);
         });
@@ -151,7 +151,7 @@ function (overpassData, extraPubsData, visitDataArray) {
             lon:-3.1994622945785522,
             radiusMetres:1609 };
         var map = createMap(target.lat, target.lon);
-        var layersControl = L.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
+        var layersControl = leaflet.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
 
         addTargetToMap(target, map);
         var icons = createIcons();
