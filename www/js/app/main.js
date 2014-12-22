@@ -246,6 +246,19 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         });
     }
 
+    function colourLinear(value, low, range)
+    {
+        var colour;
+        if (value < low) {
+            return "#888";
+        } else {
+            var normalised = (value - low) / range;
+            var red = Math.floor((255 * normalised) + 0.5);
+            var blue = Math.floor((255 * (1 - normalised)) + 0.5);
+            return '#' + ('000000' + ((red << 16) + blue).toString(16)).slice(-6);
+        }
+    }
+
     function addVoronoiCellsAsLayer(pubs, map, layersControl)
     {
         var low = Number.MAX_VALUE;
@@ -270,7 +283,11 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 var blue = Math.floor((255 * (1 - priceNormalised)) + 0.5);
                 colour = '#' + ('000000' + ((red << 16) + blue).toString(16)).slice(-6);
             }
-            L.polygon(pub.voronoiPolygon, {fillColor:colour, stroke:false,fillOpacity:0.6}).addTo(layer);
+            L.polygon(pub.voronoiPolygon, {
+                fillColor: colourLinear(pub.price, low, range),
+                stroke: false,
+                fillOpacity: 0.6
+            }).addTo(layer);
         });
         layersControl.addOverlay(layer, "Voronoi");
     }
