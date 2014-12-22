@@ -214,24 +214,15 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
 
     function computeVoronoi(locations, t, r)
     {
-        var bbox = {xl:180, xr:-180, yt:90, yb:-90};
+        var margin = t.radiusMetres + 100;
+        var bbox = {
+            xl: -margin,
+            xr: margin,
+            yt: -margin,
+            yb: margin
+        };
 
         calculateCartesian(locations, t, r);
-
-        locations.forEach(function(loc)
-        {
-            bbox.xl = Math.min(loc.x, bbox.xl);
-            bbox.xr = Math.max(loc.x, bbox.xr);
-            bbox.yb = Math.max(loc.y, bbox.yb);
-            bbox.yt = Math.min(loc.y, bbox.yt);
-        });
-
-        var halfWidth = (bbox.xr - bbox.xl) / 2.0;
-        var halfHeight = (bbox.yb - bbox.yt) / 2.0;
-        bbox.xl -= halfWidth;
-        bbox.xr += halfWidth;
-        bbox.yt -= halfHeight;
-        bbox.yb += halfHeight;
 
         var voronoi = new Voronoi();
         var results = voronoi.compute(locations, bbox);
@@ -259,32 +250,50 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         }
     }
 
+    function round(value)
+    {
+        return Math.floor(value + 0.5);
+    }
+
+    function colourDualLinear(value, low, high, median)
+    {
+        var red, green, blue;
+        if (value < low) {
+            return "#333";
+        } else if (value < median) {
+            var normalised = (value - low) / (median-low);
+            green = round(255 * (1 - normalised));
+            blue = round(255 * normalised);
+            red = 0;
+        } else {
+            var normalised = (value - median) / (high-median);
+            red = round(255 * normalised);
+            blue = round(255 * (1 - normalised));
+            green = 0;
+        }
+        return '#' + ('000000' + ((red << 16) + (green<<8) + blue).toString(16)).slice(-6);
+    }
+
     function addVoronoiCellsAsLayer(pubs, map, layersControl)
     {
         var low = Number.MAX_VALUE;
         var high = Number.MIN_VALUE;
+        var prices = [];
         pubs.forEach(function(pub)
         {
             if (pub.price > 0) {
                 low = Math.min(low, pub.price);
                 high = Math.max(high, pub.price);
+                prices.push(pub.price);
             }
         });
         var range = high-low;
+        var median = prices[Math.floor(prices.length/2)];
 
         var layer = new leaflet.LayerGroup().addTo(map);
         pubs.forEach(function(pub) {
-            var colour;
-            if (pub.price < low) {
-                colour = "#888";
-            } else {
-                var priceNormalised = (pub.price - low) / range;
-                var red = Math.floor((255 * priceNormalised) + 0.5);
-                var blue = Math.floor((255 * (1 - priceNormalised)) + 0.5);
-                colour = '#' + ('000000' + ((red << 16) + blue).toString(16)).slice(-6);
-            }
             L.polygon(pub.voronoiPolygon, {
-                fillColor: colourLinear(pub.price, low, range),
+                fillColor: colourDualLinear(pub.price, low, high, median),
                 stroke: false,
                 fillOpacity: 0.6
             }).addTo(layer);
