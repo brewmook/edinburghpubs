@@ -156,48 +156,68 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         layersControl.addOverlay(layer, layerName + ": " + pubs.length);
     }
 
-    function translateSpherical(locations, t)
-    {
-        var cosTLat = Math.cos(t.lat);
-        return locations.forEach(function(loc) {
-            loc.lat += t.lat;
-            loc.lon += t.lon * cosTLat;
-        });
-    }
-
-    function sphericalToCartesian(locations, r)
+    function calculateCartesian(locations, t, r)
     {
         var degToRad = Math.PI/180.0;
         return locations.forEach(function(loc) {
-            var latRadians = (90-loc.lat) * degToRad;
-            var sinLat = Math.sin(latRadians);
-            var lon = (loc.lon) * degToRad;
-            //loc.x = r * sinLat * Math.cos(lon);
-            var sinLon = Math.sin(lon);
-            loc.x = r * sinLat * sinLon;
-            loc.y = r * Math.cos(latRadians);
+            var theta = (90 - loc.lat) * degToRad;
+            var phi = (loc.lon - t.lon) * degToRad;
+
+            // to 3d cartesian coordinates
+            var x = r * Math.sin(theta) * Math.cos(phi);
+            var y = r * Math.sin(theta) * Math.sin(phi);
+            var z = r * Math.cos(theta);
+
+            // rotate down to equator
+            var rotation = t.lat * degToRad;
+            var newZ = z * Math.cos(rotation) - x * Math.sin(rotation);
+            var newX = z * Math.sin(rotation) + x * Math.cos(rotation);
+
+            // project onto new xy orientation
+            loc.x = y;
+            loc.y = newZ;
+            loc.z = newX;
         });
     }
 
-    function asdf(locations, target)
+    function cartesianToLatLng(locations, t, r)
     {
-        translateSpherical(locations, {lat:-target.lat, lon:-target.lon});
-        sphericalToCartesian(locations, 6378137);
-        translateSpherical(locations, target);
+        var degToRad = Math.PI/180.0;
+        var radToDeg = 180.0/Math.PI;
+        return locations.map(function(loc) {
+            var newX = loc.z;
+            var newZ = loc.y;
+            var y = loc.x;
+
+            // rotate back up to correct latitude
+            var rotation = -t.lat * degToRad;
+            var z = newZ * Math.cos(rotation) - newX * Math.sin(rotation);
+            var x = newZ * Math.sin(rotation) + newX * Math.cos(rotation);
+
+            var theta = Math.acos(z/r) * radToDeg;
+            var phi = Math.atan(y/x) * radToDeg;
+
+            return {
+                lat: 90.0 - theta,
+                lng: phi + t.lon
+            };
+        });
     }
 
-    function computeVoronoi(locations)
+    function computeVoronoi(locations, t, r)
     {
         var bbox = {xl:180, xr:-180, yt:90, yb:-90};
+
+        calculateCartesian(locations, t, r);
+
         locations.forEach(function(loc)
         {
-            loc.x = loc.lon;
-            loc.y = loc.lat;
             bbox.xl = Math.min(loc.x, bbox.xl);
             bbox.xr = Math.max(loc.x, bbox.xr);
             bbox.yb = Math.max(loc.y, bbox.yb);
             bbox.yt = Math.min(loc.y, bbox.yt);
         });
+
         var halfWidth = (bbox.xr - bbox.xl) / 2.0;
         var halfHeight = (bbox.yb - bbox.yt) / 2.0;
         bbox.xl -= halfWidth;
@@ -210,11 +230,12 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
 
         results.cells.forEach(function(cell) {
             var pub = cell.site;
-            pub.voronoiPolygon = cell.halfedges.map(function (edge) {
+            var cartesians = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
-                return {lng: start.x, lat: start.y};
+                return {x:start.x, y:start.y, z:r};
             });
-            if (pub.voronoiPolygon.length > 2)
+            pub.voronoiPolygon = cartesianToLatLng(cartesians, t, r);
+            if (pub.voronoiPolygon.length > 0)
             {
                 pub.voronoiPolygon.push(pub.voronoiPolygon[0]);
             }
@@ -249,7 +270,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, map, layersControl);
 
         var donePubs = filterByStatus(allPubs, ["done"]);
-        computeVoronoi(donePubs);
+        computeVoronoi(donePubs, target, 6378137);
 
         var visitedPubs = filterByLink(donePubs, /^$/);
         addPubsAsLayer(visitedPubs, "Visited (green)", icons.green, map, layersControl);
