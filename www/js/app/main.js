@@ -18,7 +18,10 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             text = "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
         if ("statusinfo" in pub && pub.statusinfo != undefined)
             text += "<br/><em>" + pub.statusinfo + "</em>";
-        text += "<br/>{x:" + pub.x + ", y:"+pub.y+"}";
+        if ("x" in pub && pub.x !== undefined)
+            text += "<br/>{x:" + pub.x.toFixed(2) + ", y:"+pub.y.toFixed(2)+"}";
+        if ("price" in pub && pub.price > 0)
+            text += "<br/>Price: £" + pub.price;
         return text;
     }
 
@@ -43,8 +46,9 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             + "% complete";
     }
 
-    function addTargetToMap(target, map)
+    function addTargetToMap(target, map, layersControl)
     {
+        var layer = new leaflet.LayerGroup().addTo(map);
         var circle = new leaflet.circle(
             [target.lat, target.lon],
             target.radiusMetres,
@@ -53,8 +57,8 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 fillColor: '#fc4',
                 fillOpacity: 0.15
             });
-        map.addLayer(circle);
-        map.addLayer(new leaflet.circle(
+        layer.addLayer(circle);
+        layer.addLayer(new leaflet.circle(
             [target.lat, target.lon],
             1.0,
             {
@@ -62,6 +66,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 fillColor: '#f00',
                 fillOpacity: 1
             }));
+        layersControl.addOverlay(layer, "Target area");
     }
 
     function createIcons()
@@ -92,7 +97,9 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 "name":   visitData[i][1],
                 "status": visitData[i][2].split(":")[0],
                 "statusinfo": visitData[i][2].split(":")[1],
-                "link":   visitData[i][3]};
+                "link":   visitData[i][3],
+                "price":  visitData[i][4]
+            };
         }
         return result;
     }
@@ -105,6 +112,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             pub.statusinfo = visitData[pub.id].statusinfo;
             pub.name = visitData[pub.id].name;
             pub.link = visitData[pub.id].link;
+            pub.price = visitData[pub.id].price;
         }
         return pub;
     }
@@ -235,18 +243,34 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 return {x:start.x, y:start.y, z:r};
             });
             pub.voronoiPolygon = cartesianToLatLng(cartesians, t, r);
-            if (pub.voronoiPolygon.length > 0)
-            {
-                pub.voronoiPolygon.push(pub.voronoiPolygon[0]);
-            }
         });
     }
 
     function addVoronoiCellsAsLayer(pubs, map, layersControl)
     {
+        var low = Number.MAX_VALUE;
+        var high = Number.MIN_VALUE;
+        pubs.forEach(function(pub)
+        {
+            if (pub.price > 0) {
+                low = Math.min(low, pub.price);
+                high = Math.max(high, pub.price);
+            }
+        });
+        var range = high-low;
+
         var layer = new leaflet.LayerGroup().addTo(map);
         pubs.forEach(function(pub) {
-            L.polyline(pub.voronoiPolygon, {color: 'red'}).addTo(layer);
+            var colour;
+            if (pub.price < low) {
+                colour = "#888";
+            } else {
+                var priceNormalised = (pub.price - low) / range;
+                var red = Math.floor((255 * priceNormalised) + 0.5);
+                var blue = Math.floor((255 * (1 - priceNormalised)) + 0.5);
+                colour = '#' + ('000000' + ((red << 16) + blue).toString(16)).slice(-6);
+            }
+            L.polygon(pub.voronoiPolygon, {fillColor:colour, stroke:false,fillOpacity:0.6}).addTo(layer);
         });
         layersControl.addOverlay(layer, "Voronoi");
     }
@@ -261,7 +285,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         var map = createMap(target.lat, target.lon);
         var layersControl = leaflet.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
 
-        addTargetToMap(target, map);
+        addTargetToMap(target, map, layersControl);
         var icons = createIcons();
 
         var allPubs = getPubs();
