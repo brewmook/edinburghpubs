@@ -318,19 +318,19 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         var allPubs = getPubs();
 
         var todoPubs = filterByStatus(allPubs, [undefined]);
-        addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, map, layersControl);
+        //addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, map, layersControl);
 
         var donePubs = filterByStatus(allPubs, ["done"]);
         computeVoronoi(donePubs, target, 6378137);
 
         var visitedPubs = filterByLink(donePubs, /^$/);
-        addPubsAsLayer(visitedPubs, "Visited (green)", icons.green, map, layersControl);
+        //addPubsAsLayer(visitedPubs, "Visited (blue)", icons.blue, map, layersControl);
 
         var bloggedPubs = filterByLink(donePubs, /.+/);
-        addPubsAsLayer(bloggedPubs, "Blogged (blue)", icons.blue, map, layersControl);
+        addPubsAsLayer(bloggedPubs, "Blogged (green)", icons.green, map, layersControl);
 
         var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
-        addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, map, layersControl);
+        //addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, map, layersControl);
 
         addVoronoiCellsAsLayer(donePubs, map, layersControl);
 
