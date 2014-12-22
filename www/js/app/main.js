@@ -1,5 +1,5 @@
-require(['leaflet', '../../data/overpassData', '../../data/extraPubsData', '../../data/visitData'],
-function (leaflet, overpassData, extraPubsData, visitDataArray) {
+require(['leaflet', 'voronoi', '../../data/overpassData', '../../data/extraPubsData', '../../data/visitData'],
+function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
 
     function createMap(lat, lon)
     {
@@ -18,6 +18,7 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
             text = "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
         if ("statusinfo" in pub && pub.statusinfo != undefined)
             text += "<br/><em>" + pub.statusinfo + "</em>";
+        text += "<br/>{x:" + pub.x + ", y:"+pub.y+"}";
         return text;
     }
 
@@ -44,7 +45,8 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
 
     function addTargetToMap(target, map)
     {
-        var circle = new leaflet.circle([target.lat, target.lon],
+        var circle = new leaflet.circle(
+            [target.lat, target.lon],
             target.radiusMetres,
             {
                 color: '#c80',
@@ -52,6 +54,14 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
                 fillOpacity: 0.15
             });
         map.addLayer(circle);
+        map.addLayer(new leaflet.circle(
+            [target.lat, target.lon],
+            1.0,
+            {
+                color: '#f00',
+                fillColor: '#f00',
+                fillOpacity: 1
+            }));
     }
 
     function createIcons()
@@ -78,7 +88,8 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
         var result = {};
         for (var i in visitData)
         {
-            result[visitData[i][0]] = {"name":   visitData[i][1],
+            result[visitData[i][0]] = {
+                "name":   visitData[i][1],
                 "status": visitData[i][2].split(":")[0],
                 "statusinfo": visitData[i][2].split(":")[1],
                 "link":   visitData[i][3]};
@@ -145,11 +156,87 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
         layersControl.addOverlay(layer, layerName + ": " + pubs.length);
     }
 
+    function translateSpherical(locations, t)
+    {
+        var cosTLat = Math.cos(t.lat);
+        return locations.forEach(function(loc) {
+            loc.lat += t.lat;
+            loc.lon += t.lon * cosTLat;
+        });
+    }
+
+    function sphericalToCartesian(locations, r)
+    {
+        var degToRad = Math.PI/180.0;
+        return locations.forEach(function(loc) {
+            var latRadians = (90-loc.lat) * degToRad;
+            var sinLat = Math.sin(latRadians);
+            var lon = (loc.lon) * degToRad;
+            //loc.x = r * sinLat * Math.cos(lon);
+            var sinLon = Math.sin(lon);
+            loc.x = r * sinLat * sinLon;
+            loc.y = r * Math.cos(latRadians);
+        });
+    }
+
+    function asdf(locations, target)
+    {
+        translateSpherical(locations, {lat:-target.lat, lon:-target.lon});
+        sphericalToCartesian(locations, 6378137);
+        translateSpherical(locations, target);
+    }
+
+    function computeVoronoi(locations)
+    {
+        var bbox = {xl:180, xr:-180, yt:90, yb:-90};
+        locations.forEach(function(loc)
+        {
+            loc.x = loc.lon;
+            loc.y = loc.lat;
+            bbox.xl = Math.min(loc.x, bbox.xl);
+            bbox.xr = Math.max(loc.x, bbox.xr);
+            bbox.yb = Math.max(loc.y, bbox.yb);
+            bbox.yt = Math.min(loc.y, bbox.yt);
+        });
+        var halfWidth = (bbox.xr - bbox.xl) / 2.0;
+        var halfHeight = (bbox.yb - bbox.yt) / 2.0;
+        bbox.xl -= halfWidth;
+        bbox.xr += halfWidth;
+        bbox.yt -= halfHeight;
+        bbox.yb += halfHeight;
+
+        var voronoi = new Voronoi();
+        var results = voronoi.compute(locations, bbox);
+
+        results.cells.forEach(function(cell) {
+            var pub = cell.site;
+            pub.voronoiPolygon = cell.halfedges.map(function (edge) {
+                var start = edge.getStartpoint();
+                return {lng: start.x, lat: start.y};
+            });
+            if (pub.voronoiPolygon.length > 2)
+            {
+                pub.voronoiPolygon.push(pub.voronoiPolygon[0]);
+            }
+        });
+    }
+
+    function addVoronoiCellsAsLayer(pubs, map, layersControl)
+    {
+        var layer = new leaflet.LayerGroup().addTo(map);
+        pubs.forEach(function(pub) {
+            L.polyline(pub.voronoiPolygon, {color: 'red'}).addTo(layer);
+        });
+        layersControl.addOverlay(layer, "Voronoi");
+    }
+
     function initialiseMap()
     {
-        var target = { lat:55.94816654144937,
+        var target = {
+            lat:55.94816654144937,
             lon:-3.1994622945785522,
-            radiusMetres:1609 };
+            radiusMetres:1609
+        };
         var map = createMap(target.lat, target.lon);
         var layersControl = leaflet.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
 
@@ -162,6 +249,7 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
         addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, map, layersControl);
 
         var donePubs = filterByStatus(allPubs, ["done"]);
+        computeVoronoi(donePubs);
 
         var visitedPubs = filterByLink(donePubs, /^$/);
         addPubsAsLayer(visitedPubs, "Visited (green)", icons.green, map, layersControl);
@@ -171,6 +259,8 @@ function (leaflet, overpassData, extraPubsData, visitDataArray) {
 
         var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
         addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, map, layersControl);
+
+        addVoronoiCellsAsLayer(donePubs, map, layersControl);
 
         displayTotals(donePubs, todoPubs);
     }
