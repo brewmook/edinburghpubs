@@ -34,16 +34,17 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         marker.bindPopup(postLink(pub));
     }
 
-    function displayTotals(donePubs, todoPubs)
+    function displayTotals(donePubs, todoPubs, stats)
     {
         var done = donePubs.length;
         var total = done + todoPubs.length;
         var message = document.getElementById('message');
         message.innerHTML =
             "Total " + total + " pubs<br/>"
-            + done + " done<br/>"
-            + Math.round((done/total)*100)
-            + "% complete";
+            + stats.name + ": <br/>"
+            + "Low (green): " + stats.unitsPrefix + stats.low + "<br/>"
+            + "High (red): " + stats.unitsPrefix + stats.high + "<br/>"
+            + "Median (blue): " + stats.unitsPrefix + stats.median
     }
 
     function addTargetToMap(target, map, layersControl)
@@ -238,19 +239,6 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         });
     }
 
-    function colourLinear(value, low, range)
-    {
-        var colour;
-        if (value < low) {
-            return "#888";
-        } else {
-            var normalised = (value - low) / range;
-            var red = Math.floor((255 * normalised) + 0.5);
-            var blue = Math.floor((255 * (1 - normalised)) + 0.5);
-            return '#' + ('000000' + ((red << 16) + blue).toString(16)).slice(-6);
-        }
-    }
-
     function round(value)
     {
         return Math.floor(value + 0.5);
@@ -260,7 +248,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
     {
         var red, green, blue;
         if (value < low) {
-            return "#333";
+            return "#888";
         } else if (value < median) {
             var normalised = (value - low) / (median-low);
             green = round(255 * (1 - normalised));
@@ -275,7 +263,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         return '#' + ('000000' + ((red << 16) + (green<<8) + blue).toString(16)).slice(-6);
     }
 
-    function addVoronoiCellsAsLayer(pubs, map, layersControl)
+    function priceStats(pubs)
     {
         var low = Number.MAX_VALUE;
         var high = Number.MIN_VALUE;
@@ -289,17 +277,26 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             }
         });
         prices.sort();
-        var median = prices[Math.floor(prices.length/2)];
+        return {
+            unitsPrefix: '£',
+            name: 'Price',
+            low: low,
+            high: high,
+            median: prices[Math.floor(prices.length/2)]
+        }
+    }
 
+    function addVoronoiCellsAsLayer(pubs, map, layersControl, stats)
+    {
         var layer = new leaflet.LayerGroup().addTo(map);
         pubs.forEach(function(pub) {
             L.polygon(pub.voronoiPolygon, {
-                fillColor: colourDualLinear(pub.price, low, high, median),
+                fillColor: colourDualLinear(pub.price, stats.low, stats.high, stats.median),
                 stroke: false,
                 fillOpacity: 0.6
             }).addTo(layer);
         });
-        layersControl.addOverlay(layer, "Voronoi");
+        layersControl.addOverlay(layer, stats.name);
     }
 
     function initialiseMap()
@@ -327,14 +324,15 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         //addPubsAsLayer(visitedPubs, "Visited (blue)", icons.blue, map, layersControl);
 
         var bloggedPubs = filterByLink(donePubs, /.+/);
-        addPubsAsLayer(bloggedPubs, "Blogged (green)", icons.green, map, layersControl);
+        addPubsAsLayer(bloggedPubs, "Pubs", icons.green, map, layersControl);
 
         var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
         //addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, map, layersControl);
 
-        addVoronoiCellsAsLayer(donePubs, map, layersControl);
+        var stats = priceStats(donePubs);
+        addVoronoiCellsAsLayer(donePubs, map, layersControl, stats);
 
-        displayTotals(donePubs, todoPubs);
+        displayTotals(donePubs, todoPubs, stats);
     }
 
     initialiseMap();
