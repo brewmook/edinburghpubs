@@ -21,7 +21,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         if ("x" in pub && pub.x !== undefined)
             text += "<br/>{x:" + pub.x.toFixed(2) + ", y:"+pub.y.toFixed(2)+"}";
         if ("price" in pub && pub.price > 0)
-            text += "<br/>Price: £" + pub.price;
+            text += "<br/>Price: £" + pub.price.toFixed(2);
         return text;
     }
 
@@ -34,17 +34,22 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         marker.bindPopup(postLink(pub));
     }
 
+    function setStatusMessage(html)
+    {
+        document.getElementById('message').innerHTML = html;
+    }
+
     function displayTotals(donePubs, todoPubs, stats)
     {
         var done = donePubs.length;
         var total = done + todoPubs.length;
-        var message = document.getElementById('message');
-        message.innerHTML =
+        setStatusMessage(
             "Total " + total + " pubs<br/>"
             + stats.name + ": <br/>"
-            + "Low (green): " + stats.unitsPrefix + stats.low + "<br/>"
-            + "High (red): " + stats.unitsPrefix + stats.high + "<br/>"
-            + "Median (blue): " + stats.unitsPrefix + stats.median
+            + "Low (green): " + stats.format(stats.low) + "<br/>"
+            + "High (red): " + stats.format(stats.high) + "<br/>"
+            + "Median (blue): " + stats.format(stats.median)
+        );
     }
 
     function addTargetToMap(target, map, layersControl)
@@ -285,11 +290,11 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         });
         prices.sort();
         return {
-            unitsPrefix: '£',
-            name: 'Price',
+            name: 'Prices',
             low: low,
             high: high,
-            median: prices[Math.floor(prices.length/2)]
+            median: prices[Math.floor(prices.length/2)],
+            format:function(value) { return "£" + value.toFixed(2); }
         }
     }
 
@@ -308,6 +313,8 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
 
     function initialiseMap()
     {
+        setStatusMessage("Calculating...");
+
         var target = {
             lat:55.94816654144937,
             lon:-3.1994622945785522,
@@ -340,6 +347,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         addVoronoiCellsAsLayer(donePubs, map, layersControl, stats);
 
         displayTotals(donePubs, todoPubs, stats);
+        //setStatusMessage("Showing "+donePubs.length+" pubs");
     }
 
     initialiseMap();
