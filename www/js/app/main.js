@@ -169,19 +169,23 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
     function calculateCartesian(locations, t, r)
     {
         var degToRad = Math.PI/180.0;
+        var rotation = t.lat * degToRad;
+        var cosRotation = Math.cos(rotation);
+        var sinRotation = Math.sin(rotation);
+
         return locations.forEach(function(loc) {
             var theta = (90 - loc.lat) * degToRad;
             var phi = (loc.lon - t.lon) * degToRad;
 
             // to 3d cartesian coordinates
-            var x = r * Math.sin(theta) * Math.cos(phi);
-            var y = r * Math.sin(theta) * Math.sin(phi);
+            var sinTheta = Math.sin(theta);
+            var x = r * sinTheta * Math.cos(phi);
+            var y = r * sinTheta * Math.sin(phi);
             var z = r * Math.cos(theta);
 
             // rotate down to equator
-            var rotation = t.lat * degToRad;
-            var newZ = z * Math.cos(rotation) - x * Math.sin(rotation);
-            var newX = z * Math.sin(rotation) + x * Math.cos(rotation);
+            var newZ = z * cosRotation - x * sinRotation;
+            var newX = z * sinRotation + x * cosRotation;
 
             // project onto new xy orientation
             loc.x = y;
@@ -194,15 +198,18 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
     {
         var degToRad = Math.PI/180.0;
         var radToDeg = 180.0/Math.PI;
+        var rotation = -t.lat * degToRad;
+        var cosRotation = Math.cos(rotation);
+        var sinRotation = Math.sin(rotation);
+
         return locations.map(function(loc) {
-            var newX = loc.z;
-            var newZ = loc.y;
+            var rotatedX = loc.z;
+            var rotatedZ = loc.y;
             var y = loc.x;
 
-            // rotate back up to correct latitude
-            var rotation = -t.lat * degToRad;
-            var z = newZ * Math.cos(rotation) - newX * Math.sin(rotation);
-            var x = newZ * Math.sin(rotation) + newX * Math.cos(rotation);
+            // unrotate back up to correct latitude
+            var z = rotatedZ * cosRotation - rotatedX * sinRotation;
+            var x = rotatedZ * sinRotation + rotatedX * cosRotation;
 
             var theta = Math.acos(z/r) * radToDeg;
             var phi = Math.atan(y/x) * radToDeg;
@@ -248,7 +255,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
     {
         var red, green, blue;
         if (value < low) {
-            return "#888";
+            return "#555555";
         } else if (value < median) {
             var normalised = (value - low) / (median-low);
             green = round(255 * (1 - normalised));
