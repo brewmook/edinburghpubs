@@ -54,8 +54,8 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             target.radiusMetres,
             {
                 color: '#c80',
-                fillColor: '#fc4',
-                fillOpacity: 0.15
+                opacity: 1,
+                fill: false
             });
         layer.addLayer(circle);
         layer.addLayer(new leaflet.circle(
@@ -63,6 +63,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             1.0,
             {
                 color: '#f00',
+                opacity: 1,
                 fillColor: '#f00',
                 fillOpacity: 1
             }));
@@ -287,7 +288,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 prices.push(pub.price);
             }
         });
-        var range = high-low;
+        prices.sort();
         var median = prices[Math.floor(prices.length/2)];
 
         var layer = new leaflet.LayerGroup().addTo(map);
