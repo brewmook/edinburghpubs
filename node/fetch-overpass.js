@@ -96,9 +96,10 @@ function jsonify(pubs)
 {
     var strings = [];
     pubs.forEach(function(pub) {
-	strings.push(JSON.stringify(pub));
+	strings.push('{name:"'+pub.name+'", id:'+pub.id+', lat:'+pub.lat+', lon:'+pub.lon+'}');
     });
-    return "var overpassData = [\n" + strings.join(",\n") + "];\n";
+    strings.sort();
+    return "define(function() { return [\n" + strings.join(",\n") + "];});\n";
 }
 
 function findPubs(target, amenitiesRE)
