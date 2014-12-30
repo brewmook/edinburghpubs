@@ -271,11 +271,8 @@ define(function() { return [
 [2925698061,"Palm Sugar","done","/2014/08/02/257-palm-sugar-castle-street-edinburgh/",4.95,"2014/06/10"],
 [2100296437,"Tigerlily","done","/2014/08/02/258-tigerlily-george-street-edinburgh/",4.86,"2014/06/10"],
 [41483829,"1780","done","/2014/08/02/259-1780-rose-street-edinburgh/",4.00,"2014/06/10"],
-[42556526,"The GRV","closed:Closed a long time ago","",0.00,"2014/06/10"],
 [60320790,"Napier Students' Association","disqualified:Student union","",0.00,"2014/06/10"],
 [2812023487,"SkyBar","disqualified:Only open one day per month! Great views of the castle though","",0.00,"2014/06/10"],
-[41483851,"The Shack","disqualified:Club","",0.00,"2014/06/10"],
-[504319866,"The Meadows Hotel","disqualified:Closed, now a flippin' Sainsbury's!","",0.00,"2014/06/16"],
 [2443742582,"10 Wine Bar","done","/2014/08/04/260-10-wine-bar-hill-place-edinburgh/",4.25,"2014/06/17"],
 [2957210633,"The Waverley","closed:Closed since at least 2014/05/13, last checked 2014/08/24","",0.00,"2014/06/17"],
 [2621234519,"Nor' Loch","done","/2014/08/10/261-the-nor-loch-waverley-station-edinburgh/",3.95,"2014/06/17"],
@@ -296,4 +293,5 @@ define(function() { return [
 [2100296461,"Browns","done","/2014/08/26/273-browns-george-street-edinburgh/",0.00,"2014/07/01"],
 [2966042013,"The Hive","disqualified:Club","",0.00,"2014/08/13"],
 [2977978100,"The Rabbie Burns","disqualified:Restaurant","",0.00,"2014/08/13"],
+[3244717923,"Bainfield Union","disqualified:Student union","",0.00,"2014/12/30"],
 ];});
