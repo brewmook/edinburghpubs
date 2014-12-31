@@ -5,7 +5,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
     {
         var map = leaflet.map('map').setView([lat, lon], 13);
         var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-        leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        leaflet.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
             attribution: osmAttr
         }).addTo(map);
         return map;
@@ -416,7 +416,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             L.polygon(pub.voronoiPolygon, {
                 fillColor: colourDualLinear(pub.price, stats.low, stats.high, stats.median),
                 stroke: false,
-                fillOpacity: 0.6
+                fillOpacity: 0.5
             }).addTo(layer);
         });
         layersControl.addOverlay(layer, stats.name);
