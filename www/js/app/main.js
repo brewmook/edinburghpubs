@@ -18,8 +18,6 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
             text = "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
         if ("statusinfo" in pub && pub.statusinfo != undefined)
             text += "<br/><em>" + pub.statusinfo + "</em>";
-        if ("x" in pub && pub.x !== undefined)
-            text += "<br/>{x:" + pub.x.toFixed(2) + ", y:"+pub.y.toFixed(2)+"}";
         if ("price" in pub && pub.price > 0)
             text += "<br/>Price: £" + pub.price.toFixed(2);
         return text;
@@ -194,7 +192,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
 
             // project onto new xy orientation
             loc.x = y;
-            loc.y = newZ;
+            loc.y = -newZ;
             loc.z = newX;
         });
     }
@@ -209,7 +207,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
 
         return locations.map(function(loc) {
             var rotatedX = loc.z;
-            var rotatedZ = loc.y;
+            var rotatedZ = -loc.y;
             var y = loc.x;
 
             // unrotate back up to correct latitude
@@ -224,6 +222,118 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 lng: phi + t.lon
             };
         });
+    }
+
+    function quadrance(point)
+    {
+        return point.x*point.x + point.y*point.y;
+    }
+
+    // Find the points of intersection.
+    function findLineCircleIntersections(radius, point1, point2)
+    {
+        var dx = point2.x - point1.x;
+        var dy = point2.y - point1.y;
+
+        var A = dx * dx + dy * dy;
+        var B = 2 * (dx * point1.x + dy * point1.y);
+        var C = quadrance(point1) - radius * radius;
+
+        var det = B * B - 4 * A * C;
+        if ((A <= 0.0000001) || (det < 0))
+        {
+            // no solution
+            return null;
+        }
+        else if (det == 0)
+        {
+            // One solution.
+            var t = -B / (2 * A);
+            return {
+                x: point1.x + t * dx,
+                y: point1.y + t * dy,
+                z: point1.z
+            };
+        }
+        else
+        {
+            // Two solutions.
+            var t1 = ((-B + Math.sqrt(det)) / (2 * A));
+            if (t1 >= 0 && t1 <= 1) {
+                return {x: point1.x + t1 * dx, y: point1.y + t1 * dy, z: point1.z};
+            } else {
+                var t2 = ((-B - Math.sqrt(det)) / (2 * A));
+                return {x:point1.x + t2 * dx, y:point1.y + t2 * dy, z:point1.z};
+            }
+        }
+    }
+
+    function cropToCircle(cartesians, circleRadius)
+    {
+        var circleQ = circleRadius*circleRadius;
+        var lastPointInsideCircle = -1;
+        var lastPointOutsideCircle = -1;
+
+        var quadrances = cartesians.map(function(loc) {
+            return quadrance(loc);
+        });
+
+        for (var i = 0; i < cartesians.length; ++i) {
+            var j = (i+1) % cartesians.length;
+
+            if (lastPointInsideCircle < 0 && quadrances[i] <= circleQ && quadrances[j] > circleQ) {
+                lastPointInsideCircle = i;
+            }
+            if (lastPointOutsideCircle < 0 && quadrances[i] > circleQ && quadrances[j] <= circleQ) {
+                lastPointOutsideCircle = i;
+            }
+        }
+
+        if (lastPointInsideCircle >= 0 && lastPointOutsideCircle >= 0) {
+            var exitPoint = findLineCircleIntersections(
+                circleRadius,
+                cartesians[lastPointInsideCircle],
+                cartesians[(lastPointInsideCircle+1)%cartesians.length]);
+            var entryPoint = findLineCircleIntersections(
+                circleRadius,
+                cartesians[(lastPointOutsideCircle+1)%cartesians.length],
+                cartesians[lastPointOutsideCircle]);
+
+            if (exitPoint == null || entryPoint == null) {
+                return cartesians;
+            }
+
+            var exitAngle = Math.atan2(exitPoint.y, exitPoint.x);
+            var entryAngle = Math.atan2(entryPoint.y, entryPoint.x);
+            if (exitAngle < entryAngle) {
+                entryAngle -= Math.PI*2;
+            }
+
+            var points = [];
+            points.push(entryPoint);
+            var p = lastPointOutsideCircle;
+            do {
+                p = (p+1) % cartesians.length;
+                points.push(cartesians[p]);
+            } while(p != lastPointInsideCircle);
+            points.push(exitPoint);
+
+            // Now add points on the circle
+            var step = 3*Math.PI/180;
+            var a = exitAngle - step;
+            while (a >= entryAngle) {
+                points.push({
+                    x: circleRadius * Math.cos(a),
+                    y: circleRadius * Math.sin(a),
+                    z: exitPoint.z
+                });
+                a -= step;
+            }
+
+            return points;
+        }
+
+        return cartesians;
     }
 
     function computeVoronoi(locations, t, r)
@@ -247,6 +357,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 var start = edge.getStartpoint();
                 return {x:start.x, y:start.y, z:r};
             });
+            cartesians = cropToCircle(cartesians, t.radiusMetres);
             pub.voronoiPolygon = cartesianToLatLng(cartesians, t, r);
         });
     }
