@@ -11,15 +11,27 @@ function (leaflet, Voronoi, pubsData) {
         return map;
     }
 
+    function createLink(url, text)
+    {
+        return "<a href=\"http://brewmook.wordpress.com" + url + "\">" + text + "</a>";
+    }
+
     function postLink(pub)
     {
         var text = pub.name;
         if ("link" in pub && pub.link != "")
-            text = "<a href=\"http://brewmook.wordpress.com" + pub.link + "\">" + pub.name + "</a>";
+            text = createLink(pub.link, pub.name);
         if ("statusinfo" in pub && pub.statusinfo != undefined)
             text += "<br/><em>" + pub.statusinfo + "</em>";
         if ("price" in pub && pub.price > 0)
             text += "<br/>Price: £" + pub.price.toFixed(2);
+        if ("previous" in pub) {
+            var previous = [];
+            for (var i = pub.previous.length-1; i >= 0; --i) {
+                previous.push(createLink(pub.previous[i].link, pub.previous[i].name));
+            }
+            text += "<br/>Previously known as " + previous.join(', ') + ".";
+        }
         return text;
     }
 
