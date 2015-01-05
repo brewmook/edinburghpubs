@@ -43,11 +43,15 @@ function mergeVisitData(visitData, pub)
             }
         }
         var lastVisit = visits[visits.length-1];
-        pub.status = lastVisit.status;
-        pub.statusinfo = lastVisit.statusinfo;
-        pub.name = lastVisit.name;
-        pub.link = lastVisit.link;
-        pub.price = lastVisit.price;
+        if (pub.name != lastVisit.name) {
+            if (!("previous" in pub)) pub.previous = [];
+            pub.previous.push(lastVisit);
+        } else {
+            pub.status = lastVisit.status;
+            pub.statusinfo = lastVisit.statusinfo;
+            pub.link = lastVisit.link;
+            pub.price = lastVisit.price;
+        }
     }
     return pub;
 }

@@ -54,13 +54,19 @@ define(function(){return[
 		"price": 3.44
 	},
 	{
-		"name": "The Gordon Arms",
+		"name": "The Shoogly Peg",
 		"id": 41483839,
 		"lat": 55.9516706,
 		"lon": -3.2039712,
-		"status": "done",
-		"link": "/2013/11/02/64-the-gordon-arms-rose-street-edinburgh/",
-		"price": 0
+		"previous": [
+			{
+				"id": 41483839,
+				"name": "The Gordon Arms",
+				"status": "done",
+				"link": "/2013/11/02/64-the-gordon-arms-rose-street-edinburgh/",
+				"price": 0
+			}
+		]
 	},
 	{
 		"name": "The Black Cat",
@@ -108,7 +114,7 @@ define(function(){return[
 		"price": 3.75
 	},
 	{
-		"name": "Milnes",
+		"name": "Milnes of Rose street",
 		"id": 41483872,
 		"lat": 55.9529694,
 		"lon": -3.1964423,
@@ -326,13 +332,19 @@ define(function(){return[
 		"price": 0
 	},
 	{
-		"name": "The Meadow Bar",
+		"name": "The Moo Bar",
 		"id": 366191902,
 		"lat": 55.9427088,
 		"lon": -3.1845678,
-		"status": "done",
-		"link": "/2014/01/25/122-the-meadow-bar-buccleuch-street-edinburgh/",
-		"price": 3.5
+		"previous": [
+			{
+				"id": 366191902,
+				"name": "The Meadow Bar",
+				"status": "done",
+				"link": "/2014/01/25/122-the-meadow-bar-buccleuch-street-edinburgh/",
+				"price": 3.5
+			}
+		]
 	},
 	{
 		"id": 367085451,
@@ -679,13 +691,19 @@ define(function(){return[
 		"price": 3.47
 	},
 	{
-		"name": "The Bellevue",
+		"name": "The Ox",
 		"id": 663451599,
 		"lat": 55.9590502,
 		"lon": -3.1909659,
-		"status": "done",
-		"link": "/2013/08/06/8-the-bellevue-london-street-edinburgh/",
-		"price": 3.33
+		"previous": [
+			{
+				"id": 663451599,
+				"name": "The Bellevue",
+				"status": "done",
+				"link": "/2013/08/06/8-the-bellevue-london-street-edinburgh/",
+				"price": 3.33
+			}
+		]
 	},
 	{
 		"name": "Bisque",
@@ -887,7 +905,7 @@ define(function(){return[
 		"price": 4.5
 	},
 	{
-		"name": "The Basement",
+		"name": "the basement",
 		"id": 1327630111,
 		"lat": 55.9570085,
 		"lon": -3.1883445,
@@ -941,7 +959,7 @@ define(function(){return[
 		"price": 3.5
 	},
 	{
-		"name": "Joseph Pearce's",
+		"name": "Joseph Pearce",
 		"id": 1369533379,
 		"lat": 55.9590285,
 		"lon": -3.1830258,
@@ -1086,7 +1104,7 @@ define(function(){return[
 		"price": 0
 	},
 	{
-		"name": "Whigham's Wine Cellars",
+		"name": "Whighams Wine Cellars",
 		"id": 1558442814,
 		"lat": 55.9508253,
 		"lon": -3.2079252,
@@ -1169,8 +1187,8 @@ define(function(){return[
 	{
 		"name": "The Jam House",
 		"id": 1710418042,
-		"lat": 55.955149,
-		"lon": -3.1957714,
+		"lat": 55.9551362,
+		"lon": -3.195763,
 		"status": "disqualified",
 		"statusinfo": "Private hire/club",
 		"link": "",
@@ -1186,13 +1204,19 @@ define(function(){return[
 		"price": 0
 	},
 	{
-		"name": "Bristo",
+		"name": "Paradise Palms",
 		"id": 1770134132,
 		"lat": 55.9462645,
 		"lon": -3.1891555,
-		"status": "done",
-		"link": "/2013/12/28/105-bristo-bar-kitchen-lothian-street-edinburgh/",
-		"price": 3.5
+		"previous": [
+			{
+				"id": 1770134132,
+				"name": "Bristo",
+				"status": "done",
+				"link": "/2013/12/28/105-bristo-bar-kitchen-lothian-street-edinburgh/",
+				"price": 3.5
+			}
+		]
 	},
 	{
 		"name": "Library Bar",
@@ -1214,13 +1238,19 @@ define(function(){return[
 		"price": 0
 	},
 	{
-		"name": "New Town Bar",
+		"name": "Spit/Fire",
 		"id": 1782941207,
 		"lat": 55.9570449,
 		"lon": -3.1939224,
-		"status": "done",
-		"link": "/2014/06/01/209-the-new-town-bar-dublin-street-edinburgh/",
-		"price": 3.4
+		"previous": [
+			{
+				"id": 1782941207,
+				"name": "New Town Bar",
+				"status": "done",
+				"link": "/2014/06/01/209-the-new-town-bar-dublin-street-edinburgh/",
+				"price": 3.4
+			}
+		]
 	},
 	{
 		"name": "Sygn",
@@ -1394,7 +1424,7 @@ define(function(){return[
 		"price": 3.8
 	},
 	{
-		"name": "Melville",
+		"name": "The Melville",
 		"id": 2075163263,
 		"lat": 55.949532,
 		"lon": -3.2122353,
@@ -1638,7 +1668,7 @@ define(function(){return[
 		"price": 0
 	},
 	{
-		"name": "shakespeare",
+		"name": "Shakespeares",
 		"id": 2112504091,
 		"lat": 55.9475764,
 		"lon": -3.2058313,
@@ -1737,7 +1767,7 @@ define(function(){return[
 		"price": 4.71
 	},
 	{
-		"name": "Amicus Apple",
+		"name": "amicus apple",
 		"id": 2127679448,
 		"lat": 55.9521342,
 		"lon": -3.1995774,
@@ -1773,7 +1803,7 @@ define(function(){return[
 		"price": 3.78
 	},
 	{
-		"name": "Captain's Bar",
+		"name": "The Captains Bar",
 		"id": 2155266405,
 		"lat": 55.9470088,
 		"lon": -3.1865074,
@@ -2189,7 +2219,7 @@ define(function(){return[
 		"price": 3.05
 	},
 	{
-		"name": "Bramble",
+		"name": "Bramble Bar",
 		"id": 2345016950,
 		"lat": 55.9548684,
 		"lon": -3.1976469,
@@ -2615,7 +2645,7 @@ define(function(){return[
 		"price": 0
 	},
 	{
-		"name": "George Street",
+		"name": "George Street Bar and Grill",
 		"id": 3148972350,
 		"lat": 55.951814,
 		"lon": -3.2061799,
@@ -2624,7 +2654,7 @@ define(function(){return[
 		"price": 4.18
 	},
 	{
-		"name": "Alexander Graham Bell",
+		"name": "The Alexander Graham Bell",
 		"id": 3148972370,
 		"lat": 55.9518714,
 		"lon": -3.2053095,
@@ -2648,7 +2678,7 @@ define(function(){return[
 		"lon": -3.1964337
 	},
 	{
-		"name": "No 1 High Street",
+		"name": "No.1 High Street",
 		"id": 3214009984,
 		"lat": 55.9507003,
 		"lon": -3.1844017,
