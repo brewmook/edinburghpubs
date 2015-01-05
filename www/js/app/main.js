@@ -37,20 +37,17 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         document.getElementById('message').innerHTML = html;
     }
 
-    function displayTotals(donePubs, todoPubs, stats)
+    function displayStats(stats)
     {
-        var done = donePubs.length;
-        var total = done + todoPubs.length;
         setStatusMessage(
-            "Total " + total + " pubs<br/>"
-            + stats.name + ": <br/>"
+            stats.name + ": <br/>"
             + "Low (green): " + stats.format(stats.low) + "<br/>"
-            + "High (red): " + stats.format(stats.high) + "<br/>"
-            + "Median (blue): " + stats.format(stats.median)
+            + "Median (blue): " + stats.format(stats.median) + "<br/>"
+            + "High (red): " + stats.format(stats.high)
         );
     }
 
-    function addTargetToMap(target, map, layersControl)
+    function addTargetToMap(target, map)
     {
         var layer = new leaflet.LayerGroup().addTo(map);
         var circle = new leaflet.circle(
@@ -71,7 +68,6 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 fillColor: '#f00',
                 fillOpacity: 1
             }));
-        layersControl.addOverlay(layer, "Target area");
     }
 
     function createIcons()
@@ -160,13 +156,14 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         });
     }
 
-    function addPubsAsLayer(pubs, layerName, icon, map, layersControl)
+    function addPubsAsLayer(pubs, layerName, icon, layersControl)
     {
-        var layer = new leaflet.LayerGroup().addTo(map);
+        var layer = new leaflet.LayerGroup();
         pubs.forEach(function(pub) {
             addFlag(layer, pub, icon);
         });
         layersControl.addOverlay(layer, layerName + ": " + pubs.length);
+        return layer;
     }
 
     function calculateCartesian(locations, t, r)
@@ -434,30 +431,30 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         var map = createMap(target.lat, target.lon);
         var layersControl = leaflet.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
 
-        addTargetToMap(target, map, layersControl);
+        addTargetToMap(target, map);
         var icons = createIcons();
 
         var allPubs = getPubs();
 
         var todoPubs = filterByStatus(allPubs, [undefined]);
-        //addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, map, layersControl);
+        addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, layersControl).addTo(map);
 
         var donePubs = filterByStatus(allPubs, ["done"]);
         computeVoronoi(donePubs, target, 6378137);
 
-        var visitedPubs = filterByLink(donePubs, /^$/);
+        //var visitedPubs = filterByLink(donePubs, /^$/);
         //addPubsAsLayer(visitedPubs, "Visited (blue)", icons.blue, map, layersControl);
 
         var bloggedPubs = filterByLink(donePubs, /.+/);
-        addPubsAsLayer(bloggedPubs, "Pubs", icons.green, map, layersControl);
+        addPubsAsLayer(bloggedPubs, "Visited (green)", icons.green, layersControl).addTo(map);
 
         var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
-        //addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, map, layersControl);
+        addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, layersControl);
 
         var stats = priceStats(donePubs);
         addVoronoiCellsAsLayer(donePubs, map, layersControl, stats);
 
-        displayTotals(donePubs, todoPubs, stats);
+        displayStats(stats);
         //setStatusMessage("Showing "+donePubs.length+" pubs");
     }
 
