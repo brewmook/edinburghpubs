@@ -1,5 +1,5 @@
-require(['leaflet', 'voronoi', '../../data/overpassData', '../../data/extraPubsData', '../../data/visitData'],
-function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
+require(['leaflet', 'voronoi', 'app/data'],
+function (leaflet, Voronoi, pubsData) {
 
     function createMap(lat, lon)
     {
@@ -87,59 +87,6 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
                 iconRetinaUrl: "img/marker-"+icon+"-2x.png" });
             return obj;
         }, {});
-    }
-
-    function getVisitData(visitData)
-    {
-        var result = {};
-        for (var i in visitData)
-        {
-            result[visitData[i][0]] = {
-                "name":   visitData[i][1],
-                "status": visitData[i][2].split(":")[0],
-                "statusinfo": visitData[i][2].split(":")[1],
-                "link":   visitData[i][3],
-                "price":  visitData[i][4]
-            };
-        }
-        return result;
-    }
-
-    function mergeVisitData(visitData, pub)
-    {
-        if (pub.id in visitData)
-        {
-            pub.status = visitData[pub.id].status;
-            pub.statusinfo = visitData[pub.id].statusinfo;
-            pub.name = visitData[pub.id].name;
-            pub.link = visitData[pub.id].link;
-            pub.price = visitData[pub.id].price;
-        }
-        return pub;
-    }
-
-    function dictionaryToArray(dictionary)
-    {
-        var result = [];
-        for (var i in dictionary) {
-            result.push(dictionary[i]);
-        }
-        return result;
-    }
-
-    function getPubs()
-    {
-        var dictionary = {};
-        var allPubs = overpassData.concat(extraPubsData);
-        var visitData = getVisitData(visitDataArray);
-
-        for (var i in allPubs)
-        {
-            var pub = mergeVisitData(visitData, allPubs[i]);
-            dictionary[pub.id] = pub;
-        }
-
-        return dictionaryToArray(dictionary);
     }
 
     function filterByStatus(pubs, statuses)
@@ -434,12 +381,10 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         addTargetToMap(target, map);
         var icons = createIcons();
 
-        var allPubs = getPubs();
-
-        var todoPubs = filterByStatus(allPubs, [undefined]);
+        var todoPubs = filterByStatus(pubsData, [undefined]);
         addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, layersControl).addTo(map);
 
-        var donePubs = filterByStatus(allPubs, ["done"]);
+        var donePubs = filterByStatus(pubsData, ["done"]);
         computeVoronoi(donePubs, target, 6378137);
 
         //var visitedPubs = filterByLink(donePubs, /^$/);
@@ -448,7 +393,7 @@ function (leaflet, Voronoi, overpassData, extraPubsData, visitDataArray) {
         var bloggedPubs = filterByLink(donePubs, /.+/);
         addPubsAsLayer(bloggedPubs, "Visited (green)", icons.green, layersControl).addTo(map);
 
-        var excludedPubs = filterByStatus(allPubs, ["closed","disqualified"]);
+        var excludedPubs = filterByStatus(pubsData, ["closed","disqualified"]);
         addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, layersControl);
 
         var stats = priceStats(donePubs);
