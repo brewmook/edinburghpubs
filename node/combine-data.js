@@ -3,6 +3,7 @@ var fs = require('fs');
 var overpassData = require('../data/overpassData.js');
 var extraPubsData = require('../data/extraPubsData.js');
 var visitDataArray = require('../data/visitData.js');
+var tagsData = require('../data/tags.js');
 
 function createVisit(visit)
 {
@@ -31,7 +32,7 @@ function getVisitData(visitData)
     return result;
 }
 
-function mergeVisitData(visitData, pub)
+function mergeData(visitData, tags, pub)
 {
     if (pub.id in visitData)
     {
@@ -51,6 +52,11 @@ function mergeVisitData(visitData, pub)
             pub.statusinfo = lastVisit.statusinfo;
             pub.link = lastVisit.link;
             pub.price = lastVisit.price;
+        }
+        if (pub.link in tags) {
+            pub.tags = tags[pub.link];
+        } else {
+            pub.tags = [];
         }
     }
     return pub;
@@ -73,7 +79,7 @@ function getPubs()
 
     for (var i in allPubs)
     {
-        var pub = mergeVisitData(visitData, allPubs[i]);
+        var pub = mergeData(visitData, tagsData, allPubs[i]);
         dictionary[pub.id] = pub;
     }
 
