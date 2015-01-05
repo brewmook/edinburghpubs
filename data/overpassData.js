@@ -1,4 +1,4 @@
-define(function() { return [
+module.exports = [
 {name:"10 Wine Bar", id:2443742582, lat:55.9463053, lon:-3.1838351},
 {name:"1780", id:41483829, lat:55.9514512, lon:-3.2053004},
 {name:"52 Canoes Tiki Den", id:2073217320, lat:55.9513702, lon:-3.2115575},
@@ -274,4 +274,4 @@ define(function() { return [
 {name:"Whistlebinkies", id:2954633083, lat:55.9499346, lon:-3.1872649},
 {name:"White Horse", id:3059493049, lat:55.9506189, lon:-3.1835665},
 {name:"amicus apple", id:2127679448, lat:55.9521342, lon:-3.1995774},
-{name:"the basement", id:1327630111, lat:55.9570085, lon:-3.1883445}];});
+{name:"the basement", id:1327630111, lat:55.9570085, lon:-3.1883445}];

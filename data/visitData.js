@@ -1,4 +1,4 @@
-define(function() { return [
+module.exports = [
 // [id,name,status,link,price]
 [1951385562,"Bert's bar","done","/2013/07/30/1-berts-bar-william-street-edinburgh/",3.60,"2013/07/30"],
 [1427181454,"Teuchters","done","/2013/07/30/2-teuchters-william-street-edinburgh/",3.80,"2013/07/30"],
@@ -294,4 +294,4 @@ define(function() { return [
 [2966042013,"The Hive","disqualified:Club","",0.00,"2014/08/13"],
 [2977978100,"The Rabbie Burns","disqualified:Restaurant","",0.00,"2014/08/13"],
 [3244717923,"Bainfield Union","disqualified:Student union","",0.00,"2014/12/30"],
-];});
+];

@@ -1,4 +1,4 @@
-require(['leaflet', 'voronoi', 'app/data'],
+define(['leaflet', 'voronoi', 'data/pubs'],
 function (leaflet, Voronoi, pubsData) {
 
     function createMap(lat, lon)

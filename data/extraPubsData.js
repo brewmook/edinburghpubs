@@ -1,4 +1,4 @@
-define(function() { return [
+module.exports = [
 {"id":910426589,"lat":55.9444999,"lon":-3.1852839,"name":"Counting House"},
 {"id":2076668725,"lat":55.9591358,"lon":-3.2144495,"name":"The Scran & Scallie"},
 {"id":2100296385,"lat":55.9525557,"lon":-3.2041238,"name":"Living Room"},
@@ -16,4 +16,4 @@ define(function() { return [
 {"id":2100296437,"lat":55.9524016,"lon":-3.2052183,"name":"Tigerlily"},
 {"id":581870354,"lat":55.9534796,"lon":-3.1960559,"name":"Le Monde"},
 {"id":2426508094,"lat":55.9492753,"lon":-3.1855034,"name":"Blackfriars"},
-];});
+];

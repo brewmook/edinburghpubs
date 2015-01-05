@@ -109,7 +109,7 @@ function findPubs(target, amenitiesRE)
 		if (!error && response.statusCode == 200) {
 		    var pubs = parseResults(amenitiesRE, JSON.parse(body));
                     //fs.writeFileSync('www/data/overpassData.csv', csvify(pubs));
-                    fs.writeFileSync('www/data/overpassData.js', jsonify(pubs));
+                    fs.writeFileSync('data/overpassData.js', jsonify(pubs));
 		}
 	    });
 }
