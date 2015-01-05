@@ -10,10 +10,10 @@ function createVisit(visit)
     return {
         id:     visit[0],
         name:   visit[1],
-        status: visit[2].split(":")[0],
-        statusinfo: visit[2].split(":")[1],
-        link:   visit[3],
-        price:  visit[4]
+        status: visit[2],
+        comment:visit[3],
+        link:   visit[4],
+        price:  visit[5]
     };
 }
 
@@ -49,7 +49,7 @@ function mergeData(visitData, tags, pub)
             pub.previous.push(lastVisit);
         } else {
             pub.status = lastVisit.status;
-            pub.statusinfo = lastVisit.statusinfo;
+            pub.comment = lastVisit.comment;
             pub.link = lastVisit.link;
             pub.price = lastVisit.price;
         }

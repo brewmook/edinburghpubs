@@ -21,8 +21,8 @@ function (leaflet, Voronoi, pubsData) {
         var text = pub.name;
         if ("link" in pub && pub.link != "")
             text = createLink(pub.link, pub.name);
-        if ("statusinfo" in pub && pub.statusinfo != undefined)
-            text += "<br/><em>" + pub.statusinfo + "</em>";
+        if ("comment" in pub && pub.comment != undefined)
+            text += "<br/><em>" + pub.comment + "</em>";
         if ("price" in pub && pub.price > 0)
             text += "<br/>Price: £" + pub.price.toFixed(2);
         if ("previous" in pub) {
