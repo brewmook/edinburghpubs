@@ -99,7 +99,7 @@ function jsonify(pubs)
 	strings.push('{name:"'+pub.name+'", id:'+pub.id+', lat:'+pub.lat+', lon:'+pub.lon+'}');
     });
     strings.sort();
-    return "define(function() { return [\n" + strings.join(",\n") + "];});\n";
+    return "module.exports = [\n" + strings.join(",\n") + "];\n";
 }
 
 function findPubs(target, amenitiesRE)
