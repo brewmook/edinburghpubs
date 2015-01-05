@@ -1461,6 +1461,15 @@ define(function(){return[
 		"id": 2095332792,
 		"lat": 55.9562845,
 		"lon": -3.2025675,
+		"previous": [
+			{
+				"id": 2095332792,
+				"name": "The Standard",
+				"status": "done",
+				"link": "/2013/08/29/27-the-standard-howe-street-edinburgh/",
+				"price": 0
+			}
+		],
 		"status": "done",
 		"link": "/2014/06/02/213-mothers-howe-street-edinburgh/",
 		"price": 3.8
@@ -1903,6 +1912,15 @@ define(function(){return[
 		"id": 2335634597,
 		"lat": 55.9451633,
 		"lon": -3.2049525,
+		"previous": [
+			{
+				"id": 2335634597,
+				"name": "Anderson's",
+				"status": "done",
+				"link": "/2013/09/08/32-andersons-lothian-road-edinburgh/",
+				"price": 3.5
+			}
+		],
 		"status": "done",
 		"link": "/2014/05/05/183-moriarty-lothian-road-edinburgh/",
 		"price": 0

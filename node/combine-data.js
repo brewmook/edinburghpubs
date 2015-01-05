@@ -4,18 +4,29 @@ var overpassData = require('../data/overpassData.js');
 var extraPubsData = require('../data/extraPubsData.js');
 var visitDataArray = require('../data/visitData.js');
 
+function createVisit(visit)
+{
+    return {
+        id:     visit[0],
+        name:   visit[1],
+        status: visit[2].split(":")[0],
+        statusinfo: visit[2].split(":")[1],
+        link:   visit[3],
+        price:  visit[4]
+    };
+}
+
 function getVisitData(visitData)
 {
     var result = {};
     for (var i in visitData)
     {
-        result[visitData[i][0]] = {
-            "name":   visitData[i][1],
-            "status": visitData[i][2].split(":")[0],
-            "statusinfo": visitData[i][2].split(":")[1],
-            "link":   visitData[i][3],
-            "price":  visitData[i][4]
-        };
+        var visit = createVisit(visitData[i]);
+        if (visit.id in result) {
+            result[visit.id].push(visit);
+        } else {
+            result[visit.id] = [visit];
+        }
     }
     return result;
 }
@@ -24,11 +35,19 @@ function mergeVisitData(visitData, pub)
 {
     if (pub.id in visitData)
     {
-        pub.status = visitData[pub.id].status;
-        pub.statusinfo = visitData[pub.id].statusinfo;
-        pub.name = visitData[pub.id].name;
-        pub.link = visitData[pub.id].link;
-        pub.price = visitData[pub.id].price;
+        var visits = visitData[pub.id];
+        if (visits.length > 1) {
+            pub.previous = [];
+            for (var i = 0; i < visits.length-1; ++i) {
+                pub.previous.push(visits[i]);
+            }
+        }
+        var lastVisit = visits[visits.length-1];
+        pub.status = lastVisit.status;
+        pub.statusinfo = lastVisit.statusinfo;
+        pub.name = lastVisit.name;
+        pub.link = lastVisit.link;
+        pub.price = lastVisit.price;
     }
     return pub;
 }
