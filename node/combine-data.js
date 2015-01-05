@@ -58,4 +58,4 @@ function getPubs()
 }
 
 var pubs = getPubs();
-fs.writeFileSync('www/data/pubs.js', 'define(function(){return' + JSON.stringify(pubs) + ';});');
+fs.writeFileSync('www/data/pubs.js', 'define(function(){return' + JSON.stringify(pubs, null, '\t') + ';});');
