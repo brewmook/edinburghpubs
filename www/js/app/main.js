@@ -21,7 +21,7 @@ function (leaflet, Voronoi, pubsData) {
         var text = pub.name;
         if ("link" in pub && pub.link != "")
             text = createLink(pub.link, pub.name);
-        if ("comment" in pub && pub.comment != undefined)
+        if ("comment" in pub && pub.comment)
             text += "<br/><em>" + pub.comment + "</em>";
         if ("price" in pub && pub.price > 0)
             text += "<br/>Price: £" + pub.price.toFixed(2);
@@ -31,6 +31,9 @@ function (leaflet, Voronoi, pubsData) {
                 previous.push(createLink(pub.previous[i].link, pub.previous[i].name));
             }
             text += "<br/>Previously known as " + previous.join(', ') + ".";
+        }
+        if ("tags" in pub) {
+            text += "<br/>Tags: " + pub.tags.join(', ');
         }
         return text;
     }
