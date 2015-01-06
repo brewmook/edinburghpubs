@@ -101,20 +101,6 @@ function (leaflet, Voronoi, pubsData) {
         }, {});
     }
 
-    function filterByStatus(pubs, statuses)
-    {
-        return pubs.filter(function(pub) {
-            return statuses.some(function(status) { return status == pub.status; });
-        });
-    }
-
-    function filterByLink(pubs, linkRegEx)
-    {
-        return pubs.filter(function(pub) {
-            return linkRegEx.test(pub.link);
-        });
-    }
-
     function addPubsAsLayer(pubs, layerName, icon, layersControl)
     {
         var layer = new leaflet.LayerGroup();
@@ -349,7 +335,7 @@ function (leaflet, Voronoi, pubsData) {
         var prices = [];
         pubs.forEach(function(pub)
         {
-            if (pub.price > 0) {
+            if ("price" in pub && pub.price > 0) {
                 low = Math.min(low, pub.price);
                 high = Math.max(high, pub.price);
                 prices.push(pub.price);
@@ -378,6 +364,15 @@ function (leaflet, Voronoi, pubsData) {
         layersControl.addOverlay(layer, stats.name);
     }
 
+    function hasTag(pub, tags)
+    {
+        return "tags" in pub && pub.tags.some(function(pubTag) {
+            return tags.some(function(tag) {
+                return tag == pubTag;
+            });
+        });
+    }
+
     function initialiseMap()
     {
         setStatusMessage("Calculating...");
@@ -393,26 +388,29 @@ function (leaflet, Voronoi, pubsData) {
         addTargetToMap(target, map);
         var icons = createIcons();
 
-        var todoPubs = filterByStatus(pubsData, [undefined]);
+        var todoPubs = [];
+        var bloggedPubs = [];
+        var excludedPubs = [];
+
+        pubsData.forEach(function(pub) {
+            if (pub.link) {
+                bloggedPubs.push(pub);
+            } else if (hasTag(pub, ['Disqualified','Closed','Student union','Club','Restaurant'])) {
+                excludedPubs.push(pub);
+            } else {
+                todoPubs.push(pub);
+            }
+        });
+
         addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, layersControl).addTo(map);
-
-        var donePubs = filterByStatus(pubsData, ["done"]);
-        computeVoronoi(donePubs, target, 6378137);
-
-        //var visitedPubs = filterByLink(donePubs, /^$/);
-        //addPubsAsLayer(visitedPubs, "Visited (blue)", icons.blue, map, layersControl);
-
-        var bloggedPubs = filterByLink(donePubs, /.+/);
         addPubsAsLayer(bloggedPubs, "Visited (green)", icons.green, layersControl).addTo(map);
-
-        var excludedPubs = filterByStatus(pubsData, ["closed","disqualified"]);
         addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, layersControl);
 
-        var stats = priceStats(donePubs);
-        addVoronoiCellsAsLayer(donePubs, map, layersControl, stats);
-
+        var stats = priceStats(pubsData);
         displayStats(stats);
-        //setStatusMessage("Showing "+donePubs.length+" pubs");
+
+        computeVoronoi(bloggedPubs, target, 6378137);
+        addVoronoiCellsAsLayer(bloggedPubs, map, layersControl, stats);
     }
 
     initialiseMap();

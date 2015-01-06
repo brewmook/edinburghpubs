@@ -10,10 +10,11 @@ function createVisit(visit)
     return {
         id:     visit[0],
         name:   visit[1],
-        status: visit[2],
-        comment:visit[3],
-        link:   visit[4],
-        price:  visit[5]
+        comment:visit[2],
+        link:   visit[3],
+        price:  visit[4],
+        date:   visit[5],
+        tags:   visit.length==7 ? visit[6] : []
     };
 }
 
@@ -48,15 +49,14 @@ function mergeData(visitData, tags, pub)
             if (!("previous" in pub)) pub.previous = [];
             pub.previous.push(lastVisit);
         } else {
-            pub.status = lastVisit.status;
             pub.comment = lastVisit.comment;
             pub.link = lastVisit.link;
             pub.price = lastVisit.price;
         }
         if (pub.link in tags) {
-            pub.tags = tags[pub.link];
+            pub.tags = lastVisit.tags.concat(tags[pub.link]);
         } else {
-            pub.tags = [];
+            pub.tags = lastVisit.tags;
         }
     }
     return pub;
