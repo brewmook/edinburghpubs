@@ -267,7 +267,7 @@ define(function(){return[
 		"id": 42556535,
 		"lat": 55.9481205,
 		"lon": -3.1869529500000002,
-		"comment": "Pay to get in",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -316,7 +316,7 @@ define(function(){return[
 		"id": 60320790,
 		"lat": 55.9351917,
 		"lon": -3.2109226,
-		"comment": "Student union",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -816,7 +816,7 @@ define(function(){return[
 		"id": 474034784,
 		"lat": 55.9449036,
 		"lon": -3.1886208,
-		"comment": "Student union",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -914,7 +914,7 @@ define(function(){return[
 		"id": 483044126,
 		"lat": 55.9481951,
 		"lon": -3.1915223,
-		"comment": "Fee on the door",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -1444,7 +1444,7 @@ define(function(){return[
 		"id": 702500249,
 		"lat": 55.9504119,
 		"lon": -3.1888113,
-		"comment": "Part of Arcade Bar, closed on our visit",
+		"comment": "Part of Arcade Bar",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -2057,7 +2057,7 @@ define(function(){return[
 		"id": 1523647273,
 		"lat": 55.9484747,
 		"lon": -3.1864289,
-		"comment": "Private hire/club",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -2341,7 +2341,7 @@ define(function(){return[
 		"id": 1710418042,
 		"lat": 55.9551362,
 		"lon": -3.195763,
-		"comment": "Private hire/club",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -2391,7 +2391,7 @@ define(function(){return[
 		"id": 1770134134,
 		"lat": 55.9449647,
 		"lon": -3.1887877,
-		"comment": "Student union",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -3003,7 +3003,7 @@ define(function(){return[
 		"id": 2100296134,
 		"lat": 55.9534114,
 		"lon": -3.1989539,
-		"comment": "Club",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -4149,7 +4149,7 @@ define(function(){return[
 		"id": 2339288044,
 		"lat": 55.9485463,
 		"lon": -3.1864684,
-		"comment": "Private hire/club",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -4524,7 +4524,7 @@ define(function(){return[
 		"id": 2578704906,
 		"lat": 55.9458278,
 		"lon": -3.1977595,
-		"comment": "Student union",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -4536,7 +4536,7 @@ define(function(){return[
 		"id": 2582018814,
 		"lat": 55.959328,
 		"lon": -3.2143392,
-		"comment": "restaurant",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -4940,7 +4940,7 @@ define(function(){return[
 		"id": 2966042013,
 		"lat": 55.9496224,
 		"lon": -3.1870411,
-		"comment": "Club",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -4952,7 +4952,7 @@ define(function(){return[
 		"id": 2977978100,
 		"lat": 55.9505002,
 		"lon": -3.1861418,
-		"comment": "Restaurant",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
@@ -5165,7 +5165,7 @@ define(function(){return[
 		"id": 3244717923,
 		"lat": 55.9407112,
 		"lon": -3.215727,
-		"comment": "Student union",
+		"comment": "",
 		"link": "",
 		"price": 0,
 		"tags": [
