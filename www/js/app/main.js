@@ -18,9 +18,9 @@ function (leaflet, Voronoi, pubsData) {
 
     function postLink(pub)
     {
-        var text = pub.name;
+        var text = "<b>" + pub.name + "</b>";
         if ("link" in pub && pub.link != "")
-            text = createLink(pub.link, pub.name);
+            text = createLink(pub.link, text);
         if ("comment" in pub && pub.comment)
             text += "<br/><em>" + pub.comment + "</em>";
         if ("price" in pub && pub.price > 0)
@@ -32,7 +32,7 @@ function (leaflet, Voronoi, pubsData) {
             }
             text += "<br/>Previously known as " + previous.join(', ') + ".";
         }
-        if ("tags" in pub) {
+        if ("tags" in pub && pub.tags.length > 0) {
             text += "<br/>Tags: " + pub.tags.join(', ');
         }
         return text;
