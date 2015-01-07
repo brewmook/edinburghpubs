@@ -858,8 +858,8 @@ define(function(){return[
 	{
 		"name": "The Blue Blazer",
 		"id": 483034256,
-		"lat": 55.9459457,
-		"lon": -3.2032414,
+		"lat": 55.9459463,
+		"lon": -3.2031782,
 		"comment": "",
 		"link": "/2013/11/09/73-blue-blazer-spittal-street-edinburgh/",
 		"price": 3.6,
@@ -876,8 +876,8 @@ define(function(){return[
 	{
 		"name": "WJ Christie & Sons",
 		"id": 483035255,
-		"lat": 55.946624,
-		"lon": -3.1985887,
+		"lat": 55.9466571,
+		"lon": -3.1985046,
 		"comment": "",
 		"link": "/2014/08/17/264-wj-christie-sons-west-port-edinburgh/",
 		"price": 3.7,
@@ -1291,8 +1291,8 @@ define(function(){return[
 	{
 		"name": "The Chanter",
 		"id": 634806195,
-		"lat": 55.9456972,
-		"lon": -3.2040704,
+		"lat": 55.94571,
+		"lon": -3.2038266,
 		"comment": "",
 		"link": "/2014/05/05/179-the-chanter-bread-street-edinburgh",
 		"price": 3.45,
@@ -1825,8 +1825,8 @@ define(function(){return[
 	{
 		"name": "Fiddler's Arms",
 		"id": 1367308785,
-		"lat": 55.9469231,
-		"lon": -3.1978666,
+		"lat": 55.9469024,
+		"lon": -3.1978797,
 		"comment": "",
 		"link": "/2014/03/02/155-fiddlers-arms-grassmarket-edinburgh/",
 		"price": 4.07,
@@ -2692,8 +2692,8 @@ define(function(){return[
 	{
 		"name": "The Rat Pack",
 		"id": 1977943407,
-		"lat": 55.94991,
-		"lon": -3.2084201,
+		"lat": 55.9498913,
+		"lon": -3.208402,
 		"comment": "",
 		"link": "/2014/02/20/143-the-rat-pack-shandwick-place-edinburgh/",
 		"price": 3.36,
@@ -3258,8 +3258,8 @@ define(function(){return[
 	{
 		"name": "Shakespeares",
 		"id": 2112504091,
-		"lat": 55.9475764,
-		"lon": -3.2058313,
+		"lat": 55.9475652,
+		"lon": -3.2058557,
 		"comment": "",
 		"link": "/2013/11/09/70-shakespeares-lothian-road-edinburgh/",
 		"price": 3.25,
@@ -4326,35 +4326,6 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Bramble Bar",
-		"id": 2345016950,
-		"lat": 55.9548684,
-		"lon": -3.1976469,
-		"comment": "",
-		"link": "/2014/02/26/152-bramble-queen-street-edinburgh/",
-		"price": 0,
-		"tags": [
-			"Cocktails",
-			"Edinburgh",
-			"Queen Street"
-		]
-	},
-	{
-		"name": "International Vodka and Beer Bar",
-		"id": 2367011957,
-		"lat": 55.952011,
-		"lon": -3.2024405,
-		"comment": "",
-		"link": "/2013/10/29/59-international-vodka-and-beer-bar-rose-street-north-lane-edinburgh/",
-		"price": 0,
-		"tags": [
-			"Cocktails",
-			"Edinburgh",
-			"Rose Street Lane North",
-			"Secret Arcade"
-		]
-	},
-	{
 		"name": "Pickles",
 		"id": 2382624236,
 		"lat": 55.958676,
@@ -4572,18 +4543,6 @@ define(function(){return[
 			"Fountainbridge",
 			"Function Room",
 			"Pool Table(s)"
-		]
-	},
-	{
-		"name": "Fingers",
-		"id": 2643307267,
-		"lat": 55.9542045,
-		"lon": -3.200902,
-		"comment": "Only open late",
-		"link": "",
-		"price": 0,
-		"tags": [
-			"Disqualified"
 		]
 	},
 	{
@@ -5170,6 +5129,47 @@ define(function(){return[
 		"price": 0,
 		"tags": [
 			"Student union"
+		]
+	},
+	{
+		"name": "Bramble",
+		"id": 3274255605,
+		"lat": 55.9548523,
+		"lon": -3.1975703,
+		"comment": "",
+		"link": "/2014/02/26/152-bramble-queen-street-edinburgh/",
+		"price": 0,
+		"tags": [
+			"Cocktails",
+			"Edinburgh",
+			"Queen Street"
+		]
+	},
+	{
+		"name": "Fingers Piano Bar",
+		"id": 3274255606,
+		"lat": 55.9541427,
+		"lon": -3.2007844,
+		"comment": "Only open late",
+		"link": "",
+		"price": 0,
+		"tags": [
+			"Disqualified"
+		]
+	},
+	{
+		"name": "International Vodka and Beer Bar",
+		"id": 3274255609,
+		"lat": 55.9519939,
+		"lon": -3.2024014,
+		"comment": "",
+		"link": "/2013/10/29/59-international-vodka-and-beer-bar-rose-street-north-lane-edinburgh/",
+		"price": 0,
+		"tags": [
+			"Cocktails",
+			"Edinburgh",
+			"Rose Street Lane North",
+			"Secret Arcade"
 		]
 	}
 ];});
