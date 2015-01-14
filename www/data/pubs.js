@@ -126,7 +126,16 @@ define(function(){return[
 				"tags": []
 			}
 		],
-		"tags": []
+		"comment": "",
+		"link": "/2015/01/14/the-shoogly-peg-rose-street-edinburgh/",
+		"price": 3.98,
+		"tags": [
+			"Burgers",
+			"Edinburgh",
+			"Food",
+			"Nachos",
+			"Rose Street"
+		]
 	},
 	{
 		"name": "The Black Cat",
@@ -181,7 +190,7 @@ define(function(){return[
 			"Edinburgh",
 			"Food",
 			"Function Room",
-			"Maclay Inns",
+			"LT Pub Management",
 			"Outdoor seating",
 			"Real Ale",
 			"Rose Street",
@@ -2609,7 +2618,7 @@ define(function(){return[
 		"tags": [
 			"Edinburgh",
 			"Food",
-			"Maclay Inns",
+			"LT Pub Management",
 			"Missing photo",
 			"Pies",
 			"Real Ale",

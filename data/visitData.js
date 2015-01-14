@@ -293,5 +293,6 @@ module.exports = [
 [2100296461,"Browns","","/2014/08/26/273-browns-george-street-edinburgh/",0.00,"2014/07/01"],
 [2966042013,"The Hive","","",0.00,"2014/08/13",["Club"]],
 [2977978100,"The Rabbie Burns","","",0.00,"2014/08/13",["Restaurant"]],
-[3244717923,"Bainfield Union","","",0.00,"2014/12/30",["Student union"]]
+[3244717923,"Bainfield Union","","",0.00,"2014/12/30",["Student union"]],
+[41483839,"The Shoogly Peg","","/2015/01/14/the-shoogly-peg-rose-street-edinburgh/",3.98,"2015/01/06"],
 ];
