@@ -1976,6 +1976,7 @@ define(function(){return[
 		"tags": [
 			"Edinburgh",
 			"Favourite",
+			"Fireplace",
 			"Free house",
 			"Missing photo",
 			"Real Ale",
@@ -3595,18 +3596,33 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "The Spiders Web",
+		"name": "The Jolly Botanist",
 		"id": 2188447325,
-		"lat": 55.9462802,
-		"lon": -3.2152844,
+		"lat": 55.946311,
+		"lon": -3.2152697,
+		"previous": [
+			{
+				"id": 2188447325,
+				"name": "The Spiders Web",
+				"comment": "",
+				"link": "/2013/08/22/22-the-spiders-web-morrison-street-edinburgh/",
+				"price": 3.3,
+				"date": "2013/08/20",
+				"tags": []
+			}
+		],
 		"comment": "",
-		"link": "/2013/08/22/22-the-spiders-web-morrison-street-edinburgh/",
-		"price": 3.3,
+		"link": "/2015/02/17/the-jolly-botanist-morrison-street-edinburgh/",
+		"price": 3.9,
 		"tags": [
-			"Beatles",
+			"Burgers",
+			"Cocktails",
 			"Edinburgh",
+			"Food",
+			"Gin",
 			"Morrison Street",
-			"Unique"
+			"Real Ale",
+			"Star Pubs"
 		]
 	},
 	{
