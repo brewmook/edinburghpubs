@@ -180,8 +180,8 @@ define(function(){return[
 	{
 		"name": "Auld Hundred",
 		"id": 41483854,
-		"lat": 55.9522669,
-		"lon": -3.1993674,
+		"lat": 55.9522826,
+		"lon": -3.1993756,
 		"comment": "",
 		"link": "/2013/10/26/57-auld-hundred-rose-street-edinburgh/",
 		"price": 3.6,
@@ -236,8 +236,8 @@ define(function(){return[
 	{
 		"name": "Milnes of Rose street",
 		"id": 41483872,
-		"lat": 55.9529694,
-		"lon": -3.1964423,
+		"lat": 55.9529632,
+		"lon": -3.1964321,
 		"comment": "",
 		"link": "/2013/10/23/53-milnes-rose-street-edinburgh/",
 		"price": 3.8,
@@ -393,8 +393,8 @@ define(function(){return[
 	{
 		"name": "The Golf Tavern",
 		"id": 184267420,
-		"lat": 55.93987735,
-		"lon": -3.20369505,
+		"lat": 55.9398768,
+		"lon": -3.20368925,
 		"comment": "",
 		"link": "/2013/10/09/45-the-golf-tavern-wrights-houses-edinburgh/",
 		"price": 3.6,
@@ -413,8 +413,8 @@ define(function(){return[
 	{
 		"name": "Ryries",
 		"id": 224262073,
-		"lat": 55.945811250000006,
-		"lon": -3.2173471,
+		"lat": 55.94580995,
+		"lon": -3.21734725,
 		"comment": "",
 		"link": "/2014/02/23/144-ryries-haymarket-terrace-edinburgh/",
 		"price": 3.7,
@@ -602,8 +602,8 @@ define(function(){return[
 	{
 		"name": "Pear Tree",
 		"id": 366190942,
-		"lat": 55.9444257,
-		"lon": -3.1854362,
+		"lat": 55.9444464,
+		"lon": -3.18537,
 		"comment": "",
 		"link": "/2014/01/22/120-the-peartree-west-nicolson-street-edinburgh/",
 		"price": 0,
@@ -618,8 +618,8 @@ define(function(){return[
 	{
 		"name": "Blind Poet",
 		"id": 366190983,
-		"lat": 55.9445478,
-		"lon": -3.1851541,
+		"lat": 55.9445207,
+		"lon": -3.1852171,
 		"comment": "",
 		"link": "/2014/01/22/118-the-blind-poet-west-nicolson-street-edinburgh/",
 		"price": 3.95,
@@ -729,8 +729,8 @@ define(function(){return[
 	{
 		"name": "The Fountain",
 		"id": 367085460,
-		"lat": 55.940308,
-		"lon": -3.2179616,
+		"lat": 55.9402871,
+		"lon": -3.2179484,
 		"comment": "",
 		"link": "/2014/02/23/146-the-fountain-dundee-street-edinburgh/",
 		"price": 3.65,
@@ -885,8 +885,8 @@ define(function(){return[
 	{
 		"name": "WJ Christie & Sons",
 		"id": 483035255,
-		"lat": 55.9466571,
-		"lon": -3.1985046,
+		"lat": 55.9466693,
+		"lon": -3.1984915,
 		"comment": "",
 		"link": "/2014/08/17/264-wj-christie-sons-west-port-edinburgh/",
 		"price": 3.7,
@@ -979,8 +979,8 @@ define(function(){return[
 	{
 		"name": "Drouthy Neebors",
 		"id": 504318323,
-		"lat": 55.9390954,
-		"lon": -3.1817053,
+		"lat": 55.9391025,
+		"lon": -3.1817525,
 		"comment": "",
 		"link": "/2014/01/08/111-drouthy-neebors-west-preston-street-edinburgh/",
 		"price": 2.56,
@@ -1017,8 +1017,8 @@ define(function(){return[
 	{
 		"name": "Greenmantle",
 		"id": 507247282,
-		"lat": 55.9438954,
-		"lon": -3.1837198,
+		"lat": 55.9438995,
+		"lon": -3.1837414,
 		"comment": "",
 		"link": "/2014/01/19/117-the-green-mantle-nicolson-street-edinburgh/",
 		"price": 3.71,
@@ -1241,8 +1241,8 @@ define(function(){return[
 	{
 		"name": "Doctors",
 		"id": 613227823,
-		"lat": 55.9455377,
-		"lon": -3.1909164,
+		"lat": 55.9455179,
+		"lon": -3.190919,
 		"comment": "",
 		"link": "/2013/12/28/104-doctors-forrest-road-edinburgh/",
 		"price": 3.65,
@@ -1282,8 +1282,8 @@ define(function(){return[
 	{
 		"name": "Monboddo",
 		"id": 634806190,
-		"lat": 55.945705,
-		"lon": -3.2037107,
+		"lat": 55.9457066,
+		"lon": -3.2037108,
 		"comment": "",
 		"link": "/2014/05/05/180-monboddo-bread-street-edinburgh/",
 		"price": 3.85,
@@ -1300,8 +1300,8 @@ define(function(){return[
 	{
 		"name": "The Chanter",
 		"id": 634806195,
-		"lat": 55.94571,
-		"lon": -3.2038266,
+		"lat": 55.9457048,
+		"lon": -3.2038263,
 		"comment": "",
 		"link": "/2014/05/05/179-the-chanter-bread-street-edinburgh",
 		"price": 3.45,
@@ -1310,8 +1310,8 @@ define(function(){return[
 	{
 		"name": "Footlights Bar & Grill",
 		"id": 634866813,
-		"lat": 55.9459899,
-		"lon": -3.2037387,
+		"lat": 55.9460338,
+		"lon": -3.2036537,
 		"comment": "",
 		"link": "/2013/11/09/74-footlights-spittal-street-edinburgh/",
 		"price": 0,
@@ -1417,8 +1417,8 @@ define(function(){return[
 	{
 		"name": "Burlington Bertie",
 		"id": 674682926,
-		"lat": 55.942211,
-		"lon": -3.2027507,
+		"lat": 55.942227,
+		"lon": -3.2027656,
 		"comment": "",
 		"link": "/2013/11/28/91-burlington-bertie-tarvit-street-edinburgh/",
 		"price": 3,
@@ -1497,8 +1497,8 @@ define(function(){return[
 	{
 		"name": "Haymarket",
 		"id": 705831581,
-		"lat": 55.9463344,
-		"lon": -3.2161852,
+		"lat": 55.9463839,
+		"lon": -3.2161818,
 		"comment": "",
 		"link": "/2013/08/22/21-the-haymarket-bar-west-maitland-street-edinburgh/",
 		"price": 3,
@@ -1570,8 +1570,8 @@ define(function(){return[
 	{
 		"name": "The Potting Shed",
 		"id": 734668069,
-		"lat": 55.9453641,
-		"lon": -3.186553,
+		"lat": 55.9453044,
+		"lon": -3.1865217,
 		"comment": "",
 		"link": "/2014/01/26/123-the-potting-shed-potterow-edinburgh/",
 		"price": 5.02,
@@ -1641,8 +1641,8 @@ define(function(){return[
 	{
 		"name": "The Newsroom",
 		"id": 913817636,
-		"lat": 55.9537781,
-		"lon": -3.188174,
+		"lat": 55.9537827,
+		"lon": -3.1881886,
 		"comment": "",
 		"link": "/2013/11/17/80-the-newsroom-leith-street-edinburgh/",
 		"price": 3.8,
@@ -1693,8 +1693,8 @@ define(function(){return[
 	{
 		"name": "Jeremiah's Tap Room",
 		"id": 1249972539,
-		"lat": 55.9584175,
-		"lon": -3.183603,
+		"lat": 55.9584186,
+		"lon": -3.1835746,
 		"comment": "",
 		"link": "/2014/05/16/200-jeremiahs-taproom-elm-row-edinburgh/",
 		"price": 4.46,
@@ -1712,8 +1712,8 @@ define(function(){return[
 	{
 		"name": "Cask & Barrel Southside",
 		"id": 1319348485,
-		"lat": 55.9390363,
-		"lon": -3.1799981,
+		"lat": 55.9389607,
+		"lon": -3.1800426,
 		"comment": "",
 		"link": "/2014/01/08/110-cask-and-barrel-south-side-west-preston-street-edinburgh/",
 		"price": 3.25,
@@ -1834,8 +1834,8 @@ define(function(){return[
 	{
 		"name": "Fiddler's Arms",
 		"id": 1367308785,
-		"lat": 55.9469024,
-		"lon": -3.1978797,
+		"lat": 55.9468912,
+		"lon": -3.19787,
 		"comment": "",
 		"link": "/2014/03/02/155-fiddlers-arms-grassmarket-edinburgh/",
 		"price": 4.07,
@@ -1897,8 +1897,8 @@ define(function(){return[
 	{
 		"name": "Joseph Pearce",
 		"id": 1369533379,
-		"lat": 55.9590285,
-		"lon": -3.1830258,
+		"lat": 55.9589984,
+		"lon": -3.1830369,
 		"comment": "",
 		"link": "/2014/05/15/199-joseph-pearces-elm-row-edinburgh/",
 		"price": 4,
@@ -1914,8 +1914,8 @@ define(function(){return[
 	{
 		"name": "Pivo",
 		"id": 1369534604,
-		"lat": 55.9541444,
-		"lon": -3.1874139,
+		"lat": 55.954145,
+		"lon": -3.1874076,
 		"comment": "",
 		"link": "/2014/07/01/246-pivo-calton-road-edinburgh/",
 		"price": 0,
@@ -2025,8 +2025,8 @@ define(function(){return[
 	{
 		"name": "Theatre Royal",
 		"id": 1437376910,
-		"lat": 55.9571919,
-		"lon": -3.1851054,
+		"lat": 55.9571783,
+		"lon": -3.1850761,
 		"comment": "",
 		"link": "/2014/05/19/202-theatre-royal-greenside-place-edinburgh/",
 		"price": 3.5,
@@ -2047,8 +2047,8 @@ define(function(){return[
 	{
 		"name": "C.C. Blooms",
 		"id": 1437376911,
-		"lat": 55.957094,
-		"lon": -3.1852268,
+		"lat": 55.9570708,
+		"lon": -3.185202,
 		"comment": "",
 		"link": "/2014/05/19/203-cc-blooms-greenside-place-edinburgh/",
 		"price": 3.8,
@@ -2115,8 +2115,8 @@ define(function(){return[
 	{
 		"name": "The Black Bull",
 		"id": 1558008745,
-		"lat": 55.9542346,
-		"lon": -3.18738,
+		"lat": 55.9542426,
+		"lon": -3.1873677,
 		"comment": "",
 		"link": "/2014/06/29/243-the-black-bull-leith-street-edinburgh/",
 		"price": 3.5,
@@ -2571,8 +2571,8 @@ define(function(){return[
 	{
 		"name": "Red Squirrel",
 		"id": 1951378276,
-		"lat": 55.9483828,
-		"lon": -3.2061195,
+		"lat": 55.9484187,
+		"lon": -3.2061447,
 		"comment": "",
 		"link": "/2013/11/09/71-red-squirrel-lothian-road-edinburgh/",
 		"price": 0,
@@ -2643,25 +2643,6 @@ define(function(){return[
 			"Real Ale",
 			"Traditional",
 			"Whisky"
-		]
-	},
-	{
-		"name": "Planet",
-		"id": 1962438314,
-		"lat": 55.9576011,
-		"lon": -3.184643,
-		"comment": "",
-		"link": "/2014/05/16/201-planet-baxters-place-edinburgh/",
-		"price": 3.3,
-		"tags": [
-			"Baxter's Place",
-			"Cocktails",
-			"Edinburgh",
-			"Gay Bar",
-			"Leith Walk",
-			"Missing photo",
-			"Pool Table(s)",
-			"Quiz"
 		]
 	},
 	{
@@ -2837,8 +2818,8 @@ define(function(){return[
 	{
 		"name": "Cuckoo's Nest",
 		"id": 2089188356,
-		"lat": 55.9421758,
-		"lon": -3.2031848,
+		"lat": 55.9421663,
+		"lon": -3.2031887,
 		"comment": "",
 		"link": "/2013/11/29/92-the-cuckoos-nest-home-street-edinburgh/",
 		"price": 3.84,
@@ -2891,8 +2872,8 @@ define(function(){return[
 	{
 		"name": "Cameo Bar",
 		"id": 2089240094,
-		"lat": 55.94269,
-		"lon": -3.204131,
+		"lat": 55.94265,
+		"lon": -3.2040985,
 		"comment": "",
 		"link": "/2014/05/06/185-cameo-bar-lochrin-place-edinburgh/",
 		"price": 0,
@@ -3089,8 +3070,8 @@ define(function(){return[
 	{
 		"name": "Lock 25",
 		"id": 2103111401,
-		"lat": 55.9443619,
-		"lon": -3.2058261,
+		"lat": 55.944373,
+		"lon": -3.2058949,
 		"comment": "",
 		"link": "/2013/09/10/34-lock-25-fountainbridge-edinburgh/",
 		"price": 3.8,
@@ -3140,8 +3121,8 @@ define(function(){return[
 	{
 		"name": "Waterloo Bar",
 		"id": 2110964848,
-		"lat": 55.9536535,
-		"lon": -3.1880989,
+		"lat": 55.9536531,
+		"lon": -3.1880821,
 		"comment": "",
 		"link": "/2014/07/02/247-waterloo-bar-waterloo-place-edinburgh/",
 		"price": 3.3,
@@ -3268,8 +3249,8 @@ define(function(){return[
 	{
 		"name": "Shakespeares",
 		"id": 2112504091,
-		"lat": 55.9475652,
-		"lon": -3.2058557,
+		"lat": 55.9475568,
+		"lon": -3.2058334,
 		"comment": "",
 		"link": "/2013/11/09/70-shakespeares-lothian-road-edinburgh/",
 		"price": 3.25,
@@ -3288,8 +3269,8 @@ define(function(){return[
 	{
 		"name": "Lebowskis",
 		"id": 2112504111,
-		"lat": 55.9459497,
-		"lon": -3.2062912,
+		"lat": 55.9459426,
+		"lon": -3.2062907,
 		"comment": "",
 		"link": "/2013/09/08/31-lebowskis-morrison-street-edinburgh/",
 		"price": 3.5,
@@ -3306,8 +3287,8 @@ define(function(){return[
 	{
 		"name": "Henry's Cellar Bar",
 		"id": 2112507655,
-		"lat": 55.9459489,
-		"lon": -3.2062161,
+		"lat": 55.9459442,
+		"lon": -3.2062158,
 		"comment": "",
 		"link": "/2014/08/18/266-henrys-cellar-bar-morrison-street-edinburgh/",
 		"price": 3.4,
@@ -3405,8 +3386,8 @@ define(function(){return[
 	{
 		"name": "Playfair",
 		"id": 2121794767,
-		"lat": 55.9564993,
-		"lon": -3.1858115,
+		"lat": 55.9564594,
+		"lon": -3.1856577,
 		"comment": "",
 		"link": "/2014/06/30/245-the-playfair-greenside-place-edinburgh/",
 		"price": 2.29,
@@ -3454,8 +3435,8 @@ define(function(){return[
 	{
 		"name": "amicus apple",
 		"id": 2127679448,
-		"lat": 55.9521342,
-		"lon": -3.1995774,
+		"lat": 55.952138,
+		"lon": -3.1995558,
 		"comment": "",
 		"link": "/2013/11/02/61-amicus-apple-frederick-street-edinburgh/",
 		"price": 4.08,
@@ -3579,8 +3560,8 @@ define(function(){return[
 	{
 		"name": "The Hanging Bat",
 		"id": 2177262557,
-		"lat": 55.9454499,
-		"lon": -3.205029,
+		"lat": 55.9454485,
+		"lon": -3.2050417,
 		"comment": "",
 		"link": "/2013/09/10/33-the-hanging-bat-lothian-road-edinburgh/",
 		"price": 0,
@@ -3796,8 +3777,8 @@ define(function(){return[
 	{
 		"name": "The Ventoux",
 		"id": 2335634557,
-		"lat": 55.9436795,
-		"lon": -3.2029234,
+		"lat": 55.9436826,
+		"lon": -3.202915,
 		"comment": "",
 		"link": "/2013/12/01/93-the-ventoux-brougham-street-edinburgh/",
 		"price": 0,
@@ -3813,8 +3794,8 @@ define(function(){return[
 	{
 		"name": "Moriarty",
 		"id": 2335634597,
-		"lat": 55.9451633,
-		"lon": -3.2049525,
+		"lat": 55.9451646,
+		"lon": -3.2049406,
 		"previous": [
 			{
 				"id": 2335634597,
@@ -3933,8 +3914,8 @@ define(function(){return[
 	{
 		"name": "Cafe Habana",
 		"id": 2338469025,
-		"lat": 55.957007,
-		"lon": -3.185329,
+		"lat": 55.9569966,
+		"lon": -3.185289,
 		"comment": "",
 		"link": "/2014/07/08/250-cafe-habana-greenside-place-edinburgh/",
 		"price": 3.31,
@@ -4276,7 +4257,7 @@ define(function(){return[
 		"name": "Kings Arms",
 		"id": 2341277531,
 		"lat": 55.9426513,
-		"lon": -3.2033463,
+		"lon": -3.2033557,
 		"comment": "",
 		"link": "/2013/11/28/90-kings-arms-home-street-edinburgh/",
 		"price": 2.66,
@@ -4661,8 +4642,8 @@ define(function(){return[
 	{
 		"name": "The Victoria Bar & Lounge",
 		"id": 2774743770,
-		"lat": 55.9386998,
-		"lon": -3.1815256,
+		"lat": 55.9386963,
+		"lon": -3.1815433,
 		"comment": "",
 		"link": "/2014/06/17/228-the-victoria-bar-lounge-causewayside-edinburgh/",
 		"price": 2.8,
@@ -4678,7 +4659,7 @@ define(function(){return[
 	{
 		"name": "SkyBar",
 		"id": 2812023487,
-		"lat": 55.945707,
+		"lat": 55.945708,
 		"lon": -3.2036262,
 		"comment": "Only open one day per month! Great views of the castle though",
 		"link": "",
@@ -4746,8 +4727,8 @@ define(function(){return[
 	{
 		"name": "Slug & Lettuce",
 		"id": 2888279093,
-		"lat": 55.9563641,
-		"lon": -3.1858503,
+		"lat": 55.9563435,
+		"lon": -3.1858006,
 		"comment": "",
 		"link": "/2014/06/30/244-the-slug-and-lettuce-greenside-place-edinburgh/",
 		"price": 3.71,
@@ -4764,8 +4745,8 @@ define(function(){return[
 	{
 		"name": "The Balmoral Bar",
 		"id": 2888279094,
-		"lat": 55.9530844,
-		"lon": -3.1892765,
+		"lat": 55.9529904,
+		"lon": -3.1899776,
 		"comment": "",
 		"link": "/2014/07/03/248-the-balmoral-bar-princes-street-edinburgh/",
 		"price": 5.5,
@@ -4781,8 +4762,8 @@ define(function(){return[
 	{
 		"name": "Heads & Tales",
 		"id": 2922567339,
-		"lat": 55.9500057,
-		"lon": -3.2078391,
+		"lat": 55.9499129,
+		"lon": -3.2079909,
 		"comment": "",
 		"link": "/2014/08/17/265-heads-tales-rutland-place-edinburgh/",
 		"price": 4.5,
@@ -4984,8 +4965,8 @@ define(function(){return[
 	{
 		"name": "Usher's",
 		"id": 3015271943,
-		"lat": 55.944523,
-		"lon": -3.1852101
+		"lat": 55.944553,
+		"lon": -3.1851474
 	},
 	{
 		"name": "The Kilderkin",
@@ -5196,5 +5177,42 @@ define(function(){return[
 			"Rose Street Lane North",
 			"Secret Arcade"
 		]
+	},
+	{
+		"name": "Planet",
+		"id": 3292175224,
+		"lat": 55.9575734,
+		"lon": -3.1846236,
+		"comment": "",
+		"link": "/2014/05/16/201-planet-baxters-place-edinburgh/",
+		"price": 3.3,
+		"tags": [
+			"Baxter's Place",
+			"Cocktails",
+			"Edinburgh",
+			"Gay Bar",
+			"Leith Walk",
+			"Missing photo",
+			"Pool Table(s)",
+			"Quiz"
+		]
+	},
+	{
+		"name": "Marcos",
+		"id": 3397807656,
+		"lat": 55.9443423,
+		"lon": -3.2116916,
+		"previous": [
+			{
+				"id": 3397807656,
+				"name": "Marco's Pool Hall",
+				"comment": "",
+				"link": "/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",
+				"price": 3.5,
+				"date": "2015/11/03",
+				"tags": []
+			}
+		],
+		"tags": []
 	}
 ];});

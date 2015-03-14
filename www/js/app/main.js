@@ -386,7 +386,7 @@ function (leaflet, Voronoi, pubsData) {
             radiusMetres:1609
         };
         var map = createMap(target.lat, target.lon);
-        var layersControl = leaflet.control.layers(null, null, { "position":"bottomright", "collapsed": false }).addTo(map);
+        var layersControl = leaflet.control.layers(null, null, { position:"bottomright", collapsed: false }).addTo(map);
 
         addTargetToMap(target, map);
         var icons = createIcons();
