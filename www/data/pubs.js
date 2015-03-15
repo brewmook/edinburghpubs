@@ -3894,22 +3894,22 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Bar Kohl",
+		"name": "Slighhouse",
 		"id": 2338357475,
 		"lat": 55.9481394,
 		"lon": -3.1916619,
-		"comment": "",
-		"link": "/2014/02/17/136-bar-kohl-george-iv-bridge-edinburgh/",
-		"price": 3.6,
-		"tags": [
-			"Burgers",
-			"Cocktails",
-			"Edinburgh",
-			"Food",
-			"George IV Bridge",
-			"Nachos",
-			"The Shilling Group"
-		]
+		"previous": [
+			{
+				"id": 2338357475,
+				"name": "Bar Kohl",
+				"comment": "",
+				"link": "/2014/02/17/136-bar-kohl-george-iv-bridge-edinburgh/",
+				"price": 3.6,
+				"date": "2014/01/21",
+				"tags": []
+			}
+		],
+		"tags": []
 	},
 	{
 		"name": "Cafe Habana",
@@ -4776,26 +4776,6 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Juniper",
-		"id": 2925692787,
-		"lat": 55.9532061,
-		"lon": -3.1907837,
-		"comment": "",
-		"link": "/2014/08/23/270-juniper-princes-street-edinburgh/",
-		"price": 4.03,
-		"tags": [
-			"Castle View",
-			"Castle View Inside",
-			"Cocktails",
-			"Edinburgh",
-			"Gin",
-			"Hotel Bar",
-			"Pricey",
-			"Princes Street",
-			"Whisky"
-		]
-	},
-	{
 		"name": "The Halfway House",
 		"id": 2931382078,
 		"lat": 55.9509718,
@@ -5202,17 +5182,35 @@ define(function(){return[
 		"id": 3397807656,
 		"lat": 55.9443423,
 		"lon": -3.2116916,
-		"previous": [
-			{
-				"id": 3397807656,
-				"name": "Marco's Pool Hall",
-				"comment": "",
-				"link": "/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",
-				"price": 3.5,
-				"date": "2015/11/03",
-				"tags": []
-			}
-		],
-		"tags": []
+		"comment": "",
+		"link": "/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",
+		"price": 3.5,
+		"tags": [
+			"Edinburgh",
+			"Food",
+			"Grove Street",
+			"Pizzas",
+			"Pool Table(s)"
+		]
+	},
+	{
+		"name": "Juniper",
+		"id": 3398952821,
+		"lat": 55.9531932,
+		"lon": -3.1908602,
+		"comment": "",
+		"link": "/2014/08/23/270-juniper-princes-street-edinburgh/",
+		"price": 4.03,
+		"tags": [
+			"Castle View",
+			"Castle View Inside",
+			"Cocktails",
+			"Edinburgh",
+			"Gin",
+			"Hotel Bar",
+			"Pricey",
+			"Princes Street",
+			"Whisky"
+		]
 	}
 ];});

@@ -286,7 +286,7 @@ module.exports = [
 [2868039188,"Platform 5","","/2014/08/20/268-platform-5-haymarket-terrace-edinburgh/",3.38,"2014/06/24"],
 [2382624236,"Pickles","","/2014/08/21/269-pickles-broughton-street-edinburgh/",3.40,"2014/06/27"],
 [2578704906,"The Wee Red Bar","","",0.00,"2014/07/01",["Student union"]],
-[2925692787,"Juniper","","/2014/08/23/270-juniper-princes-street-edinburgh/",4.03,"2014/07/01"],
+[3398952821,"Juniper","","/2014/08/23/270-juniper-princes-street-edinburgh/",4.03,"2014/07/01"],
 [581870354,"Le Monde","","/2014/08/23/271-le-monde-george-street-edinburgh/",0.00,"2014/07/01"],
 [3274255606,"Fingers Piano Bar","Only open late","",0.00,"2014/07/01",["Disqualified"]],
 [1754796173,"The Amber Rose","","/2014/08/24/272-the-amber-rose-castle-street-edinburgh/",0.00,"2014/07/01"],
@@ -294,7 +294,7 @@ module.exports = [
 [2966042013,"The Hive","","",0.00,"2014/08/13",["Club"]],
 [2977978100,"The Rabbie Burns","","",0.00,"2014/08/13",["Restaurant"]],
 [3244717923,"Bainfield Union","","",0.00,"2014/12/30",["Student union"]],
-[3397807656,"Marco's Pool Hall","","/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",3.50,"2015/11/03"],
+[3397807656,"Marcos","","/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",3.50,"2015/11/03"],
 [41483839,"The Shoogly Peg","","/2015/01/14/the-shoogly-peg-rose-street-edinburgh/",3.98,"2015/01/06"],
 [2188447325,"The Jolly Botanist","","/2015/02/17/the-jolly-botanist-morrison-street-edinburgh/",3.90,"2014/02/10"]
 ];
