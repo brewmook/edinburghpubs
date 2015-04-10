@@ -692,10 +692,10 @@ define(function(){return[
 		"tags": []
 	},
 	{
+		"name": "The Polwarth Tavern",
 		"id": 367085451,
 		"lat": 55.9381612,
 		"lon": -3.2182135,
-		"name": "The Polwarth Tavern",
 		"comment": "",
 		"link": "/2014/02/24/149-the-polwarth-tavern-polwarth-crescent-edinburgh/",
 		"price": 3.3,
@@ -1224,8 +1224,8 @@ define(function(){return[
 	{
 		"name": "The Other Place",
 		"id": 585214846,
-		"lat": 55.9625337,
-		"lon": -3.196307,
+		"lat": 55.9625655,
+		"lon": -3.196251,
 		"comment": "",
 		"link": "/2013/09/16/39-the-other-place-broughton-road-edinburgh/",
 		"price": 3.7,
@@ -1693,8 +1693,8 @@ define(function(){return[
 	{
 		"name": "Jeremiah's Tap Room",
 		"id": 1249972539,
-		"lat": 55.9584186,
-		"lon": -3.1835746,
+		"lat": 55.9583594,
+		"lon": -3.1836243,
 		"comment": "",
 		"link": "/2014/05/16/200-jeremiahs-taproom-elm-row-edinburgh/",
 		"price": 4.46,
@@ -3682,19 +3682,22 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Capital",
+		"name": "OX184",
 		"id": 2323807234,
 		"lat": 55.9486923,
 		"lon": -3.1882174,
-		"comment": "",
-		"link": "/2014/03/08/167-capital-bar-cowgate-edinburgh/",
-		"price": 0,
-		"tags": [
-			"Club",
-			"Cowgate",
-			"Edinburgh",
-			"February Blowout"
-		]
+		"previous": [
+			{
+				"id": 2323807234,
+				"name": "Capital",
+				"comment": "",
+				"link": "/2014/03/08/167-capital-bar-cowgate-edinburgh/",
+				"price": 0,
+				"date": "2014/02/15",
+				"tags": []
+			}
+		],
+		"tags": []
 	},
 	{
 		"name": "The Advocate",
