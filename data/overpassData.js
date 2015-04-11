@@ -188,6 +188,7 @@ module.exports = [
 {name:"The Blue Blazer", id:483034256, lat:55.9459463, lon:-3.2031782},
 {name:"The Bon Vivant Stockbridge", id:727348502, lat:55.9585881, lon:-3.2103788},
 {name:"The Bon Vivant", id:2343257903, lat:55.9539831, lon:-3.1996939},
+{name:"The Boozy Cow", id:2127679448, lat:55.952138, lon:-3.1995558},
 {name:"The Brass Monkey", id:1996125592, lat:55.9472618, lon:-3.185283},
 {name:"The Brauhaus", id:474049045, lat:55.9442459, lon:-3.2019494},
 {name:"The Caley Bar", id:2305497529, lat:55.9497597, lon:-3.2074169},
@@ -275,5 +276,4 @@ module.exports = [
 {name:"Whiski", id:2112426253, lat:55.9504288, lon:-3.1865438},
 {name:"Whistlebinkies", id:2954633083, lat:55.9499346, lon:-3.1872649},
 {name:"White Horse", id:3059493049, lat:55.9506189, lon:-3.1835665},
-{name:"amicus apple", id:2127679448, lat:55.952138, lon:-3.1995558},
 {name:"the basement", id:1327630111, lat:55.9570085, lon:-3.1883445}];

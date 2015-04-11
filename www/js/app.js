@@ -1,6 +1,6 @@
 requirejs.config({
     baseUrl: "js/lib",
-    urlArgs: "v=866a9da519620dd0316c35ebd60f4be6f93ddf45",
+    urlArgs: "v=1",
     paths: {
         app: "../app",
         data: "../../data",

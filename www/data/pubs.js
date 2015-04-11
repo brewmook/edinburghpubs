@@ -3433,24 +3433,22 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "amicus apple",
+		"name": "The Boozy Cow",
 		"id": 2127679448,
 		"lat": 55.952138,
 		"lon": -3.1995558,
-		"comment": "",
-		"link": "/2013/11/02/61-amicus-apple-frederick-street-edinburgh/",
-		"price": 4.08,
-		"tags": [
-			"Castle View",
-			"Castle View Inside",
-			"Cocktails",
-			"Edinburgh",
-			"Food",
-			"Frederick Street",
-			"Outdoor seating",
-			"Pricey",
-			"Speratus Group"
-		]
+		"previous": [
+			{
+				"id": 2127679448,
+				"name": "amicus apple",
+				"comment": "",
+				"link": "/2013/11/02/61-amicus-apple-frederick-street-edinburgh/",
+				"price": 4.08,
+				"date": "2013/10/15",
+				"tags": []
+			}
+		],
+		"tags": []
 	},
 	{
 		"id": 2128258320,
