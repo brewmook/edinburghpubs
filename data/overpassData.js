@@ -242,6 +242,7 @@ module.exports = [
 {name:"The Royal Mile", id:626986693, lat:55.9503992, lon:-3.1867667},
 {name:"The Royal Oak", id:250351299, lat:55.9480679, lon:-3.1861969},
 {name:"The Shoogly Peg", id:41483839, lat:55.9516706, lon:-3.2039712},
+{name:"The Slug and Lettuce", id:2100296385, lat:55.9525837, lon:-3.2041424},
 {name:"The Southern", id:2324955570, lat:55.9404684, lon:-3.180898},
 {name:"The Standing Order", id:3166444934, lat:55.9529173, lon:-3.1995774},
 {name:"The Stockbridge Tap", id:585214835, lat:55.95895, lon:-3.2099661},

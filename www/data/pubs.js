@@ -3017,20 +3017,22 @@ define(function(){return[
 		]
 	},
 	{
+		"name": "The Slug and Lettuce",
 		"id": 2100296385,
-		"lat": 55.9525557,
-		"lon": -3.2041238,
-		"name": "Living Room",
-		"comment": "",
-		"link": "/2013/11/16/77-the-living-room-george-street-edinburgh/",
-		"price": 3.95,
-		"tags": [
-			"Chain",
-			"Edinburgh",
-			"George Street",
-			"Outdoor seating",
-			"Stonegate Pubs"
-		]
+		"lat": 55.9525837,
+		"lon": -3.2041424,
+		"previous": [
+			{
+				"id": 2100296385,
+				"name": "Living Room",
+				"comment": "",
+				"link": "/2013/11/16/77-the-living-room-george-street-edinburgh/",
+				"price": 3.95,
+				"date": "2013/11/05",
+				"tags": []
+			}
+		],
+		"tags": []
 	},
 	{
 		"id": 2100296437,
