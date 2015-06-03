@@ -14,4 +14,5 @@ module.exports = [
 {"id":2100296437,"lat":55.9524016,"lon":-3.2052183,"name":"Tigerlily"},
 {"id":581870354,"lat":55.9534796,"lon":-3.1960559,"name":"Le Monde"},
 {"id":2426508094,"lat":55.9492753,"lon":-3.1855034,"name":"Blackfriars"},
+{"id":366191902,"lat": 55.9427088,"lon": -3.1845678,"name": "The Moo Bar"}
 ];

@@ -491,8 +491,8 @@ define(function(){return[
 	{
 		"name": "The Auld Hoose",
 		"id": 255760161,
-		"lat": 55.9434746,
-		"lon": -3.1803127,
+		"lat": 55.9434879,
+		"lon": -3.1802742,
 		"comment": "",
 		"link": "/2014/05/10/191-the-auld-hoose-st-leonards-street-edinburgh/",
 		"price": 0,
@@ -509,7 +509,7 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "The Baillie",
+		"name": "The Bailie",
 		"id": 307639901,
 		"lat": 55.9574763,
 		"lon": -3.2071208,
@@ -674,10 +674,10 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "The Moo Bar",
 		"id": 366191902,
 		"lat": 55.9427088,
 		"lon": -3.1845678,
+		"name": "The Moo Bar",
 		"previous": [
 			{
 				"id": 366191902,
@@ -1876,8 +1876,8 @@ define(function(){return[
 	{
 		"name": "Abbotsford",
 		"id": 1367337816,
-		"lat": 55.9532707,
-		"lon": -3.1946443,
+		"lat": 55.9532705,
+		"lon": -3.1946516,
 		"comment": "",
 		"link": "/2013/10/23/52-the-abbotsford-rose-street-edinburgh/",
 		"price": 3.5,
@@ -5215,5 +5215,11 @@ define(function(){return[
 			"Princes Street",
 			"Whisky"
 		]
+	},
+	{
+		"name": "Usquabae Whisky Bar",
+		"id": 3498801168,
+		"lat": 55.9504246,
+		"lon": -3.2082429
 	}
 ];});

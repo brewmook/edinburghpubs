@@ -132,7 +132,7 @@ module.exports = [
 [2076668725,"The Scran & Scallie","","/2014/02/09/129-scran-scallie-raeburn-place-edinburgh/",4.35,"2014/01/14"],
 [585214836,"Hamilton's Bar and Kitchen","","/2014/02/09/130-hamiltons-bar-and-kitchen-hamilton-place-edinburgh/",4.20,"2014/01/14"],
 [585214840,"The Antiquary","","/2014/02/09/131-the-antiquary-st-stephen-street-edinburgh/",3.62,"2014/01/14"],
-[307639901,"The Baillie","","/2014/02/10/132-the-bailie-bar-st-stephen-street-edinburgh/",3.62,"2014/01/14"],
+[307639901,"The Bailie","","/2014/02/10/132-the-bailie-bar-st-stephen-street-edinburgh/",3.62,"2014/01/14"],
 [2343249681,"The Last Word","","/2014/02/11/133-the-last-word-st-stephen-street-edinburgh/",4.95,"2014/01/14"],
 [658120548,"Wash Bar","","/2014/02/12/134-wash-bar-north-bank-street-edinburgh/",3.47,"2014/01/21"],
 [2338727896,"The Jolly Judge","","/2014/02/16/135-the-jolly-judge-james-court-edinburgh/",0.00,"2014/01/21"],
