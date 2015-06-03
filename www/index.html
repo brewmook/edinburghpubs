@@ -7,7 +7,13 @@
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.ie.css" />
     <![endif]-->
-    <script data-main="js/app" src="js/lib/require.2.1.15.min.js"></script>
+    <script type="text/javascript">
+        var require = {
+            urlArgs : "v=6",
+            deps : ['js/app']
+        };
+    </script>
+    <script src="js/lib/require.2.1.15.min.js"></script>
     <style type="text/css">
         body { padding:0; margin:0; }
         html, body, #map { height: 100%; }
