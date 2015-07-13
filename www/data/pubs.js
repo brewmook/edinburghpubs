@@ -3647,24 +3647,22 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Cargo",
 		"id": 2293637169,
 		"lat": 55.9431786,
 		"lon": -3.2083293,
-		"comment": "",
-		"link": "/2013/09/11/35-cargo-fountainbridge-edinburgh/",
-		"price": 4.15,
-		"tags": [
-			"Beer Garden",
-			"Dancefloor",
-			"Edinburgh",
-			"Food",
-			"Fountainbridge",
-			"Function Room",
-			"Outdoor seating",
-			"Patio",
-			"Sports Bar"
-		]
+		"name": "Akva",
+		"previous": [
+			{
+				"id": 2293637169,
+				"name": "Cargo",
+				"comment": "",
+				"link": "/2013/09/11/35-cargo-fountainbridge-edinburgh/",
+				"price": 4.15,
+				"date": "2013/09/07",
+				"tags": []
+			}
+		],
+		"tags": []
 	},
 	{
 		"name": "The Caley Bar",
@@ -3742,22 +3740,10 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Ryan's Bar",
+		"name": "Usquabae",
 		"id": 2325384958,
-		"lat": 55.9504376,
-		"lon": -3.2083534,
-		"comment": "",
-		"link": "/2013/07/30/5-ryans-bar-hope-street-edinburgh/",
-		"price": 3.56,
-		"tags": [
-			"Caledonian Heritable",
-			"Castle View",
-			"Castle View Inside",
-			"Edinburgh",
-			"Food",
-			"Hope Street",
-			"Real Ale"
-		]
+		"lat": 55.9504304,
+		"lon": -3.2082409
 	},
 	{
 		"name": "Clouds & Soil",
@@ -4539,20 +4525,22 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Hyde Out",
+		"name": "Badabing",
 		"id": 2621234538,
 		"lat": 55.9428529,
 		"lon": -3.2085302,
-		"comment": "",
-		"link": "/2013/09/11/36-hyde-out-fountainbridge-square-edinburgh/",
-		"price": 3.65,
-		"tags": [
-			"Cocktails",
-			"Edinburgh",
-			"Fountainbridge",
-			"Function Room",
-			"Pool Table(s)"
-		]
+		"previous": [
+			{
+				"id": 2621234538,
+				"name": "Hyde Out",
+				"comment": "",
+				"link": "/2013/09/11/36-hyde-out-fountainbridge-square-edinburgh/",
+				"price": 3.65,
+				"date": "2013/09/07",
+				"tags": []
+			}
+		],
+		"tags": []
 	},
 	{
 		"name": "The Wee Pub",
@@ -5181,6 +5169,12 @@ define(function(){return[
 		]
 	},
 	{
+		"name": "No.8 Lister Square",
+		"id": 3309160703,
+		"lat": 55.9436148,
+		"lon": -3.1938586
+	},
+	{
 		"name": "Marcos",
 		"id": 3397807656,
 		"lat": 55.9443423,
@@ -5217,9 +5211,21 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Usquabae Whisky Bar",
-		"id": 3498801168,
-		"lat": 55.9504246,
-		"lon": -3.2082429
+		"name": "Ryan's Bar",
+		"id": 3649489849,
+		"lat": 55.950412,
+		"lon": -3.2083047,
+		"comment": "",
+		"link": "/2013/07/30/5-ryans-bar-hope-street-edinburgh/",
+		"price": 3.56,
+		"tags": [
+			"Caledonian Heritable",
+			"Castle View",
+			"Castle View Inside",
+			"Edinburgh",
+			"Food",
+			"Hope Street",
+			"Real Ale"
+		]
 	}
 ];});
