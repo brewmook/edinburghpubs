@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-var http = require('http');
 var request = require('request');
 
 function interpolate(low, high)
@@ -33,7 +32,7 @@ function relevant(amenitiesRE, tags)
 
 function parseResults(amenitiesRE, data)
 {
-    var areaNodes = {};
+    var wayNodes = {};
     var results = [];
 
     data.elements.forEach(function(el) {
@@ -42,11 +41,11 @@ function parseResults(amenitiesRE, data)
                 results.push({name:el.tags.name, id:el.id, lat:el.lat, lon:el.lon});
             }
             else {
-                areaNodes[el.id] = el;
+                wayNodes[el.id] = el;
             }
         }
-        else {
-            var loc = calcCentroid(el, areaNodes);
+        else { // type is "way"
+            var loc = calcCentroid(el, wayNodes);
             if (loc && relevant(amenitiesRE, el.tags)) {
                 results.push({name:el.tags.name, id:el.id, lat:loc.lat, lon:loc.lon});
             }
