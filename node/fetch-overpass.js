@@ -1,16 +1,6 @@
 #!/usr/bin/env node
-var fs = require('fs');
 var http = require('http');
 var request = require('request');
-
-var overpassTemplate = "\
-    [out:json];\
-    (\
-      node(around:{rad},{lat},{lon})[\"amenity\"~\"{amenities}\"];\
-      way(around:{rad},{lat},{lon})[\"amenity\"~\"{amenities}\"];\
-    );\
-    (._;>;);\
-    out body;";
 
 function interpolate(low, high)
 {
@@ -47,78 +37,65 @@ function parseResults(amenitiesRE, data)
     var results = [];
 
     data.elements.forEach(function(el) {
-        if (el.type == "node")
-        {
-            if (el.lat && el.lon && relevant(amenitiesRE, el.tags))
-            {
-                results.push({id:el.id, lat:el.lat, lon:el.lon, name:el.tags.name});
+        if (el.type == "node") {
+            if (el.lat && el.lon && relevant(amenitiesRE, el.tags)) {
+                results.push({name:el.tags.name, id:el.id, lat:el.lat, lon:el.lon});
             }
-            else
-            {
+            else {
                 areaNodes[el.id] = el;
             }
         }
-        else
-        {
+        else {
             var loc = calcCentroid(el, areaNodes);
-            if (loc && relevant(amenitiesRE, el.tags))
-            {
-                results.push({id:el.id, lat:loc.lat, lon:loc.lon, name:el.tags.name});
+            if (loc && relevant(amenitiesRE, el.tags)) {
+                results.push({name:el.tags.name, id:el.id, lat:loc.lat, lon:loc.lon});
             }
         }
+    });
+
+    results.sort(function (a, b) {
+        if (a.name > b.name) { return 1; }
+        if (a.name < b.name) { return -1; }
+        return 0;
     });
 
     return results;
 }
 
-function overpassQueryUrl(target, queryTemplate, amenitiesRE)
+function buildOverpassQueryUrl(lat, lon, radiusMetres, amenitiesRE)
 {
-    var amenities = amenitiesRE.toString();
     var url = "http://overpass-api.de/api/interpreter?data=";
-    var query = queryTemplate;
-    query = query.replace(/\{rad\}/g, target.radiusMetres);
-    query = query.replace(/\{lat\}/g, target.lat);
-    query = query.replace(/\{lon\}/g, target.lon);
-    query = query.replace(/\{amenities\}/g, amenities.substring(1, amenities.length-1));
-    return url + encodeURIComponent(query);
+    var around = [radiusMetres, lat, lon].join(',');
+    var amenities = amenitiesRE.toString();
+    amenities = amenities.substring(1, amenities.length-1);
+
+    var overpassQuery = "[out:json];\
+      (\
+        node(around:"+around+")[\"amenity\"~\""+amenities+"\"];\
+        way(around:"+around+")[\"amenity\"~\""+amenities+"\"];\
+      );\
+      (._;>;);\
+      out body;";
+
+    return url + encodeURIComponent(overpassQuery);
 }
 
-function csvify(pubs)
+function findAmenities(lat, lon, radiusMetres, amenitiesRE, success)
 {
-    var result = [];
-    pubs.forEach(function(pub) {
-	result.push([pub.id, pub.name, pub.lat, pub.lon].join(', '));
+    var url = buildOverpassQueryUrl(lat, lon, radiusMetres, amenitiesRE);
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var amenities = parseResults(amenitiesRE, JSON.parse(body));
+            success(amenities);
+        }
     });
-    return result.join('\n');
 }
 
-function jsonify(pubs)
+function writeJSON(amenities)
 {
-    var strings = [];
-    pubs.forEach(function(pub) {
-	strings.push('{name:"'+pub.name+'", id:'+pub.id+', lat:'+pub.lat+', lon:'+pub.lon+'}');
-    });
-    strings.sort();
-    return "module.exports = [\n" + strings.join(",\n") + "];\n";
+    console.log('module.exports = [');
+    amenities.forEach(function(a) { return console.log(JSON.stringify(a) + ','); });
+    console.log('];');
 }
 
-function findPubs(target, amenitiesRE)
-{
-    request(overpassQueryUrl(target, overpassTemplate, amenitiesRE),
-            function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-		    var pubs = parseResults(amenitiesRE, JSON.parse(body));
-                    //fs.writeFileSync('www/data/overpassData.csv', csvify(pubs));
-                    fs.writeFileSync('data/overpassData.js', jsonify(pubs));
-		}
-	    });
-}
-
-var target = {
-    lat:55.94816654144937,
-	lon:-3.1994622945785522,
-	radiusMetres:1615
-};
-var amenities = /^(pub|bar)$/;
-
-findPubs(target, amenities);
+findAmenities(55.94816654144937, -3.1994622945785522, 1615, /^(pub|bar)$/, writeJSON);
