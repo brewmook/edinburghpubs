@@ -3218,8 +3218,8 @@ define(function(){return[
 	{
 		"name": "Brew Dog",
 		"id": 2112426299,
-		"lat": 55.9483685,
-		"lon": -3.1896671,
+		"lat": 55.9483708,
+		"lon": -3.189683,
 		"comment": "",
 		"link": "/2014/03/08/168-brewdog-cowgate-edinburgh/",
 		"price": 4.1,
@@ -3783,8 +3783,8 @@ define(function(){return[
 	{
 		"name": "Moriarty",
 		"id": 2335634597,
-		"lat": 55.9451646,
-		"lon": -3.2049406,
+		"lat": 55.9450934,
+		"lon": -3.2049232,
 		"previous": [
 			{
 				"id": 2335634597,
@@ -5069,7 +5069,7 @@ define(function(){return[
 		]
 	},
 	{
-		"name": "Absolutely Cocktail Bar",
+		"name": "Hoot the Redeemer",
 		"id": 3193747652,
 		"lat": 55.95246,
 		"lon": -3.1964337
@@ -5169,6 +5169,12 @@ define(function(){return[
 		]
 	},
 	{
+		"name": "The Beer Kitchen",
+		"id": 3298880200,
+		"lat": 55.9466412,
+		"lon": -3.2054839
+	},
+	{
 		"name": "No.8 Lister Square",
 		"id": 3309160703,
 		"lat": 55.9436148,
@@ -5227,5 +5233,11 @@ define(function(){return[
 			"Hope Street",
 			"Real Ale"
 		]
+	},
+	{
+		"name": "Velveteen",
+		"id": 3667102363,
+		"lat": 55.9464399,
+		"lon": -3.2053995
 	}
 ];});
