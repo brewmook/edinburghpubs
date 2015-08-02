@@ -674,10 +674,10 @@ define(function(){return[
 		]
 	},
 	{
+		"name": "Southside Social",
 		"id": 366191902,
 		"lat": 55.9427088,
 		"lon": -3.1845678,
-		"name": "The Moo Bar",
 		"previous": [
 			{
 				"id": 366191902,

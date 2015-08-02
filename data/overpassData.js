@@ -161,6 +161,7 @@ module.exports = [
 {"name":"Smithie's Ale House","id":685179762,"lat":55.9620429,"lon":-3.1977538},
 {"name":"Sneaky Pete's","id":483044126,"lat":55.9481951,"lon":-3.1915223},
 {"name":"Soba","id":2114384788,"lat":55.9544427,"lon":-3.1980662},
+{"name":"Southside Social","id":366191902,"lat":55.9427088,"lon":-3.1845678},
 {"name":"Southsider","id":570329678,"lat":55.9451951,"lon":-3.183745},
 {"name":"Spit/Fire","id":1782941207,"lat":55.9570449,"lon":-3.1939224},
 {"name":"Sportsters","id":2858902357,"lat":55.9511467,"lon":-3.1887459},
