@@ -5172,7 +5172,11 @@ define(function(){return[
 		"name": "The Beer Kitchen",
 		"id": 3298880200,
 		"lat": 55.9466412,
-		"lon": -3.2054839
+		"lon": -3.2054839,
+		"comment": "",
+		"link": "/2015/08/13/the-beer-kitchen-lothian-road-edinburgh/",
+		"price": 0,
+		"tags": []
 	},
 	{
 		"name": "No.8 Lister Square",

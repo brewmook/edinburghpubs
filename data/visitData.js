@@ -296,5 +296,6 @@ module.exports = [
 [3244717923,"Bainfield Union","","",0.00,"2014/12/30",["Student union"]],
 [3397807656,"Marcos","","/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",3.50,"2015/11/03"],
 [41483839,"The Shoogly Peg","","/2015/01/14/the-shoogly-peg-rose-street-edinburgh/",3.98,"2015/01/06"],
-[2188447325,"The Jolly Botanist","","/2015/02/17/the-jolly-botanist-morrison-street-edinburgh/",3.90,"2014/02/10"]
+[2188447325,"The Jolly Botanist","","/2015/02/17/the-jolly-botanist-morrison-street-edinburgh/",3.90,"2015/02/10"],
+[3298880200,"The Beer Kitchen","","/2015/08/13/the-beer-kitchen-lothian-road-edinburgh/",0.00,"2015/08/04"]
 ];
