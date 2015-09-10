@@ -297,5 +297,7 @@ module.exports = [
 [3397807656,"Marcos","","/2014/11/12/marcos-pool-hall-grove-street-edinburgh/",3.50,"2015/11/03"],
 [41483839,"The Shoogly Peg","","/2015/01/14/the-shoogly-peg-rose-street-edinburgh/",3.98,"2015/01/06"],
 [2188447325,"The Jolly Botanist","","/2015/02/17/the-jolly-botanist-morrison-street-edinburgh/",3.90,"2015/02/10"],
-[3298880200,"The Beer Kitchen","","/2015/08/13/the-beer-kitchen-lothian-road-edinburgh/",0.00,"2015/08/04"]
+[3298880200,"The Beer Kitchen","","/2015/08/13/the-beer-kitchen-lothian-road-edinburgh/",4.30,"2015/08/04"],
+[2621234538,"Badabing","","/2015/08/18/badabing-fountainbridge-square-edinburgh/",4.00,"2015/08/04"],
+[2293637169,"Akva","","/2015/09/09/akva-fountainbridge-edinburgh/",4.00,"2015/08/04"]
 ];

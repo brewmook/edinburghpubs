@@ -3662,6 +3662,9 @@ define(function(){return[
 				"tags": []
 			}
 		],
+		"comment": "",
+		"link": "/2015/09/09/akva-fountainbridge-edinburgh/",
+		"price": 4,
 		"tags": []
 	},
 	{
@@ -4540,6 +4543,9 @@ define(function(){return[
 				"tags": []
 			}
 		],
+		"comment": "",
+		"link": "/2015/08/18/badabing-fountainbridge-square-edinburgh/",
+		"price": 4,
 		"tags": []
 	},
 	{
@@ -5175,7 +5181,7 @@ define(function(){return[
 		"lon": -3.2054839,
 		"comment": "",
 		"link": "/2015/08/13/the-beer-kitchen-lothian-road-edinburgh/",
-		"price": 0,
+		"price": 4.3,
 		"tags": []
 	},
 	{
