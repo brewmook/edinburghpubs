@@ -118,22 +118,22 @@ function (leaflet, Voronoi, pubsData) {
         return layer;
     }
 
-    function calculateCartesian(locations, t, r)
+    function calculateCartesian(locations, latitude, longitude, sphereRadiusMetres)
     {
         var degToRad = Math.PI/180.0;
-        var rotation = t.lat * degToRad;
+        var rotation = latitude * degToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
         return locations.forEach(function(loc) {
             var theta = (90 - loc.lat) * degToRad;
-            var phi = (loc.lon - t.lon) * degToRad;
+            var phi = (loc.lon - longitude) * degToRad;
 
             // to 3d cartesian coordinates
             var sinTheta = Math.sin(theta);
-            var x = r * sinTheta * Math.cos(phi);
-            var y = r * sinTheta * Math.sin(phi);
-            var z = r * Math.cos(theta);
+            var x = sphereRadiusMetres * sinTheta * Math.cos(phi);
+            var y = sphereRadiusMetres * sinTheta * Math.sin(phi);
+            var z = sphereRadiusMetres * Math.cos(theta);
 
             // rotate down to equator
             var newZ = z * cosRotation - x * sinRotation;
@@ -146,11 +146,11 @@ function (leaflet, Voronoi, pubsData) {
         });
     }
 
-    function cartesianToLatLng(locations, t, r)
+    function cartesianToLatLng(locations, latitude, longitude, sphereRadius)
     {
         var degToRad = Math.PI/180.0;
         var radToDeg = 180.0/Math.PI;
-        var rotation = -t.lat * degToRad;
+        var rotation = -latitude * degToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
@@ -163,12 +163,12 @@ function (leaflet, Voronoi, pubsData) {
             var z = rotatedZ * cosRotation - rotatedX * sinRotation;
             var x = rotatedZ * sinRotation + rotatedX * cosRotation;
 
-            var theta = Math.acos(z/r) * radToDeg;
+            var theta = Math.acos(z/sphereRadius) * radToDeg;
             var phi = Math.atan(y/x) * radToDeg;
 
             return {
                 lat: 90.0 - theta,
-                lng: phi + t.lon
+                lng: phi + longitude
             };
         });
     }
@@ -285,9 +285,9 @@ function (leaflet, Voronoi, pubsData) {
         return cartesians;
     }
 
-    function computeVoronoi(locations, t, r)
+    function computeVoronoi(locations, latitude, longitude, circleRadiusMetres, sphereRadiusMetres)
     {
-        var margin = t.radiusMetres + 100;
+        var margin = circleRadiusMetres + 100;
         var bbox = {
             xl: -margin,
             xr: margin,
@@ -295,7 +295,7 @@ function (leaflet, Voronoi, pubsData) {
             yb: margin
         };
 
-        calculateCartesian(locations, t, r);
+        calculateCartesian(locations, latitude, longitude, sphereRadiusMetres);
 
         var voronoi = new Voronoi();
         var results = voronoi.compute(locations, bbox);
@@ -304,10 +304,10 @@ function (leaflet, Voronoi, pubsData) {
             var pub = cell.site;
             var cartesians = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
-                return {x:start.x, y:start.y, z:r};
+                return {x:start.x, y:start.y, z:sphereRadiusMetres};
             });
-            cartesians = cropToCircle(cartesians, t.radiusMetres);
-            pub.voronoiPolygon = cartesianToLatLng(cartesians, t, r);
+            cartesians = cropToCircle(cartesians, circleRadiusMetres);
+            pub.voronoiPolygon = cartesianToLatLng(cartesians, latitude, longitude, sphereRadiusMetres);
         });
     }
 
@@ -415,7 +415,8 @@ function (leaflet, Voronoi, pubsData) {
         var stats = priceStats(pubsData);
         displayStats(stats);
 
-        computeVoronoi(bloggedPubs, target, 6378137);
+        var earthRadiusMetres = 6378137;
+        computeVoronoi(bloggedPubs, target.lat, target.lon, target.radiusMetres, earthRadiusMetres);
         addVoronoiCellsAsLayer(bloggedPubs, map, layersControl, stats);
     }
 
