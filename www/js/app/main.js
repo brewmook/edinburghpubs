@@ -16,7 +16,7 @@ function (leaflet, Voronoi, pubsData) {
         return "<a href=\"http://brewmook.wordpress.com" + url + "\">" + text + "</a>";
     }
 
-    function postLink(pub)
+    function bubbleHtml(pub)
     {
         var text = "<b>" + pub.name + "</b>";
         if ("link" in pub && pub.link != "")
@@ -38,13 +38,11 @@ function (leaflet, Voronoi, pubsData) {
         return text;
     }
 
-    function addFlag(layer, pub, icon)
+    function addFlag(layer, location, title, icon, bubbleContent)
     {
-        var marker = leaflet.marker([pub.lat, pub.lon],
-            { "title": pub.name,
-                "icon": icon });
+        var marker = leaflet.marker(location, { "title": title, "icon": icon });
         marker.addTo(layer);
-        marker.bindPopup(postLink(pub));
+        marker.bindPopup(bubbleContent);
     }
 
     function setStatusMessage(html)
@@ -108,7 +106,7 @@ function (leaflet, Voronoi, pubsData) {
     {
         var layer = new leaflet.LayerGroup();
         pubs.forEach(function(pub) {
-            addFlag(layer, pub, icon);
+            addFlag(layer, [pub.lat, pub.lon], pub.name, icon, bubbleHtml(pub));
         });
         layersControl.addOverlay(layer, layerName + ": " + pubs.length);
         return layer;
