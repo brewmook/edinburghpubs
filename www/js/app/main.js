@@ -1,14 +1,50 @@
 define(['leaflet', 'voronoi', 'data/pubs'],
 function (leaflet, Voronoi, pubsData) {
 
-    function createMap(lat, lon)
+    function createMap(latitude, longitude, radiusMetres)
     {
-        var map = leaflet.map('map').setView([lat, lon], 13);
+        var location = [latitude, longitude];
+
+        // The map itself
+        var map = leaflet.map('map').setView(location, 13);
+
+        // Open Street Map attribution
         var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
         leaflet.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
             attribution: osmAttr
         }).addTo(map);
+
+        // Add the target area circle
+        var layer = new leaflet.LayerGroup().addTo(map);
+        var circle = new leaflet.circle(
+            location,
+            radiusMetres,
+            {
+                color: '#c80',
+                opacity: 1,
+                fill: false
+            });
+        layer.addLayer(circle);
+
+        // Add a spot right in the middle
+        layer.addLayer(new leaflet.circle(
+            location,
+            1.0,
+            {
+                color: '#f00',
+                opacity: 1,
+                fillColor: '#f00',
+                fillOpacity: 1
+            }));
+
         return map;
+    }
+
+    function addFlag(layer, location, title, icon, bubbleContent)
+    {
+        var marker = leaflet.marker(location, { "title": title, "icon": icon });
+        marker.addTo(layer);
+        marker.bindPopup(bubbleContent);
     }
 
     function createLink(url, text)
@@ -38,13 +74,6 @@ function (leaflet, Voronoi, pubsData) {
         return text;
     }
 
-    function addFlag(layer, location, title, icon, bubbleContent)
-    {
-        var marker = leaflet.marker(location, { "title": title, "icon": icon });
-        marker.addTo(layer);
-        marker.bindPopup(bubbleContent);
-    }
-
     function setStatusMessage(html)
     {
         document.getElementById('message').innerHTML = html;
@@ -58,29 +87,6 @@ function (leaflet, Voronoi, pubsData) {
             + "Median (blue): " + stats.format(stats.median) + "<br/>"
             + "High (red): " + stats.format(stats.high)
         );
-    }
-
-    function addTargetToMap(target, map)
-    {
-        var layer = new leaflet.LayerGroup().addTo(map);
-        var circle = new leaflet.circle(
-            [target.lat, target.lon],
-            target.radiusMetres,
-            {
-                color: '#c80',
-                opacity: 1,
-                fill: false
-            });
-        layer.addLayer(circle);
-        layer.addLayer(new leaflet.circle(
-            [target.lat, target.lon],
-            1.0,
-            {
-                color: '#f00',
-                opacity: 1,
-                fillColor: '#f00',
-                fillOpacity: 1
-            }));
     }
 
     function createIcons()
@@ -383,10 +389,9 @@ function (leaflet, Voronoi, pubsData) {
             lon:-3.1994622945785522,
             radiusMetres:1609
         };
-        var map = createMap(target.lat, target.lon);
+        var map = createMap(target.lat, target.lon, target.radiusMetres);
         var layersControl = leaflet.control.layers(null, null, { position:"bottomright", collapsed: false }).addTo(map);
 
-        addTargetToMap(target, map);
         var icons = createIcons();
 
         var todoPubs = [];
