@@ -118,14 +118,14 @@ function (leaflet, Voronoi, pubsData) {
         return layer;
     }
 
-    function calculateCartesian(locations, latitude, longitude, sphereRadiusMetres)
+    function calculateCartesians(locations, latitude, longitude, sphereRadiusMetres)
     {
         var degToRad = Math.PI/180.0;
         var rotation = latitude * degToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
-        return locations.forEach(function(loc) {
+        return locations.map(function(loc) {
             var theta = (90 - loc.lat) * degToRad;
             var phi = (loc.lon - longitude) * degToRad;
 
@@ -140,9 +140,12 @@ function (leaflet, Voronoi, pubsData) {
             var newX = z * sinRotation + x * cosRotation;
 
             // project onto new xy orientation
-            loc.x = y;
-            loc.y = -newZ;
-            loc.z = newX;
+            return {
+                loc: loc,
+                x: y,
+                y: -newZ,
+                z: newX
+            };
         });
     }
 
@@ -285,29 +288,35 @@ function (leaflet, Voronoi, pubsData) {
         return cartesians;
     }
 
+    function squareBoundingBox(size)
+    {
+        var halfSize = size/2;
+        return {
+            xl: -halfSize,
+            xr: halfSize,
+            yt: -halfSize,
+            yb: halfSize
+        };
+    }
+
     function computeVoronoi(locations, latitude, longitude, circleRadiusMetres, sphereRadiusMetres)
     {
-        var margin = circleRadiusMetres + 100;
-        var bbox = {
-            xl: -margin,
-            xr: margin,
-            yt: -margin,
-            yb: margin
-        };
-
-        calculateCartesian(locations, latitude, longitude, sphereRadiusMetres);
-
         var voronoi = new Voronoi();
-        var results = voronoi.compute(locations, bbox);
+        var computed = voronoi.compute(
+            calculateCartesians(locations, latitude, longitude, sphereRadiusMetres),
+            squareBoundingBox(2*circleRadiusMetres+100)
+        );
 
-        results.cells.forEach(function(cell) {
-            var pub = cell.site;
-            var cartesians = cell.halfedges.map(function (edge) {
+        return computed.cells.map(function(cell) {
+            var polygon = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
                 return {x:start.x, y:start.y, z:sphereRadiusMetres};
             });
-            cartesians = cropToCircle(cartesians, circleRadiusMetres);
-            pub.voronoiPolygon = cartesianToLatLng(cartesians, latitude, longitude, sphereRadiusMetres);
+            var croppedPolygon = cropToCircle(polygon, circleRadiusMetres);
+            return {
+                loc: cell.site.loc,
+                polygon: cartesianToLatLng(croppedPolygon, latitude, longitude, sphereRadiusMetres)
+            }
         });
     }
 
@@ -358,12 +367,12 @@ function (leaflet, Voronoi, pubsData) {
         }
     }
 
-    function addVoronoiCellsAsLayer(pubs, map, layersControl, stats)
+    function addVoronoiCellsAsLayer(sites, map, layersControl, stats)
     {
         var layer = new leaflet.LayerGroup().addTo(map);
-        pubs.forEach(function(pub) {
-            L.polygon(pub.voronoiPolygon, {
-                fillColor: colourDualLinear(pub.price, stats.low, stats.high, stats.median),
+        sites.forEach(function(site) {
+            L.polygon(site.polygon, {
+                fillColor: colourDualLinear(site.colour, stats.low, stats.high, stats.median),
                 stroke: false,
                 fillOpacity: 0.5
             }).addTo(layer);
@@ -416,8 +425,13 @@ function (leaflet, Voronoi, pubsData) {
         displayStats(stats);
 
         var earthRadiusMetres = 6378137;
-        computeVoronoi(bloggedPubs, target.lat, target.lon, target.radiusMetres, earthRadiusMetres);
-        addVoronoiCellsAsLayer(bloggedPubs, map, layersControl, stats);
+        var sites = computeVoronoi(bloggedPubs, target.lat, target.lon, target.radiusMetres, earthRadiusMetres);
+        addVoronoiCellsAsLayer(
+            sites.map(function(site) { return { polygon: site.polygon, colour: site.loc.price }; }),
+            map,
+            layersControl,
+            stats
+        );
     }
 
     initialiseMap();
