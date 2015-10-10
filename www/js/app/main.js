@@ -1,9 +1,27 @@
 define(['leaflet', 'voronoi', 'data/pubs'],
 function (leaflet, Voronoi, pubsData) {
 
-    function createMap(latitude, longitude, radiusMetres)
+    /**
+     * Represents a geographic coordinate.
+     * @param {number} lat - Latitude
+     * @param {number} lon - Longitude
+     * @constructor
+     */
+    function GeoCoord(lat, lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    /**
+     * Set up the Leaflet map and target area.
+     *
+     * @param {GeoCoord} origin - The map origin.
+     * @param {number} circleRadius - The circle radius in metres for target area.
+     * @returns {Object} The Leaflet map instance.
+     */
+    function createMap(origin, circleRadius)
     {
-        var location = [latitude, longitude];
+        var location = [origin.lat, origin.lon];
 
         // The map itself
         var map = leaflet.map('map').setView(location, 13);
@@ -18,7 +36,7 @@ function (leaflet, Voronoi, pubsData) {
         var layer = new leaflet.LayerGroup().addTo(map);
         var circle = new leaflet.circle(
             location,
-            radiusMetres,
+            circleRadius,
             {
                 color: '#c80',
                 opacity: 1,
@@ -118,22 +136,31 @@ function (leaflet, Voronoi, pubsData) {
         return layer;
     }
 
-    function calculateCartesians(locations, latitude, longitude, sphereRadiusMetres)
+    /**
+     * Convert sphere-space coordinates to cartesian coordinates.
+     *
+     * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects.
+     * @param {GeoCoord} origin - The origin on the sphere's surface.
+     * @param {number} sphereRadius - The radius in metres of the sphere.
+     * @returns {{x:number, y:number, z:number, loc:Object}[]}
+     *     The loc object is the corresponding original object from locations.
+     */
+    function calculateCartesians(locations, origin, sphereRadius)
     {
         var degToRad = Math.PI/180.0;
-        var rotation = latitude * degToRad;
+        var rotation = origin.lat * degToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
         return locations.map(function(loc) {
             var theta = (90 - loc.lat) * degToRad;
-            var phi = (loc.lon - longitude) * degToRad;
+            var phi = (loc.lon - origin.lon) * degToRad;
 
             // to 3d cartesian coordinates
             var sinTheta = Math.sin(theta);
-            var x = sphereRadiusMetres * sinTheta * Math.cos(phi);
-            var y = sphereRadiusMetres * sinTheta * Math.sin(phi);
-            var z = sphereRadiusMetres * Math.cos(theta);
+            var x = sphereRadius * sinTheta * Math.cos(phi);
+            var y = sphereRadius * sinTheta * Math.sin(phi);
+            var z = sphereRadius * Math.cos(theta);
 
             // rotate down to equator
             var newZ = z * cosRotation - x * sinRotation;
@@ -149,18 +176,26 @@ function (leaflet, Voronoi, pubsData) {
         });
     }
 
-    function cartesianToLatLng(locations, latitude, longitude, sphereRadius)
+    /**
+     * Projects a set of cartesian coordinates back into spherical space.
+     *
+     * @param {{x:number,y:number,z:number}[]} cartesians - A list of cartesian coordinates.
+     * @param {GeoCoord} origin - The origin on the sphere's surface to translate back to.
+     * @param {number} sphereRadius - The radius in metres of the sphere.
+     * @returns {{lat:number,lng:number}[]} The Leaflet-friendly coordinates.
+     */
+    function cartesianToLatLng(cartesians, origin, sphereRadius)
     {
         var degToRad = Math.PI/180.0;
         var radToDeg = 180.0/Math.PI;
-        var rotation = -latitude * degToRad;
+        var rotation = -origin.lat * degToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
-        return locations.map(function(loc) {
-            var rotatedX = loc.z;
-            var rotatedZ = -loc.y;
-            var y = loc.x;
+        return cartesians.map(function(cart) {
+            var rotatedX = cart.z;
+            var rotatedZ = -cart.y;
+            var y = cart.x;
 
             // unrotate back up to correct latitude
             var z = rotatedZ * cosRotation - rotatedX * sinRotation;
@@ -171,7 +206,7 @@ function (leaflet, Voronoi, pubsData) {
 
             return {
                 lat: 90.0 - theta,
-                lng: phi + longitude
+                lng: phi + origin.lon
             };
         });
     }
@@ -299,23 +334,32 @@ function (leaflet, Voronoi, pubsData) {
         };
     }
 
-    function computeVoronoi(locations, latitude, longitude, circleRadiusMetres, sphereRadiusMetres)
+    /**
+     * Compute the voronoi polygon of a set of objects on the surface of the Earth.
+     *
+     * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects
+     * @param {GeoCoord} origin - Origin on the surface of the Earth.
+     * @param {number} circleRadius - Radius in metres of circle around [origin] to crop results to.
+     * @returns {{loc:Object, polygon:{lat:number,lng:number}[]}[]}
+     */
+    function earthSurfaceVoronoi(locations, origin, circleRadius)
     {
+        var earthRadiusMetres = 6378137;
         var voronoi = new Voronoi();
         var computed = voronoi.compute(
-            calculateCartesians(locations, latitude, longitude, sphereRadiusMetres),
-            squareBoundingBox(2*circleRadiusMetres+100)
+            calculateCartesians(locations, origin, earthRadiusMetres),
+            squareBoundingBox(2*circleRadius+100)
         );
 
         return computed.cells.map(function(cell) {
             var polygon = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
-                return {x:start.x, y:start.y, z:sphereRadiusMetres};
+                return {x:start.x, y:start.y, z:earthRadiusMetres};
             });
-            var croppedPolygon = cropToCircle(polygon, circleRadiusMetres);
+            var croppedPolygon = cropToCircle(polygon, circleRadius);
             return {
                 loc: cell.site.loc,
-                polygon: cartesianToLatLng(croppedPolygon, latitude, longitude, sphereRadiusMetres)
+                polygon: cartesianToLatLng(croppedPolygon, origin, earthRadiusMetres)
             }
         });
     }
@@ -393,12 +437,10 @@ function (leaflet, Voronoi, pubsData) {
     {
         setStatusMessage("Calculating...");
 
-        var target = {
-            lat:55.94816654144937,
-            lon:-3.1994622945785522,
-            radiusMetres:1609
-        };
-        var map = createMap(target.lat, target.lon, target.radiusMetres);
+        var origin = new GeoCoord(55.94816654144937, -3.1994622945785522);
+        var circleRadiusMetres = 1609;
+
+        var map = createMap(origin, circleRadiusMetres);
         var layersControl = leaflet.control.layers(null, null, { position:"bottomright", collapsed: false }).addTo(map);
 
         var icons = createIcons();
@@ -424,8 +466,7 @@ function (leaflet, Voronoi, pubsData) {
         var stats = priceStats(pubsData);
         displayStats(stats);
 
-        var earthRadiusMetres = 6378137;
-        var sites = computeVoronoi(bloggedPubs, target.lat, target.lon, target.radiusMetres, earthRadiusMetres);
+        var sites = earthSurfaceVoronoi(bloggedPubs, origin, circleRadiusMetres);
         addVoronoiCellsAsLayer(
             sites.map(function(site) { return { polygon: site.polygon, colour: site.loc.price }; }),
             map,
