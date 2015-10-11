@@ -12,13 +12,39 @@ define(['voronoi'], function (Voronoi) {
         this.lon = lon;
     }
 
+    /**
+     * A point in cartesian space.
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     * @constructor
+     */
+    function Cartesian(x, y, z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     function quadrance2d(point)
     {
         return point.x*point.x + point.y*point.y;
     }
 
-    // Find the points of intersection.
-    function findLineCircleIntersections(radius, point1, point2)
+    /**
+     * Finds the intersection between a line and a circle at the origin.
+     *
+     * It is assumed that [point1] and [point2] are not coincident.
+     *
+     * If both points are outside the circle but there is an intersection, it only
+     * provides the first intersection point along the line from [point1] to [point2].
+     *
+     * @param {number} radius - Radius of the circle placed at the origin.
+     * @param {Cartesian} point1 -
+     * @param {Cartesian} point2
+     * @returns {?Cartesian}
+     */
+    function findLineCircleIntersection(radius, point1, point2)
     {
         var dx = point2.x - point1.x;
         var dy = point2.y - point1.y;
@@ -30,44 +56,58 @@ define(['voronoi'], function (Voronoi) {
         var det = B * B - 4 * A * C;
         if ((A <= 0.0000001) || (det < 0))
         {
-            // no solution
+            // No solution
+            /** @todo Both points inside/outside the circle? */
             return null;
         }
         else if (det == 0)
         {
             // One solution.
+            /** @todo Line tangential to the circle? */
             var t = -B / (2 * A);
-            return {
-                x: point1.x + t * dx,
-                y: point1.y + t * dy,
-                z: point1.z
-            };
+            return new Cartesian(
+                point1.x + t * dx,
+                point1.y + t * dy,
+                point1.z
+            );
         }
         else
         {
             // Two solutions.
             var t1 = ((-B + Math.sqrt(det)) / (2 * A));
             if (t1 >= 0 && t1 <= 1) {
-                return {x: point1.x + t1 * dx, y: point1.y + t1 * dy, z: point1.z};
+                // First solution lies somewhere on the line between p1 and p2.
+                return new Cartesian(point1.x + t1 * dx, point1.y + t1 * dy, point1.z);
             } else {
+                /** @todo What does this solution mean in practical terms? */
                 var t2 = ((-B - Math.sqrt(det)) / (2 * A));
-                return {x:point1.x + t2 * dx, y:point1.y + t2 * dy, z:point1.z};
+                return new Cartesian(point1.x + t2 * dx, point1.y + t2 * dy, point1.z);
             }
         }
     }
 
-    function cropToCircle(cartesians, circleRadius)
+    /**
+     * Crops a polygon to a circle at the origin.
+     *
+     * Assumes the polygon is either entirely inside the circle or crosses the circumference
+     * exactly twice.
+     *
+     * @param {Cartesian[]} polygon - Polygon points.
+     * @param {number} circleRadius - Radius of a circle centred on the origin (0,0).
+     * @returns {Cartesian[]}
+     */
+    function cropToCircle(polygon, circleRadius)
     {
         var circleQ = circleRadius*circleRadius;
         var lastPointInsideCircle = -1;
         var lastPointOutsideCircle = -1;
 
-        var quadrances = cartesians.map(function(loc) {
+        var quadrances = polygon.map(function(loc) {
             return quadrance2d(loc);
         });
 
-        for (var i = 0; i < cartesians.length; ++i) {
-            var j = (i+1) % cartesians.length;
+        for (var i = 0; i < polygon.length; ++i) {
+            var j = (i+1) % polygon.length;
 
             if (lastPointInsideCircle < 0 && quadrances[i] <= circleQ && quadrances[j] > circleQ) {
                 lastPointInsideCircle = i;
@@ -78,17 +118,17 @@ define(['voronoi'], function (Voronoi) {
         }
 
         if (lastPointInsideCircle >= 0 && lastPointOutsideCircle >= 0) {
-            var exitPoint = findLineCircleIntersections(
+            var exitPoint = findLineCircleIntersection(
                 circleRadius,
-                cartesians[lastPointInsideCircle],
-                cartesians[(lastPointInsideCircle+1)%cartesians.length]);
-            var entryPoint = findLineCircleIntersections(
+                polygon[lastPointInsideCircle],
+                polygon[(lastPointInsideCircle+1)%polygon.length]);
+            var entryPoint = findLineCircleIntersection(
                 circleRadius,
-                cartesians[(lastPointOutsideCircle+1)%cartesians.length],
-                cartesians[lastPointOutsideCircle]);
+                polygon[(lastPointOutsideCircle+1)%polygon.length],
+                polygon[lastPointOutsideCircle]);
 
             if (exitPoint == null || entryPoint == null) {
-                return cartesians;
+                return polygon;
             }
 
             var exitAngle = Math.atan2(exitPoint.y, exitPoint.x);
@@ -101,8 +141,8 @@ define(['voronoi'], function (Voronoi) {
             points.push(entryPoint);
             var p = lastPointOutsideCircle;
             do {
-                p = (p+1) % cartesians.length;
-                points.push(cartesians[p]);
+                p = (p+1) % polygon.length;
+                points.push(polygon[p]);
             } while(p != lastPointInsideCircle);
             points.push(exitPoint);
 
@@ -110,18 +150,18 @@ define(['voronoi'], function (Voronoi) {
             var step = 3*Math.PI/180;
             var a = exitAngle - step;
             while (a >= entryAngle) {
-                points.push({
-                    x: circleRadius * Math.cos(a),
-                    y: circleRadius * Math.sin(a),
-                    z: exitPoint.z
-                });
+                points.push(new Cartesian(
+                    circleRadius * Math.cos(a),
+                    circleRadius * Math.sin(a),
+                    exitPoint.z
+                ));
                 a -= step;
             }
 
             return points;
         }
 
-        return cartesians;
+        return polygon;
     }
 
     /**
@@ -167,7 +207,7 @@ define(['voronoi'], function (Voronoi) {
     /**
      * Projects a set of cartesian coordinates back into spherical space.
      *
-     * @param {{x:number,y:number,z:number}[]} cartesians - A list of cartesian coordinates.
+     * @param {Cartesian[]} cartesians - A list of cartesian coordinates.
      * @param {GeoCoord} origin - The origin on the sphere's surface to translate back to.
      * @param {number} sphereRadius - The radius in metres of the sphere.
      * @returns {{lat:number,lng:number}[]} The Leaflet-friendly coordinates.
@@ -228,9 +268,10 @@ define(['voronoi'], function (Voronoi) {
         );
 
         return computed.cells.map(function(cell) {
+            /** @type {Cartesian[]} */
             var polygon = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
-                return {x:start.x, y:start.y, z:earthRadiusMetres};
+                return new Cartesian(start.x, start.y, earthRadiusMetres);
             });
             var croppedPolygon = cropToCircle(polygon, circleRadius);
             return {
