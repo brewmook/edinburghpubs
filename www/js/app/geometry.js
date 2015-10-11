@@ -210,9 +210,9 @@ define(['voronoi'], function (Voronoi) {
      * @param {Cartesian[]} cartesians - A list of cartesian coordinates.
      * @param {GeoCoord} origin - The origin on the sphere's surface to translate back to.
      * @param {number} sphereRadius - The radius in metres of the sphere.
-     * @returns {{lat:number,lng:number}[]} The Leaflet-friendly coordinates.
+     * @returns {GeoCoord[]} The Leaflet-friendly coordinates.
      */
-    function cartesianToLatLng(cartesians, origin, sphereRadius)
+    function cartesianToGeoCoord(cartesians, origin, sphereRadius)
     {
         var degToRad = Math.PI/180.0;
         var radToDeg = 180.0/Math.PI;
@@ -232,10 +232,7 @@ define(['voronoi'], function (Voronoi) {
             var theta = Math.acos(z/sphereRadius) * radToDeg;
             var phi = Math.atan(y/x) * radToDeg;
 
-            return {
-                lat: 90.0 - theta,
-                lng: phi + origin.lon
-            };
+            return new GeoCoord(90.0 - theta, phi + origin.lon);
         });
     }
 
@@ -256,7 +253,7 @@ define(['voronoi'], function (Voronoi) {
      * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects
      * @param {GeoCoord} origin - Origin on the surface of the Earth.
      * @param {number} circleRadius - Radius in metres of circle around [origin] to crop results to.
-     * @returns {{loc:Object, polygon:{lat:number,lng:number}[]}[]}
+     * @returns {{loc:Object, polygon:GeoCoord[]}[]}
      */
     function earthSurfaceVoronoi(locations, origin, circleRadius)
     {
@@ -276,7 +273,7 @@ define(['voronoi'], function (Voronoi) {
             var croppedPolygon = cropToCircle(polygon, circleRadius);
             return {
                 loc: cell.site.loc,
-                polygon: cartesianToLatLng(croppedPolygon, origin, earthRadiusMetres)
+                polygon: cartesianToGeoCoord(croppedPolygon, origin, earthRadiusMetres)
             }
         });
     }

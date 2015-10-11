@@ -174,11 +174,14 @@ function (geo, leaflet, pubsData) {
     {
         var layer = new leaflet.LayerGroup().addTo(map);
         sites.forEach(function(site) {
-            leaflet.polygon(site.polygon, {
-                fillColor: colourDualLinear(site.colour, stats.low, stats.high, stats.median),
-                stroke: false,
-                fillOpacity: 0.5
-            }).addTo(layer);
+            leaflet.polygon(
+                site.polygon.map(function(coord) { return new leaflet.LatLng(coord.lat, coord.lon); }),
+                {
+                    fillColor: colourDualLinear(site.colour, stats.low, stats.high, stats.median),
+                    stroke: false,
+                    fillOpacity: 0.5
+                }
+            ).addTo(layer);
         });
         layersControl.addOverlay(layer, stats.name);
     }
@@ -227,7 +230,12 @@ function (geo, leaflet, pubsData) {
 
         var sites = geo.earthSurfaceVoronoi(bloggedPubs, origin, circleRadiusMetres);
         addVoronoiCellsAsLayer(
-            sites.map(function(site) { return { polygon: site.polygon, colour: site.loc.price }; }),
+            sites.map(function(site) {
+                return {
+                    polygon: site.polygon,
+                    colour: site.loc.price
+                };
+            }),
             map,
             layersControl,
             stats
