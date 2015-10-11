@@ -19,20 +19,21 @@ function (geo, leaflet, pubsData) {
             attribution: osmAttr
         }).addTo(map);
 
+        var targetAreaLayer = leaflet.layerGroup().addTo(map);
+
         // Add the target area circle
-        var layer = new leaflet.LayerGroup().addTo(map);
-        var circle = new leaflet.circle(
+        targetAreaLayer.addLayer(leaflet.circle(
             origin,
             circleRadius,
             {
                 color: '#c80',
                 opacity: 1,
                 fill: false
-            });
-        layer.addLayer(circle);
+            }
+        ));
 
         // Add a spot right in the middle
-        layer.addLayer(new leaflet.circle(
+        targetAreaLayer.addLayer(leaflet.circle(
             origin,
             1.0,
             {
@@ -94,30 +95,23 @@ function (geo, leaflet, pubsData) {
         );
     }
 
-    function createIcons()
+    function createIcon(name)
     {
-        // Setup icons
-        var Icon = leaflet.Icon.extend({
-            options: {
-                iconSize: [25, 39],
-                iconAnchor:   [12, 36],
-                popupAnchor: [0, -30]
-            }
+        return leaflet.icon({
+            iconUrl: "img/marker-"+name+".png",
+            iconRetinaUrl: "img/marker-"+name+"-2x.png",
+            iconSize: [25, 39],
+            iconAnchor: [12, 36],
+            popupAnchor: [0, -30]
         });
-        var icons = ["gold", "blue", "red", "green"];
-        return icons.reduce(function(obj, icon) {
-            obj[icon] = new Icon({
-                iconUrl: "img/marker-"+icon+".png",
-                iconRetinaUrl: "img/marker-"+icon+"-2x.png" });
-            return obj;
-        }, {});
     }
 
-    function addPubsAsLayer(pubs, layerName, icon, layersControl)
+    function addPubsAsLayer(pubs, layerName, iconName, layersControl)
     {
-        var layer = new leaflet.LayerGroup();
+        var layer = leaflet.layerGroup();
+        var icon = createIcon(iconName);
         pubs.forEach(function(pub) {
-            addFlag(layer, [pub.lat, pub.lon], pub.name, icon, bubbleHtml(pub));
+            addFlag(layer, leaflet.latLng([pub.lat, pub.lon]), pub.name, icon, bubbleHtml(pub));
         });
         layersControl.addOverlay(layer, layerName + ": " + pubs.length);
         return layer;
@@ -172,10 +166,10 @@ function (geo, leaflet, pubsData) {
 
     function addVoronoiCellsAsLayer(sites, map, layersControl, stats)
     {
-        var layer = new leaflet.LayerGroup().addTo(map);
+        var layer = leaflet.layerGroup().addTo(map);
         sites.forEach(function(site) {
             leaflet.polygon(
-                site.polygon.map(function(coord) { return new leaflet.LatLng(coord.lat, coord.lon); }),
+                site.polygon.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
                 {
                     fillColor: colourDualLinear(site.colour, stats.low, stats.high, stats.median),
                     stroke: false,
@@ -205,8 +199,6 @@ function (geo, leaflet, pubsData) {
         var map = createMap(origin, circleRadiusMetres);
         var layersControl = leaflet.control.layers(null, null, { position:"bottomright", collapsed: false }).addTo(map);
 
-        var icons = createIcons();
-
         var todoPubs = [];
         var bloggedPubs = [];
         var excludedPubs = [];
@@ -221,9 +213,9 @@ function (geo, leaflet, pubsData) {
             }
         });
 
-        addPubsAsLayer(todoPubs, "Todo (yellow)", icons.gold, layersControl).addTo(map);
-        addPubsAsLayer(bloggedPubs, "Visited (green)", icons.green, layersControl).addTo(map);
-        addPubsAsLayer(excludedPubs, "Excluded (red)", icons.red, layersControl);
+        addPubsAsLayer(todoPubs, "Todo (yellow)", "gold", layersControl).addTo(map);
+        addPubsAsLayer(bloggedPubs, "Visited (green)", "green", layersControl).addTo(map);
+        addPubsAsLayer(excludedPubs, "Excluded (red)", "red", layersControl);
 
         var stats = priceStats(pubsData);
         displayStats(stats);
