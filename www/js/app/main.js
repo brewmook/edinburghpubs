@@ -37,9 +37,9 @@ function (geo, View, pubsData) {
     {
         setStatusMessage(
             stats.name + ": <br/>"
-            + "Low (green): " + stats.format(stats.low) + "<br/>"
-            + "Median (blue): " + stats.format(stats.median) + "<br/>"
-            + "High (red): " + stats.format(stats.high)
+            + "Low (green): " + stats.lowString + "<br/>"
+            + "Median (blue): " + stats.medianString + "<br/>"
+            + "High (red): " + stats.highString
         );
     }
 
@@ -123,27 +123,35 @@ function (geo, View, pubsData) {
         return colour;
     }
 
-    function priceStats(pubs)
+    /**
+     * Extract some statistics about some values within a list of objects.
+     *
+     * @param {Object[]} objects
+     * @param {string} key
+     * @param {string} name
+     * @param {function} format
+     * @returns {{low:*, high:*, median:*, name:string, lowString:string, medianString:string, highString:string}}
+     */
+    function createStatistics(objects, key, name, format)
     {
-        var low = Number.MAX_VALUE;
-        var high = Number.MIN_VALUE;
-        var prices = [];
-        pubs.forEach(function(pub)
-        {
-            if ("price" in pub && pub.price > 0) {
-                low = Math.min(low, pub.price);
-                high = Math.max(high, pub.price);
-                prices.push(pub.price);
-            }
-        });
-        prices.sort();
+        var values = objects
+            .filter(function(pub){return (key in pub) && (pub[key] > 0);})
+            .map(function(x){return x[key];})
+            .sort();
+
+        var low = values[0];
+        var high = values[values.length-1];
+        var median = values[Math.floor(values.length/2)];
+
         return {
-            name: 'Prices',
             low: low,
             high: high,
-            median: prices[Math.floor(prices.length/2)],
-            format:function(value) { return "£" + value.toFixed(2); }
-        }
+            median: median,
+            name: name,
+            lowString: format(low),
+            medianString: format(median),
+            highString: format(high)
+        };
     }
 
     function hasTag(pub, tags)
@@ -182,7 +190,7 @@ function (geo, View, pubsData) {
         var view = new View("map");
         view.setTarget(origin, circleRadiusMetres);
 
-        var stats = priceStats(pubsData);
+        var stats = createStatistics(pubsData, 'price', 'Prices', function(x){ return "£"+x.toFixed(2); });
 
         var todo = [];
         var blogged = [];
