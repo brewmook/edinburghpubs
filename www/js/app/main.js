@@ -48,23 +48,79 @@ function (geo, View, pubsData) {
         return Math.floor(value + 0.5);
     }
 
-    function colourDualLinear(value, low, high, median)
+    /**
+     * @param {number} r - Red component in range 0 to 255.
+     * @param {number} g - Green component in range 0 to 255.
+     * @param {number} b - Blue component in range 0 to 255.
+     * @constructor
+     */
+    function Colour(r, g, b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+
+    function interpolate(t, a, b)
     {
-        var red, green, blue, normalised;
-        if (value < low) {
-            return "#555555";
-        } else if (value < median) {
-            normalised = (value - low) / (median-low);
-            green = round(255 * (1 - normalised));
-            blue = round(255 * normalised);
-            red = 0;
+        return a + t * (b - a);
+    }
+
+    /**
+     * Interpolate between two colours.
+     *
+     * @param {number} t - Interpolation value in range 0 to 1.
+     * @param {Colour} low - Colour for t = 0.
+     * @param {Colour} high - Colour for t = 1.
+     */
+    function interpolateColour(t, low, high)
+    {
+        return new Colour(
+            interpolate(t, low.r, high.r),
+            interpolate(t, low.g, high.g),
+            interpolate(t, low.b, high.b)
+        );
+    }
+
+    /**
+     * Convert to HTML #RRGGBB format.
+     *
+     * @returns {string}
+     */
+    Colour.prototype.toString = function()
+    {
+        var intColour = (round(this.r) << 16) + (round(this.g) << 8) + round(this.b);
+        return '#' + ('000000' + intColour.toString(16)).slice(-6);
+    };
+
+    /**
+     * Maps three colours to the low, median and high value range.
+     *
+     * @param {number} value
+     * @param {{value:number, colour:Colour}} low
+     * @param {{value:number, colour:Colour}} median
+     * @param {{value:number, colour:Colour}} high
+     * @param {Colour} outOfRange
+     * @returns {Colour}
+     */
+    function colourDualLinear(value, low, median, high, outOfRange)
+    {
+        var colour;
+        if (value < low.value || value > high.value) {
+            colour = outOfRange;
+        } else if (value < median.value) {
+            colour = interpolateColour(
+                (value - low.value) / (median.value-low.value),
+                low.colour,
+                median.colour
+            );
         } else {
-            normalised = (value - median) / (high-median);
-            red = round(255 * normalised);
-            blue = round(255 * (1 - normalised));
-            green = 0;
+            colour = interpolateColour(
+                (value - median.value) / (high.value-median.value),
+                median.colour,
+                high.colour
+            );
         }
-        return '#' + ('000000' + ((red << 16) + (green<<8) + blue).toString(16)).slice(-6);
+        return colour;
     }
 
     function priceStats(pubs)
@@ -106,7 +162,13 @@ function (geo, View, pubsData) {
             lat: pub.lat,
             lon: pub.lon,
             html: bubbleHtml(pub),
-            colour: colourDualLinear(pub.price, stats.low, stats.high, stats.median)
+            colour: colourDualLinear(
+                pub.price,
+                {value:stats.low, colour:new Colour(0,255,0)},
+                {value:stats.median, colour:new Colour(0,0,255)},
+                {value:stats.high, colour:new Colour(255,0,0)},
+                new Colour(64,64,64)
+            ).toString()
         };
     }
 
