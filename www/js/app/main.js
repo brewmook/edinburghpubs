@@ -2,27 +2,41 @@ define(['app/geometry', 'leaflet', 'data/pubs'],
 function (geo, leaflet, pubsData) {
 
     /**
-     * Set up the Leaflet map and target area.
-     *
-     * @param {GeoCoord} origin - The map origin.
-     * @param {number} circleRadius - The circle radius in metres for target area.
-     * @returns {Object} The Leaflet map instance.
+     * @param {string} elementId - the id of the HTML element to use as the map.
+     * @constructor
      */
-    function createMap(origin, circleRadius)
+    function View(elementId)
     {
-        // The map itself
-        var map = leaflet.map('map').setView(origin, 13);
+        this._map = leaflet.map(elementId);
+
+        this._layersControl = leaflet.control.layers(null, null, {position: "bottomright", collapsed: false});
+        this._layersControl.addTo(this._map);
 
         // Open Street Map attribution
         var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-        leaflet.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
-            attribution: osmAttr
-        }).addTo(map);
+        leaflet.tileLayer(
+            'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
+            { attribution: osmAttr }
+        ).addTo(this._map);
 
-        var targetAreaLayer = leaflet.layerGroup().addTo(map);
+        this._targetAreaLayer = leaflet.layerGroup().addTo(this._map);
+    }
+
+    /**
+     * Set up the target.
+     *
+     * @param {GeoCoord} origin - The map origin.
+     * @param {number} circleRadius - The circle radius in metres for target area.
+     * @constructor
+     */
+    View.prototype.setTarget = function(origin, circleRadius)
+    {
+        this._map.setView(leaflet.latLng([origin.lat, origin.lon]), 13);
+
+        this._targetAreaLayer.clearLayers();
 
         // Add the target area circle
-        targetAreaLayer.addLayer(leaflet.circle(
+        this._targetAreaLayer.addLayer(leaflet.circle(
             origin,
             circleRadius,
             {
@@ -33,7 +47,7 @@ function (geo, leaflet, pubsData) {
         ));
 
         // Add a spot right in the middle
-        targetAreaLayer.addLayer(leaflet.circle(
+        this._targetAreaLayer.addLayer(leaflet.circle(
             origin,
             1.0,
             {
@@ -41,17 +55,9 @@ function (geo, leaflet, pubsData) {
                 opacity: 1,
                 fillColor: '#f00',
                 fillOpacity: 1
-            }));
-
-        return map;
-    }
-
-    function addFlag(layer, location, title, icon, bubbleContent)
-    {
-        var marker = leaflet.marker(location, { "title": title, "icon": icon });
-        marker.addTo(layer);
-        marker.bindPopup(bubbleContent);
-    }
+            }
+        ));
+    };
 
     function createLink(url, text)
     {
@@ -95,27 +101,36 @@ function (geo, leaflet, pubsData) {
         );
     }
 
-    function createIcon(name)
+    /**
+     *
+     * @param {{lat:number, lon:number, name:string, html:string}[]} pins
+     * @param {string} layerName
+     * @param {string} iconName
+     * @param {bool} visible
+     */
+    View.prototype.addPinsLayer = function(pins, layerName, iconName, visible)
     {
-        return leaflet.icon({
-            iconUrl: "img/marker-"+name+".png",
-            iconRetinaUrl: "img/marker-"+name+"-2x.png",
+        var layer = leaflet.layerGroup();
+
+        var icon = leaflet.icon({
+            iconUrl: "img/marker-"+iconName+".png",
+            iconRetinaUrl: "img/marker-"+iconName+"-2x.png",
             iconSize: [25, 39],
             iconAnchor: [12, 36],
             popupAnchor: [0, -30]
         });
-    }
 
-    function addPubsAsLayer(pubs, layerName, iconName, layersControl)
-    {
-        var layer = leaflet.layerGroup();
-        var icon = createIcon(iconName);
-        pubs.forEach(function(pub) {
-            addFlag(layer, leaflet.latLng([pub.lat, pub.lon]), pub.name, icon, bubbleHtml(pub));
+        pins.forEach(function(pin) {
+            var location = leaflet.latLng([pin.lat, pin.lon]);
+            var marker = leaflet.marker(location, { "title": pin.name, "icon": icon });
+            marker.addTo(layer);
+            marker.bindPopup(pin.html);
         });
-        layersControl.addOverlay(layer, layerName + ": " + pubs.length);
-        return layer;
-    }
+        this._layersControl.addOverlay(layer, layerName + ": " + pins.length);
+        if (visible) {
+            layer.addTo(this._map);
+        }
+    };
 
     function round(value)
     {
@@ -164,21 +179,21 @@ function (geo, leaflet, pubsData) {
         }
     }
 
-    function addVoronoiCellsAsLayer(sites, map, layersControl, stats)
+    View.prototype.addVoronoiCellsLayer = function(sites, layerName)
     {
-        var layer = leaflet.layerGroup().addTo(map);
+        var layer = leaflet.layerGroup().addTo(this._map);
         sites.forEach(function(site) {
             leaflet.polygon(
                 site.polygon.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
                 {
-                    fillColor: colourDualLinear(site.colour, stats.low, stats.high, stats.median),
+                    fillColor: site.colour,
                     stroke: false,
                     fillOpacity: 0.5
                 }
             ).addTo(layer);
         });
-        layersControl.addOverlay(layer, stats.name);
-    }
+        this._layersControl.addOverlay(layer, layerName);
+    };
 
     function hasTag(pub, tags)
     {
@@ -189,6 +204,17 @@ function (geo, leaflet, pubsData) {
         });
     }
 
+    function formatPubForView(pub, stats)
+    {
+        return {
+            name: pub.name,
+            lat: pub.lat,
+            lon: pub.lon,
+            html: bubbleHtml(pub),
+            colour: colourDualLinear(pub.price, stats.low, stats.high, stats.median)
+        };
+    }
+
     function initialiseMap()
     {
         setStatusMessage("Calculating...");
@@ -196,41 +222,40 @@ function (geo, leaflet, pubsData) {
         var origin = new geo.GeoCoord(55.94816654144937, -3.1994622945785522);
         var circleRadiusMetres = 1609;
 
-        var map = createMap(origin, circleRadiusMetres);
-        var layersControl = leaflet.control.layers(null, null, { position:"bottomright", collapsed: false }).addTo(map);
+        var view = new View("map");
+        view.setTarget(origin, circleRadiusMetres);
 
-        var todoPubs = [];
-        var bloggedPubs = [];
-        var excludedPubs = [];
+        var stats = priceStats(pubsData);
+
+        var todo = [];
+        var blogged = [];
+        var excluded = [];
 
         pubsData.forEach(function(pub) {
             if (pub.link) {
-                bloggedPubs.push(pub);
+                blogged.push(formatPubForView(pub, stats));
             } else if (hasTag(pub, ['Disqualified','Closed','Student union','Club','Restaurant'])) {
-                excludedPubs.push(pub);
+                excluded.push(formatPubForView(pub, stats));
             } else {
-                todoPubs.push(pub);
+                todo.push(formatPubForView(pub, stats));
             }
         });
 
-        addPubsAsLayer(todoPubs, "Todo (yellow)", "gold", layersControl).addTo(map);
-        addPubsAsLayer(bloggedPubs, "Visited (green)", "green", layersControl).addTo(map);
-        addPubsAsLayer(excludedPubs, "Excluded (red)", "red", layersControl);
+        view.addPinsLayer(todo, "Todo (yellow)", "gold", true);
+        view.addPinsLayer(blogged, "Visited (green)", "green", true);
+        view.addPinsLayer(excluded, "Excluded (red)", "red", false);
 
-        var stats = priceStats(pubsData);
         displayStats(stats);
 
-        var sites = geo.earthSurfaceVoronoi(bloggedPubs, origin, circleRadiusMetres);
-        addVoronoiCellsAsLayer(
+        var sites = geo.earthSurfaceVoronoi(blogged, origin, circleRadiusMetres);
+        view.addVoronoiCellsLayer(
             sites.map(function(site) {
                 return {
                     polygon: site.polygon,
-                    colour: site.loc.price
+                    colour: site.loc.colour
                 };
             }),
-            map,
-            layersControl,
-            stats
+            stats.name
         );
     }
 
