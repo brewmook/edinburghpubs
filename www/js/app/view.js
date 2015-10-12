@@ -105,6 +105,14 @@ define(['leaflet'], function (leaflet) {
         this._layersControl.addOverlay(layer, layerName);
     };
 
+    /**
+     * @param {string} html
+     */
+    View.prototype.setStatusMessage = function(html)
+    {
+        document.getElementById('message').innerHTML = html;
+    };
+
     return View;
 
 });

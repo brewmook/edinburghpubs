@@ -28,21 +28,6 @@ function (geo, View, pubsData) {
         return text;
     }
 
-    function setStatusMessage(html)
-    {
-        document.getElementById('message').innerHTML = html;
-    }
-
-    function displayStats(stats)
-    {
-        setStatusMessage(
-            stats.name + ": <br/>"
-            + "Low (green): " + stats.lowString + "<br/>"
-            + "Median (blue): " + stats.medianString + "<br/>"
-            + "High (red): " + stats.highString
-        );
-    }
-
     function round(value)
     {
         return Math.floor(value + 0.5);
@@ -182,13 +167,12 @@ function (geo, View, pubsData) {
 
     function initialiseMap()
     {
-        setStatusMessage("Calculating...");
-
         var origin = new geo.GeoCoord(55.94816654144937, -3.1994622945785522);
         var circleRadiusMetres = 1609;
 
         var view = new View("map");
         view.setTarget(origin, circleRadiusMetres);
+        view.setStatusMessage("Calculating...");
 
         var stats = createStatistics(pubsData, 'price', 'Prices', function(x){ return "£"+x.toFixed(2); });
 
@@ -210,8 +194,6 @@ function (geo, View, pubsData) {
         view.addPinsLayer(blogged, "Visited (green)", "green", true);
         view.addPinsLayer(excluded, "Excluded (red)", "red", false);
 
-        displayStats(stats);
-
         var sites = geo.earthSurfaceVoronoi(blogged, origin, circleRadiusMetres);
         view.addVoronoiCellsLayer(
             sites.map(function(site) {
@@ -222,6 +204,14 @@ function (geo, View, pubsData) {
             }),
             stats.name
         );
+
+        view.setStatusMessage(
+            stats.name + ": <br/>"
+            + "Low (green): " + stats.lowString + "<br/>"
+            + "Median (blue): " + stats.medianString + "<br/>"
+            + "High (red): " + stats.highString
+        );
+
     }
 
     initialiseMap();
