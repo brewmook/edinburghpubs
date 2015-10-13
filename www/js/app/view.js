@@ -89,7 +89,7 @@ define(['leaflet'], function (leaflet) {
         }
     };
 
-    View.prototype.addVoronoiCellsLayer = function(sites, layerName)
+    View.prototype.addVoronoiCellsLayer = function(sites)
     {
         var layer = leaflet.layerGroup().addTo(this._map);
         sites.forEach(function(site) {
@@ -102,7 +102,7 @@ define(['leaflet'], function (leaflet) {
                 }
             ).addTo(layer);
         });
-        this._layersControl.addOverlay(layer, layerName);
+        this._layersControl.addOverlay(layer, 'Voronoi');
     };
 
     /**

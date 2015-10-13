@@ -149,11 +149,9 @@ function (geo, View, pubsData) {
      *
      * @param {Object[]} objects
      * @param {string} key
-     * @param {string} name
-     * @param {function} format
-     * @returns {{low:*, high:*, median:*, name:string, lowString:string, medianString:string, highString:string}}
+     * @returns {{low:*, high:*, median:*}}
      */
-    function createStatistics(objects, key, name, format)
+    function createStatistics(objects, key)
     {
         var values = objects
             .filter(function(pub){return (key in pub) && (pub[key] > 0);})
@@ -167,11 +165,7 @@ function (geo, View, pubsData) {
         return {
             low: low,
             high: high,
-            median: median,
-            name: name,
-            lowString: format(low),
-            medianString: format(median),
-            highString: format(high)
+            median: median
         };
     }
 
@@ -200,6 +194,11 @@ function (geo, View, pubsData) {
         };
     }
 
+    function formatPrice(price)
+    {
+        return "£"+price.toFixed(2);
+    }
+
     function initialiseMap()
     {
         var origin = new geo.GeoCoord(55.94816654144937, -3.1994622945785522);
@@ -209,7 +208,7 @@ function (geo, View, pubsData) {
         view.setTarget(origin, circleRadiusMetres);
         view.setStatusMessage("Calculating...");
 
-        var stats = createStatistics(pubsData, 'price', 'Prices', function(x){ return "£"+x.toFixed(2); });
+        var stats = createStatistics(pubsData, 'price');
 
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
@@ -242,15 +241,14 @@ function (geo, View, pubsData) {
                     polygon: site.polygon,
                     colour: site.loc.colour
                 };
-            }),
-            stats.name
+            })
         );
 
         view.setStatusMessage(
-            stats.name + ": <br/>"
-            + "Low (green): " + stats.lowString + "<br/>"
-            + "Median (blue): " + stats.medianString + "<br/>"
-            + "High (red): " + stats.highString
+            "Price" + ": <br/>"
+            + "Low (green): " + formatPrice(stats.low) + "<br/>"
+            + "Median (blue): " + formatPrice(stats.median) + "<br/>"
+            + "High (red): " + formatPrice(stats.high)
         );
 
     }
