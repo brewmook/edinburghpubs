@@ -35,10 +35,10 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
      * @param {string} key
      * @returns {{low:*, high:*, median:*}}
      */
-    function createStatistics(objects, key)
+    function gatherStatistics(objects, key)
     {
         var values = objects
-            .filter(function(pub){return (key in pub) && (pub[key] > 0);})
+            .filter(function(object){return (key in object) && (object[key] > 0);})
             .map(function(x){return x[key];})
             .sort();
 
@@ -116,30 +116,30 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
         view.addPinsLayer(pubs.blogged.map(formatForView), "Visited (green)", "green", true);
         view.addPinsLayer(pubs.excluded.map(formatForView), "Excluded (red)", "red", false);
 
-        var stats = createStatistics(pubsData, 'price');
+        var stats = gatherStatistics(pubsData, 'price');
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
         colourMap.addColour(stats.low, new Colour(0,255,0));
         colourMap.addColour(stats.median, new Colour(0,0,255));
         colourMap.addColour(stats.high, new Colour(255,0,0));
 
-        var sites = geometry.earthSurfaceVoronoi(pubs.blogged, origin, circleRadiusMetres);
+        var colourKey = [
+            "Low (green): " + formatPrice(stats.low),
+            "Median (blue): " + formatPrice(stats.median),
+            "High (red): " + formatPrice(stats.high)
+        ];
+
+        var voronoi = geometry.earthSurfaceVoronoi(pubs.blogged, origin, circleRadiusMetres);
         view.addVoronoiCellsLayer(
-            sites.map(function(site) {
+            "Prices",
+            colourKey,
+            voronoi.map(function(cell) {
                 return {
-                    polygon: site.polygon,
-                    colour: colourMap.colour(site.loc.price).toString()
+                    polygon: cell.polygon,
+                    colour: colourMap.colour(cell.loc.price).toString()
                 };
             })
         );
-
-        view.setStatusMessage(
-            "Price" + ": <br/>"
-            + "Low (green): " + formatPrice(stats.low) + "<br/>"
-            + "Median (blue): " + formatPrice(stats.median) + "<br/>"
-            + "High (red): " + formatPrice(stats.high)
-        );
-
     }
 
     initialiseMap();

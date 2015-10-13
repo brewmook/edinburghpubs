@@ -89,7 +89,7 @@ define(['leaflet'], function (leaflet) {
         }
     };
 
-    View.prototype.addVoronoiCellsLayer = function(sites)
+    View.prototype.addVoronoiCellsLayer = function(title, colourKeyStrings, sites)
     {
         var layer = leaflet.layerGroup().addTo(this._map);
         sites.forEach(function(site) {
@@ -102,7 +102,10 @@ define(['leaflet'], function (leaflet) {
                 }
             ).addTo(layer);
         });
-        this._layersControl.addOverlay(layer, 'Voronoi');
+        this._layersControl.addOverlay(layer, title);
+
+        // Just use status message area for now to display the legend.
+        this.setStatusMessage(title + ":<br/>" + colourKeyStrings.join("<br/>"));
     };
 
     /**
