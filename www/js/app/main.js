@@ -64,23 +64,42 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
 
     /**
      * @param {Object} pub
-     * @param {ColourMap} colourMap
-     * @returns {{name:string, lat:number, lon:number, html:string, colour:string}}
+     * @returns {{name:string, lat:number, lon:number, html:string}}
      */
-    function formatPubForView(pub, colourMap)
+    function formatForView(pub)
     {
         return {
             name: pub.name,
             lat: pub.lat,
             lon: pub.lon,
-            html: bubbleHtml(pub),
-            colour: colourMap ? colourMap.colour(pub.price).toString() : ''
+            html: bubbleHtml(pub)
         };
     }
 
     function formatPrice(price)
     {
         return "£"+price.toFixed(2);
+    }
+
+    function categorisePubs(pubs)
+    {
+        var result = {
+            todo: [],
+            blogged: [],
+            excluded: []
+        };
+
+        pubs.forEach(function(pub) {
+            if (pub.link) {
+                result.blogged.push(pub);
+            } else if (hasTag(pub, ['Disqualified','Closed','Student union','Club','Restaurant'])) {
+                result.excluded.push(pub);
+            } else {
+                result.todo.push(pub);
+            }
+        });
+
+        return result;
     }
 
     function initialiseMap()
@@ -92,38 +111,24 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
         view.setTarget(origin, circleRadiusMetres);
         view.setStatusMessage("Calculating...");
 
-        var stats = createStatistics(pubsData, 'price');
+        var pubs = categorisePubs(pubsData);
+        view.addPinsLayer(pubs.todo.map(formatForView), "Todo (yellow)", "gold", true);
+        view.addPinsLayer(pubs.blogged.map(formatForView), "Visited (green)", "green", true);
+        view.addPinsLayer(pubs.excluded.map(formatForView), "Excluded (red)", "red", false);
 
+        var stats = createStatistics(pubsData, 'price');
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
         colourMap.addColour(stats.low, new Colour(0,255,0));
         colourMap.addColour(stats.median, new Colour(0,0,255));
         colourMap.addColour(stats.high, new Colour(255,0,0));
 
-        var todo = [];
-        var blogged = [];
-        var excluded = [];
-
-        pubsData.forEach(function(pub) {
-            if (pub.link) {
-                blogged.push(formatPubForView(pub, colourMap));
-            } else if (hasTag(pub, ['Disqualified','Closed','Student union','Club','Restaurant'])) {
-                excluded.push(formatPubForView(pub, null));
-            } else {
-                todo.push(formatPubForView(pub, null));
-            }
-        });
-
-        view.addPinsLayer(todo, "Todo (yellow)", "gold", true);
-        view.addPinsLayer(blogged, "Visited (green)", "green", true);
-        view.addPinsLayer(excluded, "Excluded (red)", "red", false);
-
-        var sites = geometry.earthSurfaceVoronoi(blogged, origin, circleRadiusMetres);
+        var sites = geometry.earthSurfaceVoronoi(pubs.blogged, origin, circleRadiusMetres);
         view.addVoronoiCellsLayer(
             sites.map(function(site) {
                 return {
                     polygon: site.polygon,
-                    colour: site.loc.colour
+                    colour: colourMap.colour(site.loc.price).toString()
                 };
             })
         );
