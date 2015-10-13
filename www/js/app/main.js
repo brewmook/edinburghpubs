@@ -1,5 +1,5 @@
-define(['app/geometry', 'app/view', 'data/pubs'],
-function (geo, View, pubsData) {
+define(['app/GeoCoord', 'app/geometry', 'app/view', 'data/pubs'],
+function (GeoCoord, geometry, View, pubsData) {
 
     function createLink(url, text)
     {
@@ -201,7 +201,7 @@ function (geo, View, pubsData) {
 
     function initialiseMap()
     {
-        var origin = new geo.GeoCoord(55.94816654144937, -3.1994622945785522);
+        var origin = new GeoCoord(55.94816654144937, -3.1994622945785522);
         var circleRadiusMetres = 1609;
 
         var view = new View("map");
@@ -234,7 +234,7 @@ function (geo, View, pubsData) {
         view.addPinsLayer(blogged, "Visited (green)", "green", true);
         view.addPinsLayer(excluded, "Excluded (red)", "red", false);
 
-        var sites = geo.earthSurfaceVoronoi(blogged, origin, circleRadiusMetres);
+        var sites = geometry.earthSurfaceVoronoi(blogged, origin, circleRadiusMetres);
         view.addVoronoiCellsLayer(
             sites.map(function(site) {
                 return {

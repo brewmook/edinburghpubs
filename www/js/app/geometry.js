@@ -1,16 +1,4 @@
-define(['voronoi'], function (Voronoi) {
-
-    /**
-     * Represents a geographic coordinate.
-     * @param {number} lat - Latitude
-     * @param {number} lon - Longitude
-     * @constructor
-     */
-    function GeoCoord(lat, lon)
-    {
-        this.lat = lat;
-        this.lon = lon;
-    }
+define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
 
     /**
      * A point in cartesian space.
@@ -279,7 +267,6 @@ define(['voronoi'], function (Voronoi) {
     }
 
     return {
-        GeoCoord: GeoCoord,
         earthSurfaceVoronoi: earthSurfaceVoronoi
     };
 

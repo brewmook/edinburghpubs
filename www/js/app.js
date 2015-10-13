@@ -1,10 +1,9 @@
 requirejs.config({
-    baseUrl: "js/lib",
+    baseUrl: "js",
     paths: {
-        app: "../app",
-        data: "../../data",
+        data: "../data",
         leaflet: "http://cdn.leafletjs.com/leaflet-0.7.5/leaflet",
-        voronoi: "rhill-voronoi-core"
+        voronoi: "lib/rhill-voronoi-core"
     },
     shim: {
         voronoi: { "exports": "Voronoi" }
