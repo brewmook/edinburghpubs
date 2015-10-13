@@ -78,35 +78,71 @@ function (geo, View, pubsData) {
     };
 
     /**
-     * Maps three colours to the low, median and high value range.
-     *
+     * @constructor
+     */
+    function ColourMap()
+    {
+        /** @type {{value:number, colour:Colour}[]} */
+        this._colours = [];
+        /** @type {!Colour} */
+        this._outOfRangeColour = null;
+    }
+
+    /**
      * @param {number} value
-     * @param {{value:number, colour:Colour}} low
-     * @param {{value:number, colour:Colour}} median
-     * @param {{value:number, colour:Colour}} high
-     * @param {Colour} outOfRange
+     * @returns {number} The index into [this._colours].
+     * @private
+     */
+    ColourMap.prototype._upperBound = function(value)
+    {
+        var i = 0;
+        while (i < this._colours.length && value < this._colours[i].value) {
+            ++i;
+        }
+        return i;
+    };
+
+    /**
+     * @param {number} value
+     * @param {Colour} colour
+     */
+    ColourMap.prototype.addColour = function(value, colour)
+    {
+        var i = this._upperBound(value);
+        this._colours.splice(i, 0, {value:value, colour:colour});
+    };
+
+    /**
+     * @param {?Colour} colour
+     */
+    ColourMap.prototype.setOutOfRangeColour = function(colour)
+    {
+        this._outOfRangeColour = colour;
+    };
+
+    /**
+     * @param {number} value
      * @returns {Colour}
      */
-    function colourDualLinear(value, low, median, high, outOfRange)
+    ColourMap.prototype.colour = function(value)
     {
-        var colour;
-        if (value < low.value || value > high.value) {
-            colour = outOfRange;
-        } else if (value < median.value) {
-            colour = interpolateColour(
-                (value - low.value) / (median.value-low.value),
-                low.colour,
-                median.colour
-            );
-        } else {
-            colour = interpolateColour(
-                (value - median.value) / (high.value-median.value),
-                median.colour,
-                high.colour
-            );
+        var i = this._upperBound(value);
+
+        if (i == 0) {
+            return this._outOfRangeColour || this._colours[0].value;
         }
-        return colour;
-    }
+        else if (i == this._colours.length) {
+            return this._outOfRangeColour || this._colours[i-1].colour;
+        }
+
+        var low = this._colours[i-1];
+        var high = this._colours[i];
+        return interpolateColour(
+            (value - low.value) / (high.value - low.value),
+            low.colour,
+            high.colour
+        );
+    };
 
     /**
      * Extract some statistics about some values within a list of objects.
@@ -148,20 +184,19 @@ function (geo, View, pubsData) {
         });
     }
 
-    function formatPubForView(pub, stats)
+    /**
+     * @param {Object} pub
+     * @param {ColourMap} colourMap
+     * @returns {{name:string, lat:number, lon:number, html:string, colour:string}}
+     */
+    function formatPubForView(pub, colourMap)
     {
         return {
             name: pub.name,
             lat: pub.lat,
             lon: pub.lon,
             html: bubbleHtml(pub),
-            colour: colourDualLinear(
-                pub.price,
-                {value:stats.low, colour:new Colour(0,255,0)},
-                {value:stats.median, colour:new Colour(0,0,255)},
-                {value:stats.high, colour:new Colour(255,0,0)},
-                new Colour(64,64,64)
-            ).toString()
+            colour: colourMap ? colourMap.colour(pub.price).toString() : ''
         };
     }
 
@@ -176,17 +211,23 @@ function (geo, View, pubsData) {
 
         var stats = createStatistics(pubsData, 'price', 'Prices', function(x){ return "£"+x.toFixed(2); });
 
+        var colourMap = new ColourMap();
+        colourMap.setOutOfRangeColour(new Colour(64,64,64));
+        colourMap.addColour(stats.low, new Colour(0,255,0));
+        colourMap.addColour(stats.median, new Colour(0,0,255));
+        colourMap.addColour(stats.high, new Colour(255,0,0));
+
         var todo = [];
         var blogged = [];
         var excluded = [];
 
         pubsData.forEach(function(pub) {
             if (pub.link) {
-                blogged.push(formatPubForView(pub, stats));
+                blogged.push(formatPubForView(pub, colourMap));
             } else if (hasTag(pub, ['Disqualified','Closed','Student union','Club','Restaurant'])) {
-                excluded.push(formatPubForView(pub, stats));
+                excluded.push(formatPubForView(pub, null));
             } else {
-                todo.push(formatPubForView(pub, stats));
+                todo.push(formatPubForView(pub, null));
             }
         });
 
