@@ -1,28 +1,84 @@
 define(['app/Colour', 'app/ColourMap', 'app/GeoCoord', 'app/geometry', 'app/View', 'data/pubs'],
 function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
 
+    /**
+     * @constructor
+     */
+    function Visit() {
+        this.date = '';
+        this.price = 0;
+        this.link = '';
+        this.comment = '';
+    }
+
+    /**
+     * @constructor
+     */
+    function Pub() {
+        this.name = '';
+        this.opened = '';
+        this.closed = '';
+        /** @type {string[]} */
+        this.tags = [];
+        /** @type {Visit[]} */
+        this.visits = [];
+    }
+
+    /**
+     * @constructor
+     */
+    function Site() {
+        this.lat = 0;
+        this.lon = 0;
+        /** @type {Pub[]} */
+        this.history = [];
+    }
+
+    /**
+     * @param {number} price
+     * @returns {string}
+     */
+    function formatPrice(price) {
+        return "£"+price.toFixed(2);
+    }
+
+    /**
+     * @param {string} url
+     * @param {string} text
+     * @returns {string}
+     */
     function createLink(url, text)
     {
         return "<a href=\"http://brewmook.wordpress.com" + url + "\">" + text + "</a>";
     }
 
-    function bubbleHtml(pub)
+    /**
+     * @param {Site} site
+     * @returns {string}
+     */
+    function bubbleHtml(site)
     {
+        var pub = site.history[0];
         var text = "<b>" + pub.name + "</b>";
-        if ("link" in pub && pub.link != "")
-            text = createLink(pub.link, text);
-        if ("comment" in pub && pub.comment)
-            text += "<br/><em>" + pub.comment + "</em>";
-        if ("price" in pub && pub.price > 0)
-            text += "<br/>Price: £" + pub.price.toFixed(2);
-        if ("previous" in pub) {
+        if (pub.visits.length > 0) {
+            var visit = pub.visits[0];
+            if (visit.link)
+                text = createLink(visit.link, text);
+            if (visit.comment)
+                text += "<br/><em>" + visit.comment + "</em>";
+            if (visit.price > 0)
+                text += "<br/>Price: " + formatPrice(visit.price);
+        }
+        if (site.history.length > 1) {
             var previous = [];
-            for (var i = pub.previous.length-1; i >= 0; --i) {
-                previous.push(createLink(pub.previous[i].link, pub.previous[i].name));
+            var link;
+            for (var i = 1; i < site.history.length; ++i) {
+                link = site.history[i].visits.length ? site.history[i].visits[0].link : '';
+                previous.push(createLink(link, site.history[i].name));
             }
             text += "<br/>Previously known as " + previous.join(', ') + ".";
         }
-        if ("tags" in pub && pub.tags.length > 0) {
+        if (pub.tags.length > 0) {
             text += "<br/>Tags: " + pub.tags.join(', ');
         }
         return text;
@@ -31,13 +87,15 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
     /**
      * Extract some statistics about some values within a list of objects.
      *
-     * @param {Object[]} objects
+     * @param {Site[]} sites
      * @param {string} key
      * @returns {{low:*, high:*, median:*}}
      */
-    function gatherStatistics(objects, key)
+    function gatherStatistics(sites, key)
     {
-        var values = objects
+        var values = sites
+            .filter(function(site){return site.history.length>0 && site.history[0].visits.length>0;})
+            .map(function(site){return site.history[0].visits[0];})
             .filter(function(object){return (key in object) && (object[key] > 0);})
             .map(function(x){return x[key];})
             .sort();
@@ -53,35 +111,39 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
         };
     }
 
-    function hasTag(pub, tags)
+    /**
+     * @param {string[]} tags1
+     * @param {string[]} tags2
+     * @returns {boolean}
+     */
+    function tagsIntersect(tags1, tags2)
     {
-        return "tags" in pub && pub.tags.some(function(pubTag) {
-            return tags.some(function(tag) {
-                return tag == pubTag;
+        return tags1.some(function(tag1) {
+            return tags2.some(function(tag2) {
+                return tag1 == tag2;
             });
         });
     }
 
     /**
-     * @param {Object} pub
+     * @param {Site} site
      * @returns {{name:string, lat:number, lon:number, html:string}}
      */
-    function formatForView(pub)
+    function formatForView(site)
     {
         return {
-            name: pub.name,
-            lat: pub.lat,
-            lon: pub.lon,
-            html: bubbleHtml(pub)
+            name: site.history[0].name,
+            lat: site.lat,
+            lon: site.lon,
+            html: bubbleHtml(site)
         };
     }
 
-    function formatPrice(price)
-    {
-        return "£"+price.toFixed(2);
-    }
-
-    function categorisePubs(pubs)
+    /**
+     * @param {Site[]} sites
+     * @returns {{todo: Site[], blogged: Site[], excluded: Site[]}}
+     */
+    function categoriseSites(sites)
     {
         var result = {
             todo: [],
@@ -89,13 +151,18 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
             excluded: []
         };
 
-        pubs.forEach(function(pub) {
-            if (pub.link) {
-                result.blogged.push(pub);
-            } else if (hasTag(pub, ['Disqualified','Closed','Student union','Club','Restaurant'])) {
-                result.excluded.push(pub);
-            } else {
-                result.todo.push(pub);
+        var excludedTags = ['Disqualified', 'Closed', 'Student union', 'Club', 'Restaurant'];
+
+        sites.forEach(function(site) {
+            if (site.history.length > 0) {
+                var pub = site.history[0];
+                if (pub.visits.length > 0 && pub.visits[0].link) {
+                    result.blogged.push(site);
+                } else if (tagsIntersect(pub.tags, excludedTags)) {
+                    result.excluded.push(site);
+                } else {
+                    result.todo.push(site);
+                }
             }
         });
 
@@ -111,10 +178,10 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
         view.setTarget(origin, circleRadiusMetres);
         view.setStatusMessage("Calculating...");
 
-        var pubs = categorisePubs(pubsData);
-        view.addPinsLayer(pubs.todo.map(formatForView), "Todo (yellow)", "gold", true);
-        view.addPinsLayer(pubs.blogged.map(formatForView), "Visited (green)", "green", true);
-        view.addPinsLayer(pubs.excluded.map(formatForView), "Excluded (red)", "red", false);
+        var sites = categoriseSites(pubsData);
+        view.addPinsLayer(sites.todo.map(formatForView), "Todo (yellow)", "gold", true);
+        view.addPinsLayer(sites.blogged.map(formatForView), "Visited (green)", "green", true);
+        view.addPinsLayer(sites.excluded.map(formatForView), "Excluded (red)", "red", false);
 
         var stats = gatherStatistics(pubsData, 'price');
         var colourMap = new ColourMap();
@@ -129,14 +196,14 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
             "High (red): " + formatPrice(stats.high)
         ];
 
-        var voronoi = geometry.earthSurfaceVoronoi(pubs.blogged, origin, circleRadiusMetres);
+        var voronoi = geometry.earthSurfaceVoronoi(sites.blogged, origin, circleRadiusMetres);
         view.addVoronoiCellsLayer(
             "Prices",
             colourKey,
             voronoi.map(function(cell) {
                 return {
                     polygon: cell.polygon,
-                    colour: colourMap.colour(cell.loc.price).toString()
+                    colour: colourMap.colour(cell.loc.history[0].visits[0].price).toString()
                 };
             })
         );

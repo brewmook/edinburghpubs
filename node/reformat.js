@@ -31,7 +31,7 @@ function stripRequireJSCode(text) {
 }
 
 function addRequireJSCode(text) {
-    return 'define(function(){return\n' + text + '\n;});';
+    return 'define(function(){return' + text + ';});';
 }
 
 function reformatPub(pub) {
