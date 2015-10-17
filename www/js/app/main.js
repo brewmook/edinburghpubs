@@ -1,5 +1,5 @@
-define(['app/Colour', 'app/ColourMap', 'app/GeoCoord', 'app/geometry', 'app/View', 'data/pubs'],
-function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/View', 'data/pubs'],
+function (Colour, ColourMap, geometry, View, pubsData) {
 
     /**
      * @constructor
@@ -171,19 +171,19 @@ function (Colour, ColourMap, GeoCoord, geometry, View, pubsData) {
 
     function initialiseMap()
     {
-        var origin = new GeoCoord(55.94816654144937, -3.1994622945785522);
-        var circleRadiusMetres = 1609;
+        var origin = pubsData.target.origin;
+        var circleRadiusMetres = pubsData.target.radius;
 
         var view = new View("map");
         view.setTarget(origin, circleRadiusMetres);
         view.setStatusMessage("Calculating...");
 
-        var sites = categoriseSites(pubsData);
+        var sites = categoriseSites(pubsData.sites);
         view.addPinsLayer(sites.todo.map(formatForView), "Todo (yellow)", "gold", true);
         view.addPinsLayer(sites.blogged.map(formatForView), "Visited (green)", "green", true);
         view.addPinsLayer(sites.excluded.map(formatForView), "Excluded (red)", "red", false);
 
-        var stats = gatherStatistics(pubsData, 'price');
+        var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
         colourMap.addColour(stats.low, new Colour(0,255,0));
