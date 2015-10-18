@@ -1,43 +1,10 @@
-define(['leaflet'], function (leaflet) {
-
-    /**
-     * @constructor
-     */
-    function ObservableSet() {
-        this._items = [];
-        this._subscribers = [];
-    }
-
-    ObservableSet.prototype.add = function(item) {
-        if (this._items.indexOf(item) == -1) {
-            this._items.push(item);
-            this.notify();
-        }
-    };
-
-    ObservableSet.prototype.remove = function(item) {
-        var index = this._items.indexOf(item);
-        if (index != -1) {
-            this._items.splice(index, 1);
-            this.notify();
-        }
-    };
-
-    ObservableSet.prototype.subscribe = function(callback) {
-        this._subscribers.push(callback);
-    };
-
-    ObservableSet.prototype.notify = function() {
-        for (var i in this._subscribers) {
-            this._subscribers[i](this._items);
-        }
-    };
+define(['app/ObservableSet', 'leaflet'], function (ObservableSet, leaflet) {
 
     /**
      * @param {string} elementId - the id of the HTML element to use as the map.
      * @constructor
      */
-    function View(elementId, group)
+    function View(elementId)
     {
         this._map = leaflet.map(elementId);
 
@@ -143,6 +110,9 @@ define(['leaflet'], function (leaflet) {
         });
     };
 
+    /**
+     * @param {{points:GeoCoord[],colour:Colour}[]} polygons
+     */
     View.prototype.setVoronoiPolygons = function(polygons)
     {
         this._voronoiLayer.clearLayers();
