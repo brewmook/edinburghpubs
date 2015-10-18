@@ -1,10 +1,43 @@
 define(['leaflet'], function (leaflet) {
 
     /**
+     * @constructor
+     */
+    function ObservableSet() {
+        this._items = [];
+        this._subscribers = [];
+    }
+
+    ObservableSet.prototype.add = function(item) {
+        if (this._items.indexOf(item) == -1) {
+            this._items.push(item);
+            this.notify();
+        }
+    };
+
+    ObservableSet.prototype.remove = function(item) {
+        var index = this._items.indexOf(item);
+        if (index != -1) {
+            this._items.splice(index, 1);
+            this.notify();
+        }
+    };
+
+    ObservableSet.prototype.subscribe = function(callback) {
+        this._subscribers.push(callback);
+    };
+
+    ObservableSet.prototype.notify = function() {
+        for (var i in this._subscribers) {
+            this._subscribers[i](this._items);
+        }
+    };
+
+    /**
      * @param {string} elementId - the id of the HTML element to use as the map.
      * @constructor
      */
-    function View(elementId)
+    function View(elementId, group)
     {
         this._map = leaflet.map(elementId);
 
@@ -19,6 +52,13 @@ define(['leaflet'], function (leaflet) {
         ).addTo(this._map);
 
         this._targetAreaLayer = leaflet.layerGroup().addTo(this._map);
+        this._sitesLayer = leaflet.layerGroup().addTo(this._map);
+        this._voronoiLayer = leaflet.layerGroup().addTo(this._map);
+
+        var visibleGroups = new ObservableSet();
+        this._map.on('overlayadd', function(e) { visibleGroups.add(e.layer.viewGroupName); });
+        this._map.on('overlayremove', function(e) { visibleGroups.remove(e.layer.viewGroupName); });
+        this.visibleGroups = visibleGroups;
     }
 
     /**
@@ -59,53 +99,65 @@ define(['leaflet'], function (leaflet) {
     };
 
     /**
-     *
-     * @param {{lat:number, lon:number, name:string, html:string}[]} pins
-     * @param {string} layerName
-     * @param {string} iconName
-     * @param {bool} visible
+     * @param sites
+     * @param {Object.<string,{label:string, icon:string, visible:bool}>} groups
      */
-    View.prototype.addPinsLayer = function(pins, layerName, iconName, visible)
+    View.prototype.setSites = function(sites, groups)
     {
-        var layer = leaflet.layerGroup();
+        this._sitesLayer.clearLayers();
 
-        var icon = leaflet.icon({
-            iconUrl: "img/marker-"+iconName+".png",
-            iconRetinaUrl: "img/marker-"+iconName+"-2x.png",
-            iconSize: [25, 39],
-            iconAnchor: [12, 36],
-            popupAnchor: [0, -30]
-        });
+        var layers = {};
+        for (var group in groups) {
+            if (groups.hasOwnProperty(group)) {
+                layers[group] = {
+                    layer: leaflet.layerGroup(),
+                    icon: leaflet.icon({
+                        iconUrl: "img/marker-" + groups[group].icon + ".png",
+                        iconRetinaUrl: "img/marker-" + groups[group].icon + "-2x.png",
+                        iconSize: [25, 39],
+                        iconAnchor: [12, 36],
+                        popupAnchor: [0, -30]
+                    })
+                };
 
-        pins.forEach(function(pin) {
-            var location = leaflet.latLng([pin.lat, pin.lon]);
-            var marker = leaflet.marker(location, { "title": pin.name, "icon": icon });
-            marker.addTo(layer);
-            marker.bindPopup(pin.html);
-        });
-        this._layersControl.addOverlay(layer, layerName + ": " + pins.length);
-        if (visible) {
-            layer.addTo(this._map);
+                layers[group].layer.viewGroupName = group;
+
+                this._layersControl.addOverlay(
+                    layers[group].layer,
+                    groups[group].label + " (" + groups[group].icon + ")"
+                );
+
+                if (groups[group].visible) {
+                    layers[group].layer.addTo(this._map);
+                }
+            }
         }
+
+        sites.forEach(function(site) {
+            var location = leaflet.latLng([site.lat, site.lon]);
+            var icon = layers[site.group].icon;
+            var layer = layers[site.group].layer;
+            var marker = leaflet.marker(location, { "title": site.name, "icon": icon });
+            marker.addTo(layer);
+            marker.bindPopup(site.html);
+        });
     };
 
-    View.prototype.addVoronoiCellsLayer = function(title, colourKeyStrings, sites)
+    View.prototype.setVoronoiPolygons = function(polygons)
     {
-        var layer = leaflet.layerGroup().addTo(this._map);
-        sites.forEach(function(site) {
+        this._voronoiLayer.clearLayers();
+
+        var voronoiLayer = this._voronoiLayer;
+        polygons.forEach(function(polygon) {
             leaflet.polygon(
-                site.polygon.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
+                polygon.points.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
                 {
-                    fillColor: site.colour,
+                    fillColor: polygon.colour,
                     stroke: false,
                     fillOpacity: 0.5
                 }
-            ).addTo(layer);
+            ).addTo(voronoiLayer);
         });
-        this._layersControl.addOverlay(layer, title);
-
-        // Just use status message area for now to display the legend.
-        this.setStatusMessage(title + ":<br/>" + colourKeyStrings.join("<br/>"));
     };
 
     /**

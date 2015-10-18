@@ -4,6 +4,14 @@ function (Colour, ColourMap, geometry, View, pubsData) {
     /**
      * @constructor
      */
+    function Target() {
+        this.origin = new GeoCoord(0,0);
+        this.radius = 0;
+    }
+
+    /**
+     * @constructor
+     */
     function Visit() {
         this.date = '';
         this.price = 0;
@@ -125,48 +133,61 @@ function (Colour, ColourMap, geometry, View, pubsData) {
         });
     }
 
+    function isBlogged(site) {
+        return site.history.length
+            && site.history[0].visits.length
+            && site.history[0].visits[0].link;
+    }
+
+    function isExcluded(site) {
+        var excludedTags = ['Disqualified', 'Closed', 'Student union', 'Club', 'Restaurant'];
+        return site.history.length
+            && tagsIntersect(site.history[0].tags, excludedTags);
+    }
+
+    function categorise(site) {
+        if (isBlogged(site)) {
+            return "blogged";
+        }
+        else if (isExcluded(site)) {
+            return "excluded";
+        }
+        else {
+            return "todo";
+        }
+    }
+
     /**
      * @param {Site} site
      * @returns {{name:string, lat:number, lon:number, html:string}}
      */
-    function formatForView(site)
+    function SiteViewModel(site)
     {
+        var group = categorise(site);
+
         return {
             name: site.history[0].name,
             lat: site.lat,
             lon: site.lon,
-            html: bubbleHtml(site)
+            html: bubbleHtml(site),
+            group: group,
+            site: site
         };
     }
 
+    function price(site) {
+        if (site.history.length > 0 && site.history[0].visits.length > 0)
+            return site.history[0].visits[0].price;
+        return 0;
+    }
+
     /**
-     * @param {Site[]} sites
-     * @returns {{todo: Site[], blogged: Site[], excluded: Site[]}}
+     * @param {string} group
+     * @param {string[]} groups
+     * @returns {boolean}
      */
-    function categoriseSites(sites)
-    {
-        var result = {
-            todo: [],
-            blogged: [],
-            excluded: []
-        };
-
-        var excludedTags = ['Disqualified', 'Closed', 'Student union', 'Club', 'Restaurant'];
-
-        sites.forEach(function(site) {
-            if (site.history.length > 0) {
-                var pub = site.history[0];
-                if (pub.visits.length > 0 && pub.visits[0].link) {
-                    result.blogged.push(site);
-                } else if (tagsIntersect(pub.tags, excludedTags)) {
-                    result.excluded.push(site);
-                } else {
-                    result.todo.push(site);
-                }
-            }
-        });
-
-        return result;
+    function inList(group, groups) {
+        return groups.indexOf(group) != -1;
     }
 
     function initialiseMap()
@@ -178,11 +199,6 @@ function (Colour, ColourMap, geometry, View, pubsData) {
         view.setTarget(origin, circleRadiusMetres);
         view.setStatusMessage("Calculating...");
 
-        var sites = categoriseSites(pubsData.sites);
-        view.addPinsLayer(sites.todo.map(formatForView), "Todo (yellow)", "gold", true);
-        view.addPinsLayer(sites.blogged.map(formatForView), "Visited (green)", "green", true);
-        view.addPinsLayer(sites.excluded.map(formatForView), "Excluded (red)", "red", false);
-
         var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
@@ -190,23 +206,38 @@ function (Colour, ColourMap, geometry, View, pubsData) {
         colourMap.addColour(stats.median, new Colour(0,0,255));
         colourMap.addColour(stats.high, new Colour(255,0,0));
 
-        var colourKey = [
+        var groups = {
+            todo: { label: "Todo", icon: "gold", visible: true },
+            excluded: { label: "Excluded", icon: "red", visible: false },
+            blogged: { label: "Visited", icon: "green", visible: true }
+        };
+
+        var viewSites = pubsData.sites.map(function(site) { return new SiteViewModel(site); });
+        view.setSites(viewSites, groups);
+
+        // Whenever the groups change, recalculate the voronoi cells and repopulate the view.
+        view.visibleGroups.subscribe(function(visibleGroups) {
+            var visible = viewSites.filter(function(vm) { return inList(vm.group, visibleGroups); });
+            var voronoi = geometry.earthSurfaceVoronoi(visible, origin, circleRadiusMetres);
+            var polygons = voronoi.map(function(cell) {
+                return {
+                    points: cell.polygon,
+                    colour: colourMap.colour(price(cell.loc.site)).toString()
+                };
+            });
+            view.setVoronoiPolygons(polygons);
+        });
+
+        // First time around, kive the visible groups a kick.
+        view.visibleGroups.notify();
+
+        // Just use status message area for now to display the voronoi legend.
+        var colourKeyStrings = [
             "Low (green): " + formatPrice(stats.low),
             "Median (blue): " + formatPrice(stats.median),
             "High (red): " + formatPrice(stats.high)
         ];
-
-        var voronoi = geometry.earthSurfaceVoronoi(sites.blogged, origin, circleRadiusMetres);
-        view.addVoronoiCellsLayer(
-            "Prices",
-            colourKey,
-            voronoi.map(function(cell) {
-                return {
-                    polygon: cell.polygon,
-                    colour: colourMap.colour(cell.loc.history[0].visits[0].price).toString()
-                };
-            })
-        );
+        view.setStatusMessage("Prices:<br/>" + colourKeyStrings.join("<br/>"));
     }
 
     initialiseMap();
