@@ -24,8 +24,8 @@ function (ObservableSet, ObservableValue, leaflet) {
         this._groupLayers = [];
 
         var visibleGroups = new ObservableSet();
-        this._map.on('overlayadd', function(e) { visibleGroups.add(e.layer.viewGroupName); });
-        this._map.on('overlayremove', function(e) { visibleGroups.remove(e.layer.viewGroupName); });
+        this._map.on('overlayadd', function(e) { visibleGroups.add(e.layer.viewGroupId); });
+        this._map.on('overlayremove', function(e) { visibleGroups.remove(e.layer.viewGroupId); });
         this.visibleGroups = visibleGroups;
 
         var filterText = new ObservableValue('');
@@ -73,8 +73,10 @@ function (ObservableSet, ObservableValue, leaflet) {
         ));
     };
 
-    View.prototype.clearSites = function()
+    View.prototype._clearSites = function()
     {
+        this.visibleGroups.set([]);
+
         var map = this._map;
         var control = this._layersControl;
         this._groupLayers.forEach(function(layer) {
@@ -85,84 +87,47 @@ function (ObservableSet, ObservableValue, leaflet) {
     };
 
     /**
-     * @param sites
-     * @param {Object.<string,{label:string, icon:string, visible:bool}>} groups
+     * @param {{id:string, label:string, icon:string, visible:bool, sites:SiteViewModel[]}[]} groups
      */
-    View.prototype.setGroupedSites = function(sites, groups)
+    View.prototype.setSites = function(groups)
     {
-        this.clearSites();
+        this.visibleGroups.setNotifyEnabled(false);
+        this._clearSites();
 
-        var layers = {};
-        for (var group in groups) {
-            if (groups.hasOwnProperty(group)) {
-                layers[group] = {
-                    layer: leaflet.layerGroup(),
-                    icon: leaflet.icon({
-                        iconUrl: "img/marker-" + groups[group].icon + ".png",
-                        iconRetinaUrl: "img/marker-" + groups[group].icon + "-2x.png",
-                        iconSize: [25, 39],
-                        iconAnchor: [12, 36],
-                        popupAnchor: [0, -30]
-                    })
-                };
+        var layersControl = this._layersControl;
+        var groupLayers = this._groupLayers;
+        var map = this._map;
 
-                layers[group].layer.viewGroupName = group;
+        groups.forEach(function(group) {
 
-                this._groupLayers.push(layers[group].layer);
+            var layer = leaflet.layerGroup();
+            layer.viewGroupId = group.id;
 
-                this._layersControl.addOverlay(
-                    layers[group].layer,
-                    groups[group].label + " (" + groups[group].icon + ")"
-                );
+            var icon = leaflet.icon({
+                iconUrl: "img/marker-" + group.icon + ".png",
+                iconRetinaUrl: "img/marker-" + group.icon + "-2x.png",
+                iconSize: [25, 39],
+                iconAnchor: [12, 36],
+                popupAnchor: [0, -30]
+            });
 
-                if (groups[group].visible) {
-                    layers[group].layer.addTo(this._map);
-                }
+            layersControl.addOverlay(layer, group.label + " (" + group.icon + ")");
+            groupLayers.push(layer);
+
+            if (group.visible) {
+                layer.addTo(map);
             }
-        }
 
-        sites.forEach(function(site) {
-            var location = leaflet.latLng([site.lat, site.lon]);
-            var icon = layers[site.group].icon;
-            var layer = layers[site.group].layer;
-            var marker = leaflet.marker(location, { "title": site.name, "icon": icon });
-            marker.addTo(layer);
-            marker.bindPopup(site.html);
-        });
-    };
-
-    /**
-     * @param sites
-     */
-    View.prototype.setAllSites = function(sites)
-    {
-        this.clearSites();
-
-        var layer = leaflet.layerGroup();
-        var icon = leaflet.icon({
-            iconUrl: "img/marker-green.png",
-            iconRetinaUrl: "img/marker-green-2x.png",
-            iconSize: [25, 39],
-            iconAnchor: [12, 36],
-            popupAnchor: [0, -30]
+            group.sites.forEach(function(site) {
+                var location = leaflet.latLng([site.lat, site.lon]);
+                var marker = leaflet.marker(location, {"title": site.label, "icon": icon});
+                marker.addTo(layer);
+                marker.bindPopup(site.html);
+            });
         });
 
-        layer.viewGroupName = 'filtered';
-
-        this._layersControl.addOverlay(
-            layer,
-            'Filter results'
-        );
-
-        layer.addTo(this._map);
-        this._groupLayers.push(layer);
-
-        sites.forEach(function(site) {
-            var location = leaflet.latLng([site.lat, site.lon]);
-            var marker = leaflet.marker(location, { "title": site.name, "icon": icon });
-            marker.addTo(layer);
-            marker.bindPopup(site.html);
-        });
+        this.visibleGroups.setNotifyEnabled(true);
+        this.visibleGroups.notify();
     };
 
     /**

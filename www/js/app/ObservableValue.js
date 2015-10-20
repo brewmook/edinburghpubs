@@ -19,6 +19,13 @@ define(function() {
     }
 
     /**
+     * Retrieves the value.
+     */
+    ObservableValue.prototype.get = function() {
+        return this._value;
+    };
+
+    /**
      * Changes the internal value and then notifies subscribers.
      *
      * @param value

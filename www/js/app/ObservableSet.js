@@ -16,7 +16,24 @@ define(function() {
         this._items = [];
         /** @type {ObservableSet~notifyCallback[]} */
         this._subscribers = [];
+        this._notifyEnabled = true;
     }
+
+    /**
+     * Replaces the entire internal list with those in [items], then notifies subscribers.
+     * Items are filtered so that the internal list is unique.
+     *
+     * @param {Object[]} items - Items for the internal list.
+     */
+    ObservableSet.prototype.set = function(items) {
+        this._items = [];
+        for (var index = 0; index < items.length; ++index) {
+            if (this._items.indexOf(items[index]) == -1) {
+                this._items.push(items[index]);
+            }
+        }
+        this.notify();
+    };
 
     /**
      * Adds an item to the internal list and then notifies subscribers.
@@ -57,9 +74,20 @@ define(function() {
      * Sends out the current list of items to all observers.
      */
     ObservableSet.prototype.notify = function() {
-        for (var i = 0; i < this._subscribers.length; ++i) {
-            this._subscribers[i](this._items);
+        if (this._notifyEnabled) {
+            for (var i = 0; i < this._subscribers.length; ++i) {
+                this._subscribers[i](this._items);
+            }
         }
+    };
+
+    /**
+     * Allows notification to be switched off or on.
+     * When it's switched back on, no new notification is sent.
+     * @param {boolean} value
+     */
+    ObservableSet.prototype.setNotifyEnabled = function(value) {
+        this._notifyEnabled = value;
     };
 
     return ObservableSet;
