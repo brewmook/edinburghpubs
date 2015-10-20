@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.ie.css" />
-    <![endif]-->
     <script type="text/javascript">
         var require = {
             urlArgs : "v=11",
@@ -21,7 +18,9 @@
     </style>
 </head>
 <body>
+  <div>Filter: <input id="filter" list="tags" type="text"/></div>
   <div id="map"></div>
+  <datalist id="tags"></datalist>
   <div id="message">Fetching data...</div>
 </body>
 </html>

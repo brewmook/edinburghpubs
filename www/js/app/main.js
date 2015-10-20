@@ -213,7 +213,7 @@ function (Colour, ColourMap, geometry, View, pubsData) {
         };
 
         var viewSites = pubsData.sites.map(function(site) { return new SiteViewModel(site); });
-        view.setSites(viewSites, groups);
+        view.setGroupedSites(viewSites, groups);
 
         // Whenever the groups change, recalculate the voronoi cells and repopulate the view.
         view.visibleGroups.subscribe(function(visibleGroups) {
@@ -228,6 +228,22 @@ function (Colour, ColourMap, geometry, View, pubsData) {
             view.setVoronoiPolygons(polygons);
         });
 
+        // Whenever the filter text changes, search for matching pubs
+        view.filterText.subscribe(function(filterText) {
+            if (filterText == '') {
+                view.setGroupedSites(viewSites, groups);
+            }
+            else {
+                var matches = viewSites.filter(function(viewSite) {
+                    return inList(filterText, viewSite.site.history[0].tags);
+                });
+                matches.forEach(function(viewSite) {
+                    console.log(viewSite.site.history[0].name);
+                });
+                view.setAllSites(matches);
+            }
+        });
+
         // First time around, kive the visible groups a kick.
         view.visibleGroups.notify();
 
@@ -238,6 +254,17 @@ function (Colour, ColourMap, geometry, View, pubsData) {
             "High (red): " + formatPrice(stats.high)
         ];
         view.setStatusMessage("Prices:<br/>" + colourKeyStrings.join("<br/>"));
+
+        var tags = {};
+        pubsData.sites.forEach(function(site) {
+            var siteTags = site.history[0].tags;
+            siteTags.forEach(function(tag) {
+                if (!tags.hasOwnProperty(tag)) {
+                    tags[tag] = 0;
+                }
+            });
+        });
+        view.setTags(Object.keys(tags).sort());
     }
 
     initialiseMap();
