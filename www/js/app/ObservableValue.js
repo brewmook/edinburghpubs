@@ -8,8 +8,6 @@ define(function() {
     /**
      * A set of unique items that can be observed for changes.
      *
-     * Items added and removed from the internal list must be equatable with ==.
-     *
      * @constructor
      */
     function ObservableValue(initialValue) {

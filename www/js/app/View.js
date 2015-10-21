@@ -88,8 +88,9 @@ function (ObservableSet, ObservableValue, leaflet) {
 
     /**
      * @param {{id:string, label:string, icon:string, visible:bool, sites:SiteViewModel[]}[]} groups
+     * @param {bool} allowToggling
      */
-    View.prototype.setSites = function(groups)
+    View.prototype.setGroups = function(groups, allowToggling)
     {
         this.visibleGroups.setNotifyEnabled(false);
         this._clearSites();
@@ -111,8 +112,11 @@ function (ObservableSet, ObservableValue, leaflet) {
                 popupAnchor: [0, -30]
             });
 
-            layersControl.addOverlay(layer, group.label + " (" + group.icon + ")");
             groupLayers.push(layer);
+
+            if (allowToggling) {
+                layersControl.addOverlay(layer, group.label + " (" + group.icon + ")");
+            }
 
             if (group.visible) {
                 layer.addTo(map);
