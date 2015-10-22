@@ -1,5 +1,5 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'app/View', 'app/SiteViewModel', 'data/pubs'],
-function (Colour, ColourMap, geometry, ObservableValue, View, SiteViewModel, pubsData) {
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'app/View', 'app/VoronoiView', 'app/SiteViewModel', 'data/pubs'],
+function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, SiteViewModel, pubsData) {
 
     /**
      * @constructor
@@ -250,9 +250,11 @@ function (Colour, ColourMap, geometry, ObservableValue, View, SiteViewModel, pub
         var origin = pubsData.target.origin;
         var circleRadiusMetres = pubsData.target.radius;
 
-        var view = new View("map");
+        var view = new View();
         view.setTarget(origin, circleRadiusMetres);
         view.setStatusMessage("Calculating...");
+
+        var voronoiView = new VoronoiView(view._map);
 
         var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();
@@ -266,7 +268,7 @@ function (Colour, ColourMap, geometry, ObservableValue, View, SiteViewModel, pub
         // When the visible sites change, update the voronoi cells in the view.
         visibleSites.subscribe(function(sites) {
             var polygons = voronoiPolygons(sites, origin, circleRadiusMetres, colourMap);
-            view.setVoronoiPolygons(polygons);
+            voronoiView.setPolygons(polygons);
         });
 
         // Whenever the groups change, recalculate visible sites.

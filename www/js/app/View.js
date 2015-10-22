@@ -2,12 +2,11 @@ define(['app/ObservableSet', 'app/ObservableValue', 'leaflet'],
 function (ObservableSet, ObservableValue, leaflet) {
 
     /**
-     * @param {string} elementId - the id of the HTML element to use as the map.
      * @constructor
      */
-    function View(elementId)
+    function View()
     {
-        this._map = leaflet.map(elementId);
+        this._map = leaflet.map("map");
 
         this._layersControl = leaflet.control.layers(null, null, {position: "bottomright", collapsed: false});
         this._layersControl.addTo(this._map);
@@ -20,7 +19,6 @@ function (ObservableSet, ObservableValue, leaflet) {
         ).addTo(this._map);
 
         this._targetAreaLayer = leaflet.layerGroup().addTo(this._map);
-        this._voronoiLayer = leaflet.layerGroup().addTo(this._map);
         this._groupLayers = [];
 
         var visibleGroups = new ObservableSet();
@@ -132,26 +130,6 @@ function (ObservableSet, ObservableValue, leaflet) {
 
         this.visibleGroups.setNotifyEnabled(true);
         this.visibleGroups.notify();
-    };
-
-    /**
-     * @param {{points:GeoCoord[],colour:Colour}[]} polygons
-     */
-    View.prototype.setVoronoiPolygons = function(polygons)
-    {
-        this._voronoiLayer.clearLayers();
-
-        var voronoiLayer = this._voronoiLayer;
-        polygons.forEach(function(polygon) {
-            leaflet.polygon(
-                polygon.points.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
-                {
-                    fillColor: polygon.colour,
-                    stroke: false,
-                    fillOpacity: 0.5
-                }
-            ).addTo(voronoiLayer);
-        });
     };
 
     /**
