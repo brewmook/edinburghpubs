@@ -60,7 +60,8 @@ function (ObservableSet, leaflet) {
             groupLayers.push(layer);
 
             if (allowToggling) {
-                layersControl.addOverlay(layer, group.label + " (" + group.icon + ")");
+                var label = group.label + " (" + group.icon + "): " + group.sites.length;
+                layersControl.addOverlay(layer, label);
             }
 
             if (group.visible) {
