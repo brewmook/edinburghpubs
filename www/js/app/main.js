@@ -1,8 +1,8 @@
 define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue',
-        'views/View', 'views/SitesView', 'views/VoronoiView', 'views/TagsView', 'views/TargetView',
+        'views/View', 'views/SitesView',
         'data/pubs'],
 function (Colour, ColourMap, geometry, ObservableValue,
-          View, SitesView, VoronoiView, TagsView, TargetView,
+          View, SitesView,
           pubsData) {
 
     /**
@@ -269,14 +269,6 @@ function (Colour, ColourMap, geometry, ObservableValue,
         var circleRadiusMetres = pubsData.target.radius;
 
         var view = new View();
-
-        var targetView = new TargetView(view._map);
-        targetView.setTarget(origin, circleRadiusMetres);
-
-        var voronoiView = new VoronoiView(view._map);
-        var tagsView = new TagsView(uniqueTags(pubsData.sites));
-        var sitesView = new SitesView(view._map);
-
         view.setStatusMessage("Calculating...");
 
         var stats = gatherStatistics(pubsData.sites, 'price');
@@ -288,33 +280,36 @@ function (Colour, ColourMap, geometry, ObservableValue,
 
         var visibleSites = new ObservableValue([]);
 
+        view.target.setTarget(origin, circleRadiusMetres);
+        view.tags.setTags(uniqueTags(pubsData.sites));
+
         // When the visible sites change, update the voronoi cells in the view.
         visibleSites.subscribe(function(sites) {
             var polygons = voronoiPolygons(sites, origin, circleRadiusMetres, colourMap);
-            voronoiView.setPolygons(polygons);
+            view.voronoi.setPolygons(polygons);
         });
 
         // Whenever the groups change, recalculate visible sites.
-        sitesView.visibleGroups.subscribe(function(visibleGroups) {
-            if (tagsView.selected.get() == '') {
+        view.sites.visibleGroups.subscribe(function(visibleGroups) {
+            if (view.tags.selected.get() == '') {
                 visibleSites.set(findSitesInDefaultGroups(pubsData.sites, visibleGroups));
             }
         });
 
         // Whenever the filter text changes, search for matching pubs
-        tagsView.selected.subscribe(function(tag) {
+        view.tags.selected.subscribe(function(tag) {
             if (tag == '') {
-                sitesView.showGroups(defaultGroups(pubsData.sites), true);
+                view.sites.showGroups(defaultGroups(pubsData.sites), true);
             }
             else {
                 var sites = findSitesWithMatchingTag(pubsData.sites, tag);
                 var group = new SitesView.Group("filtered", "Filtered", "green", true, sites.map(createSiteViewModel));
-                sitesView.showGroups([group], false);
+                view.sites.showGroups([group], false);
                 visibleSites.set(sites);
             }
         });
 
-        sitesView.showGroups(defaultGroups(pubsData.sites), true);
+        view.sites.showGroups(defaultGroups(pubsData.sites), true);
 
         // Just use status message area for now to display the voronoi legend.
         var colourKeyStrings = [

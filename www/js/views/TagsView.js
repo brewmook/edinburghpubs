@@ -2,18 +2,23 @@ define(['app/ObservableValue'],
 function (ObservableValue) {
 
     /**
-     * @param {string[]} tags
      * @constructor
      */
-    function TagsView(tags)
+    function TagsView()
     {
         var selected = new ObservableValue('');
         var filterTextbox = document.getElementById('filter');
-        filterTextbox.addEventListener("change", function(e) {
+        filterTextbox.addEventListener("change", function (e) {
             selected.set(filterTextbox.value);
         });
         this.selected = selected;
+    }
 
+    /**
+     * @param {string[]} tags
+     */
+    TagsView.prototype.setTags = function(tags)
+    {
         var datalist = document.getElementById('tags');
         while (datalist.firstChild) {
             datalist.removeChild(datalist.firstChild);
@@ -23,7 +28,7 @@ function (ObservableValue) {
             child.value = tag;
             datalist.appendChild(child);
         });
-    }
+    };
 
     return TagsView;
 

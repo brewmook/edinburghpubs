@@ -1,19 +1,16 @@
-define(['leaflet'],
-function (leaflet) {
+define(['views/MapView', 'views/SitesView', 'views/TagsView', 'views/TargetView', 'views/VoronoiView'],
+function(MapView, SitesView, TagsView, TargetView, VoronoiView) {
 
     /**
      * @constructor
      */
     function View()
     {
-        this._map = leaflet.map("map");
-
-        // Open Street Map attribution
-        var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-        leaflet.tileLayer(
-            'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
-            { attribution: osmAttr }
-        ).addTo(this._map);
+        var mapView = new MapView("map");
+        this.target = new TargetView(mapView.map);
+        this.voronoi = new VoronoiView(mapView.map);
+        this.sites = new SitesView(mapView.map);
+        this.tags = new TagsView();
     }
 
     /**
