@@ -1,4 +1,4 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'app/View', 'app/VoronoiView', 'app/TagsView', 'app/SiteViewModel', 'data/pubs'],
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'views/View', 'views/VoronoiView', 'views/TagsView', 'views/SiteViewModel', 'data/pubs'],
 function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, TagsView, SiteViewModel, pubsData) {
 
     /**
