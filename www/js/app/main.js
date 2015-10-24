@@ -1,5 +1,5 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'app/View', 'app/VoronoiView', 'app/SiteViewModel', 'data/pubs'],
-function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, SiteViewModel, pubsData) {
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'app/View', 'app/VoronoiView', 'app/TagsView', 'app/SiteViewModel', 'data/pubs'],
+function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, TagsView, SiteViewModel, pubsData) {
 
     /**
      * @constructor
@@ -157,6 +157,20 @@ function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, SiteV
         }
     }
 
+    function uniqueTags(sites)
+    {
+        var tags = {};
+        sites.forEach(function(site) {
+            var siteTags = site.history[0].tags;
+            siteTags.forEach(function(tag) {
+                if (!tags.hasOwnProperty(tag)) {
+                    tags[tag] = 0;
+                }
+            });
+        });
+        return Object.keys(tags).sort();
+    }
+
     /**
      * @param {Site} site
      * @return {SiteViewModel}
@@ -255,6 +269,7 @@ function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, SiteV
         view.setStatusMessage("Calculating...");
 
         var voronoiView = new VoronoiView(view._map);
+        var tagsView = new TagsView(uniqueTags(pubsData.sites));
 
         var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();
@@ -273,18 +288,18 @@ function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, SiteV
 
         // Whenever the groups change, recalculate visible sites.
         view.visibleGroups.subscribe(function(visibleGroups) {
-            if (view.filterText.get() == '') {
+            if (tagsView.selected.get() == '') {
                 visibleSites.set(findSitesInDefaultGroups(pubsData.sites, visibleGroups));
             }
         });
 
         // Whenever the filter text changes, search for matching pubs
-        view.filterText.subscribe(function(filterText) {
-            if (filterText == '') {
+        tagsView.selected.subscribe(function(tag) {
+            if (tag == '') {
                 view.setGroups(defaultGroups(pubsData.sites), true);
             }
             else {
-                var sites = findSitesWithMatchingTag(pubsData.sites, filterText);
+                var sites = findSitesWithMatchingTag(pubsData.sites, tag);
                 var group = {
                     id: "filtered",
                     label: "Filtered",
@@ -307,16 +322,6 @@ function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, SiteV
         ];
         view.setStatusMessage("Prices:<br/>" + colourKeyStrings.join("<br/>"));
 
-        var tags = {};
-        pubsData.sites.forEach(function(site) {
-            var siteTags = site.history[0].tags;
-            siteTags.forEach(function(tag) {
-                if (!tags.hasOwnProperty(tag)) {
-                    tags[tag] = 0;
-                }
-            });
-        });
-        view.setTags(Object.keys(tags).sort());
     }
 
     initialiseMap();

@@ -18,9 +18,12 @@
     </style>
 </head>
 <body>
-  <div>Filter: <input id="filter" list="tags" type="text"/></div>
+  <div>
+      <label for="filter">Filter</label>
+      <input id="filter" list="tags" type="text"/>
+      <datalist id="tags"></datalist>
+  </div>
   <div id="map"></div>
-  <datalist id="tags"></datalist>
   <div id="message">Fetching data...</div>
 </body>
 </html>

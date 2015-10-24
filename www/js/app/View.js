@@ -1,5 +1,5 @@
-define(['app/ObservableSet', 'app/ObservableValue', 'leaflet'],
-function (ObservableSet, ObservableValue, leaflet) {
+define(['app/ObservableSet', 'leaflet'],
+function (ObservableSet, leaflet) {
 
     /**
      * @constructor
@@ -25,13 +25,6 @@ function (ObservableSet, ObservableValue, leaflet) {
         this._map.on('overlayadd', function(e) { visibleGroups.add(e.layer.viewGroupId); });
         this._map.on('overlayremove', function(e) { visibleGroups.remove(e.layer.viewGroupId); });
         this.visibleGroups = visibleGroups;
-
-        var filterText = new ObservableValue('');
-        var filter = document.getElementById('filter');
-        filter.addEventListener("change", function(e) {
-            filterText.set(filter.value);
-        });
-        this.filterText = filterText;
     }
 
     /**
@@ -138,23 +131,6 @@ function (ObservableSet, ObservableValue, leaflet) {
     View.prototype.setStatusMessage = function(html)
     {
         document.getElementById('message').innerHTML = html;
-    };
-
-    /**
-     * @param {string[]} tags
-     */
-    View.prototype.setTags = function(tags)
-    {
-        var datalist = document.getElementById('tags');
-        while (datalist.firstChild) {
-            datalist.removeChild(datalist.firstChild);
-        }
-        tags.forEach(function(tag) {
-            var child = document.createElement('option');
-            //child.setAttribute('value', tag);
-            child.value = tag;
-            datalist.appendChild(child);
-        });
     };
 
     return View;
