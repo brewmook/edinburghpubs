@@ -24,8 +24,8 @@ function (ObservableSet, leaflet) {
         this._groupLayers = [];
 
         var visibleGroups = new ObservableSet();
-        this._map.on('overlayadd', function(e) { visibleGroups.add(e.layer.viewGroupId); });
-        this._map.on('overlayremove', function(e) { visibleGroups.remove(e.layer.viewGroupId); });
+        this._map.on('overlayadd', function(e) { visibleGroups.add(e.name); });
+        this._map.on('overlayremove', function(e) { visibleGroups.remove(e.name); });
         this.visibleGroups = visibleGroups;
 
         this._icons = {
@@ -67,12 +67,10 @@ function (ObservableSet, leaflet) {
             var icon = icons[group.icon];
 
             var layer = leaflet.layerGroup();
-            layer.viewGroupId = group.id;
             groupLayers.push(layer);
 
             if (allowToggling) {
-                var label = group.label + " (" + group.icon + "): " + group.sites.length;
-                layersControl.addOverlay(layer, label);
+                layersControl.addOverlay(layer, group.label);
             }
 
             if (group.initiallyVisible) {
@@ -108,15 +106,13 @@ function (ObservableSet, leaflet) {
     };
 
     /**
-     * @param {string} id
      * @param {string} label
      * @param {string} icon
      * @param {bool} initiallyVisible
      * @param {SitesView.Site[]} sites
      * @constructor
      */
-    SitesView.Group = function(id, label, icon, initiallyVisible, sites) {
-        this.id = id;
+    SitesView.Group = function(label, icon, initiallyVisible, sites) {
         this.label = label;
         this.icon = icon;
         this.initiallyVisible = initiallyVisible;

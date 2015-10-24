@@ -190,24 +190,42 @@ function (Colour, ColourMap, geometry, ObservableValue,
         );
     }
 
+    function createViewGroup(labelPrefix, icon, visible, sites)
+    {
+        return new SitesView.Group(
+            labelPrefix + " (" + icon + "): " + sites.length,
+            icon,
+            visible,
+            sites
+        );
+    }
+
+    /**
+     * @param {Site[]} sites
+     * @returns {SitesView.Group[]}
+     */
     function defaultGroups(sites) {
-        var todo = new SitesView.Group("todo", "Todo", "gold", true, []);
-        var visited = new SitesView.Group("visited", "Visited", "green", true, []);
-        var excluded = new SitesView.Group("excluded", "Excluded", "red", false, []);
+        var todo = [];
+        var visited = [];
+        var excluded = [];
 
         sites.forEach(function(site) {
             if (isBlogged(site)) {
-                visited.sites.push(createSiteViewModel(site));
+                visited.push(createSiteViewModel(site));
             }
             else if (isExcluded(site)) {
-                excluded.sites.push(createSiteViewModel(site));
+                excluded.push(createSiteViewModel(site));
             }
             else {
-                todo.sites.push(createSiteViewModel(site));
+                todo.push(createSiteViewModel(site));
             }
         });
 
-        return [visited, todo, excluded];
+        return [
+            createViewGroup("Visited", "green", true, visited),
+            createViewGroup("Todo", "gold", true, todo),
+            createViewGroup("Excluded", "red", false, excluded)
+        ];
     }
 
     function findSitesWithMatchingTag(sites, filterText) {
@@ -275,9 +293,9 @@ function (Colour, ColourMap, geometry, ObservableValue,
         });
 
         // Whenever the groups change, recalculate visible sites.
-        view.sites.visibleGroups.subscribe(function(visibleGroups) {
+        view.sites.visibleGroups.subscribe(function(groupLabels) {
             if (view.tags.selected.get() == '') {
-                var groups = defaultGroups(pubsData.sites).filter(function (g) { return inList(g.id, visibleGroups); });
+                var groups = defaultGroups(pubsData.sites).filter(function (g) { return inList(g.label, groupLabels); });
                 var sites = groups.reduce(function(result, group) { return result.concat(group.sites); }, []);
                 visibleSites.set(sites);
             }
@@ -290,7 +308,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
             }
             else {
                 var sites = findSitesWithMatchingTag(pubsData.sites, tag);
-                var group = new SitesView.Group("filtered", "Filtered", "green", true, sites.map(createSiteViewModel));
+                var group = createViewGroup("Filtered", "green", true, sites.map(createSiteViewModel));
                 view.sites.showGroups([group], false);
                 visibleSites.set(group.sites);
             }
