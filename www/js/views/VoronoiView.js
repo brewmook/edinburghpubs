@@ -9,7 +9,7 @@ define(['leaflet'], function (leaflet)
     }
 
     /**
-     * @param {{points:GeoCoord[],colour:Colour}[]} polygons
+     * @param {VoronoiView.Polygon[]} polygons
      */
     VoronoiView.prototype.setPolygons = function(polygons)
     {
@@ -20,12 +20,23 @@ define(['leaflet'], function (leaflet)
             leaflet.polygon(
                 polygon.points.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
                 {
-                    fillColor: polygon.colour,
+                    fillColor: polygon.colour.toString(),
                     stroke: false,
                     fillOpacity: 0.5
                 }
             ).addTo(voronoiLayer);
         });
+    };
+
+    /**
+     * @param {GeoCoord[]} points
+     * @param {Colour} colour
+     * @constructor
+     */
+    VoronoiView.Polygon = function(points, colour)
+    {
+        this.points = points;
+        this.colour = colour;
     };
 
     return VoronoiView;

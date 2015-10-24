@@ -96,13 +96,15 @@ function (ObservableSet, leaflet) {
      * @param {number} lat
      * @param {number} lon
      * @param {string} html
+     * @param {*} data
      * @constructor
      */
-    SitesView.Site = function(label, lat, lon, html) {
+    SitesView.Site = function(label, lat, lon, html, data) {
         this.label = label;
         this.lat = lat;
         this.lon = lon;
         this.html = html;
+        this.data = data;
     };
 
     /**

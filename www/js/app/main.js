@@ -1,8 +1,8 @@
 define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue',
-        'views/View', 'views/SitesView',
+        'views/View', 'views/SitesView', 'views/VoronoiView',
         'data/pubs'],
 function (Colour, ColourMap, geometry, ObservableValue,
-          View, SitesView,
+          View, SitesView, VoronoiView,
           pubsData) {
 
     /**
@@ -185,7 +185,8 @@ function (Colour, ColourMap, geometry, ObservableValue,
             site.history[0].name,
             site.lat,
             site.lon,
-            bubbleHtml(site)
+            bubbleHtml(site),
+            price(site)
         );
     }
 
@@ -209,29 +210,6 @@ function (Colour, ColourMap, geometry, ObservableValue,
         return [visited, todo, excluded];
     }
 
-    function findSitesInDefaultGroups(sites, groupIds)
-    {
-        var result = [];
-
-        var visited = inList('visited', groupIds);
-        var excluded = inList('excluded', groupIds);
-        var todo = inList('todo', groupIds);
-
-        sites.forEach(function(site) {
-            if (isBlogged(site)) {
-                if (visited) result.push(site);
-            }
-            else if (isExcluded(site)) {
-                if (excluded) result.push(site);
-            }
-            else {
-                if (todo) result.push(site);
-            }
-        });
-
-        return result;
-    }
-
     function findSitesWithMatchingTag(sites, filterText) {
         return sites.filter(function(site) {
             return inList(filterText, site.history[0].tags);
@@ -253,13 +231,20 @@ function (Colour, ColourMap, geometry, ObservableValue,
         return groups.indexOf(group) != -1;
     }
 
+    /**
+     * @param {SitesView.Site[]} sites
+     * @param {GeoCoord} origin
+     * @param {number} circleRadiusMetres
+     * @param {ColourMap} colourMap
+     * @returns {VoronoiView.Polygon[]}
+     */
     function voronoiPolygons(sites, origin, circleRadiusMetres, colourMap) {
         var voronoi = geometry.earthSurfaceVoronoi(sites, origin, circleRadiusMetres);
         return voronoi.map(function(cell) {
-            return {
-                points: cell.polygon,
-                colour: colourMap.colour(price(cell.loc)).toString()
-            };
+            return new VoronoiView.Polygon(
+                cell.polygon,
+                colourMap.colour(cell.loc.data)
+            );
         });
     }
 
@@ -292,7 +277,9 @@ function (Colour, ColourMap, geometry, ObservableValue,
         // Whenever the groups change, recalculate visible sites.
         view.sites.visibleGroups.subscribe(function(visibleGroups) {
             if (view.tags.selected.get() == '') {
-                visibleSites.set(findSitesInDefaultGroups(pubsData.sites, visibleGroups));
+                var groups = defaultGroups(pubsData.sites).filter(function (g) { return inList(g.id, visibleGroups); });
+                var sites = groups.reduce(function(result, group) { return result.concat(group.sites); }, []);
+                visibleSites.set(sites);
             }
         });
 
@@ -305,7 +292,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
                 var sites = findSitesWithMatchingTag(pubsData.sites, tag);
                 var group = new SitesView.Group("filtered", "Filtered", "green", true, sites.map(createSiteViewModel));
                 view.sites.showGroups([group], false);
-                visibleSites.set(sites);
+                visibleSites.set(group.sites);
             }
         });
 
