@@ -1,5 +1,9 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue', 'views/View', 'views/VoronoiView', 'views/TagsView', 'views/SiteViewModel', 'data/pubs'],
-function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, TagsView, SiteViewModel, pubsData) {
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue',
+        'views/View', 'views/VoronoiView', 'views/TagsView', 'views/TargetView', 'views/SiteViewModel',
+        'data/pubs'],
+function (Colour, ColourMap, geometry, ObservableValue,
+          View, VoronoiView, TagsView, TargetView, SiteViewModel,
+          pubsData) {
 
     /**
      * @constructor
@@ -265,11 +269,14 @@ function (Colour, ColourMap, geometry, ObservableValue, View, VoronoiView, TagsV
         var circleRadiusMetres = pubsData.target.radius;
 
         var view = new View();
-        view.setTarget(origin, circleRadiusMetres);
-        view.setStatusMessage("Calculating...");
+
+        var targetView = new TargetView(view._map);
+        targetView.setTarget(origin, circleRadiusMetres);
 
         var voronoiView = new VoronoiView(view._map);
         var tagsView = new TagsView(uniqueTags(pubsData.sites));
+
+        view.setStatusMessage("Calculating...");
 
         var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();

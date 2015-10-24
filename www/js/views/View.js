@@ -18,7 +18,6 @@ function (ObservableSet, leaflet) {
             { attribution: osmAttr }
         ).addTo(this._map);
 
-        this._targetAreaLayer = leaflet.layerGroup().addTo(this._map);
         this._groupLayers = [];
 
         var visibleGroups = new ObservableSet();
@@ -26,43 +25,6 @@ function (ObservableSet, leaflet) {
         this._map.on('overlayremove', function(e) { visibleGroups.remove(e.layer.viewGroupId); });
         this.visibleGroups = visibleGroups;
     }
-
-    /**
-     * Set up the target.
-     *
-     * @param {GeoCoord} origin - The map origin.
-     * @param {number} circleRadius - The circle radius in metres for target area.
-     * @constructor
-     */
-    View.prototype.setTarget = function(origin, circleRadius)
-    {
-        this._map.setView(leaflet.latLng([origin.lat, origin.lon]), 13);
-
-        this._targetAreaLayer.clearLayers();
-
-        // Add the target area circle
-        this._targetAreaLayer.addLayer(leaflet.circle(
-            origin,
-            circleRadius,
-            {
-                color: '#c80',
-                opacity: 1,
-                fill: false
-            }
-        ));
-
-        // Add a spot right in the middle
-        this._targetAreaLayer.addLayer(leaflet.circle(
-            origin,
-            1.0,
-            {
-                color: '#f00',
-                opacity: 1,
-                fillColor: '#f00',
-                fillOpacity: 1
-            }
-        ));
-    };
 
     View.prototype._clearSites = function()
     {
