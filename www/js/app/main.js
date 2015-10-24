@@ -1,8 +1,8 @@
 define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue',
-        'views/View', 'views/VoronoiView', 'views/TagsView', 'views/TargetView', 'views/SiteViewModel',
+        'views/View', 'views/SitesView', 'views/VoronoiView', 'views/TagsView', 'views/TargetView',
         'data/pubs'],
 function (Colour, ColourMap, geometry, ObservableValue,
-          View, VoronoiView, TagsView, TargetView, SiteViewModel,
+          View, SitesView, VoronoiView, TagsView, TargetView,
           pubsData) {
 
     /**
@@ -177,11 +177,11 @@ function (Colour, ColourMap, geometry, ObservableValue,
 
     /**
      * @param {Site} site
-     * @return {SiteViewModel}
+     * @return {SitesView.Site}
      */
     function createSiteViewModel(site)
     {
-        return new SiteViewModel(
+        return new SitesView.Site(
             site.history[0].name,
             site.lat,
             site.lon,
@@ -190,9 +190,9 @@ function (Colour, ColourMap, geometry, ObservableValue,
     }
 
     function defaultGroups(sites) {
-        var todo = { id: "todo", label: "Todo", icon: "gold", visible: true, sites: [] };
-        var excluded = { id: "excluded", label: "Excluded", icon: "red", visible: false, sites: [] };
-        var visited = { id: "visited", label: "Visited", icon: "green", visible: true, sites: [] };
+        var todo = new SitesView.Group("todo", "Todo", "gold", true, []);
+        var visited = new SitesView.Group("visited", "Visited", "green", true, []);
+        var excluded = new SitesView.Group("excluded", "Excluded", "red", false, []);
 
         sites.forEach(function(site) {
             if (isBlogged(site)) {
@@ -275,6 +275,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
 
         var voronoiView = new VoronoiView(view._map);
         var tagsView = new TagsView(uniqueTags(pubsData.sites));
+        var sitesView = new SitesView(view._map);
 
         view.setStatusMessage("Calculating...");
 
@@ -294,7 +295,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
         });
 
         // Whenever the groups change, recalculate visible sites.
-        view.visibleGroups.subscribe(function(visibleGroups) {
+        sitesView.visibleGroups.subscribe(function(visibleGroups) {
             if (tagsView.selected.get() == '') {
                 visibleSites.set(findSitesInDefaultGroups(pubsData.sites, visibleGroups));
             }
@@ -303,23 +304,17 @@ function (Colour, ColourMap, geometry, ObservableValue,
         // Whenever the filter text changes, search for matching pubs
         tagsView.selected.subscribe(function(tag) {
             if (tag == '') {
-                view.setGroups(defaultGroups(pubsData.sites), true);
+                sitesView.showGroups(defaultGroups(pubsData.sites), true);
             }
             else {
                 var sites = findSitesWithMatchingTag(pubsData.sites, tag);
-                var group = {
-                    id: "filtered",
-                    label: "Filtered",
-                    icon: "green",
-                    visible: true,
-                    sites: sites.map(createSiteViewModel)
-                };
-                view.setGroups([group], false);
+                var group = new SitesView.Group("filtered", "Filtered", "green", true, sites.map(createSiteViewModel));
+                sitesView.showGroups([group], false);
                 visibleSites.set(sites);
             }
         });
 
-        view.setGroups(defaultGroups(pubsData.sites), true);
+        sitesView.showGroups(defaultGroups(pubsData.sites), true);
 
         // Just use status message area for now to display the voronoi legend.
         var colourKeyStrings = [
