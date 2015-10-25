@@ -50,9 +50,8 @@ function (ObservableSet, leaflet) {
 
     /**
      * @param {SitesView.Group[]} groups
-     * @param {bool} allowToggling
      */
-    SitesView.prototype.showGroups = function(groups, allowToggling)
+    SitesView.prototype.showGroups = function(groups)
     {
         this.visibleGroups.setNotifyEnabled(false);
         this._clearSites();
@@ -69,9 +68,7 @@ function (ObservableSet, leaflet) {
             var layer = leaflet.layerGroup();
             groupLayers.push(layer);
 
-            if (allowToggling) {
-                layersControl.addOverlay(layer, group.label);
-            }
+            layersControl.addOverlay(layer, group.label);
 
             if (group.initiallyVisible) {
                 layer.addTo(map);

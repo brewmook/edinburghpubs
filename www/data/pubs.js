@@ -510,7 +510,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Student union"
+						"Student Union"
 					],
 					"visits": [
 						{
@@ -1279,7 +1279,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Student union"
+						"Student Union"
 					],
 					"visits": [
 						{
@@ -3733,7 +3733,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Student union"
+						"Student Union"
 					],
 					"visits": [
 						{
@@ -7006,7 +7006,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Student union"
+						"Student Union"
 					],
 					"visits": [
 						{
@@ -7987,7 +7987,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Student union"
+						"Student Union"
 					],
 					"visits": [
 						{

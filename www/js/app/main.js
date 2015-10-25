@@ -144,21 +144,9 @@ function (Colour, ColourMap, geometry, ObservableValue,
     }
 
     function isExcluded(site) {
-        var excludedTags = ['Disqualified', 'Closed', 'Student union', 'Club', 'Restaurant'];
+        var excludedTags = ['Disqualified', 'Closed', 'Student Union', 'Club', 'Restaurant'];
         return site.history.length
             && tagsIntersect(site.history[0].tags, excludedTags);
-    }
-
-    function categorise(site) {
-        if (isBlogged(site)) {
-            return "blogged";
-        }
-        else if (isExcluded(site)) {
-            return "excluded";
-        }
-        else {
-            return "todo";
-        }
     }
 
     function uniqueTags(sites)
@@ -228,7 +216,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
         ];
     }
 
-    function findSitesWithMatchingTag(sites, filterText) {
+    function sitesMatchingTag(sites, filterText) {
         return sites.filter(function(site) {
             return inList(filterText, site.history[0].tags);
         });
@@ -281,40 +269,31 @@ function (Colour, ColourMap, geometry, ObservableValue,
         colourMap.addColour(stats.median, new Colour(0,0,255));
         colourMap.addColour(stats.high, new Colour(255,0,0));
 
-        var visibleSites = new ObservableValue([]);
+        var currentGroups = defaultGroups(pubsData.sites);
 
         view.target.setTarget(origin, circleRadiusMetres);
         view.tags.setTags(uniqueTags(pubsData.sites));
 
-        // When the visible sites change, update the voronoi cells in the view.
-        visibleSites.subscribe(function(sites) {
+        view.sites.visibleGroups.subscribe(function(groupLabels) {
+            var groups = currentGroups.filter(function (g) { return inList(g.label, groupLabels); });
+            var sites = groups.reduce(function(result, group) { return result.concat(group.sites); }, []);
             var polygons = voronoiPolygons(sites, origin, circleRadiusMetres, colourMap);
             view.voronoi.setPolygons(polygons);
         });
 
-        // Whenever the groups change, recalculate visible sites.
-        view.sites.visibleGroups.subscribe(function(groupLabels) {
-            if (view.tags.selected.get() == '') {
-                var groups = defaultGroups(pubsData.sites).filter(function (g) { return inList(g.label, groupLabels); });
-                var sites = groups.reduce(function(result, group) { return result.concat(group.sites); }, []);
-                visibleSites.set(sites);
-            }
-        });
-
-        // Whenever the filter text changes, search for matching pubs
         view.tags.selected.subscribe(function(tag) {
+            var sites;
             if (tag == '') {
-                view.sites.showGroups(defaultGroups(pubsData.sites), true);
+                sites = pubsData.sites;
             }
             else {
-                var sites = findSitesWithMatchingTag(pubsData.sites, tag);
-                var group = createViewGroup("Filtered", "green", true, sites.map(createSiteViewModel));
-                view.sites.showGroups([group], false);
-                visibleSites.set(group.sites);
+                sites = sitesMatchingTag(pubsData.sites, tag);
             }
+            currentGroups = defaultGroups(sites);
+            view.sites.showGroups(currentGroups);
         });
 
-        view.sites.showGroups(defaultGroups(pubsData.sites), true);
+        view.sites.showGroups(currentGroups);
 
         // Just use status message area for now to display the voronoi legend.
         var colourKeyStrings = [
