@@ -1,4 +1,4 @@
-define(['leaflet'], function (leaflet) {
+define(['app/geometry', 'leaflet'], function (geometry, leaflet) {
 
     /**
      * @param map - The Leaflet map object.
@@ -16,7 +16,7 @@ define(['leaflet'], function (leaflet) {
      */
     TargetView.prototype.setTarget = function(origin, circleRadius)
     {
-        this._map.setView(leaflet.latLng([origin.lat, origin.lon]), 13);
+        this._map.fitBounds(geometry.earthSurfaceCircleBounds(origin, circleRadius));
 
         this._targetAreaLayer.clearLayers();
 

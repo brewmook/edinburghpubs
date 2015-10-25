@@ -1,5 +1,7 @@
 define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
 
+    var EarthRadiusMetres = 6378137;
+
     /**
      * A point in cartesian space.
      * @param {number} x
@@ -245,10 +247,9 @@ define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
      */
     function earthSurfaceVoronoi(locations, origin, circleRadius)
     {
-        var earthRadiusMetres = 6378137;
         var voronoi = new Voronoi();
         var computed = voronoi.compute(
-            calculateCartesians(locations, origin, earthRadiusMetres),
+            calculateCartesians(locations, origin, EarthRadiusMetres),
             squareBoundingBox(2*circleRadius+100)
         );
 
@@ -256,17 +257,27 @@ define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
             /** @type {Cartesian[]} */
             var polygon = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
-                return new Cartesian(start.x, start.y, earthRadiusMetres);
+                return new Cartesian(start.x, start.y, EarthRadiusMetres);
             });
             var croppedPolygon = cropToCircle(polygon, circleRadius);
             return {
                 loc: cell.site.loc,
-                polygon: cartesianToGeoCoord(croppedPolygon, origin, earthRadiusMetres)
+                polygon: cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres)
             }
         });
     }
 
+    function earthSurfaceCircleBounds(origin, circleRadius)
+    {
+        var bounds = [
+            new Cartesian(-circleRadius, -circleRadius, EarthRadiusMetres),
+            new Cartesian( circleRadius,  circleRadius, EarthRadiusMetres)
+        ];
+        return cartesianToGeoCoord(bounds, origin, EarthRadiusMetres);
+    }
+
     return {
+        earthSurfaceCircleBounds: earthSurfaceCircleBounds,
         earthSurfaceVoronoi: earthSurfaceVoronoi
     };
 
