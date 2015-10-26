@@ -1,7 +1,7 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/ObservableValue',
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/Grouper', 'app/ObservableValue',
         'views/View', 'views/SitesView', 'views/VoronoiView',
         'data/pubs'],
-function (Colour, ColourMap, geometry, ObservableValue,
+function (Colour, ColourMap, geometry, Grouper, ObservableValue,
           View, SitesView, VoronoiView,
           pubsData) {
 
@@ -145,8 +145,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
 
     function isExcluded(site) {
         var excludedTags = ['Disqualified', 'Closed', 'Student Union', 'Club', 'Restaurant'];
-        return site.history.length
-            && tagsIntersect(site.history[0].tags, excludedTags);
+        return tagsIntersect(site.history[0].tags, excludedTags);
     }
 
     function uniqueTags(sites)
@@ -167,7 +166,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
      * @param {Site} site
      * @return {SitesView.Site}
      */
-    function createSiteViewModel(site)
+    function createViewSite(site)
     {
         return new SitesView.Site(
             site.history[0].name,
@@ -178,6 +177,13 @@ function (Colour, ColourMap, geometry, ObservableValue,
         );
     }
 
+    /**
+     * @param labelPrefix
+     * @param icon
+     * @param visible
+     * @param sites
+     * @returns {SitesView.Group}
+     */
     function createViewGroup(labelPrefix, icon, visible, sites)
     {
         return new SitesView.Group(
@@ -186,34 +192,6 @@ function (Colour, ColourMap, geometry, ObservableValue,
             visible,
             sites
         );
-    }
-
-    /**
-     * @param {Site[]} sites
-     * @returns {SitesView.Group[]}
-     */
-    function defaultGroups(sites) {
-        var todo = [];
-        var visited = [];
-        var excluded = [];
-
-        sites.forEach(function(site) {
-            if (isBlogged(site)) {
-                visited.push(createSiteViewModel(site));
-            }
-            else if (isExcluded(site)) {
-                excluded.push(createSiteViewModel(site));
-            }
-            else {
-                todo.push(createSiteViewModel(site));
-            }
-        });
-
-        return [
-            createViewGroup("Visited", "green", true, visited),
-            createViewGroup("Todo", "gold", true, todo),
-            createViewGroup("Excluded", "red", false, excluded)
-        ];
     }
 
     function sitesMatchingTag(sites, filterText) {
@@ -269,7 +247,12 @@ function (Colour, ColourMap, geometry, ObservableValue,
         colourMap.addColour(stats.median, new Colour(0,0,255));
         colourMap.addColour(stats.high, new Colour(255,0,0));
 
-        var currentGroups = defaultGroups(pubsData.sites);
+        var grouper = new Grouper(createViewSite, createViewGroup);
+        grouper.addGroup("Visited", "green", true, isBlogged);
+        grouper.addGroup("Todo", "gold", true, function(site) { return !isBlogged(site) && !isExcluded(site); });
+        //grouper.addGroup("Excluded", "red", false, function(site) { return !isBlogged(site) && isExcluded(site); });
+
+        var currentGroups = grouper.groupSites(pubsData.sites);
 
         view.target.setTarget(origin, circleRadiusMetres);
         view.tags.setTags(uniqueTags(pubsData.sites));
@@ -289,7 +272,7 @@ function (Colour, ColourMap, geometry, ObservableValue,
             else {
                 sites = sitesMatchingTag(pubsData.sites, tag);
             }
-            currentGroups = defaultGroups(sites);
+            currentGroups = grouper.groupSites(sites);
             view.sites.showGroups(currentGroups);
         });
 
