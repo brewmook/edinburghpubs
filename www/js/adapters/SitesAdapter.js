@@ -73,15 +73,20 @@ function (SitesView) {
      */
     function SitesAdapter(sitesModel, view, grouper)
     {
+        var suppressViewGroupUpdate = false;
+
         view.visibleGroups.subscribe(function(groupLabels) {
             var groups = groupLabels.map(function(label) {
                 var x = label.indexOf(' (');
                 return label.substring(0, x);
             });
+            suppressViewGroupUpdate = true;
             sitesModel.setVisibleGroups(groups);
+            suppressViewGroupUpdate = false;
         });
 
         sitesModel.sites.subscribe(function(sites) {
+            if (suppressViewGroupUpdate) return;
             var groups = grouper.groupSites(sites);
             view.groups.forEach(function(viewGroup) {
                 var group = groups.filter(function(g) { return viewGroup.label.indexOf(g.label) == 0; })[0];
