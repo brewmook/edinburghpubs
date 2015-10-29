@@ -1,66 +1,54 @@
 define(function() {
 
     /**
-     * @callback Grouper~createItem
-     * @param {Site} site
-     * @returns {SitesView.Site}
-     */
-
-    /**
-     * @callback Grouper~createGroup
-     * @param {string} labelPrefix
-     * @param {string} icon
-     * @param {bool} visible
-     * @param {SitesView.Site[]} sites
-     * @returns {SitesView.Group}
-     */
-
-    /**
      * @callback Grouper~predicate
      * @param {Site} site
      * @returns {bool}
      */
 
     /**
-     * @param {Grouper~createItem} createItem
-     * @param {Grouper~createGroup} createGroup
      * @constructor
      */
-    function Grouper(createItem, createGroup)
+    function Grouper()
     {
-        this._groupers = [];
-        this._createItem = createItem;
-        this._createGroup = createGroup;
+        this._groups = [];
     }
 
     /**
-     * @param {string} labelPrefix
-     * @param {string} icon
-     * @param {bool} visible
+     * @param {string} label
      * @param {Grouper~predicate} predicate
      */
-    Grouper.prototype.addGroup = function(labelPrefix, icon, visible, predicate)
+    Grouper.prototype.addGroup = function(label, predicate)
     {
-        this._groupers.push({
-            labelPrefix: labelPrefix,
-            icon: icon,
-            visible: visible,
+        this._groups.push({
+            label: label,
             predicate: predicate
         });
     };
 
     /**
      * @param {Site[]} sites
-     * @returns {SitesView.Group[]}
+     * @returns {Grouper.Group[]}
      */
     Grouper.prototype.groupSites = function(sites)
     {
-        var createItem = this._createItem;
-        var createGroup = this._createGroup;
-        return this._groupers.map(function(grouper) {
-            var group = sites.filter(grouper.predicate).map(createItem);
-            return createGroup(grouper.labelPrefix, grouper.icon, grouper.visible, group);
+        return this._groups.map(function(group) {
+            return new Grouper.Group(
+                group.label,
+                sites.filter(group.predicate)
+            );
         });
+    };
+
+    /**
+     * @param {string} label
+     * @param {Site[]} sites
+     * @constructor
+     */
+    Grouper.Group = function(label, sites)
+    {
+        this.label = label;
+        this.sites = sites;
     };
 
     return Grouper;

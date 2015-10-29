@@ -172,25 +172,7 @@ function (Colour, ColourMap, geometry, Grouper, ObservableValue,
             site.history[0].name,
             site.lat,
             site.lon,
-            bubbleHtml(site),
-            price(site)
-        );
-    }
-
-    /**
-     * @param labelPrefix
-     * @param icon
-     * @param visible
-     * @param sites
-     * @returns {SitesView.Group}
-     */
-    function createViewGroup(labelPrefix, icon, visible, sites)
-    {
-        return new SitesView.Group(
-            labelPrefix + " (" + icon + "): " + sites.length,
-            icon,
-            visible,
-            sites
+            bubbleHtml(site)
         );
     }
 
@@ -216,29 +198,118 @@ function (Colour, ColourMap, geometry, Grouper, ObservableValue,
     }
 
     /**
-     * @param {SitesView.Site[]} sites
-     * @param {GeoCoord} origin
-     * @param {number} circleRadiusMetres
-     * @param {ColourMap} colourMap
-     * @returns {VoronoiView.Polygon[]}
+     * @param {Site[]} allSites
+     * @param {Grouper} grouper
+     * @constructor
      */
-    function voronoiPolygons(sites, origin, circleRadiusMetres, colourMap) {
-        var voronoi = geometry.earthSurfaceVoronoi(sites, origin, circleRadiusMetres);
-        return voronoi.map(function(cell) {
-            return new VoronoiView.Polygon(
-                cell.polygon,
-                colourMap.colour(cell.loc.data)
-            );
+    function SitesModel(allSites, grouper)
+    {
+        this.sites = new ObservableValue(allSites.slice());
+        this.grouper = grouper;
+
+        this._allSites = allSites;
+        this._tag = '';
+        this._visibleGroups = [];
+    }
+
+    SitesModel.prototype._updateSites = function()
+    {
+        var sites;
+
+        if (this._tag == '') {
+            sites = this._allSites.slice();
+        }
+        else {
+            sites = sitesMatchingTag(this._allSites, this._tag);
+        }
+
+        var groups = this.grouper.groupSites(sites);
+        var visibleGroups = this._visibleGroups;
+        var filteredGroups = groups.filter(function(g) { return inList(g.label, visibleGroups); });
+        this.sites.set(filteredGroups.reduce(function(result, group) { return result.concat(group.sites); }, []));
+    };
+
+    SitesModel.prototype.setTag = function(tag)
+    {
+        this._tag = tag;
+        this._updateSites();
+    };
+
+    SitesModel.prototype.setVisibleGroups = function(visibleGroups)
+    {
+        this._visibleGroups = visibleGroups;
+        this._updateSites();
+    };
+
+    /**
+     * @param {SitesModel} sitesModel
+     * @param {VoronoiView} view
+     * @param {Target} target
+     * @constructor
+     */
+    function VoronoiAdapter(sitesModel, view, target)
+    {
+        this._view = view;
+        this._target = target;
+        this.colourCallback = function(site) { return 0; };
+
+        var me = this;
+        sitesModel.sites.subscribe(function(sites) { me._onSitesChanged(sites); });
+    }
+
+    VoronoiAdapter.prototype._onSitesChanged = function(sites)
+    {
+        var colourCallback = this.colourCallback;
+        var voronoi = geometry.earthSurfaceVoronoi(sites, this._target.origin, this._target.radius);
+        var polygons = voronoi.map(function(cell) {
+            return new VoronoiView.Polygon(cell.polygon, colourCallback(cell.loc));
+        });
+        this._view.setPolygons(polygons);
+    };
+
+    /**
+     * @param {SitesModel} sitesModel
+     * @param {SitesView} view
+     * @param {Grouper} grouper
+     * @constructor
+     */
+    function SitesAdapter(sitesModel, view, grouper)
+    {
+        view.visibleGroups.subscribe(function(groupLabels) {
+            var groups = groupLabels.map(function(label) {
+                var x = label.indexOf(' (');
+                return label.substring(0, x);
+            });
+            sitesModel.setVisibleGroups(groups);
+        });
+
+        sitesModel.sites.subscribe(function(sites) {
+            var groups = grouper.groupSites(sites);
+            view.groups.forEach(function(viewGroup) {
+                var group = groups.filter(function(g) { return viewGroup.label.indexOf(g.label) == 0; })[0];
+                viewGroup.setSites(group.sites.map(createViewSite));
+            });
+        });
+    }
+
+    /**
+     * @param {SitesModel} sitesModel
+     * @param {TagsView} view
+     * @constructor
+     */
+    function TagsAdapter(sitesModel, view)
+    {
+        view.selected.subscribe(function(tag) {
+            sitesModel.setTag(tag);
         });
     }
 
     function initialiseMap()
     {
-        var origin = pubsData.target.origin;
-        var circleRadiusMetres = pubsData.target.radius;
-
         var view = new View();
         view.setStatusMessage("Calculating...");
+        view.target.setTarget(pubsData.target.origin, pubsData.target.radius);
+        view.tags.setTags(uniqueTags(pubsData.sites));
 
         var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();
@@ -247,36 +318,25 @@ function (Colour, ColourMap, geometry, Grouper, ObservableValue,
         colourMap.addColour(stats.median, new Colour(0,0,255));
         colourMap.addColour(stats.high, new Colour(255,0,0));
 
-        var grouper = new Grouper(createViewSite, createViewGroup);
-        grouper.addGroup("Visited", "green", true, isBlogged);
-        grouper.addGroup("Todo", "gold", true, function(site) { return !isBlogged(site) && !isExcluded(site); });
-        //grouper.addGroup("Excluded", "red", false, function(site) { return !isBlogged(site) && isExcluded(site); });
+        view.sites.addGroup("Visited (green)", "green", true);
+        view.sites.addGroup("Todo (gold)", "gold", true);
+        view.sites.addGroup("Excluded (red)", "red", false);
 
-        var currentGroups = grouper.groupSites(pubsData.sites);
+        var grouper = new Grouper();
+        grouper.addGroup("Visited", isBlogged);
+        grouper.addGroup("Todo", function(site) { return !isBlogged(site) && !isExcluded(site); });
+        grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
 
-        view.target.setTarget(origin, circleRadiusMetres);
-        view.tags.setTags(uniqueTags(pubsData.sites));
+        var sitesModel = new SitesModel(pubsData.sites, grouper);
 
-        view.sites.visibleGroups.subscribe(function(groupLabels) {
-            var groups = currentGroups.filter(function (g) { return inList(g.label, groupLabels); });
-            var sites = groups.reduce(function(result, group) { return result.concat(group.sites); }, []);
-            var polygons = voronoiPolygons(sites, origin, circleRadiusMetres, colourMap);
-            view.voronoi.setPolygons(polygons);
-        });
+        var voronoiAdapter = new VoronoiAdapter(sitesModel, view.voronoi, pubsData.target);
+        voronoiAdapter.colourCallback = function(site) { return colourMap.colour(price(site)); };
+        var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
 
-        view.tags.selected.subscribe(function(tag) {
-            var sites;
-            if (tag == '') {
-                sites = pubsData.sites;
-            }
-            else {
-                sites = sitesMatchingTag(pubsData.sites, tag);
-            }
-            currentGroups = grouper.groupSites(sites);
-            view.sites.showGroups(currentGroups);
-        });
+        var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 
-        view.sites.showGroups(currentGroups);
+        sitesModel.setTag('');
+        sitesModel.setVisibleGroups(['Visited', 'Todo']);
 
         // Just use status message area for now to display the voronoi legend.
         var colourKeyStrings = [
