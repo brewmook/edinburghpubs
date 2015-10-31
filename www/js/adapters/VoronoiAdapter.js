@@ -1,17 +1,18 @@
-define(['app/geometry', 'views/VoronoiView'],
-function (geometry, VoronoiView) {
+define(['app/geometry', 'models/StatsModel', 'views/VoronoiView'],
+function (geometry, StatsModel, VoronoiView) {
 
     /**
      * @param {SitesModel} sitesModel
+     * @param {StatsModel} statsModel
      * @param {VoronoiView} view
      * @param {Target} target
      * @constructor
      */
-    function VoronoiAdapter(sitesModel, view, target)
+    function VoronoiAdapter(sitesModel, statsModel, view, target)
     {
         this._view = view;
         this._target = target;
-        this.colourCallback = function(site) { return 0; };
+        this._statsModel = statsModel;
 
         var me = this;
         sitesModel.sites.subscribe(function(sites) { me._onSitesChanged(sites); });
@@ -19,10 +20,10 @@ function (geometry, VoronoiView) {
 
     VoronoiAdapter.prototype._onSitesChanged = function(sites)
     {
-        var colourCallback = this.colourCallback;
+        var statsModel = this._statsModel;
         var voronoi = geometry.earthSurfaceVoronoi(sites, this._target.origin, this._target.radius);
         var polygons = voronoi.map(function(cell) {
-            return new VoronoiView.Polygon(cell.polygon, colourCallback(cell.loc));
+            return new VoronoiView.Polygon(cell.polygon, statsModel.getColour(cell.loc));
         });
         this._view.setPolygons(polygons);
     };

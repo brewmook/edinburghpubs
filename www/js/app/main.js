@@ -1,69 +1,9 @@
-define(['app/Colour', 'app/ColourMap', 'app/Grouper',
+define(['app/Grouper',
         'views/View', 'adapters/SitesAdapter', 'adapters/TagsAdapter', 'adapters/VoronoiAdapter',
-        'models/SitesModel', 'data/pubs'],
-function (Colour, ColourMap, Grouper,
-          View, SitesAdapter, TagsAdapter, VoronoiAdapter,
-          SitesModel, pubsData) {
-
-    /**
-     * @param {number} price
-     * @returns {string}
-     */
-    function formatPrice(price) {
-        return "£"+price.toFixed(2);
-    }
-
-    /**
-     * @param {Site[]} sites
-     * @returns {Visit[]}
-     */
-    function mostRecentVisits(sites)
-    {
-        return sites.filter(function(site) { return site.history.length>0 && site.history[0].visits.length>0; })
-                    .map(function(site) {return site.history[0].visits[0]; });
-    }
-
-    /**
-     * @param {Object[]} objects
-     * @param {string} key
-     * @returns {Array}
-     */
-    function getPropertyValues(objects, key)
-    {
-        return objects.filter(function(object) { return object.hasOwnProperty(key); })
-                      .map(function(object) { return object[key]; });
-    }
-
-    /**
-     * Extract minimum, maximum and median values within a list of sites.
-     *
-     * @param {Array} values - Array of *sorted* values.
-     * @returns {{min:*, max:*, med:*}}
-     */
-    function minMaxMedian(values)
-    {
-        return {
-            min: values[0],
-            max: values[values.length-1],
-            med: values[Math.floor(values.length/2)]
-        };
-    }
-
-    /**
-     * Extract minimum, maximum and median values within a list of sites.
-     *
-     * @param {Site[]} sites
-     * @param {string} key
-     * @returns {{min:*, max:*, med:*}}
-     */
-    function gatherStatistics(sites, key)
-    {
-        var values = getPropertyValues(mostRecentVisits(sites), key)
-            .filter(function(value) { return value > 0; })
-            .sort();
-
-        return minMaxMedian(values);
-    }
+        'models/SitesModel', 'models/StatsModel', 'data/pubs'],
+function(Grouper,
+         View, SitesAdapter, TagsAdapter, VoronoiAdapter,
+         SitesModel, StatsModel, pubsData) {
 
     /**
      * @param {string[]} tags1
@@ -104,25 +44,12 @@ function (Colour, ColourMap, Grouper,
         return Object.keys(tags).sort();
     }
 
-    function price(site) {
-        if (site.history.length > 0 && site.history[0].visits.length > 0)
-            return site.history[0].visits[0].price;
-        return 0;
-    }
-
     function initialiseMap()
     {
         var view = new View();
         view.setStatusMessage("Calculating...");
         view.target.setTarget(pubsData.target.origin, pubsData.target.radius);
         view.tags.setTags(uniqueTags(pubsData.sites));
-
-        var stats = gatherStatistics(pubsData.sites, 'price');
-        var colourMap = new ColourMap();
-        colourMap.setOutOfRangeColour(new Colour(64,64,64));
-        colourMap.addColour(stats.min, new Colour(0,255,0));
-        colourMap.addColour(stats.med, new Colour(0,0,255));
-        colourMap.addColour(stats.max, new Colour(255,0,0));
 
         view.sites.addGroup("Visited (green)", "green", true);
         view.sites.addGroup("Todo (gold)", "gold", true);
@@ -134,9 +61,10 @@ function (Colour, ColourMap, Grouper,
         grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
 
         var sitesModel = new SitesModel(pubsData.sites, grouper);
+        var statsModel = new StatsModel();
+        statsModel.setDetails(pubsData.sites);
 
-        var voronoiAdapter = new VoronoiAdapter(sitesModel, view.voronoi, pubsData.target);
-        voronoiAdapter.colourCallback = function(site) { return colourMap.colour(price(site)); };
+        var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, pubsData.target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
         var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 
@@ -144,12 +72,7 @@ function (Colour, ColourMap, Grouper,
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
 
         // Just use status message area for now to display the voronoi legend.
-        var colourKeyStrings = [
-            "Low (green): " + formatPrice(stats.min),
-            "Median (blue): " + formatPrice(stats.med),
-            "High (red): " + formatPrice(stats.max)
-        ];
-        view.setStatusMessage("Prices:<br/>" + colourKeyStrings.join("<br/>"));
+        view.setStatusMessage("Prices:<br/>" + statsModel.colourKeyStrings.join("<br/>"));
     }
 
     initialiseMap();
