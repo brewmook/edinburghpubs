@@ -14,30 +14,55 @@ function (Colour, ColourMap, Grouper,
     }
 
     /**
-     * Extract some statistics about some values within a list of objects.
+     * @param {Site[]} sites
+     * @returns {Visit[]}
+     */
+    function mostRecentVisits(sites)
+    {
+        return sites.filter(function(site) { return site.history.length>0 && site.history[0].visits.length>0; })
+                    .map(function(site) {return site.history[0].visits[0]; });
+    }
+
+    /**
+     * @param {Object[]} objects
+     * @param {string} key
+     * @returns {Array}
+     */
+    function getPropertyValues(objects, key)
+    {
+        return objects.filter(function(object) { return object.hasOwnProperty(key); })
+                      .map(function(object) { return object[key]; });
+    }
+
+    /**
+     * Extract minimum, maximum and median values within a list of sites.
+     *
+     * @param {Array} values - Array of *sorted* values.
+     * @returns {{min:*, max:*, med:*}}
+     */
+    function minMaxMedian(values)
+    {
+        return {
+            min: values[0],
+            max: values[values.length-1],
+            med: values[Math.floor(values.length/2)]
+        };
+    }
+
+    /**
+     * Extract minimum, maximum and median values within a list of sites.
      *
      * @param {Site[]} sites
      * @param {string} key
-     * @returns {{low:*, high:*, median:*}}
+     * @returns {{min:*, max:*, med:*}}
      */
     function gatherStatistics(sites, key)
     {
-        var values = sites
-            .filter(function(site){return site.history.length>0 && site.history[0].visits.length>0;})
-            .map(function(site){return site.history[0].visits[0];})
-            .filter(function(object){return (key in object) && (object[key] > 0);})
-            .map(function(x){return x[key];})
+        var values = getPropertyValues(mostRecentVisits(sites), key)
+            .filter(function(value) { return value > 0; })
             .sort();
 
-        var low = values[0];
-        var high = values[values.length-1];
-        var median = values[Math.floor(values.length/2)];
-
-        return {
-            low: low,
-            high: high,
-            median: median
-        };
+        return minMaxMedian(values);
     }
 
     /**
@@ -95,9 +120,9 @@ function (Colour, ColourMap, Grouper,
         var stats = gatherStatistics(pubsData.sites, 'price');
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
-        colourMap.addColour(stats.low, new Colour(0,255,0));
-        colourMap.addColour(stats.median, new Colour(0,0,255));
-        colourMap.addColour(stats.high, new Colour(255,0,0));
+        colourMap.addColour(stats.min, new Colour(0,255,0));
+        colourMap.addColour(stats.med, new Colour(0,0,255));
+        colourMap.addColour(stats.max, new Colour(255,0,0));
 
         view.sites.addGroup("Visited (green)", "green", true);
         view.sites.addGroup("Todo (gold)", "gold", true);
@@ -120,9 +145,9 @@ function (Colour, ColourMap, Grouper,
 
         // Just use status message area for now to display the voronoi legend.
         var colourKeyStrings = [
-            "Low (green): " + formatPrice(stats.low),
-            "Median (blue): " + formatPrice(stats.median),
-            "High (red): " + formatPrice(stats.high)
+            "Low (green): " + formatPrice(stats.min),
+            "Median (blue): " + formatPrice(stats.med),
+            "High (red): " + formatPrice(stats.max)
         ];
         view.setStatusMessage("Prices:<br/>" + colourKeyStrings.join("<br/>"));
     }
