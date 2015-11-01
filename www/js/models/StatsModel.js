@@ -5,6 +5,11 @@ function (Colour, ColourMap, ObservableValue) {
     // Private functions
     // ---------------------------------------------------------------------------------------------
 
+    function compareNumbers(a, b)
+    {
+        return a - b;
+    }
+
     function minMaxMedian(values)
     {
         return {
@@ -37,7 +42,7 @@ function (Colour, ColourMap, ObservableValue) {
      */
     StatsModel.prototype.setStat = function(stat, objects)
     {
-        var stats =  minMaxMedian(stat.filterValidValues(objects.map(stat.getValue)).sort());
+        var stats =  minMaxMedian(stat.filterValidValues(objects.map(stat.getValue)).sort(compareNumbers));
 
         this._colourMap.clear();
         this._colourMap.addColour(stats.min, new Colour(0,255,0));
