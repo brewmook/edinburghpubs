@@ -38,6 +38,11 @@ function (Colour) {
     // Member functions
     // -----------------------------------------------------------------------------------------------------------------
 
+    ColourMap.prototype.clear = function()
+    {
+        this._colours = [];
+    };
+
     /**
      * @param {number} value
      * @param {Colour} colour

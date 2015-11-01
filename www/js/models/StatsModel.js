@@ -1,41 +1,10 @@
-define(['app/Colour', 'app/ColourMap'],
-function (Colour, ColourMap) {
+define(['app/Colour', 'app/ColourMap', 'app/ObservableValue'],
+function (Colour, ColourMap, ObservableValue) {
 
-    /**
-     * @param {number} price
-     * @returns {string}
-     */
-    function formatPrice(price) {
-        return "£"+price.toFixed(2);
-    }
+    // ---------------------------------------------------------------------------------------------
+    // Private functions
+    // ---------------------------------------------------------------------------------------------
 
-    /**
-     * @param {Site[]} sites
-     * @returns {Visit[]}
-     */
-    function mostRecentVisits(sites)
-    {
-        return sites.filter(function(site) { return site.history.length>0 && site.history[0].visits.length>0; })
-            .map(function(site) {return site.history[0].visits[0]; });
-    }
-
-    /**
-     * @param {Object[]} objects
-     * @param {string} key
-     * @returns {Array}
-     */
-    function getPropertyValues(objects, key)
-    {
-        return objects.filter(function(object) { return object.hasOwnProperty(key); })
-            .map(function(object) { return object[key]; });
-    }
-
-    /**
-     * Extract minimum, maximum and median values within a list of sites.
-     *
-     * @param {Array} values - Array of *sorted* values.
-     * @returns {{min:*, max:*, med:*}}
-     */
     function minMaxMedian(values)
     {
         return {
@@ -45,55 +14,96 @@ function (Colour, ColourMap) {
         };
     }
 
+    // ---------------------------------------------------------------------------------------------
+    // StatsModel
+    // ---------------------------------------------------------------------------------------------
+
     /**
-     * Extract minimum, maximum and median values within a list of sites.
-     *
-     * @param {Site[]} sites
-     * @param {string} key
-     * @returns {{min:*, max:*, med:*}}
+     * @constructor
      */
-    function gatherStatistics(sites, key)
-    {
-        var values = getPropertyValues(mostRecentVisits(sites), key)
-            .filter(function(value) { return value > 0; })
-            .sort();
-
-        return minMaxMedian(values);
-    }
-
-    function price(site) {
-        if (site.history.length > 0 && site.history[0].visits.length > 0)
-            return site.history[0].visits[0].price;
-        return 0;
-    }
-
     function StatsModel()
     {
         this._colourMap = new ColourMap();
         this._colourMap.setOutOfRangeColour(new Colour(64,64,64));
-        this.colourKeyStrings = [];
+        /** @type {string[]} */
+        this._colourKeyStrings = [];
+        /** @type {ObservableValue.<StatsModel.Stat>} */
+        this.stat = new ObservableValue(undefined);
     }
 
-    StatsModel.prototype.setDetails = function(sites)
+    /**
+     * @param {StatsModel.Stat} stat
+     * @param {Object[]} objects
+     */
+    StatsModel.prototype.setStat = function(stat, objects)
     {
-        var stats = gatherStatistics(sites, 'price');
+        var stats =  minMaxMedian(stat.filterValidValues(objects.map(stat.getValue)).sort());
 
+        this._colourMap.clear();
         this._colourMap.addColour(stats.min, new Colour(0,255,0));
         this._colourMap.addColour(stats.med, new Colour(0,0,255));
         this._colourMap.addColour(stats.max, new Colour(255,0,0));
 
-        this.colourKeyStrings = [
-            "Low (green): " + formatPrice(stats.min),
-            "Median (blue): " + formatPrice(stats.med),
-            "High (red): " + formatPrice(stats.max),
+        this._colourKeyStrings = [
+            "Low (green): " + stat.formatValue(stats.min),
+            "Median (blue): " + stat.formatValue(stats.med),
+            "High (red): " + stat.formatValue(stats.max),
             "No data (grey)"
         ];
+
+        this.stat.set(stat);
     };
 
-    StatsModel.prototype.getColour = function(site)
+    /**
+     * @param {Object} object
+     * @returns {Colour}
+     */
+    StatsModel.prototype.getColour = function(object)
     {
-        return this._colourMap.colour(price(site));
+        if (this.stat.get() !== undefined) {
+            return this._colourMap.colour(this.stat.get().getValue(object));
+        }
+        return new Colour(64,64,64);
     };
+
+    /**
+     * @returns {string[]}
+     */
+    StatsModel.prototype.getColourKeyStrings = function()
+    {
+        return this._colourKeyStrings;
+    };
+
+    // ---------------------------------------------------------------------------------------------
+    // StatsModel.Stat
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Abstract class representing a statistic.
+     * @constructor
+     */
+    StatsModel.Stat = function() {};
+    /**
+     * Extracts the value from the object.
+     * @param {Object} object
+     * @returns {number}
+     */
+    StatsModel.Stat.prototype.getValue = function(object) {};
+    /**
+     * Formats a previously extracted value for presentation.
+     * @param {number} value
+     * @returns {string}
+     */
+    StatsModel.Stat.prototype.formatValue = function(value) {};
+    /**
+     * Filters a list of values down to only valid values.
+     * @param {number[]} values
+     * @returns {number[]}
+     */
+    StatsModel.Stat.prototype.filterValidValues = function(values) {};
+
+    // ---------------------------------------------------------------------------------------------
 
     return StatsModel;
+
 });

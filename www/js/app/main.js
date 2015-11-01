@@ -44,6 +44,37 @@ function(Grouper,
         return Object.keys(tags).sort();
     }
 
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Implements StatsModel.Stat to provide price information from a Site.
+     * @constructor
+     * @augments StatsModel.Stat
+     */
+    function Price() {}
+
+    /**
+     * @param {Site} site
+     * @returns {number}
+     */
+    Price.prototype.getValue = function(site) {
+        if (site.history.length > 0 && site.history[0].visits.length > 0)
+            return site.history[0].visits[0].price;
+        return 0;
+    };
+
+    /** @inheritdoc */
+    Price.prototype.formatValue = function(value) {
+        return "£"+value.toFixed(2);
+    };
+
+    /** @inheritdoc */
+    Price.prototype.filterValidValues = function(values) {
+        return values.filter(function(value) { return value > 0; });
+    };
+
+    // ---------------------------------------------------------------------------------------------
+
     function initialiseMap()
     {
         var view = new View();
@@ -62,17 +93,19 @@ function(Grouper,
 
         var sitesModel = new SitesModel(pubsData.sites, grouper);
         var statsModel = new StatsModel();
-        statsModel.setDetails(pubsData.sites);
 
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, pubsData.target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
         var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 
+        statsModel.stat.subscribe(function(_) {
+            // Just use status message area for now to display the voronoi legend.
+            view.setStatusMessage("Prices:<br/>" + statsModel.getColourKeyStrings().join("<br/>"));
+        });
+
+        statsModel.setStat(new Price(), pubsData.sites);
         sitesModel.setTag('');
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
-
-        // Just use status message area for now to display the voronoi legend.
-        view.setStatusMessage("Prices:<br/>" + statsModel.colourKeyStrings.join("<br/>"));
     }
 
     initialiseMap();
