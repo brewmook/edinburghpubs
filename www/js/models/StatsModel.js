@@ -89,6 +89,11 @@ function (Colour, ColourMap, ObservableValue) {
      */
     StatsModel.Stat = function() {};
     /**
+     * A label for display purposes.
+     * @returns {string}
+     */
+    StatsModel.Stat.prototype.label = function() {};
+    /**
      * Extracts the value from the object.
      * @param {Object} object
      * @returns {number}

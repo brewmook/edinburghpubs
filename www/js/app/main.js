@@ -53,6 +53,9 @@ function(Grouper,
      */
     function Price() {}
 
+    /** @inheritdoc */
+    Price.prototype.label = function() { return "Price"; };
+
     /**
      * @param {Site} site
      * @returns {number}
@@ -71,6 +74,38 @@ function(Grouper,
     /** @inheritdoc */
     Price.prototype.filterValidValues = function(values) {
         return values.filter(function(value) { return value > 0; });
+    };
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Implements StatsModel.Stat to provide price information from a Site.
+     * @constructor
+     * @augments StatsModel.Stat
+     */
+    function Age() {}
+
+    /** @inheritdoc */
+    Age.prototype.label = function() { return "Age"; };
+
+    /**
+     * @param {Site} site
+     * @returns {number}
+     */
+    Age.prototype.getValue = function(site) {
+        if (site.history.length > 0 && site.history[0].opened != '')
+            return (new Date(Date.now())).getFullYear() - (new Date(site.history[0].opened)).getFullYear();
+        return -1;
+    };
+
+    /** @inheritdoc */
+    Age.prototype.formatValue = function(value) {
+        return value + " years";
+    };
+
+    /** @inheritdoc */
+    Age.prototype.filterValidValues = function(values) {
+        return values.filter(function(value) { return value >= 0; });
     };
 
     // ---------------------------------------------------------------------------------------------
@@ -98,9 +133,9 @@ function(Grouper,
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
         var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 
-        statsModel.stat.subscribe(function(_) {
+        statsModel.stat.subscribe(function(stat) {
             // Just use status message area for now to display the voronoi legend.
-            view.setStatusMessage("Prices:<br/>" + statsModel.getColourKeyStrings().join("<br/>"));
+            view.setStatusMessage(stat.label() + ":<br/>" + statsModel.getColourKeyStrings().join("<br/>"));
         });
 
         statsModel.setStat(new Price(), pubsData.sites);
