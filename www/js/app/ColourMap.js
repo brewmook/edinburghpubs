@@ -26,9 +26,10 @@ function (Colour) {
      * @returns {number} The index into [this._colours].
      * @private
      */
-    function upperBound(colours, value) {
+    function upperBound(colours, value)
+    {
         var i = 0;
-        while (i < colours.length && value < colours[i].value) {
+        while (i < colours.length && colours[i].value < value) {
             ++i;
         }
         return i;
@@ -49,8 +50,11 @@ function (Colour) {
      */
     ColourMap.prototype.addColour = function(value, colour)
     {
-        var i = upperBound(this._colours, value);
-        this._colours.splice(i, 0, {value:value, colour:colour});
+        var exists = this._colours.some(function(x) { return x.value == value; });
+        if (!exists) {
+            var i = upperBound(this._colours, value);
+            this._colours.splice(i, 0, {value: value, colour: colour});
+        }
     };
 
     /**
