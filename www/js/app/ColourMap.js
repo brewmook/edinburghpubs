@@ -29,7 +29,7 @@ function (Colour) {
     function upperBound(colours, value)
     {
         var i = 0;
-        while (i < colours.length && colours[i].value < value) {
+        while (i < colours.length && colours[i].value <= value) {
             ++i;
         }
         return i;
@@ -77,7 +77,12 @@ function (Colour) {
             return this._outOfRangeColour || this._colours[0].value;
         }
         else if (i == this._colours.length) {
-            return this._outOfRangeColour || this._colours[i-1].colour;
+            if (this._colours[i-1].value == value) {
+                return this._colours[i-1].colour;
+            }
+            else {
+                return this._outOfRangeColour || this._colours[i-1].colour;
+            }
         }
 
         var low = this._colours[i-1];
