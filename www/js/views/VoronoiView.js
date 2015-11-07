@@ -24,7 +24,7 @@ define(['leaflet'], function (leaflet)
                     stroke: false,
                     fillOpacity: 0.5
                 }
-            ).addTo(voronoiLayer);
+            ).addTo(voronoiLayer).bringToBack();
         });
     };
 
