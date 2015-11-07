@@ -16,6 +16,7 @@ function (geometry, StatsModel, VoronoiView) {
 
         var me = this;
         sitesModel.sites.subscribe(function(sites) { me._onSitesChanged(sites); });
+        statsModel.stat.subscribe(function(_) { me._onSitesChanged(sitesModel.sites.get()); })
     }
 
     VoronoiAdapter.prototype._onSitesChanged = function(sites)

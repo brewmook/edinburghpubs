@@ -54,7 +54,7 @@ function(Grouper,
     function Price() {}
 
     /** @inheritdoc */
-    Price.prototype.label = function() { return "Price"; };
+    Price.prototype.label = function() { return "Beer price"; };
 
     /**
      * @param {Site} site
@@ -138,7 +138,12 @@ function(Grouper,
             view.setStatusMessage(stat.label() + ":<br/>" + statsModel.getColourKeyStrings().join("<br/>"));
         });
 
-        statsModel.setStat(new Price(), pubsData.sites);
+        sitesModel.sites.subscribe(function(sites) {
+            if (sites.length > 0) {
+                statsModel.setStat(new Price(), sites);
+            }
+        });
+
         sitesModel.setTag('');
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
     }
