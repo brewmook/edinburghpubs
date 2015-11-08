@@ -6,6 +6,8 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.tbz2
+*.tgz
 *~
 
 pids
