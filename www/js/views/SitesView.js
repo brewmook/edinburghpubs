@@ -8,7 +8,7 @@ function (ObservableSet, leaflet) {
     {
         this._map = map;
 
-        this._layersControl = leaflet.control.layers(null, null, {position: "bottomright", collapsed: false});
+        this._layersControl = leaflet.control.layers(null, null, {position: "bottomright", collapsed: true});
         this._layersControl.addTo(this._map);
 
         var visibleGroups = new ObservableSet();

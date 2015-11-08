@@ -30,7 +30,7 @@ function (Colour, ColourMap, geometry, VoronoiView) {
             view.setLegend(
                 stat.label(),
                 [new VoronoiView.LegendEntry(stat.formatValue(stats.minimum), colourMap.colour(stats.minimum)),
-                 new VoronoiView.LegendEntry(stat.formatValue(stats.median) + " (median)", colourMap.colour(stats.median)),
+                 new VoronoiView.LegendEntry(stat.formatValue(stats.median), colourMap.colour(stats.median)),
                  new VoronoiView.LegendEntry(stat.formatValue(stats.maximum), colourMap.colour(stats.maximum)),
                  new VoronoiView.LegendEntry("No data ", colourMap.colour(stats.maximum+1))]
             );
