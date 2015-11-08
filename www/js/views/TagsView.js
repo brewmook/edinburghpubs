@@ -7,28 +7,30 @@ function (ObservableValue, leaflet) {
     function TagsView(map)
     {
         var filterDiv = leaflet.DomUtil.create('div', 'filter');
+
+        var filterInput = leaflet.DomUtil.create('input','',filterDiv);
+        filterInput.setAttribute('id', 'tagsfilter');
+        filterInput.setAttribute('list', 'tagcompletions');
+        filterInput.setAttribute('type', 'text');
+        filterInput.setAttribute('placeholder', 'Filter');
+
+        var filterDatalist = leaflet.DomUtil.create('datalist','',filterDiv);
+        filterDatalist.setAttribute('id', 'tagcompletions');
+
         var filterControl = leaflet.control({position: 'topright'});
         filterControl.onAdd = function(map) { return filterDiv; };
         filterControl.addTo(map);
 
-        var filterLabel = leaflet.DomUtil.create("label","",filterDiv);
-        filterLabel.setAttribute("for", "tagsfilter");
-        filterLabel.innerText = "Filter: ";
-
-        var filterInput = leaflet.DomUtil.create("input","",filterDiv);
-        filterInput.setAttribute("id", "tagsfilter");
-        filterInput.setAttribute("list", "tagcompletions");
-        filterInput.setAttribute("type", "text");
-
-        var filterDatalist = leaflet.DomUtil.create("datalist","",filterDiv);
-        filterDatalist.setAttribute("id", "tagcompletions");
-        this._filterDatalist = filterDatalist;
+        // Without this, touch-based interfaces can't select the text input.
+        leaflet.DomEvent.disableClickPropagation(filterInput);
 
         var selected = new ObservableValue('');
-        filterInput.addEventListener("change", function (e) {
+        filterInput.addEventListener('change', function (e) {
             selected.set(filterInput.value);
         });
         this.selected = selected;
+
+        this._filterDatalist = filterDatalist;
     }
 
     /**
