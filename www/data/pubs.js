@@ -627,7 +627,6 @@ define(function(){return{
 						"Real Ale",
 						"Speratus Group",
 						"Sports Bar",
-						"Todo: beers incomplete",
 						"Wright's Houses"
 					],
 					"visits": [
@@ -1050,7 +1049,7 @@ define(function(){return{
 			"history": [
 				{
 					"name": "Southside Social",
-					"opened": "",
+					"opened": "2015/08/03",
 					"closed": "",
 					"tags": [],
 					"visits": []
@@ -1350,7 +1349,7 @@ define(function(){return{
 			"history": [
 				{
 					"name": "The Blue Blazer",
-					"opened": "",
+					"opened": "1889/07/01",
 					"closed": "",
 					"tags": [
 						"Castle View",
@@ -1471,7 +1470,6 @@ define(function(){return{
 						"Pizzas",
 						"Pool Table(s)",
 						"Table Football",
-						"Todo: beers incomplete"
 					],
 					"visits": [
 						{
@@ -2015,7 +2013,10 @@ define(function(){return{
 					"name": "The Chanter",
 					"opened": "",
 					"closed": "",
-					"tags": [],
+					"tags": [
+						"Bread Street", "Burgers", "Castle View", "Castle View Inside", "Edinburgh", "Food", "Real Ale",
+						"Stonegate Pubs"
+					],
 					"visits": [
 						{
 							"date": "",
@@ -4879,9 +4880,16 @@ define(function(){return{
 			"lon": -3.1936994,
 			"history": [
 				{
+					"name": "The Makar's Rest",
+					"opened": "2015/07/01",
+					"closed": "",
+					"tags": [],
+					"visits": []
+				},
+				{
 					"name": "The Crafters Barn",
 					"opened": "",
-					"closed": "",
+					"closed": "2015/04/01",
 					"tags": [
 						"Castle View",
 						"Edinburgh",
@@ -5216,6 +5224,13 @@ define(function(){return{
 			"lon": -3.196734,
 			"history": [
 				{
+					"name": "The Printing Press",
+					"opened": "2015/10/22",
+					"closed": "",
+					"tags": [],
+					"visits": []
+				},
+				{
 					"name": "Tempus",
 					"opened": "",
 					"closed": "",
@@ -5541,7 +5556,7 @@ define(function(){return{
 			"history": [
 				{
 					"name": "The Hanging Bat",
-					"opened": "",
+					"opened": "2012/11/01",
 					"closed": "",
 					"tags": [
 						"Brewing on-site",
@@ -5675,7 +5690,10 @@ define(function(){return{
 					"name": "Akva",
 					"opened": "",
 					"closed": "",
-					"tags": [],
+					"tags": [
+						"Boda Bars", "Burgers", "Child-friendly", "Dog friendly", "Edinburgh", "Food", "Fountainbridge",
+						"Outdoor seating", "Patio"
+					],
 					"visits": [
 						{
 							"date": "",
@@ -7074,7 +7092,7 @@ define(function(){return{
 					"name": "Badabing",
 					"opened": "",
 					"closed": "",
-					"tags": [],
+					"tags": ["Cocktails", "Edinburgh", "Food", "Fountainbridge", "Live Music"],
 					"visits": [
 						{
 							"date": "",
@@ -7490,7 +7508,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Edbinburgh",
+						"Edinburgh",
 						"Fireplace",
 						"Fleshmarket Close",
 						"Food",
@@ -7576,17 +7594,8 @@ define(function(){return{
 					"name": "The Waverley",
 					"opened": "",
 					"closed": "",
-					"tags": [
-						"Closed"
-					],
-					"visits": [
-						{
-							"date": "",
-							"price": 0,
-							"link": "",
-							"comment": "Closed since at least 2014/05/13, last checked 2014/08/24"
-						}
-					]
+					"tags": [],
+					"visits": []
 				}
 			]
 		},
@@ -7726,8 +7735,8 @@ define(function(){return{
 			"lon": -3.1851474,
 			"history": [
 				{
-					"name": "Usher's",
-					"opened": "",
+					"name": "Andrew Usher & Co.",
+					"opened": "2014/07/04",
 					"closed": "",
 					"tags": [],
 					"visits": []
@@ -8108,7 +8117,7 @@ define(function(){return{
 					"name": "The Beer Kitchen",
 					"opened": "",
 					"closed": "",
-					"tags": [],
+					"tags": ["Edinburgh", "Fireplace", "Food", "Games", "Growlers", "Lothian Road", "Real Ale"],
 					"visits": [
 						{
 							"date": "",
