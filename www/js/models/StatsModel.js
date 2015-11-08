@@ -1,5 +1,5 @@
-define(['app/Colour', 'app/ColourMap', 'app/ObservableValue'],
-function (Colour, ColourMap, ObservableValue) {
+define(['app/ObservableValue'],
+function (ObservableValue) {
 
     // ---------------------------------------------------------------------------------------------
     // Private functions
@@ -10,13 +10,11 @@ function (Colour, ColourMap, ObservableValue) {
         return a - b;
     }
 
-    function minMaxMedian(values)
+    function Stats(minimum, maximum, median)
     {
-        return {
-            min: values[0],
-            max: values[values.length-1],
-            med: values[Math.floor(values.length/2)]
-        };
+        this.minimum = minimum;
+        this.maximum = maximum;
+        this.median = median;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -26,57 +24,30 @@ function (Colour, ColourMap, ObservableValue) {
     /**
      * @constructor
      */
-    function StatsModel()
+    function StatsModel(stat, objects)
     {
-        this._colourMap = new ColourMap();
-        this._colourMap.setOutOfRangeColour(new Colour(64,64,64));
-        /** @type {string[]} */
-        this._colourKeyStrings = [];
         /** @type {ObservableValue.<StatsModel.Stat>} */
-        this.stat = new ObservableValue(undefined);
+        this.stat = new ObservableValue(stat);
+        /** @type {ObservableValue.<Stats>} */
+        this.stats = new ObservableValue(undefined);
+
+        this.collectStats(objects);
     }
 
     /**
-     * @param {StatsModel.Stat} stat
      * @param {Object[]} objects
      */
-    StatsModel.prototype.setStat = function(stat, objects)
+    StatsModel.prototype.collectStats = function(objects)
     {
-        var stats =  minMaxMedian(stat.filterValidValues(objects.map(stat.getValue)).sort(compareNumbers));
-
-        this._colourMap.clear();
-        this._colourMap.addColour(stats.min, new Colour(0,255,0));
-        this._colourMap.addColour(stats.med, new Colour(0,0,255));
-        this._colourMap.addColour(stats.max, new Colour(255,0,0));
-
-        this._colourKeyStrings = [
-            "Low (green): " + stat.formatValue(stats.min),
-            "Median (blue): " + stat.formatValue(stats.med),
-            "High (red): " + stat.formatValue(stats.max),
-            "No data (grey)"
-        ];
-
-        this.stat.set(stat);
-    };
-
-    /**
-     * @param {Object} object
-     * @returns {Colour}
-     */
-    StatsModel.prototype.getColour = function(object)
-    {
-        if (this.stat.get() !== undefined) {
-            return this._colourMap.colour(this.stat.get().getValue(object));
+        if (objects.length > 0) {
+            var stat = this.stat.get();
+            var values = stat.filterValidValues(objects.map(stat.getValue)).sort(compareNumbers);
+            this.stats.set(new Stats(
+                values[0],
+                values[values.length-1],
+                values[Math.floor(values.length/2)]
+            ));
         }
-        return new Colour(64,64,64);
-    };
-
-    /**
-     * @returns {string[]}
-     */
-    StatsModel.prototype.getColourKeyStrings = function()
-    {
-        return this._colourKeyStrings;
     };
 
     // ---------------------------------------------------------------------------------------------

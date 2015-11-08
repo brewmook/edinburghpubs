@@ -127,25 +127,19 @@ function(Grouper,
         grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
 
         var sitesModel = new SitesModel(pubsData.sites, grouper);
-        var statsModel = new StatsModel();
+        var statsModel = new StatsModel(new Price(), pubsData.sites);
 
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, pubsData.target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
         var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 
-        statsModel.stat.subscribe(function(stat) {
-            // Just use status message area for now to display the voronoi legend.
-            view.setStatusMessage(stat.label() + ":<br/>" + statsModel.getColourKeyStrings().join("<br/>"));
-        });
-
         sitesModel.sites.subscribe(function(sites) {
-            if (sites.length > 0) {
-                statsModel.setStat(new Price(), sites);
-            }
+            statsModel.collectStats(sites);
         });
 
         sitesModel.setTag('');
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
+        view.setStatusMessage("");
     }
 
     initialiseMap();

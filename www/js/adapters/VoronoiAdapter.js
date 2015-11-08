@@ -1,5 +1,13 @@
-define(['app/geometry', 'models/StatsModel', 'views/VoronoiView'],
-function (geometry, StatsModel, VoronoiView) {
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'views/VoronoiView'],
+function (Colour, ColourMap, geometry, VoronoiView) {
+
+    function setColours(colourMap, stats)
+    {
+        colourMap.clear();
+        colourMap.addColour(stats.minimum, new Colour(0,255,0));
+        colourMap.addColour(stats.median, new Colour(0,0,255));
+        colourMap.addColour(stats.maximum, new Colour(255,0,0));
+    }
 
     /**
      * @param {SitesModel} sitesModel
@@ -10,24 +18,31 @@ function (geometry, StatsModel, VoronoiView) {
      */
     function VoronoiAdapter(sitesModel, statsModel, view, target)
     {
-        this._view = view;
-        this._target = target;
-        this._statsModel = statsModel;
+        var colourMap = new ColourMap();
+        colourMap.setOutOfRangeColour(new Colour(64,64,64));
+        setColours(colourMap, statsModel.stats.get());
 
-        var me = this;
-        sitesModel.sites.subscribe(function(sites) { me._onSitesChanged(sites); });
-        statsModel.stat.subscribe(function(_) { me._onSitesChanged(sitesModel.sites.get()); })
-    }
+        statsModel.stats.subscribe(function(stats) {
+            setColours(colourMap, stats);
 
-    VoronoiAdapter.prototype._onSitesChanged = function(sites)
-    {
-        var statsModel = this._statsModel;
-        var voronoi = geometry.earthSurfaceVoronoi(sites, this._target.origin, this._target.radius);
-        var polygons = voronoi.map(function(cell) {
-            return new VoronoiView.Polygon(cell.polygon, statsModel.getColour(cell.loc));
+            var stat = statsModel.stat.get();
+
+            view.setLegend(
+                stat.label(),
+                [new VoronoiView.LegendEntry(stat.formatValue(stats.minimum), colourMap.colour(stats.minimum)),
+                 new VoronoiView.LegendEntry(stat.formatValue(stats.median) + " (median)", colourMap.colour(stats.median)),
+                 new VoronoiView.LegendEntry(stat.formatValue(stats.maximum), colourMap.colour(stats.maximum)),
+                 new VoronoiView.LegendEntry("No data ", colourMap.colour(stats.maximum+1))]
+            );
+
+            var voronoi = geometry.earthSurfaceVoronoi(sitesModel.sites.get(), target.origin, target.radius);
+            var polygons = voronoi.map(function(cell) {
+                var value = stat.getValue(cell.loc);
+                return new VoronoiView.Polygon(cell.polygon, colourMap.colour(value));
+            });
+            view.setPolygons(polygons);
         });
-        this._view.setPolygons(polygons);
-    };
+    }
 
     return VoronoiAdapter;
 });
