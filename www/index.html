@@ -15,7 +15,7 @@
         body { padding:0; margin:0; }
         html, body, #map { height: 100%; }
         #message { position: absolute; top:0; right:0; background-color: white; padding:0 4px 2px; text-align:right; }
-        .legend {
+        .filter, .legend {
             padding: 6px 8px;
             background: white;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -33,11 +33,6 @@
     </style>
 </head>
 <body>
-  <div>
-      <label for="filter">Filter</label>
-      <input id="filter" list="tags" type="text"/>
-      <datalist id="tags"></datalist>
-  </div>
   <div id="map"></div>
   <div id="message">Fetching data...</div>
 </body>

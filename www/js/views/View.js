@@ -10,7 +10,7 @@ function(MapView, SitesView, TagsView, TargetView, VoronoiView) {
         this.target = new TargetView(mapView.map);
         this.voronoi = new VoronoiView(mapView.map);
         this.sites = new SitesView(mapView.map);
-        this.tags = new TagsView();
+        this.tags = new TagsView(mapView.map);
     }
 
     /**

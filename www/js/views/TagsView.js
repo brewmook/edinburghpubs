@@ -1,15 +1,32 @@
-define(['app/ObservableValue'],
-function (ObservableValue) {
+define(['app/ObservableValue', 'leaflet'],
+function (ObservableValue, leaflet) {
 
     /**
      * @constructor
      */
-    function TagsView()
+    function TagsView(map)
     {
+        var filterDiv = leaflet.DomUtil.create('div', 'filter');
+        var filterControl = leaflet.control({position: 'topright'});
+        filterControl.onAdd = function(map) { return filterDiv; };
+        filterControl.addTo(map);
+
+        var filterLabel = leaflet.DomUtil.create("label","",filterDiv);
+        filterLabel.setAttribute("for", "tagsfilter");
+        filterLabel.innerText = "Filter: ";
+
+        var filterInput = leaflet.DomUtil.create("input","",filterDiv);
+        filterInput.setAttribute("id", "tagsfilter");
+        filterInput.setAttribute("list", "tagcompletions");
+        filterInput.setAttribute("type", "text");
+
+        var filterDatalist = leaflet.DomUtil.create("datalist","",filterDiv);
+        filterDatalist.setAttribute("id", "tagcompletions");
+        this._filterDatalist = filterDatalist;
+
         var selected = new ObservableValue('');
-        var filterTextbox = document.getElementById('filter');
-        filterTextbox.addEventListener("change", function (e) {
-            selected.set(filterTextbox.value);
+        filterInput.addEventListener("change", function (e) {
+            selected.set(filterInput.value);
         });
         this.selected = selected;
     }
@@ -19,7 +36,7 @@ function (ObservableValue) {
      */
     TagsView.prototype.setTags = function(tags)
     {
-        var datalist = document.getElementById('tags');
+        var datalist = this._filterDatalist;
         while (datalist.firstChild) {
             datalist.removeChild(datalist.firstChild);
         }

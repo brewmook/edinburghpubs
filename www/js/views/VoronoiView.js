@@ -8,7 +8,7 @@ define(['leaflet'], function (leaflet)
         this._layer = leaflet.layerGroup().addTo(map);
 
         var legendDiv = leaflet.DomUtil.create('div', 'legend');
-        var legend = leaflet.control({position: 'topright'});
+        var legend = leaflet.control({position: 'bottomright'});
         legend.onAdd = function(map) { return legendDiv; };
         legend.addTo(map);
         this._legendDiv = legendDiv;
