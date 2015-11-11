@@ -19,7 +19,6 @@ define(function(){return{
 						"DM Stewart",
 						"Edinburgh",
 						"Food",
-						"Pricey",
 						"Real Ale",
 						"Traditional",
 						"West Register Street",
@@ -107,7 +106,6 @@ define(function(){return{
 						"Food",
 						"Nachos",
 						"Outdoor seating",
-						"Pricey",
 						"Real Ale",
 						"Restaurant",
 						"Rose Street"
@@ -432,14 +430,14 @@ define(function(){return{
 					"closed": "",
 					"tags": [
 						"Club",
-						"Fee"
+						"Disqualified"
 					],
 					"visits": [
 						{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because there was a fee on the door."
 						}
 					]
 				}
@@ -510,6 +508,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Student Union"
 					],
 					"visits": [
@@ -517,7 +516,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -596,7 +595,6 @@ define(function(){return{
 						"Food",
 						"Outdoor seating",
 						"Patio",
-						"Pricey",
 						"Raeburn Place",
 						"Real Ale"
 					],
@@ -1200,8 +1198,7 @@ define(function(){return{
 						"Food",
 						"Missing photo",
 						"Montpeliers Ltd",
-						"Outdoor seating",
-						"Pricey"
+						"Outdoor seating"
 					],
 					"visits": [
 						{
@@ -1263,7 +1260,7 @@ define(function(){return{
 							"date": "",
 							"price": 3.7,
 							"link": "/2013/08/18/14-the-pleasance-bar-the-pleasance-edinburgh/",
-							"comment": ""
+							"comment": "Not normally open to the public, but is during the festival."
 						}
 					]
 				}
@@ -1278,6 +1275,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Student Union"
 					],
 					"visits": [
@@ -1285,7 +1283,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -1437,14 +1435,14 @@ define(function(){return{
 					"closed": "",
 					"tags": [
 						"Club",
-						"Fee"
+						"Disqualified"
 					],
 					"visits": [
 						{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because there was a fee on the door."
 						}
 					]
 				}
@@ -1500,7 +1498,6 @@ define(function(){return{
 						"Outdoor seating",
 						"Patio",
 						"Pool Table(s)",
-						"Pricey",
 						"Whitehouse Loan"
 					],
 					"visits": [
@@ -1790,7 +1787,6 @@ define(function(){return{
 						"Food",
 						"Hamilton Place",
 						"Live Music",
-						"Pricey",
 						"Real Ale"
 					],
 					"visits": [
@@ -1961,7 +1957,6 @@ define(function(){return{
 						"Food",
 						"High Street",
 						"Live Music",
-						"Pricey",
 						"Real Ale",
 						"Royal Mile",
 						"Traditional"
@@ -2283,8 +2278,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Melville Place",
-						"Missing photo",
-						"Pricey"
+						"Missing photo"
 					],
 					"visits": [
 						{
@@ -2616,7 +2610,6 @@ define(function(){return{
 						"Food",
 						"George Street",
 						"Mitchells and Butlers",
-						"Pricey",
 						"Wine Bar"
 					],
 					"visits": [
@@ -2757,8 +2750,7 @@ define(function(){return{
 						"Burgers",
 						"Cocktails",
 						"Edinburgh",
-						"Food",
-						"Pricey"
+						"Food"
 					],
 					"visits": [
 						{
@@ -3098,7 +3090,6 @@ define(function(){return{
 						"Castle View Inside",
 						"Edinburgh",
 						"Food",
-						"Pricey",
 						"Real Ale",
 						"Rutland Place",
 						"Signature Pubs"
@@ -3211,6 +3202,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Club",
 						"Function Room"
 					],
@@ -3219,7 +3211,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -3655,6 +3647,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Club",
 						"Function Room"
 					],
@@ -3663,7 +3656,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -3734,6 +3727,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Student Union"
 					],
 					"visits": [
@@ -3741,7 +3735,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -3821,8 +3815,7 @@ define(function(){return{
 						"Cocktails",
 						"Edinburgh",
 						"Food",
-						"Nachos",
-						"Pricey"
+						"Nachos"
 					],
 					"visits": [
 						{
@@ -3913,7 +3906,6 @@ define(function(){return{
 						"Holyrood Road",
 						"Outdoor seating",
 						"Patio",
-						"Pricey",
 						"Real Ale",
 						"Table Football"
 					],
@@ -3972,7 +3964,6 @@ define(function(){return{
 						"Lady Lawson Street",
 						"Outdoor seating",
 						"Patio",
-						"Pricey",
 						"Restaurant"
 					],
 					"visits": [
@@ -4032,7 +4023,6 @@ define(function(){return{
 						"Food",
 						"Lothian Road",
 						"Mitchells and Butlers",
-						"Pricey",
 						"Wine Bar"
 					],
 					"visits": [
@@ -4358,7 +4348,6 @@ define(function(){return{
 					"tags": [
 						"Edinburgh",
 						"Food",
-						"Pricey",
 						"Raeburn Place",
 						"Real Ale"
 					],
@@ -4649,6 +4638,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Club"
 					],
 					"visits": [
@@ -4656,7 +4646,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because there was a fee on the door."
 						}
 					]
 				}
@@ -4728,8 +4718,7 @@ define(function(){return{
 						"George Street",
 						"Hotel Bar",
 						"Montpeliers Ltd",
-						"Outdoor seating",
-						"Pricey"
+						"Outdoor seating"
 					],
 					"visits": [
 						{
@@ -4755,8 +4744,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"George Street",
-						"Mitchells and Butlers",
-						"Pricey"
+						"Mitchells and Butlers"
 					],
 					"visits": [
 						{
@@ -4899,7 +4887,6 @@ define(function(){return{
 						"Outdoor seating",
 						"Patio",
 						"Pizzas",
-						"Pricey",
 						"Real Ale",
 						"Restaurant"
 					],
@@ -4957,7 +4944,6 @@ define(function(){return{
 						"Food",
 						"Hotel Bar",
 						"North Bridge",
-						"Pricey",
 						"Restaurant"
 					],
 					"visits": [
@@ -4985,7 +4971,6 @@ define(function(){return{
 						"Food",
 						"High Street",
 						"Live Music",
-						"Pricey",
 						"Real Ale",
 						"Royal Mile",
 						"Traditional",
@@ -5015,8 +5000,7 @@ define(function(){return{
 						"Edinburgh",
 						"February Blowout",
 						"Food",
-						"Outdoor seating",
-						"Pricey"
+						"Outdoor seating"
 					],
 					"visits": [
 						{
@@ -5180,8 +5164,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Frederick Street",
-						"Montpeliers Ltd",
-						"Pricey"
+						"Montpeliers Ltd"
 					],
 					"visits": [
 						{
@@ -5238,8 +5221,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"George Street",
-						"Hotel Bar",
-						"Pricey"
+						"Hotel Bar"
 					],
 					"visits": [
 						{
@@ -5265,8 +5247,7 @@ define(function(){return{
 						"Edinburgh",
 						"February Blowout",
 						"Food",
-						"Merchant Street",
-						"Pricey"
+						"Merchant Street"
 					],
 					"visits": [
 						{
@@ -5344,7 +5325,6 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Montpeliers Ltd",
-						"Pricey",
 						"Real Ale"
 					],
 					"visits": [
@@ -5397,7 +5377,6 @@ define(function(){return{
 						"Dublin Street",
 						"Edinburgh",
 						"Fireplace",
-						"Pricey",
 						"Restaurant",
 						"Wine Bar"
 					],
@@ -5730,7 +5709,6 @@ define(function(){return{
 					"tags": [
 						"Castle View",
 						"Edinburgh",
-						"Pricey",
 						"Rutland Street"
 					],
 					"visits": [
@@ -6015,7 +5993,6 @@ define(function(){return{
 						"Function Room",
 						"Karaoke",
 						"Live Music",
-						"Pricey",
 						"Victoria Street"
 					],
 					"visits": [
@@ -6156,7 +6133,6 @@ define(function(){return{
 						"February Blowout",
 						"Food",
 						"Grassmarket",
-						"Pricey",
 						"Real Ale",
 						"Spirit Pub Company",
 						"Taylor Walker"
@@ -6244,7 +6220,6 @@ define(function(){return{
 						"Food",
 						"Grassmarket",
 						"Outdoor seating",
-						"Pricey",
 						"Real Ale"
 					],
 					"visits": [
@@ -6462,6 +6437,7 @@ define(function(){return{
 					"closed": "",
 					"tags": [
 						"Club",
+						"Disqualified",
 						"Function Room"
 					],
 					"visits": [
@@ -6469,7 +6445,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -6511,13 +6487,12 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Beds &amp; Bars",
+						"Beds & Bars",
 						"Bottles",
 						"Castle View",
 						"Edinburgh",
 						"Food",
 						"Market Street",
-						"Pricey",
 						"Real Ale",
 						"Whisky"
 					],
@@ -6545,8 +6520,7 @@ define(function(){return{
 						"Dancefloor",
 						"Edinburgh",
 						"Merchant Street",
-						"Pool Table(s)",
-						"Pricey"
+						"Pool Table(s)"
 					],
 					"visits": [
 						{
@@ -6676,7 +6650,6 @@ define(function(){return{
 						"Edinburgh",
 						"Fireplace",
 						"Live Music",
-						"Pricey",
 						"Snacks",
 						"St Stephen Street"
 					],
@@ -6784,8 +6757,7 @@ define(function(){return{
 						"Food",
 						"George Street",
 						"Montpeliers Ltd",
-						"Outdoor seating",
-						"Pricey"
+						"Outdoor seating"
 					],
 					"visits": [
 						{
@@ -6923,7 +6895,6 @@ define(function(){return{
 						"Hill Place",
 						"Hotel Bar",
 						"Live Music",
-						"Pricey",
 						"Wine Bar"
 					],
 					"visits": [
@@ -6948,7 +6919,6 @@ define(function(){return{
 					"tags": [
 						"Cocktails",
 						"Edinburgh",
-						"Pricey",
 						"Queen Street"
 					],
 					"visits": [
@@ -6974,7 +6944,6 @@ define(function(){return{
 						"Cocktails",
 						"Edinburgh",
 						"Iona Pubs",
-						"Pricey",
 						"Queen Street",
 						"Real Ale"
 					],
@@ -7024,6 +6993,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Student Union"
 					],
 					"visits": [
@@ -7031,7 +7001,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -7046,6 +7016,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Restaurant"
 					],
 					"visits": [
@@ -7053,7 +7024,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's more restaurant than bar."
 						}
 					]
 				}
@@ -7376,7 +7347,6 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Missing photo",
-						"Pricey",
 						"Real Ale",
 						"Whisky"
 					],
@@ -7432,7 +7402,6 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Hotel Bar",
-						"Pricey",
 						"Princes Street"
 					],
 					"visits": [
@@ -7458,7 +7427,6 @@ define(function(){return{
 						"Cocktails",
 						"Edinburgh",
 						"Gin",
-						"Pricey",
 						"Rutland Place"
 					],
 					"visits": [
@@ -7572,7 +7540,6 @@ define(function(){return{
 						"Live Music",
 						"Niddry Street",
 						"Open mic",
-						"Pricey",
 						"Real Ale"
 					],
 					"visits": [
@@ -7637,6 +7604,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Club"
 					],
 					"visits": [
@@ -7644,7 +7612,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because there was a fee on the door."
 						}
 					]
 				}
@@ -7659,6 +7627,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Restaurant"
 					],
 					"visits": [
@@ -7666,7 +7635,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's more restaurant than bar."
 						}
 					]
 				}
@@ -7686,7 +7655,6 @@ define(function(){return{
 						"Food",
 						"North Bank Street",
 						"Outdoor seating",
-						"Pricey",
 						"Real Ale",
 						"Restaurant",
 						"Whisky"
@@ -7873,8 +7841,7 @@ define(function(){return{
 						"Food",
 						"George Street",
 						"Hotel Bar",
-						"Outdoor seating",
-						"Pricey"
+						"Outdoor seating"
 					],
 					"visits": [
 						{
@@ -7996,6 +7963,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
+						"Disqualified",
 						"Student Union"
 					],
 					"visits": [
@@ -8003,7 +7971,7 @@ define(function(){return{
 							"date": "",
 							"price": 0,
 							"link": "",
-							"comment": ""
+							"comment": "Disqualified because it's not generally open to the public."
 						}
 					]
 				}
@@ -8183,7 +8151,6 @@ define(function(){return{
 						"Edinburgh",
 						"Gin",
 						"Hotel Bar",
-						"Pricey",
 						"Princes Street",
 						"Whisky"
 					],

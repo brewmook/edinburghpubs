@@ -26,7 +26,7 @@ function(Grouper,
     }
 
     function isExcluded(site) {
-        var excludedTags = ['Disqualified', 'Closed', 'Student Union', 'Club', 'Restaurant'];
+        var excludedTags = ['Disqualified', 'Closed'];
         return tagsIntersect(site.history[0].tags, excludedTags);
     }
 
@@ -54,7 +54,7 @@ function(Grouper,
     function Price() {}
 
     /** @inheritdoc */
-    Price.prototype.label = function() { return "Beer price"; };
+    Price.prototype.label = function() { return "Price"; };
 
     /**
      * @param {Site} site
@@ -137,7 +137,6 @@ function(Grouper,
             statsModel.collectStats(sites);
         });
 
-        sitesModel.setTag('');
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
         view.setStatusMessage("");
     }
