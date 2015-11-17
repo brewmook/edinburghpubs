@@ -19,7 +19,7 @@ define(function(){return{
 						"DM Stewart",
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"West Register Street",
 						"Whisky"
@@ -77,7 +77,7 @@ define(function(){return{
 						"Edinburgh",
 						"Flood Inns",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"Traditional"
 					],
@@ -106,7 +106,7 @@ define(function(){return{
 						"Food",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Restaurant",
 						"Rose Street"
 					],
@@ -135,7 +135,7 @@ define(function(){return{
 						"Food",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street"
 					],
 					"visits": [
@@ -162,7 +162,7 @@ define(function(){return{
 						"Food",
 						"Live Music",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street"
 					],
 					"visits": [
@@ -231,7 +231,7 @@ define(function(){return{
 						"Live Music",
 						"Outdoor seating",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"Whisky"
 					],
@@ -261,7 +261,7 @@ define(function(){return{
 						"Mitchells and Butlers",
 						"Nachos",
 						"Nicholson's",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"Traditional"
 					],
@@ -291,7 +291,7 @@ define(function(){return{
 						"Function Room",
 						"LT Pub Management",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"Wifi"
 					],
@@ -318,7 +318,7 @@ define(function(){return{
 						"Do Drop Inns",
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"The Orchid Group"
 					],
@@ -348,7 +348,7 @@ define(function(){return{
 						"Karaoke",
 						"Open mic",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street"
 					],
 					"visits": [
@@ -376,7 +376,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"Spirit Pub Company",
 						"Taylor Walker"
@@ -454,7 +454,7 @@ define(function(){return{
 					"tags": [
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"West Register Street"
 					],
 					"visits": [
@@ -485,7 +485,7 @@ define(function(){return{
 						"Favourite",
 						"Food",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Snugs"
 					],
 					"visits": [
@@ -538,7 +538,7 @@ define(function(){return{
 						"Karaoke",
 						"Live Music",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Star Pubs"
 					],
@@ -596,7 +596,7 @@ define(function(){return{
 						"Outdoor seating",
 						"Patio",
 						"Raeburn Place",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -622,7 +622,7 @@ define(function(){return{
 						"Food",
 						"Function Room",
 						"Nachos",
-						"Real Ale",
+						"Cask Ale",
 						"Speratus Group",
 						"Sports Bar",
 						"Wright's Houses"
@@ -653,7 +653,7 @@ define(function(){return{
 						"Function Room",
 						"Haymarket Terrace",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -681,7 +681,7 @@ define(function(){return{
 						"Live Music",
 						"Pre-Christmas Bender",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Star Pubs"
 					],
 					"visits": [
@@ -714,7 +714,7 @@ define(function(){return{
 						"High Street",
 						"Live Music",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile"
 					],
 					"visits": [
@@ -742,7 +742,7 @@ define(function(){return{
 						"Folk music",
 						"Infirmary Street",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -771,7 +771,7 @@ define(function(){return{
 						"Jukebox",
 						"Nachos",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"St Leonard's Street",
 						"Traditional"
 					],
@@ -804,7 +804,7 @@ define(function(){return{
 						"Live Music",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"St Stephen Street",
 						"Traditional"
 					],
@@ -833,7 +833,7 @@ define(function(){return{
 						"Fireplace",
 						"Food",
 						"Missing photo",
-						"Real Ale",
+						"Cask Ale",
 						"Young Street"
 					],
 					"visits": [
@@ -859,7 +859,7 @@ define(function(){return{
 						"Edinburgh",
 						"Favourite",
 						"Fireplace",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Young Street"
 					],
@@ -887,7 +887,7 @@ define(function(){return{
 						"Edinburgh",
 						"Free house",
 						"Lunch",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -939,7 +939,7 @@ define(function(){return{
 						"Beer Garden",
 						"Caledonian Heritable",
 						"Edinburgh",
-						"Real Ale",
+						"Cask Ale",
 						"West Nicolson Street"
 					],
 					"visits": [
@@ -969,7 +969,7 @@ define(function(){return{
 						"Live Music",
 						"Pre-Christmas Bender",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"West Nicolson Street"
 					],
 					"visits": [
@@ -1026,7 +1026,7 @@ define(function(){return{
 						"Jukebox",
 						"Pre-Christmas Bender",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Whisky"
 					],
@@ -1082,7 +1082,7 @@ define(function(){return{
 						"Polwarth Crescent",
 						"Pool Table(s)",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -1108,7 +1108,7 @@ define(function(){return{
 						"Food",
 						"Live Music",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"The Shilling Group",
 						"Yeaman Place"
 					],
@@ -1138,7 +1138,7 @@ define(function(){return{
 						"Fireplace",
 						"Food",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"The Shilling Group"
 					],
 					"visits": [
@@ -1169,7 +1169,7 @@ define(function(){return{
 						"John Barras",
 						"Pinball",
 						"Pool Table(s)",
-						"Real Ale",
+						"Cask Ale",
 						"Spirit Pub Company"
 					],
 					"visits": [
@@ -1224,7 +1224,7 @@ define(function(){return{
 						"Edinburgh",
 						"Fireplace",
 						"Pies",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks",
 						"Thistle Street",
 						"Traditional"
@@ -1326,7 +1326,7 @@ define(function(){return{
 						"Food",
 						"Leven Street",
 						"Nachos",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Whisky"
 					],
@@ -1354,7 +1354,7 @@ define(function(){return{
 						"Edinburgh",
 						"Favourite",
 						"Fireplace",
-						"Real Ale",
+						"Cask Ale",
 						"Spittal Street",
 						"Traditional"
 					],
@@ -1383,7 +1383,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Nachos",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"West Port"
 					],
@@ -1587,7 +1587,7 @@ define(function(){return{
 						"Poker",
 						"Pre-Christmas Bender",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -1612,7 +1612,7 @@ define(function(){return{
 						"Cockburn Street",
 						"Edinburgh",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Spirit Pub Company",
 						"Taylor Walker",
 						"Traditional"
@@ -1642,7 +1642,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"St Vincent Street",
 						"Traditional"
 					],
@@ -1671,7 +1671,7 @@ define(function(){return{
 						"Function Room",
 						"Live Music",
 						"Maclay Inns",
-						"Real Ale",
+						"Cask Ale",
 						"West Richmond Street"
 					],
 					"visits": [
@@ -1728,7 +1728,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Mitchells and Butlers",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -1758,7 +1758,7 @@ define(function(){return{
 						"Favourite",
 						"Food",
 						"Raeburn Place",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -1787,7 +1787,7 @@ define(function(){return{
 						"Food",
 						"Hamilton Place",
 						"Live Music",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -1812,7 +1812,7 @@ define(function(){return{
 						"Edinburgh",
 						"Function Room",
 						"Raeburn Place",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -1841,7 +1841,7 @@ define(function(){return{
 						"Outdoor seating",
 						"Poker",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"St Stephen Street",
 						"Traditional"
 					],
@@ -1871,7 +1871,7 @@ define(function(){return{
 						"Food",
 						"Kids Books",
 						"Kids Toys",
-						"Real Ale",
+						"Cask Ale",
 						"The Shilling Group"
 					],
 					"visits": [
@@ -1899,7 +1899,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Nachos",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -1925,7 +1925,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Forrest Road",
-						"Real Ale",
+						"Cask Ale",
 						"Spirit Pub Company",
 						"Taylor Walker",
 						"Traditional"
@@ -1957,7 +1957,7 @@ define(function(){return{
 						"Food",
 						"High Street",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -2009,7 +2009,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Bread Street", "Burgers", "Castle View", "Castle View Inside", "Edinburgh", "Food", "Real Ale",
+						"Bread Street", "Burgers", "Castle View", "Castle View Inside", "Edinburgh", "Food", "Cask Ale",
 						"Stonegate Pubs"
 					],
 					"visits": [
@@ -2038,7 +2038,7 @@ define(function(){return{
 						"Live Comedy",
 						"Live Music",
 						"Pool Table(s)",
-						"Real Ale",
+						"Cask Ale",
 						"Spittal Street"
 					],
 					"visits": [
@@ -2069,7 +2069,7 @@ define(function(){return{
 						"Greene King",
 						"High Street",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile"
 					],
 					"visits": [
@@ -2098,7 +2098,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"George IV Bridge",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2201,7 +2201,7 @@ define(function(){return{
 						"Edinburgh",
 						"Jukebox",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Tarvit Street"
 					],
 					"visits": [
@@ -2229,7 +2229,7 @@ define(function(){return{
 						"Live Music",
 						"Pies",
 						"Poker",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks"
 					],
 					"visits": [
@@ -2305,7 +2305,7 @@ define(function(){return{
 						"Edinburgh",
 						"Games",
 						"Morrison Street",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2332,7 +2332,7 @@ define(function(){return{
 						"Haymarket",
 						"Mitchells and Butlers",
 						"Nicholson's",
-						"Real Ale",
+						"Cask Ale",
 						"West Maitland Street"
 					],
 					"visits": [
@@ -2359,7 +2359,7 @@ define(function(){return{
 						"Dean Street",
 						"Edinburgh",
 						"Food",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2387,7 +2387,7 @@ define(function(){return{
 						"Function Room",
 						"Live Music",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2416,7 +2416,7 @@ define(function(){return{
 						"High Street",
 						"Mitchells and Butlers",
 						"Nicholson's",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -2445,7 +2445,7 @@ define(function(){return{
 						"Food",
 						"Potterow",
 						"Pre-Christmas Bender",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2474,7 +2474,7 @@ define(function(){return{
 						"Mitchells and Butlers",
 						"Nicholson's",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -2528,7 +2528,7 @@ define(function(){return{
 						"Edinburgh",
 						"Function Room",
 						"Pre-Christmas Bender",
-						"Real Ale",
+						"Cask Ale",
 						"West Nicolson Street"
 					],
 					"visits": [
@@ -2639,7 +2639,7 @@ define(function(){return{
 						"Games",
 						"Live Music",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2663,7 +2663,7 @@ define(function(){return{
 					"tags": [
 						"Edinburgh",
 						"Pre-Christmas Bender",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"West Preston Street"
 					],
@@ -2692,7 +2692,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Nachos",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Whisky"
 					],
@@ -2830,7 +2830,7 @@ define(function(){return{
 						"Niddry Street",
 						"Open mic",
 						"Pool Table(s)",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2862,7 +2862,7 @@ define(function(){return{
 						"Live Music",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -2889,7 +2889,7 @@ define(function(){return{
 						"Favourite",
 						"Food",
 						"Pies",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Victoria Street",
 						"Whisky"
@@ -2920,7 +2920,7 @@ define(function(){return{
 						"Favourite",
 						"Fireplace",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Rose Street",
 						"Traditional",
 						"Whisky"
@@ -3034,7 +3034,7 @@ define(function(){return{
 						"Cockburn Street",
 						"Edinburgh",
 						"Live Music",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -3061,7 +3061,7 @@ define(function(){return{
 						"Fireplace",
 						"Free house",
 						"Missing photo",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks",
 						"Whisky",
 						"William Street"
@@ -3090,7 +3090,7 @@ define(function(){return{
 						"Castle View Inside",
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Rutland Place",
 						"Signature Pubs"
 					],
@@ -3119,7 +3119,7 @@ define(function(){return{
 						"Mitchells and Butlers",
 						"Nachos",
 						"Nicholson's",
-						"Real Ale",
+						"Cask Ale",
 						"York Place"
 					],
 					"visits": [
@@ -3151,7 +3151,7 @@ define(function(){return{
 						"Leith Walk",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -3261,7 +3261,7 @@ define(function(){return{
 						"Johnston Terrace",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -3313,7 +3313,7 @@ define(function(){return{
 						"Edinburgh",
 						"Live Music",
 						"Market Street",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -3337,7 +3337,7 @@ define(function(){return{
 					"tags": [
 						"Edinburgh",
 						"Market Street",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -3363,7 +3363,7 @@ define(function(){return{
 						"Caledonian Heritable",
 						"Edinburgh",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Saint Andrew Square"
 					],
 					"visits": [
@@ -3393,7 +3393,7 @@ define(function(){return{
 						"Live Music",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale",
+						"Cask Ale",
 						"Snugs",
 						"Wine Bar"
 					],
@@ -3449,7 +3449,7 @@ define(function(){return{
 						"Edinburgh",
 						"Pies",
 						"Queensferry Street",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks"
 					],
 					"visits": [
@@ -3504,7 +3504,7 @@ define(function(){return{
 						"Food",
 						"Jamaica Street",
 						"Lunch",
-						"Real Ale",
+						"Cask Ale",
 						"Whisky"
 					],
 					"visits": [
@@ -3537,7 +3537,7 @@ define(function(){return{
 						"Nachos",
 						"Northumberland Place",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Table Football"
 					],
 					"visits": [
@@ -3567,7 +3567,7 @@ define(function(){return{
 						"Games",
 						"Nachos",
 						"No children",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -3596,7 +3596,7 @@ define(function(){return{
 						"Northumberland Street",
 						"Poker",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks",
 						"Snugs"
 					],
@@ -3625,7 +3625,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Missing photo",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -3677,7 +3677,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Nachos",
-						"Real Ale",
+						"Cask Ale",
 						"Stonegate Pubs"
 					],
 					"visits": [
@@ -3844,7 +3844,7 @@ define(function(){return{
 						"Nachos",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale",
+						"Cask Ale",
 						"Shandwick Place"
 					],
 					"visits": [
@@ -3875,7 +3875,7 @@ define(function(){return{
 						"Marchmont Crescent",
 						"Outdoor seating",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -3906,7 +3906,7 @@ define(function(){return{
 						"Holyrood Road",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale",
+						"Cask Ale",
 						"Table Football"
 					],
 					"visits": [
@@ -3933,7 +3933,7 @@ define(function(){return{
 						"Favourite",
 						"Morrison Street",
 						"Pies",
-						"Real Ale",
+						"Cask Ale",
 						"The Shilling Group",
 						"Whisky"
 					],
@@ -3993,7 +3993,7 @@ define(function(){return{
 						"Lothian Road",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4050,7 +4050,7 @@ define(function(){return{
 						"LT Pub Management",
 						"Missing photo",
 						"Pies",
-						"Real Ale",
+						"Cask Ale",
 						"William Street"
 					],
 					"visits": [
@@ -4078,7 +4078,7 @@ define(function(){return{
 						"Folk music",
 						"Forrest Road",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Whisky"
 					],
@@ -4106,7 +4106,7 @@ define(function(){return{
 						"Edinburgh",
 						"Fringe Venue",
 						"Function Room",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks"
 					],
 					"visits": [
@@ -4132,7 +4132,7 @@ define(function(){return{
 						"Chain",
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Shandwick Place",
 						"Spirit Pub Company",
 						"Taylor Walker"
@@ -4215,7 +4215,7 @@ define(function(){return{
 						"Food",
 						"Outdoor seating",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4299,7 +4299,7 @@ define(function(){return{
 						"Melville Place",
 						"Missing photo",
 						"Nachos",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4323,7 +4323,7 @@ define(function(){return{
 					"tags": [
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"William Street"
 					],
 					"visits": [
@@ -4349,7 +4349,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Raeburn Place",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4376,7 +4376,7 @@ define(function(){return{
 						"Food",
 						"Home Street",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4433,7 +4433,7 @@ define(function(){return{
 						"Forrest Road",
 						"Live Music",
 						"Nachos",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4492,7 +4492,7 @@ define(function(){return{
 						"Nachos",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4564,7 +4564,7 @@ define(function(){return{
 						"Hanover Street",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"TCG Management Services"
 					],
 					"visits": [
@@ -4771,7 +4771,7 @@ define(function(){return{
 						"Fountainbridge",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -4798,7 +4798,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Pool Table(s)",
-						"Real Ale",
+						"Cask Ale",
 						"South Charlotte Street"
 					],
 					"visits": [
@@ -4824,7 +4824,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"G1 Group",
-						"Real Ale",
+						"Cask Ale",
 						"Rutland Place"
 					],
 					"visits": [
@@ -4887,7 +4887,7 @@ define(function(){return{
 						"Outdoor seating",
 						"Patio",
 						"Pizzas",
-						"Real Ale",
+						"Cask Ale",
 						"Restaurant"
 					],
 					"visits": [
@@ -4915,7 +4915,7 @@ define(function(){return{
 						"Food",
 						"High Street",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Restaurant",
 						"Royal Mile",
 						"Whisky"
@@ -4971,7 +4971,7 @@ define(function(){return{
 						"Food",
 						"High Street",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional",
 						"Whisky"
@@ -5055,7 +5055,7 @@ define(function(){return{
 						"John Barras",
 						"Karaoke",
 						"Lothian Road",
-						"Real Ale",
+						"Cask Ale",
 						"Spirit Pub Company"
 					],
 					"visits": [
@@ -5084,7 +5084,7 @@ define(function(){return{
 						"Morrison Street",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -5137,7 +5137,7 @@ define(function(){return{
 						"Food",
 						"Frederick Street",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Signature Pubs"
 					],
 					"visits": [
@@ -5272,7 +5272,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Greenside Place",
-						"Real Ale",
+						"Cask Ale",
 						"Wetherspoon"
 					],
 					"visits": [
@@ -5325,7 +5325,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Montpeliers Ltd",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -5461,7 +5461,7 @@ define(function(){return{
 						"Favourite",
 						"Folk music",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"South College Street",
 						"Traditional"
 					],
@@ -5545,7 +5545,7 @@ define(function(){return{
 						"Lothian Road",
 						"Outdoor seating",
 						"Patio",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -5573,7 +5573,7 @@ define(function(){return{
 						"Food",
 						"Gin",
 						"Morrison Street",
-						"Real Ale",
+						"Cask Ale",
 						"Star Pubs"
 					],
 					"visits": [
@@ -5617,7 +5617,7 @@ define(function(){return{
 						"Food",
 						"Outdoor seating",
 						"Pre-Christmas Bender",
-						"Real Ale",
+						"Cask Ale",
 						"Summerhall"
 					],
 					"visits": [
@@ -5648,7 +5648,7 @@ define(function(){return{
 						"Live Music",
 						"Nachos",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -5767,7 +5767,7 @@ define(function(){return{
 						"Live Music",
 						"Nachos",
 						"Quiz",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -5797,7 +5797,7 @@ define(function(){return{
 						"Fuller Thomson",
 						"Games",
 						"Pre-Christmas Bender",
-						"Real Ale",
+						"Cask Ale",
 						"South Clerk Street"
 					],
 					"visits": [
@@ -5838,7 +5838,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Picardy Place",
-						"Real Ale",
+						"Cask Ale",
 						"Restaurant"
 					],
 					"visits": [
@@ -5866,7 +5866,7 @@ define(function(){return{
 						"Edinburgh",
 						"Games",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -5895,7 +5895,7 @@ define(function(){return{
 						"Lothian Road",
 						"Punch Taverns",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks"
 					],
 					"visits": [
@@ -5962,7 +5962,7 @@ define(function(){return{
 						"Favourite",
 						"Fireplace",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional",
 						"Whisky"
 					],
@@ -6018,7 +6018,7 @@ define(function(){return{
 						"Cocktails",
 						"Edinburgh",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"TCG Management Services",
 						"Victoria Street"
 					],
@@ -6104,7 +6104,7 @@ define(function(){return{
 						"Live Music",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Signature Pubs",
 						"Traditional"
 					],
@@ -6133,7 +6133,7 @@ define(function(){return{
 						"February Blowout",
 						"Food",
 						"Grassmarket",
-						"Real Ale",
+						"Cask Ale",
 						"Spirit Pub Company",
 						"Taylor Walker"
 					],
@@ -6163,7 +6163,7 @@ define(function(){return{
 						"Food",
 						"Grassmarket",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -6192,7 +6192,7 @@ define(function(){return{
 						"Grassmarket",
 						"Mitchells and Butlers",
 						"Nicholson's",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -6220,7 +6220,7 @@ define(function(){return{
 						"Food",
 						"Grassmarket",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -6249,7 +6249,7 @@ define(function(){return{
 						"Grassmarket",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -6274,7 +6274,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Lawnmarket",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -6302,7 +6302,7 @@ define(function(){return{
 						"Food",
 						"James Court",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -6330,7 +6330,7 @@ define(function(){return{
 						"Food",
 						"Mitchells and Butlers",
 						"Nicholson's",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -6360,7 +6360,7 @@ define(function(){return{
 						"Live Music",
 						"Nachos",
 						"Pool Table(s)",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -6465,7 +6465,7 @@ define(function(){return{
 						"Food",
 						"George IV Bridge",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -6493,7 +6493,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Market Street",
-						"Real Ale",
+						"Cask Ale",
 						"Whisky"
 					],
 					"visits": [
@@ -6702,7 +6702,7 @@ define(function(){return{
 						"Dundas Street",
 						"Edinburgh",
 						"Live Music",
-						"Real Ale",
+						"Cask Ale",
 						"Traditional"
 					],
 					"visits": [
@@ -6945,7 +6945,7 @@ define(function(){return{
 						"Edinburgh",
 						"Iona Pubs",
 						"Queen Street",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -7041,7 +7041,7 @@ define(function(){return{
 					"tags": [
 						"Edinburgh",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Waverley Station"
 					],
 					"visits": [
@@ -7213,7 +7213,7 @@ define(function(){return{
 						"Food",
 						"Maclay Inns",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"South Clerk Street"
 					],
 					"visits": [
@@ -7319,7 +7319,7 @@ define(function(){return{
 						"Haymarket Terrace",
 						"Nachos",
 						"Outdoor seating",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -7347,7 +7347,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Missing photo",
-						"Real Ale",
+						"Cask Ale",
 						"Whisky"
 					],
 					"visits": [
@@ -7453,7 +7453,7 @@ define(function(){return{
 						"Favourite",
 						"Fleshmarket Close",
 						"Food",
-						"Real Ale",
+						"Cask Ale",
 						"Whisky"
 					],
 					"visits": [
@@ -7483,7 +7483,7 @@ define(function(){return{
 						"Karaoke",
 						"Open mic",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Snacks",
 						"Traditional"
 					],
@@ -7540,7 +7540,7 @@ define(function(){return{
 						"Live Music",
 						"Niddry Street",
 						"Open mic",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -7580,7 +7580,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"High Street",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -7655,7 +7655,7 @@ define(function(){return{
 						"Food",
 						"North Bank Street",
 						"Outdoor seating",
-						"Real Ale",
+						"Cask Ale",
 						"Restaurant",
 						"Whisky"
 					],
@@ -7685,7 +7685,7 @@ define(function(){return{
 						"Food",
 						"Fuller Thomson",
 						"Holyrood Road",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
@@ -7725,7 +7725,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Pizzas",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -7756,7 +7756,7 @@ define(function(){return{
 						"Nachos",
 						"Pre-Christmas Bender",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"South Clerk Street",
 						"Whisky"
 					],
@@ -7813,7 +7813,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Function Room",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile"
 					],
 					"visits": [
@@ -7867,7 +7867,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"George Street",
-						"Real Ale",
+						"Cask Ale",
 						"Wetherspoon",
 						"Wifi"
 					],
@@ -7895,7 +7895,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"George Street",
-						"Real Ale",
+						"Cask Ale",
 						"Wetherspoon"
 					],
 					"visits": [
@@ -7939,7 +7939,7 @@ define(function(){return{
 						"High Street",
 						"Live Music",
 						"Quiz",
-						"Real Ale",
+						"Cask Ale",
 						"Royal Mile",
 						"Traditional"
 					],
@@ -8085,7 +8085,7 @@ define(function(){return{
 					"name": "The Beer Kitchen",
 					"opened": "",
 					"closed": "",
-					"tags": ["Edinburgh", "Fireplace", "Food", "Games", "Growlers", "Lothian Road", "Real Ale"],
+					"tags": ["Edinburgh", "Fireplace", "Food", "Games", "Growlers", "Lothian Road", "Cask Ale"],
 					"visits": [
 						{
 							"date": "",
@@ -8180,7 +8180,7 @@ define(function(){return{
 						"Edinburgh",
 						"Food",
 						"Hope Street",
-						"Real Ale"
+						"Cask Ale"
 					],
 					"visits": [
 						{
