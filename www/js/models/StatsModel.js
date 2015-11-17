@@ -42,11 +42,15 @@ function (ObservableValue) {
         if (objects.length > 0) {
             var stat = this.stat.get();
             var values = stat.filterValidValues(objects.map(stat.getValue)).sort(compareNumbers);
-            this.stats.set(new Stats(
-                values[0],
-                values[values.length-1],
-                values[Math.floor(values.length/2)]
-            ));
+            var stats = null;
+            if (values.length > 0) {
+                stats = new Stats(
+                    values[0],
+                    values[values.length-1],
+                    values[Math.floor(values.length/2)]
+                );
+            }
+            this.stats.set(stats);
         }
     };
 

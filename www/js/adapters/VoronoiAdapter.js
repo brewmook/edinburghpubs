@@ -4,9 +4,11 @@ function (Colour, ColourMap, geometry, VoronoiView) {
     function setColours(colourMap, stats)
     {
         colourMap.clear();
-        colourMap.addColour(stats.minimum, new Colour(0,255,0));
-        colourMap.addColour(stats.median, new Colour(0,0,255));
-        colourMap.addColour(stats.maximum, new Colour(255,0,0));
+        if (stats) {
+            colourMap.addColour(stats.minimum, new Colour(0,255,0));
+            colourMap.addColour(stats.median, new Colour(0,0,255));
+            colourMap.addColour(stats.maximum, new Colour(255,0,0));
+        }
     }
 
     /**
@@ -27,13 +29,14 @@ function (Colour, ColourMap, geometry, VoronoiView) {
 
             var stat = statsModel.stat.get();
 
-            view.setLegend(
-                stat.label(),
-                [new VoronoiView.LegendEntry(stat.formatValue(stats.minimum), colourMap.colour(stats.minimum)),
-                 new VoronoiView.LegendEntry(stat.formatValue(stats.median), colourMap.colour(stats.median)),
-                 new VoronoiView.LegendEntry(stat.formatValue(stats.maximum), colourMap.colour(stats.maximum)),
-                 new VoronoiView.LegendEntry("No data ", colourMap.colour(stats.maximum+1))]
-            );
+            var legendEntries = [];
+            if (stats) {
+                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(stats.minimum), colourMap.colour(stats.minimum)));
+                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(stats.median), colourMap.colour(stats.median)));
+                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(stats.maximum), colourMap.colour(stats.maximum)));
+            }
+            legendEntries.push(new VoronoiView.LegendEntry("No data ", colourMap.colour(Number.MAX_VALUE)));
+            view.setLegend(stat.label(), legendEntries);
 
             var voronoi = geometry.earthSurfaceVoronoi(sitesModel.sites.get(), target.origin, target.radius);
             var polygons = voronoi.map(function(cell) {

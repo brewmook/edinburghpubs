@@ -1,7 +1,6 @@
 Bugs
 ----
 * Just a few results => rectangles or odd clipping for voronoi instead of crop to circle.
-* Showing only pubs with no price info causes exception.
 
 Features
 --------
