@@ -4,7 +4,7 @@
     dir: "build",
     removeCombined: true,
     paths: {
-        data: "../data",
+        data: "empty:",
         leaflet: "empty:",
         voronoi: "empty:"
     },
