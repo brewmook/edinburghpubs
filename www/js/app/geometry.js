@@ -1,20 +1,6 @@
-define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
+define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesian, Voronoi) {
 
     var EarthRadiusMetres = 6378137;
-
-    /**
-     * A point in cartesian space.
-     * @param {number} x
-     * @param {number} y
-     * @param {number} z
-     * @constructor
-     */
-    function Cartesian(x, y, z)
-    {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
 
     function quadrance2d(point)
     {
@@ -77,10 +63,39 @@ define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
     }
 
     /**
+     * @param {Cartesian} startPoint
+     * @param {Cartesian} endPoint
+     * @param {number} circleRadius
+     * @returns {Cartesian[]}
+     */
+    function anticlockwiseArc(startPoint, endPoint, circleRadius)
+    {
+        var result = [];
+
+        var startAngle = Math.atan2(startPoint.y, startPoint.x);
+        var endAngle = Math.atan2(endPoint.y, endPoint.x);
+        if (startAngle < endAngle) {
+            endAngle -= Math.PI*2;
+        }
+
+        var step = 3*Math.PI/180;
+        var a = startAngle - step;
+        while (a >= endAngle) {
+            result.push(new Cartesian(
+                circleRadius * Math.cos(a),
+                circleRadius * Math.sin(a),
+                startPoint.z
+            ));
+            a -= step;
+        }
+
+        return result;
+    }
+
+    /**
      * Crops a polygon to a circle at the origin.
      *
-     * Assumes the polygon is either entirely inside the circle or crosses the circumference
-     * exactly twice.
+     * Assumes polygon is concave and that points are defined in anti-clockwise direction.
      *
      * @param {Cartesian[]} polygon - Polygon points.
      * @param {number} circleRadius - Radius of a circle centred on the origin (0,0).
@@ -88,70 +103,72 @@ define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
      */
     function cropToCircle(polygon, circleRadius)
     {
-        var circleQ = circleRadius*circleRadius;
-        var lastPointInsideCircle = -1;
-        var lastPointOutsideCircle = -1;
-
-        var quadrances = polygon.map(function(loc) {
+        var circleQ = circleRadius * circleRadius;
+        var quadrances = polygon.map(function (loc) {
             return quadrance2d(loc);
         });
 
-        for (var i = 0; i < polygon.length; ++i) {
-            var j = (i+1) % polygon.length;
-
-            if (lastPointInsideCircle < 0 && quadrances[i] <= circleQ && quadrances[j] > circleQ) {
-                lastPointInsideCircle = i;
-            }
-            if (lastPointOutsideCircle < 0 && quadrances[i] > circleQ && quadrances[j] <= circleQ) {
-                lastPointOutsideCircle = i;
+        // Find a point inside the circle to start with
+        var firstIndexInside;
+        for (firstIndexInside = 0; firstIndexInside < polygon.length; ++firstIndexInside) {
+            if (quadrances[firstIndexInside] <= circleQ) {
+                break;
             }
         }
 
-        if (lastPointInsideCircle >= 0 && lastPointOutsideCircle >= 0) {
-            var exitPoint = findLineCircleIntersection(
-                circleRadius,
-                polygon[lastPointInsideCircle],
-                polygon[(lastPointInsideCircle+1)%polygon.length]);
-            var entryPoint = findLineCircleIntersection(
-                circleRadius,
-                polygon[(lastPointOutsideCircle+1)%polygon.length],
-                polygon[lastPointOutsideCircle]);
-
-            if (exitPoint == null || entryPoint == null) {
-                return polygon;
-            }
-
-            var exitAngle = Math.atan2(exitPoint.y, exitPoint.x);
-            var entryAngle = Math.atan2(entryPoint.y, entryPoint.x);
-            if (exitAngle < entryAngle) {
-                entryAngle -= Math.PI*2;
-            }
-
-            var points = [];
-            points.push(entryPoint);
-            var p = lastPointOutsideCircle;
-            do {
-                p = (p+1) % polygon.length;
-                points.push(polygon[p]);
-            } while(p != lastPointInsideCircle);
-            points.push(exitPoint);
-
-            // Now add points on the circle
-            var step = 3*Math.PI/180;
-            var a = exitAngle - step;
-            while (a >= entryAngle) {
-                points.push(new Cartesian(
-                    circleRadius * Math.cos(a),
-                    circleRadius * Math.sin(a),
-                    exitPoint.z
-                ));
-                a -= step;
-            }
-
-            return points;
+        // Did we find any point inside the circle?
+        if (firstIndexInside == polygon.length) {
+            return [];
         }
 
-        return polygon;
+        var lastIndex = -1;
+        var result = [];
+        var inside = true;
+        var exitPoint = null;
+        var entryPoint = null;
+        for (var i = firstIndexInside; i < polygon.length + firstIndexInside; ++i) {
+            var index = i % polygon.length;
+            if (inside) {
+                if (quadrances[index] > circleQ) {
+                    inside = false;
+                    exitPoint = findLineCircleIntersection(
+                        circleRadius,
+                        polygon[lastIndex],
+                        polygon[index]
+                    );
+                    result.push(exitPoint);
+                }
+                else {
+                    result.push(polygon[index]);
+                }
+            }
+            else {
+                if (quadrances[index] <= circleQ) {
+                    inside = true;
+                    entryPoint = findLineCircleIntersection(
+                        circleRadius,
+                        polygon[lastIndex],
+                        polygon[index]
+                    );
+                    result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+                    result.push(entryPoint);
+                    result.push(polygon[index]);
+                }
+            }
+            lastIndex = index;
+        }
+
+        if (!inside) {
+            entryPoint = findLineCircleIntersection(
+                circleRadius,
+                polygon[lastIndex],
+                polygon[firstIndexInside]
+            );
+            result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+            result.push(entryPoint);
+        }
+
+        return result;
     }
 
     /**
@@ -277,6 +294,7 @@ define(['app/GeoCoord', 'voronoi'], function (GeoCoord, Voronoi) {
     }
 
     return {
+        cropToCircle: cropToCircle,
         earthSurfaceCircleBounds: earthSurfaceCircleBounds,
         earthSurfaceVoronoi: earthSurfaceVoronoi
     };
