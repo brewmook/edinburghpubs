@@ -98,7 +98,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         var i;
         for (i = 0; i < polygon.length; ++i) {
             if (quadrances[i] < circleQuadrance) {
-                break;
+                return i;
             }
 
             var previous;
@@ -112,13 +112,16 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             ).filter(function(t) { return t >= 0 && t < 1; });
 
             if (intersections.length > 0) {
+                if (intersections[0] == 0) {
+                    return previous;
+                }
                 var point = interpolateCartesians(
                     polygon[previous],
                     polygon[i],
                     intersections[0]
                 );
                 polygon.splice(i, 0, point);
-                quadrances.splice(i, 0, quadrance2d(point));
+                quadrances.splice(i, 0, circleQuadrance);
                 break;
             }
         }
@@ -164,13 +167,18 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                         polygon[lastIndex],
                         polygon[index],
                         circleRadius
-                    ).filter(function(t) { return t > 0 && t <= 1; });
-                    exitPoint = interpolateCartesians(
-                        polygon[lastIndex],
-                        polygon[index],
-                        intersections[0]
-                    );
-                    result.push(exitPoint);
+                    ).filter(function(t) { return t > 0 && t < 1; });
+                    if (intersections.length == 0) {
+                        exitPoint = polygon[lastIndex];
+                    }
+                    else {
+                        exitPoint = interpolateCartesians(
+                            polygon[lastIndex],
+                            polygon[index],
+                            intersections[0]
+                        );
+                        result.push(exitPoint);
+                    }
                 }
                 else {
                     result.push(polygon[index]);
@@ -202,14 +210,20 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                 polygon[lastIndex],
                 polygon[firstIndexInside],
                 circleRadius
-            ).filter(function(t) { return t > 0 && t <= 1; });
-            entryPoint = interpolateCartesians(
-                polygon[lastIndex],
-                polygon[firstIndexInside],
-                intersections[0]
-            );
-            result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
-            result.push(entryPoint);
+            ).filter(function(t) { return t >= 0 && t < 1; });
+            if (intersections.length > 0) {
+                entryPoint = interpolateCartesians(
+                    polygon[lastIndex],
+                    polygon[firstIndexInside],
+                    intersections[0]
+                );
+                result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+                result.push(entryPoint);
+            }
+            else {
+                entryPoint = polygon[firstIndexInside];
+                result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+            }
         }
 
         return result;
