@@ -66,9 +66,10 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
      * @param {Cartesian} startPoint
      * @param {Cartesian} endPoint
      * @param {number} circleRadius
+     * @param {number} stepDegrees - Degrees to step by when adding circumference.
      * @returns {Cartesian[]}
      */
-    function anticlockwiseArc(startPoint, endPoint, circleRadius)
+    function clockwiseArc(startPoint, endPoint, circleRadius, stepDegrees)
     {
         var result = [];
 
@@ -78,9 +79,9 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             endAngle -= Math.PI*2;
         }
 
-        var step = 3*Math.PI/180;
+        var step = stepDegrees*Math.PI/180;
         var a = startAngle - step;
-        while (a >= endAngle) {
+        while (a > endAngle) {
             result.push(new Cartesian(
                 circleRadius * Math.cos(a),
                 circleRadius * Math.sin(a),
@@ -131,13 +132,14 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
     /**
      * Crops a polygon to a circle at the origin.
      *
-     * Assumes polygon is concave and that points are defined in anti-clockwise direction.
+     * Assumes polygon is concave and that points are defined in a clockwise direction.
      *
      * @param {Cartesian[]} polygon - Polygon points.
      * @param {number} circleRadius - Radius of a circle centred on the origin (0,0).
+     * @param {number} fillStepDegrees - Degrees to step by when adding circumference.
      * @returns {Cartesian[]}
      */
-    function cropToCircle(polygon, circleRadius)
+    function cropToCircle(polygon, circleRadius, fillStepDegrees)
     {
         var circleQ = circleRadius * circleRadius;
         var quadrances = polygon.map(function (loc) {
@@ -197,7 +199,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                         polygon[index],
                         intersections[0]
                     );
-                    result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+                    result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                     result.push(entryPoint);
                     result.push(polygon[index]);
                 }
@@ -217,12 +219,12 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                     polygon[firstIndexInside],
                     intersections[0]
                 );
-                result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+                result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                 result.push(entryPoint);
             }
             else {
                 entryPoint = polygon[firstIndexInside];
-                result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
+                result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
             }
         }
 
@@ -263,7 +265,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             return {
                 loc: loc,
                 x: y,
-                y: -newZ,
+                y: newZ,
                 z: newX
             };
         });
@@ -287,7 +289,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
 
         return cartesians.map(function(cart) {
             var rotatedX = cart.z;
-            var rotatedZ = -cart.y;
+            var rotatedZ = cart.y;
             var y = cart.x;
 
             // unrotate back up to correct latitude
@@ -334,7 +336,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                 var start = edge.getStartpoint();
                 return new Cartesian(start.x, start.y, EarthRadiusMetres);
             });
-            var croppedPolygon = cropToCircle(polygon, circleRadius);
+            var croppedPolygon = cropToCircle(polygon, circleRadius, 3);
             return {
                 loc: cell.site.loc,
                 polygon: cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres)
@@ -352,6 +354,8 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
     }
 
     return {
+        calculateCartesians: calculateCartesians,
+        cartesianToGeoCoord: cartesianToGeoCoord,
         cropToCircle: cropToCircle,
         earthSurfaceCircleBounds: earthSurfaceCircleBounds,
         earthSurfaceVoronoi: earthSurfaceVoronoi,
