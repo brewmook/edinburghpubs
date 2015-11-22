@@ -7,20 +7,29 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         return point.x*point.x + point.y*point.y;
     }
 
+    function interpolateNumbers(n1, n2, t) {
+        return n1 + (n2-n1)*t;
+    }
+
+    function interpolateCartesians(point1, point2, t) {
+        return new Cartesian(
+            interpolateNumbers(point1.x, point2.x, t),
+            interpolateNumbers(point1.y, point2.y, t),
+            interpolateNumbers(point1.z, point2.z, t)
+        );
+    }
+
     /**
-     * Finds the intersection between a line and a circle at the origin.
+     * Finds the intersections between a line and a circle at the origin.
      *
      * It is assumed that [point1] and [point2] are not coincident.
      *
-     * If both points are outside the circle but there is an intersection, it only
-     * provides the first intersection point along the line from [point1] to [point2].
-     *
-     * @param {number} radius - Radius of the circle placed at the origin.
-     * @param {Cartesian} point1 -
+     * @param {Cartesian} point1
      * @param {Cartesian} point2
-     * @returns {?Cartesian}
+     * @param {number} radius - Radius of the circle placed at the origin.
+     * @returns {number[]}
      */
-    function findLineCircleIntersection(radius, point1, point2)
+    function lineCircleIntersections(point1, point2, radius)
     {
         var dx = point2.x - point1.x;
         var dy = point2.y - point1.y;
@@ -32,33 +41,24 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         var det = B * B - 4 * A * C;
         if ((A <= 0.0000001) || (det < 0))
         {
-            // No solution
-            /** @todo Both points inside/outside the circle? */
-            return null;
+            // No intersections
+            return [];
         }
         else if (det == 0)
         {
-            // One solution.
-            /** @todo Line tangential to the circle? */
+            // Line is tangential to the circle
             var t = -B / (2 * A);
-            return new Cartesian(
-                point1.x + t * dx,
-                point1.y + t * dy,
-                point1.z
-            );
+            return [t];
         }
         else
         {
-            // Two solutions.
-            var t1 = ((-B + Math.sqrt(det)) / (2 * A));
-            if (t1 >= 0 && t1 <= 1) {
-                // First solution lies somewhere on the line between p1 and p2.
-                return new Cartesian(point1.x + t1 * dx, point1.y + t1 * dy, point1.z);
-            } else {
-                /** @todo What does this solution mean in practical terms? */
-                var t2 = ((-B - Math.sqrt(det)) / (2 * A));
-                return new Cartesian(point1.x + t2 * dx, point1.y + t2 * dy, point1.z);
-            }
+            // Line intersectstwo
+            var sqrtDet = Math.sqrt(det);
+            var t1 = ((-B + sqrtDet) / (2 * A));
+            var t2 = ((-B - sqrtDet) / (2 * A));
+
+            if (t1 < t2) return [t1, t2];
+            else return [t2, t1];
         }
     }
 
@@ -109,9 +109,32 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         });
 
         // Find a point inside the circle to start with
+        var intersections;
         var firstIndexInside;
         for (firstIndexInside = 0; firstIndexInside < polygon.length; ++firstIndexInside) {
             if (quadrances[firstIndexInside] <= circleQ) {
+                break;
+            }
+            var previous;
+            if (firstIndexInside > 0) {
+                previous = firstIndexInside - 1;
+            }
+            else {
+                previous = polygon.length - 1;
+            }
+            intersections = lineCircleIntersections(
+                polygon[previous],
+                polygon[firstIndexInside],
+                circleRadius
+            ).filter(function(t) { return t >= 0 && t <= 1; });
+            if (intersections.length > 0) {
+                var point = interpolateCartesians(
+                    polygon[previous],
+                    polygon[firstIndexInside],
+                    intersections[0]
+                );
+                polygon.splice(firstIndexInside, 0, point);
+                quadrances.splice(firstIndexInside, 0, quadrance2d(point));
                 break;
             }
         }
@@ -131,10 +154,15 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             if (inside) {
                 if (quadrances[index] > circleQ) {
                     inside = false;
-                    exitPoint = findLineCircleIntersection(
-                        circleRadius,
+                    intersections = lineCircleIntersections(
                         polygon[lastIndex],
-                        polygon[index]
+                        polygon[index],
+                        circleRadius
+                    ).filter(function(t) { return t > 0 && t <= 1; });
+                    exitPoint = interpolateCartesians(
+                        polygon[lastIndex],
+                        polygon[index],
+                        intersections[0]
                     );
                     result.push(exitPoint);
                 }
@@ -145,10 +173,15 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             else {
                 if (quadrances[index] <= circleQ) {
                     inside = true;
-                    entryPoint = findLineCircleIntersection(
-                        circleRadius,
+                    intersections = lineCircleIntersections(
                         polygon[lastIndex],
-                        polygon[index]
+                        polygon[index],
+                        circleRadius
+                    ).filter(function(t) { return t > 0 && t <= 1; });
+                    entryPoint = interpolateCartesians(
+                        polygon[lastIndex],
+                        polygon[index],
+                        intersections[0]
                     );
                     result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
                     result.push(entryPoint);
@@ -159,10 +192,15 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         }
 
         if (!inside) {
-            entryPoint = findLineCircleIntersection(
-                circleRadius,
+            intersections = lineCircleIntersections(
                 polygon[lastIndex],
-                polygon[firstIndexInside]
+                polygon[firstIndexInside],
+                circleRadius
+            ).filter(function(t) { return t > 0 && t <= 1; });
+            entryPoint = interpolateCartesians(
+                polygon[lastIndex],
+                polygon[firstIndexInside],
+                intersections[0]
             );
             result = result.concat(anticlockwiseArc(exitPoint, entryPoint, circleRadius));
             result.push(entryPoint);
@@ -296,7 +334,8 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
     return {
         cropToCircle: cropToCircle,
         earthSurfaceCircleBounds: earthSurfaceCircleBounds,
-        earthSurfaceVoronoi: earthSurfaceVoronoi
+        earthSurfaceVoronoi: earthSurfaceVoronoi,
+        lineCircleIntersections: lineCircleIntersections
     };
 
 });

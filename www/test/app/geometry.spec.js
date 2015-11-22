@@ -74,6 +74,48 @@ define(['app/Cartesian', 'app/geometry'], function(Cartesian, geometry) {
             expect(cropped.length).toBeGreaterThan(polygon.length);
         });
 
+        it('handles cases where there are no points inside the circle, yet polygon intersects circle', function() {
+            var polygon = [
+                new Cartesian(-2, 0, 0),
+                new Cartesian( 2, 0, 0),
+                new Cartesian( 2, 2, 0),
+                new Cartesian(-2, 2, 0)
+            ];
+            var cropped = geometry.cropToCircle(polygon, 1);
+
+            // Simple check that there are more points in [cropped], in lieu of calculating points on circle
+            expect(cropped.length).toBeGreaterThan(3);
+
+            // Check known points inside the circle
+            expect(cropped[0]).toEqual(new Cartesian(-1,0,0));
+            expect(cropped[1]).toEqual(new Cartesian(1,0,0));
+
+            polygon = [
+                new Cartesian(-2, -2, 0),
+                new Cartesian(2, -2, 0),
+                new Cartesian( 2, 2, 0)
+            ];
+            cropped = geometry.cropToCircle(polygon, 1);
+
+            // Simple check that there are more points in [cropped], in lieu of calculating points on circle
+            expect(cropped.length).toBeGreaterThan(3);
+
+        });
+
     });
 
+    describe('lineCircleIntersections', function() {
+
+        it('returns intersections sorted by proximity to point1', function() {
+            var intersections = geometry.lineCircleIntersections(
+                new Cartesian(-2, 0, 0),
+                new Cartesian(2, 0, 0),
+                1.0
+            );
+            expect(intersections.length).toEqual(2);
+            expect(intersections[0]).toEqual(0.25);
+            expect(intersections[1]).toEqual(0.75);
+        });
+
+    });
 });
