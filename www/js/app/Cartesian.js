@@ -14,8 +14,20 @@ define([], function() {
         this.z = z;
     }
 
+    /**
+     * @returns {string}
+     */
     Cartesian.prototype.toString = function() {
         return 'Cartesian{' + this.x + ', ' + this.y + ', ' + this.z + '}';
+    };
+
+    /**
+     * @param {Cartesian} cartesian
+     * @param {number} epsilon
+     * @returns {boolean|undefined}
+     */
+    Cartesian.prototype.almostEquals = function(cartesian, epsilon) {
+        return Cartesian.almostEquals(this, cartesian, epsilon);
     };
 
     /**

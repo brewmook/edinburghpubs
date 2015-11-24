@@ -1,7 +1,7 @@
 Bugs
 ----
-* Just a few results => rectangles or odd clipping for voronoi instead of crop to circle.
 * Sometimes conversion from voronoi half edges to polygon not right. Filter "Bon Vivant" for example.
+* Single result shows no voronoi. It should be the full circle.
 
 Features
 --------

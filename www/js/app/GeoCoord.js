@@ -12,8 +12,20 @@ define([], function() {
         this.lon = lon;
     }
 
+    /**
+     * @returns {string}
+     */
     GeoCoord.prototype.toString = function() {
         return 'GeoCoord{' + this.lat + ', ' + this.lon + '}';
+    };
+
+    /**
+     * @param {GeoCoord} geocoord
+     * @param {number} epsilon
+     * @returns {boolean|undefined}
+     */
+    GeoCoord.prototype.almostEquals = function(geocoord, epsilon) {
+        return GeoCoord.almostEquals(this, geocoord, epsilon);
     };
 
     /**

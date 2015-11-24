@@ -93,42 +93,6 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         return result;
     }
 
-    function firstIndexInsideCircle(polygon, quadrances, circleRadius)
-    {
-        var circleQuadrance = circleRadius*circleRadius;
-        var i;
-        for (i = 0; i < polygon.length; ++i) {
-            if (quadrances[i] < circleQuadrance) {
-                return i;
-            }
-
-            var previous;
-            if (i > 0) previous = i - 1;
-            else previous = polygon.length - 1;
-
-            var intersections = lineCircleIntersections(
-                polygon[previous],
-                polygon[i],
-                circleRadius
-            ).filter(function(t) { return t >= 0 && t < 1; });
-
-            if (intersections.length > 0) {
-                if (intersections[0] == 0) {
-                    return previous;
-                }
-                var point = interpolateCartesians(
-                    polygon[previous],
-                    polygon[i],
-                    intersections[0]
-                );
-                polygon.splice(i, 0, point);
-                quadrances.splice(i, 0, circleQuadrance);
-                break;
-            }
-        }
-        return i;
-    }
-
     /**
      * Crops a polygon to a circle at the origin.
      *
@@ -141,89 +105,133 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
      */
     function cropToCircle(polygon, circleRadius, fillStepDegrees)
     {
+        if (polygon.length < 3) return polygon;
+
         var circleQ = circleRadius * circleRadius;
         var quadrances = polygon.map(function (loc) {
             return quadrance2d(loc);
         });
 
         // Find a point inside the circle to start with
-        var firstIndexInside = firstIndexInsideCircle(polygon, quadrances, circleRadius);
-
-        // Did we find any point inside the circle?
-        if (firstIndexInside == polygon.length) {
-            return [];
+        var startIndex;
+        for (startIndex = 0; startIndex < polygon.length; ++startIndex) {
+            if (quadrances[startIndex] < circleQ) {
+                break;
+            }
         }
 
-        var lastIndex = -1;
         var result = [];
         var inside = true;
+        if (startIndex == polygon.length) {
+            inside = false;
+            startIndex = 0;
+        }
+
+        var previousIndex = (startIndex-1+polygon.length)%polygon.length;
         var exitPoint = null;
         var entryPoint = null;
         var intersections;
-        for (var i = firstIndexInside; i < polygon.length + firstIndexInside; ++i) {
+
+        for (var i = startIndex; i < polygon.length + startIndex; ++i) {
             var index = i % polygon.length;
+
             if (inside) {
-                if (quadrances[index] > circleQ) {
+                if (quadrances[i] > circleQ) {
+                    // Inside the circle and will end up outside.
                     inside = false;
                     intersections = lineCircleIntersections(
-                        polygon[lastIndex],
-                        polygon[index],
-                        circleRadius
-                    ).filter(function(t) { return t > 0 && t < 1; });
-                    if (intersections.length == 0) {
-                        exitPoint = polygon[lastIndex];
-                    }
-                    else {
-                        exitPoint = interpolateCartesians(
-                            polygon[lastIndex],
-                            polygon[index],
-                            intersections[0]
-                        );
-                        result.push(exitPoint);
-                    }
-                }
-                else {
-                    result.push(polygon[index]);
-                }
-            }
-            else {
-                if (quadrances[index] <= circleQ) {
-                    inside = true;
-                    intersections = lineCircleIntersections(
-                        polygon[lastIndex],
+                        polygon[previousIndex],
                         polygon[index],
                         circleRadius
                     ).filter(function(t) { return t > 0 && t <= 1; });
+                    if (intersections.length > 0) {
+                        exitPoint = interpolateCartesians(
+                            polygon[previousIndex],
+                            polygon[index],
+                            intersections[0]
+                        );
+                    }
+                }
+                else {
+                    // Inside the circle and will remain so.
+                    result.push(polygon[index]);
+                }
+            }
+            else if (quadrances[index] < circleQ) {
+                // Outside the circle and will end up inside.
+                inside = true;
+                intersections = lineCircleIntersections(
+                    polygon[previousIndex],
+                    polygon[index],
+                    circleRadius
+                ).filter(function(t) { return t > 0 && t <= 1; });
+                if (intersections.length > 0) {
                     entryPoint = interpolateCartesians(
-                        polygon[lastIndex],
+                        polygon[previousIndex],
                         polygon[index],
                         intersections[0]
                     );
-                    result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                    if (exitPoint) {
+                        result.push(exitPoint);
+                        result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                    }
                     result.push(entryPoint);
                     result.push(polygon[index]);
                 }
             }
-            lastIndex = index;
+            else {
+                // Outside the circle and will remain so.
+                intersections = lineCircleIntersections(
+                    polygon[previousIndex],
+                    polygon[index],
+                    circleRadius
+                ).filter(function(t) { return t >= 0 && t < 1; });
+                if (intersections.length == 2) {
+                    entryPoint = interpolateCartesians(
+                        polygon[previousIndex],
+                        polygon[index],
+                        intersections[0]
+                    );
+                    if (exitPoint) {
+                        result.push(exitPoint);
+                        result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                    }
+                    result.push(entryPoint);
+                    exitPoint = interpolateCartesians(
+                        polygon[previousIndex],
+                        polygon[index],
+                        intersections[1]
+                    );
+                }
+                else if (intersections.length == 1 && exitPoint == null) {
+                    exitPoint = polygon[index];
+                }
+            }
+            previousIndex = index;
         }
 
-        if (!inside) {
+        if (exitPoint && !inside) {
+            // We expect to end up back inside the circle
             intersections = lineCircleIntersections(
-                polygon[lastIndex],
-                polygon[firstIndexInside],
+                polygon[index],
+                polygon[startIndex],
                 circleRadius
             ).filter(function(t) { return t >= 0 && t < 1; });
             if (intersections.length > 0) {
                 entryPoint = interpolateCartesians(
-                    polygon[lastIndex],
-                    polygon[firstIndexInside],
+                    polygon[index],
+                    polygon[startIndex],
                     intersections[0]
                 );
+                result.push(exitPoint);
                 result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
-                result.push(entryPoint);
+                if (!Cartesian.equals(entryPoint, result[0])) {
+                    result.push(entryPoint);
+                }
             }
             else {
-                entryPoint = polygon[firstIndexInside];
+                entryPoint = result[0];
+                result.push(exitPoint);
                 result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
             }
         }

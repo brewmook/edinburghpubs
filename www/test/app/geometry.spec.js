@@ -1,9 +1,22 @@
 define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, GeoCoord, geometry) {
 
+    var customMatchers = {
+        toBeAlmostEqual: function(util, customEqualityTesters) {
+            return {
+                compare: function(actual, expected, epsilon) {
+                    return {
+                        pass: actual.almostEquals(expected, epsilon)
+                    };
+                }
+            }
+        }
+    };
+
     describe('cropToCircle()', function() {
 
         beforeEach(function() {
             jasmine.addCustomEqualityTester(Cartesian.equals);
+            jasmine.addMatchers(customMatchers);
         });
 
         it('handles empty list', function() {
@@ -15,8 +28,8 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
         it('returns empty list if polygon is outside circle', function() {
             var polygon = [
                 new Cartesian(10,10,10),
-                new Cartesian(11,10,10),
-                new Cartesian(10,11,10)
+                new Cartesian(10,11,10),
+                new Cartesian(11,10,10)
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 45);
 
@@ -104,8 +117,57 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
             expect(cropped.length).toEqual(5);
 
             // Check known points inside the circle
-            expect(cropped[0]).toEqual(new Cartesian(1,0,0));
-            expect(cropped[1]).toEqual(new Cartesian(-1,0,0));
+            expect(cropped[0]).toEqual(new Cartesian(-1,0,0));
+            expect(cropped[cropped.length-1]).toEqual(new Cartesian(1,0,0));
+        });
+
+        it('handles XXX rectangle with two opposite edges intersecting circle', function() {
+            var sinPiBy4 = Math.sin(Math.PI/4);
+            var polygon = [
+                new Cartesian(-2, 0, 0),
+                new Cartesian(-2, 1, 0),
+                new Cartesian(2, 1, 0),
+                new Cartesian(2, 0, 0)
+            ];
+            var expected = [
+                new Cartesian(1, 0, 0),
+                new Cartesian(-1, 0, 0),
+                new Cartesian(-sinPiBy4, sinPiBy4, 0),
+                new Cartesian(0, 1, 0),
+                new Cartesian(sinPiBy4, sinPiBy4, 0)
+            ];
+
+            var cropped = geometry.cropToCircle(polygon, 1, 45);
+
+            expect(cropped.length).toEqual(expected.length);
+            for (var i = 0; i < cropped.length; ++i) {
+                expect(cropped[i]).toBeAlmostEqual(expected[i], 0.01);
+            }
+        });
+
+        it('handles rectangle with two opposite edges intersecting circle', function() {
+            var sinPiBy4 = Math.sin(Math.PI/4);
+            var polygon = [
+                new Cartesian(-2, sinPiBy4, 0),
+                new Cartesian( 2, sinPiBy4, 0),
+                new Cartesian( 2,-sinPiBy4, 0),
+                new Cartesian(-2,-sinPiBy4, 0)
+            ];
+            var expected = [
+                new Cartesian(-sinPiBy4, sinPiBy4, 0),
+                new Cartesian(sinPiBy4, sinPiBy4, 0),
+                new Cartesian(1, 0, 0),
+                new Cartesian(sinPiBy4, -sinPiBy4, 0),
+                new Cartesian(-sinPiBy4, -sinPiBy4, 0),
+                new Cartesian(-1, 0, 0)
+            ];
+
+            var cropped = geometry.cropToCircle(polygon, 1, 45);
+
+            expect(cropped.length).toEqual(expected.length);
+            for (var i = 0; i < cropped.length; ++i) {
+                expect(cropped[i]).toBeAlmostEqual(expected[i], 0.01);
+            }
         });
 
     });
@@ -126,6 +188,10 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
     });
 
     describe('calculateCartesians', function() {
+
+        beforeEach(function() {
+            jasmine.addMatchers(customMatchers);
+        });
 
         it('converts lat/lng to cartesian coordinates', function() {
             var origin = new GeoCoord(1,1);
@@ -150,15 +216,17 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
 
             for (var i = 0; i < actual.length; ++i) {
                 var cartesian = new Cartesian(actual[i].x, actual[i].y, actual[i].z);
-                //console.log('actual: ' + cartesian.toString());
-                //console.log('expected: ' + expected[i]);
-                expect(Cartesian.almostEquals(cartesian, expected[i], 1)).toBeTruthy();
+                expect(cartesian).toBeAlmostEqual(expected[i], 1);
             }
         });
 
     });
 
     describe('cartesianToGeoCoord', function() {
+
+        beforeEach(function() {
+            jasmine.addMatchers(customMatchers);
+        });
 
         it('converts cartesians to lat/lng', function() {
             var origin = new GeoCoord(1,1);
@@ -182,9 +250,7 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
             expect(actual.length).toEqual(expected.length);
 
             for (var i = 0; i < actual.length; ++i) {
-                console.log('actual: ' + actual[i]);
-                console.log('expected: ' + expected[i]);
-                expect(GeoCoord.almostEquals(actual[i], expected[i], 1)).toBeTruthy();
+                expect(actual[i]).toBeAlmostEqual(expected[i], 1);
             }
         });
 
