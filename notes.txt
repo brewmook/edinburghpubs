@@ -1,6 +1,5 @@
 Bugs
 ----
-* Sometimes conversion from voronoi half edges to polygon not right. Filter "Bon Vivant" for example.
 * Single result shows no voronoi. It should be the full circle.
 
 Features
