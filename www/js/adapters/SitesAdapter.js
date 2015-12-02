@@ -38,12 +38,22 @@ function (SitesView) {
         }
         if (site.history.length > 1) {
             var previous = [];
-            var link;
             for (var i = 1; i < site.history.length; ++i) {
-                link = site.history[i].visits.length ? site.history[i].visits[0].link : '';
-                previous.push(createLink(link, site.history[i].name));
+                if (site.history[i].name != pub.name) {
+                    if (site.history[i].visits.length > 0) {
+                        previous.push(createLink(
+                            site.history[i].visits[0].link,
+                            site.history[i].name
+                        ));
+                    }
+                    else {
+                        previous.push(site.history[i].name);
+                    }
+                }
             }
-            text += "<br/>Previously known as " + previous.join(', ') + ".";
+            if (previous.length > 0) {
+                text += "<br/>Previously known as " + previous.join(', ') + ".";
+            }
         }
         if (pub.tags.length > 0) {
             text += "<br/>Tags: " + pub.tags.join(', ');
