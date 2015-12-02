@@ -1,7 +1,6 @@
 Bugs
 ----
 * Single result shows no voronoi. It should be the full circle.
-* Some crops to circle not working - filter to "Pies" for example.
 
 Features
 --------

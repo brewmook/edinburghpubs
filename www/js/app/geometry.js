@@ -75,7 +75,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
 
         var startAngle = Math.atan2(startPoint.y, startPoint.x);
         var endAngle = Math.atan2(endPoint.y, endPoint.x);
-        if (startAngle < endAngle) {
+        if (startAngle <= endAngle) {
             endAngle -= Math.PI*2;
         }
 
@@ -136,7 +136,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             var index = i % polygon.length;
 
             if (inside) {
-                if (quadrances[i] > circleQ) {
+                if (quadrances[index] > circleQ) {
                     // Inside the circle and will end up outside.
                     inside = false;
                     intersections = lineCircleIntersections(
@@ -364,6 +364,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
     return {
         calculateCartesians: calculateCartesians,
         cartesianToGeoCoord: cartesianToGeoCoord,
+        clockwiseArc: clockwiseArc,
         cropToCircle: cropToCircle,
         earthSurfaceCircleBounds: earthSurfaceCircleBounds,
         earthSurfaceVoronoi: earthSurfaceVoronoi,

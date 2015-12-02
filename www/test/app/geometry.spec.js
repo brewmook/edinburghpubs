@@ -65,6 +65,24 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
             expect(cropped.length).toEqual(11);
         });
 
+        it('returns intersection of simple square and circle where only first point is outside', function() {
+            var polygon = [
+                new Cartesian(0.9, 0.9, 0),
+                new Cartesian(0.9, 0, 0),
+                new Cartesian(0, 0, 0),
+                new Cartesian(0, 0.9, 0)
+            ];
+            var cropped = geometry.cropToCircle(polygon, 1, 90);
+
+            // Check known points inside the circle
+            expect(cropped[0]).toEqual(polygon[1]);
+            expect(cropped[1]).toEqual(polygon[2]);
+            expect(cropped[2]).toEqual(polygon[3]);
+
+            // Simple check for expected number of points, in lieu of calculating exact points
+            expect(cropped.length).toEqual(5);
+        });
+
         it('adds all points already inside the circle with relative order preserved', function() {
             var polygon = [
                 new Cartesian(0, 0, 0),
@@ -252,6 +270,35 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
             for (var i = 0; i < actual.length; ++i) {
                 expect(actual[i]).toBeAlmostEqual(expected[i], 1);
             }
+        });
+
+    });
+
+    describe('clockwiseArc', function() {
+
+        var tolerance = 0.001;
+
+        beforeEach(function() {
+            jasmine.addMatchers(customMatchers);
+        });
+
+        it('plots points between given two points at opposite extremes on x axis', function() {
+            var sinPiBy4 = Math.sin(Math.PI/4);
+            var polygon = geometry.clockwiseArc(new Cartesian(1,0,0), new Cartesian(-1,0,0), 1, 45);
+
+            expect(polygon.length).toBe(3);
+            expect(polygon[0]).toBeAlmostEqual(new Cartesian(sinPiBy4,-sinPiBy4,0), tolerance);
+            expect(polygon[1]).toBeAlmostEqual(new Cartesian(0,-1,0), tolerance);
+            expect(polygon[2]).toBeAlmostEqual(new Cartesian(-sinPiBy4,-sinPiBy4,0), tolerance);
+        });
+
+        it('plots full circle given the same two points, but doesn\'t include th point itself', function() {
+            var polygon = geometry.clockwiseArc(new Cartesian(1,0,0), new Cartesian(1,0,0), 1, 90);
+
+            expect(polygon.length).toBe(3);
+            expect(polygon[0]).toBeAlmostEqual(new Cartesian(0,-1,0), tolerance);
+            expect(polygon[1]).toBeAlmostEqual(new Cartesian(-1,0,0), tolerance);
+            expect(polygon[2]).toBeAlmostEqual(new Cartesian(0,1,0), tolerance);
         });
 
     });
