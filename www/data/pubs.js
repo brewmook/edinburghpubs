@@ -1781,7 +1781,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Big Red Teapot",
+						"Big Red Teapot Ltd",
 						"Cocktails",
 						"Edinburgh",
 						"Food",
@@ -2745,7 +2745,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"Big Red Teapot",
+						"Big Red Teapot Ltd",
 						"Broughton Street",
 						"Burgers",
 						"Cocktails",
@@ -3068,7 +3068,7 @@ define(function(){return{
 					],
 					"visits": [
 						{
-							"date": "",
+							"date": "2013/07/30",
 							"price": 3.8,
 							"link": "/2013/07/30/2-teuchters-william-street-edinburgh/",
 							"comment": ""
@@ -3454,7 +3454,7 @@ define(function(){return{
 					],
 					"visits": [
 						{
-							"date": "",
+							"date": "2013/07/30",
 							"price": 3.2,
 							"link": "/2013/07/30/4-mathers-bar-queensferry-street-edinburgh/",
 							"comment": ""
@@ -3479,7 +3479,7 @@ define(function(){return{
 					],
 					"visits": [
 						{
-							"date": "",
+							"date": "2013/07/30",
 							"price": 0,
 							"link": "/2013/07/30/6-angels-share-hope-street-edinburgh/",
 							"comment": ""
@@ -4042,12 +4042,30 @@ define(function(){return{
 			"history": [
 				{
 					"name": "Bert's bar",
+					"opened": "2015/12/02",
+					"closed": "",
+					"tags": [
+						"Big Red Teapot Ltd",
+					],
+					"visits": []
+				},
+				{
+					"name": "Bert's bar",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"LT Pub Management",
+					],
+					"visits": []
+				},
+				{
+					"name": "Bert's bar",
 					"opened": "",
 					"closed": "",
 					"tags": [
 						"Edinburgh",
 						"Food",
-						"LT Pub Management",
+						"Maclay Inns",
 						"Missing photo",
 						"Pies",
 						"Cask Ale",
@@ -4055,7 +4073,7 @@ define(function(){return{
 					],
 					"visits": [
 						{
-							"date": "",
+							"date": "2013/07/30",
 							"price": 3.6,
 							"link": "/2013/07/30/1-berts-bar-william-street-edinburgh/",
 							"comment": ""
@@ -4328,7 +4346,7 @@ define(function(){return{
 					],
 					"visits": [
 						{
-							"date": "",
+							"date": "2013/07/30",
 							"price": 3.4,
 							"link": "/2013/07/30/3-the-melville-william-street-edinburgh/",
 							"comment": ""
@@ -4399,7 +4417,7 @@ define(function(){return{
 					"closed": "",
 					"tags": [
 						"Beer Garden",
-						"Big Red Teapot",
+						"Big Red Teapot Ltd",
 						"Burgers",
 						"Cocktails",
 						"Edinburgh",
@@ -8184,7 +8202,7 @@ define(function(){return{
 					],
 					"visits": [
 						{
-							"date": "",
+							"date": "2013/07/30",
 							"price": 3.56,
 							"link": "/2013/07/30/5-ryans-bar-hope-street-edinburgh/",
 							"comment": ""
