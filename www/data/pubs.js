@@ -2216,6 +2216,24 @@ define(function(){return{
 			]
 		},
 		{
+			"lat": 55.9583336,
+			"lon": -3.2079185,
+			"history": [
+				{
+					"name": "Smith & Gertrude",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"Edinburgh",
+						"Hamilton Place",
+						"Stockbridge",
+						"Wine Bar"
+					],
+					"visits": []
+				}
+			]
+		},
+		{
 			"lat": 55.9620429,
 			"lon": -3.1977538,
 			"history": [
@@ -2512,6 +2530,23 @@ define(function(){return{
 							"comment": ""
 						}
 					]
+				}
+			]
+		},
+		{
+			"lat": 55.9526758,
+			"lon": -3.2033575,
+			"history": [
+				{
+					"name":"Copper Blossom",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"Edinburgh",
+						"George Street",
+						"Gin"
+					],
+					"visits": []
 				}
 			]
 		},

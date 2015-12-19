@@ -1,6 +1,9 @@
 Bugs
 ----
 * Single result shows no voronoi. It should be the full circle.
+* Zero results fails to update the voronoi. Diagram from the previous search remains, even though the pub pins disappear.
+* Some issues on touch-screen devices to do with text box focus.
+* You have to hit return twice in the filter box in at least Chrome, once to accept the auto-completed text, and again to activate the filter.
 
 Features
 --------
