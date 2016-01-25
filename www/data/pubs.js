@@ -672,9 +672,20 @@ define(function(){return{
 			"lon": -3.1824789,
 			"history": [
 				{
+					"name": "The Dog House",
+					"opened": "2015/10/01",
+					"closed": "",
+					"tags": [
+						"Clerk Street",
+						"Edinburgh",
+						"Star Pubs"
+					],
+					"visits": []
+				},
+				{
 					"name": "McSorleys",
 					"opened": "",
-					"closed": "",
+					"closed": "2015/09/30",
 					"tags": [
 						"Clerk Street",
 						"Edinburgh",
@@ -692,7 +703,15 @@ define(function(){return{
 							"comment": ""
 						}
 					]
+				},
+				{
+					"name": "McEwans Ale House",
+					"opened": "",
+					"closed": "",
+					"tags": [],
+					"visits": []
 				}
+
 			]
 		},
 		{
@@ -924,6 +943,22 @@ define(function(){return{
 							"comment": ""
 						}
 					]
+				}
+			]
+		},
+		{
+			"lat": 55.949698,
+			"lon": -3.2088351,
+			"history": [
+				{
+					"name": "P.D.T. Mezcaleria",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"Edinburgh",
+						"Shandwick Place"
+					],
+					"visits": []
 				}
 			]
 		},
@@ -1508,6 +1543,22 @@ define(function(){return{
 							"comment": ""
 						}
 					]
+				}
+			]
+		},
+		{
+			"lat": 55.9581296,
+			"lon": -3.1899414,
+			"history": [
+				{
+					"name": "Liquor Library",
+					"opened": "2015/12/11",
+					"closed": "",
+					"tags": [
+						"Barony Street",
+						"Edinburgh"
+					],
+					"visits": []
 				}
 			]
 		},
@@ -6855,6 +6906,7 @@ define(function(){return{
 					"closed": "",
 					"tags": [
 						"Broughton Street",
+						"Closed",
 						"Cocktails",
 						"Edinburgh",
 						"Food",
@@ -6878,7 +6930,7 @@ define(function(){return{
 			"history": [
 				{
 					"name": "Priory",
-					"opened": "",
+					"opened": "2013/08/30",
 					"closed": "",
 					"tags": [
 						"Cocktails",
