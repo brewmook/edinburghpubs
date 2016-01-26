@@ -2,7 +2,7 @@ requirejs.config({
     baseUrl: "js",
     paths: {
         data: "../data",
-        leaflet: "http://cdn.leafletjs.com/leaflet-0.7.5/leaflet",
+        leaflet: "http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet",
         voronoi: "lib/rhill-voronoi-core"
     },
     shim: {

@@ -22,7 +22,7 @@ require.config({
   paths: {
     app: 'js/app',
     //data: "../data",
-    //leaflet: "http://cdn.leafletjs.com/leaflet-0.7.5/leaflet",
+    //leaflet: "http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js",
     voronoi: "js/lib/rhill-voronoi-core"
   },
 
