@@ -1502,7 +1502,7 @@ define(function(){return{
 						"Live Music",
 						"Pizzas",
 						"Pool Table(s)",
-						"Table Football",
+						"Table Football"
 					],
 					"visits": [
 						{
@@ -4131,7 +4131,7 @@ define(function(){return{
 					"opened": "2015/12/02",
 					"closed": "",
 					"tags": [
-						"Big Red Teapot Ltd",
+						"Big Red Teapot Ltd"
 					],
 					"visits": []
 				},
@@ -4140,7 +4140,7 @@ define(function(){return{
 					"opened": "",
 					"closed": "",
 					"tags": [
-						"LT Pub Management",
+						"LT Pub Management"
 					],
 					"visits": []
 				},
