@@ -25,7 +25,8 @@ function (SitesView) {
      */
     function bubbleHtml(site)
     {
-        var pub = site.current;
+        var pub = site.properties.current;
+        var history = site.properties.history;
         var text = "<b>" + pub.name + "</b>";
         if (pub.visits.length > 0) {
             var visit = pub.visits[0];
@@ -36,18 +37,18 @@ function (SitesView) {
             if (visit.price > 0)
                 text += "<br/>Price: " + formatPrice(visit.price);
         }
-        if (site.history.length > 0) {
+        if (history.length > 0) {
             var previous = [];
-            for (var i = 0; i < site.history.length; ++i) {
-                if (site.history[i].name != pub.name) {
-                    if (site.history[i].visits.length > 0) {
+            for (var i = 0; i < history.length; ++i) {
+                if (history[i].name != pub.name) {
+                    if (history[i].visits.length > 0) {
                         previous.push(createLink(
-                            site.history[i].visits[0].link,
-                            site.history[i].name
+                            history[i].visits[0].link,
+                            history[i].name
                         ));
                     }
                     else {
-                        previous.push(site.history[i].name);
+                        previous.push(history[i].name);
                     }
                 }
             }
@@ -68,7 +69,7 @@ function (SitesView) {
     function createViewSite(site)
     {
         return new SitesView.Site(
-            site.current.name,
+            site.properties.current.name,
             site.lat,
             site.lon,
             bubbleHtml(site)

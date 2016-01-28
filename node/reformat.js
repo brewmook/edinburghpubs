@@ -18,8 +18,10 @@ var newData = {
         return {
             lat: site.lat,
             lon: site.lon,
-            current: site.history.shift(),
-            history: site.history
+            properties: {
+                current: site.current,
+                history: site.history
+            }
         };
     })
 };

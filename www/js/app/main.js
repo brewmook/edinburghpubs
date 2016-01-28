@@ -20,21 +20,21 @@ function(Grouper,
     }
 
     function isBlogged(site) {
-        return site.current
-            && site.current.visits.length
-            && site.current.visits[0].link;
+        return site.properties.current
+            && site.properties.current.visits.length
+            && site.properties.current.visits[0].link;
     }
 
     function isExcluded(site) {
         var excludedTags = ['Disqualified', 'Closed'];
-        return tagsIntersect(site.current.tags, excludedTags);
+        return tagsIntersect(site.properties.current.tags, excludedTags);
     }
 
     function uniqueTags(sites)
     {
         var tags = {};
         sites.forEach(function(site) {
-            var siteTags = site.current.tags;
+            var siteTags = site.properties.current.tags;
             siteTags.forEach(function(tag) {
                 if (!tags.hasOwnProperty(tag)) {
                     tags[tag] = 0;
@@ -61,8 +61,8 @@ function(Grouper,
      * @returns {number}
      */
     Price.prototype.getValue = function(site) {
-        if (site.current && site.current.visits.length > 0)
-            return site.current.visits[0].price;
+        if (site.properties.current && site.properties.current.visits.length > 0)
+            return site.properties.current.visits[0].price;
         return 0;
     };
 
@@ -93,8 +93,8 @@ function(Grouper,
      * @returns {number}
      */
     Age.prototype.getValue = function(site) {
-        if (site.current && site.current.opened != '')
-            return (new Date(Date.now())).getFullYear() - (new Date(site.current.opened)).getFullYear();
+        if (site.properties.current && site.properties.current.opened != '')
+            return (new Date(Date.now())).getFullYear() - (new Date(site.properties.current.opened)).getFullYear();
         return -1;
     };
 
