@@ -25,7 +25,7 @@ function (SitesView) {
      */
     function bubbleHtml(site)
     {
-        var pub = site.history[0];
+        var pub = site.current;
         var text = "<b>" + pub.name + "</b>";
         if (pub.visits.length > 0) {
             var visit = pub.visits[0];
@@ -36,9 +36,9 @@ function (SitesView) {
             if (visit.price > 0)
                 text += "<br/>Price: " + formatPrice(visit.price);
         }
-        if (site.history.length > 1) {
+        if (site.history.length > 0) {
             var previous = [];
-            for (var i = 1; i < site.history.length; ++i) {
+            for (var i = 0; i < site.history.length; ++i) {
                 if (site.history[i].name != pub.name) {
                     if (site.history[i].visits.length > 0) {
                         previous.push(createLink(
@@ -68,7 +68,7 @@ function (SitesView) {
     function createViewSite(site)
     {
         return new SitesView.Site(
-            site.history[0].name,
+            site.current.name,
             site.lat,
             site.lon,
             bubbleHtml(site)

@@ -8,7 +8,7 @@ function (ObservableValue) {
      */
     function sitesMatchingTag(sites, filterText) {
         return sites.filter(function(site) {
-            return inList(filterText, site.history[0].tags);
+            return inList(filterText, site.current.tags);
         });
     }
 

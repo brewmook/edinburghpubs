@@ -4,7 +4,7 @@ var fs = require('fs');
 function stripRequireJSCode(text) {
     var firstNewline = text.indexOf('\n');
     var lastNewline = text.lastIndexOf('\n');
-    return "[\n" + text.substr(firstNewline + 1, lastNewline - firstNewline) + "]";
+    return "{\n" + text.substr(firstNewline + 1, lastNewline - firstNewline) + "}";
 }
 
 function addRequireJSCode(text) {
@@ -13,14 +13,15 @@ function addRequireJSCode(text) {
 
 var originalData = JSON.parse(stripRequireJSCode(fs.readFileSync('www/data/pubs.js', 'utf8')));
 var newData = {
-    target: {
-        origin: {
-            lat: 55.94816654144937,
-            lon: -3.1994622945785522
-        },
-        radius: 1609
-    },
-    sites: originalData
+    target: originalData.target,
+    sites: originalData.sites.map(function(site){
+        return {
+            lat: site.lat,
+            lon: site.lon,
+            current: site.history.shift(),
+            history: site.history
+        };
+    })
 };
 var newFileContents = addRequireJSCode(JSON.stringify(newData, null, '\t'));
 

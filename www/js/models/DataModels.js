@@ -37,6 +37,8 @@ define(function() {
     function Site() {
         this.lat = 0;
         this.lon = 0;
+        /** @type {Pub} */
+        this.current = null;
         /** @type {Pub[]} */
         this.history = [];
     }

@@ -20,21 +20,21 @@ function(Grouper,
     }
 
     function isBlogged(site) {
-        return site.history.length
-            && site.history[0].visits.length
-            && site.history[0].visits[0].link;
+        return site.current
+            && site.current.visits.length
+            && site.current.visits[0].link;
     }
 
     function isExcluded(site) {
         var excludedTags = ['Disqualified', 'Closed'];
-        return tagsIntersect(site.history[0].tags, excludedTags);
+        return tagsIntersect(site.current.tags, excludedTags);
     }
 
     function uniqueTags(sites)
     {
         var tags = {};
         sites.forEach(function(site) {
-            var siteTags = site.history[0].tags;
+            var siteTags = site.current.tags;
             siteTags.forEach(function(tag) {
                 if (!tags.hasOwnProperty(tag)) {
                     tags[tag] = 0;
@@ -61,8 +61,8 @@ function(Grouper,
      * @returns {number}
      */
     Price.prototype.getValue = function(site) {
-        if (site.history.length > 0 && site.history[0].visits.length > 0)
-            return site.history[0].visits[0].price;
+        if (site.current && site.current.visits.length > 0)
+            return site.current.visits[0].price;
         return 0;
     };
 
@@ -93,8 +93,8 @@ function(Grouper,
      * @returns {number}
      */
     Age.prototype.getValue = function(site) {
-        if (site.history.length > 0 && site.history[0].opened != '')
-            return (new Date(Date.now())).getFullYear() - (new Date(site.history[0].opened)).getFullYear();
+        if (site.current && site.current.opened != '')
+            return (new Date(Date.now())).getFullYear() - (new Date(site.current.opened)).getFullYear();
         return -1;
     };
 
