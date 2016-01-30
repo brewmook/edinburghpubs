@@ -15,6 +15,13 @@ define([], function() {
     }
 
     /**
+     * @returns {number[]}
+     */
+    Cartesian.prototype.toVector = function() {
+        return [this.x, this.y, this.z];
+    };
+
+    /**
      * @returns {string}
      */
     Cartesian.prototype.toString = function() {
@@ -55,6 +62,14 @@ define([], function() {
                 && Math.abs(a.z - b.z) < epsilon;
         }
         return undefined;
+    };
+
+    /**
+     * @param {number[]} vector
+     * @returns {Cartesian}
+     */
+    Cartesian.fromVector = function(vector) {
+        return new Cartesian(vector[0], vector[1], vector[2]);
     };
 
     return Cartesian;

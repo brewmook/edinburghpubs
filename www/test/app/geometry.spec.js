@@ -1,9 +1,15 @@
-define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, GeoCoord, geometry) {
+define(['app/Cartesian', 'app/GeoCoord', 'app/Vector', 'app/geometry'],
+function(Cartesian, GeoCoord, Vector, geometry) {
 
     var customMatchers = {
         toBeAlmostEqual: function(util, customEqualityTesters) {
             return {
                 compare: function(actual, expected, epsilon) {
+                    if (actual instanceof Array && expected instanceof Array) {
+                        return {
+                            pass: Vector.almostEquals(actual, expected, epsilon)
+                        }
+                    }
                     return {
                         pass: actual.almostEquals(expected, epsilon)
                     };
@@ -284,21 +290,21 @@ define(['app/Cartesian', 'app/GeoCoord', 'app/geometry'], function(Cartesian, Ge
 
         it('plots points between given two points at opposite extremes on x axis', function() {
             var sinPiBy4 = Math.sin(Math.PI/4);
-            var polygon = geometry.clockwiseArc(new Cartesian(1,0,0), new Cartesian(-1,0,0), 1, 45);
+            var polygon = geometry.clockwiseArc([1,0,0], [-1,0,0], 1, 45);
 
             expect(polygon.length).toBe(3);
-            expect(polygon[0]).toBeAlmostEqual(new Cartesian(sinPiBy4,-sinPiBy4,0), tolerance);
-            expect(polygon[1]).toBeAlmostEqual(new Cartesian(0,-1,0), tolerance);
-            expect(polygon[2]).toBeAlmostEqual(new Cartesian(-sinPiBy4,-sinPiBy4,0), tolerance);
+            expect(polygon[0]).toBeAlmostEqual([sinPiBy4,-sinPiBy4,0], tolerance);
+            expect(polygon[1]).toBeAlmostEqual([0,-1,0], tolerance);
+            expect(polygon[2]).toBeAlmostEqual([-sinPiBy4,-sinPiBy4,0], tolerance);
         });
 
         it('plots full circle given the same two points, but doesn\'t include th point itself', function() {
-            var polygon = geometry.clockwiseArc(new Cartesian(1,0,0), new Cartesian(1,0,0), 1, 90);
+            var polygon = geometry.clockwiseArc([1,0,0], [1,0,0], 1, 90);
 
             expect(polygon.length).toBe(3);
-            expect(polygon[0]).toBeAlmostEqual(new Cartesian(0,-1,0), tolerance);
-            expect(polygon[1]).toBeAlmostEqual(new Cartesian(-1,0,0), tolerance);
-            expect(polygon[2]).toBeAlmostEqual(new Cartesian(0,1,0), tolerance);
+            expect(polygon[0]).toBeAlmostEqual([0,-1,0], tolerance);
+            expect(polygon[1]).toBeAlmostEqual([-1,0,0], tolerance);
+            expect(polygon[2]).toBeAlmostEqual([0,1,0], tolerance);
         });
 
     });

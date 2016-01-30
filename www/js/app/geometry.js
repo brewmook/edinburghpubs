@@ -1,22 +1,10 @@
-define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesian, Voronoi) {
+define(['app/GeoCoord', 'app/Cartesian', 'app/Vector', 'voronoi'],
+function (GeoCoord, Cartesian, Vector, Voronoi) {
 
     var EarthRadiusMetres = 6378137;
 
-    function quadrance2d(point)
-    {
-        return point.x*point.x + point.y*point.y;
-    }
-
-    function interpolateNumbers(n1, n2, t) {
-        return n1 + (n2-n1)*t;
-    }
-
-    function interpolateCartesians(point1, point2, t) {
-        return new Cartesian(
-            interpolateNumbers(point1.x, point2.x, t),
-            interpolateNumbers(point1.y, point2.y, t),
-            interpolateNumbers(point1.z, point2.z, t)
-        );
+    function quadrance2d(x, y) {
+        return x*x + y*y;
     }
 
     /**
@@ -36,7 +24,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
 
         var A = dx * dx + dy * dy;
         var B = 2 * (dx * point1.x + dy * point1.y);
-        var C = quadrance2d(point1) - radius * radius;
+        var C = quadrance2d(point1.x,point1.y) - radius * radius;
 
         var det = B * B - 4 * A * C;
         if ((A <= 0.0000001) || (det < 0))
@@ -63,18 +51,18 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
     }
 
     /**
-     * @param {Cartesian} startPoint
-     * @param {Cartesian} endPoint
+     * @param {number[]} startPoint
+     * @param {number[]} endPoint
      * @param {number} circleRadius
      * @param {number} stepDegrees - Degrees to step by when adding circumference.
-     * @returns {Cartesian[]}
+     * @returns {number[][]}
      */
     function clockwiseArc(startPoint, endPoint, circleRadius, stepDegrees)
     {
         var result = [];
 
-        var startAngle = Math.atan2(startPoint.y, startPoint.x);
-        var endAngle = Math.atan2(endPoint.y, endPoint.x);
+        var startAngle = Math.atan2(startPoint[1], startPoint[0]);
+        var endAngle = Math.atan2(endPoint[1], endPoint[0]);
         if (startAngle <= endAngle) {
             endAngle -= Math.PI*2;
         }
@@ -82,11 +70,11 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
         var step = stepDegrees*Math.PI/180;
         var a = startAngle - step;
         while (a > endAngle) {
-            result.push(new Cartesian(
+            result.push([
                 circleRadius * Math.cos(a),
                 circleRadius * Math.sin(a),
-                startPoint.z
-            ));
+                startPoint[2]
+            ]);
             a -= step;
         }
 
@@ -109,7 +97,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
 
         var circleQ = circleRadius * circleRadius;
         var quadrances = polygon.map(function (loc) {
-            return quadrance2d(loc);
+            return quadrance2d(loc.x,loc.y);
         });
 
         // Find a point inside the circle to start with
@@ -145,16 +133,16 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                         circleRadius
                     ).filter(function(t) { return t > 0 && t <= 1; });
                     if (intersections.length > 0) {
-                        exitPoint = interpolateCartesians(
-                            polygon[previousIndex],
-                            polygon[index],
+                        exitPoint = Vector.interpolate(
+                            polygon[previousIndex].toVector(),
+                            polygon[index].toVector(),
                             intersections[0]
                         );
                     }
                 }
                 else {
                     // Inside the circle and will remain so.
-                    result.push(polygon[index]);
+                    result.push(polygon[index].toVector());
                 }
             }
             else if (quadrances[index] < circleQ) {
@@ -166,9 +154,9 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                     circleRadius
                 ).filter(function(t) { return t > 0 && t <= 1; });
                 if (intersections.length > 0) {
-                    entryPoint = interpolateCartesians(
-                        polygon[previousIndex],
-                        polygon[index],
+                    entryPoint = Vector.interpolate(
+                        polygon[previousIndex].toVector(),
+                        polygon[index].toVector(),
                         intersections[0]
                     );
                     if (exitPoint) {
@@ -176,7 +164,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                         result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                     }
                     result.push(entryPoint);
-                    result.push(polygon[index]);
+                    result.push(polygon[index].toVector());
                 }
             }
             else {
@@ -187,9 +175,9 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                     circleRadius
                 ).filter(function(t) { return t >= 0 && t < 1; });
                 if (intersections.length == 2) {
-                    entryPoint = interpolateCartesians(
-                        polygon[previousIndex],
-                        polygon[index],
+                    entryPoint = Vector.interpolate(
+                        polygon[previousIndex].toVector(),
+                        polygon[index].toVector(),
                         intersections[0]
                     );
                     if (exitPoint) {
@@ -197,14 +185,14 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                         result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                     }
                     result.push(entryPoint);
-                    exitPoint = interpolateCartesians(
-                        polygon[previousIndex],
-                        polygon[index],
+                    exitPoint = Vector.interpolate(
+                        polygon[previousIndex].toVector(),
+                        polygon[index].toVector(),
                         intersections[1]
                     );
                 }
                 else if (intersections.length == 1 && exitPoint == null) {
-                    exitPoint = polygon[index];
+                    exitPoint = polygon[index].toVector();
                 }
             }
             previousIndex = index;
@@ -218,14 +206,14 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
                 circleRadius
             ).filter(function(t) { return t >= 0 && t < 1; });
             if (intersections.length > 0) {
-                entryPoint = interpolateCartesians(
-                    polygon[index],
-                    polygon[startIndex],
+                entryPoint = Vector.interpolate(
+                    polygon[index].toVector(),
+                    polygon[startIndex].toVector(),
                     intersections[0]
                 );
                 result.push(exitPoint);
                 result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
-                if (!Cartesian.equals(entryPoint, result[0])) {
+                if (!Vector.equals(entryPoint, result[0])) {
                     result.push(entryPoint);
                 }
             }
@@ -236,7 +224,7 @@ define(['app/GeoCoord', 'app/Cartesian', 'voronoi'], function (GeoCoord, Cartesi
             }
         }
 
-        return result;
+        return result.map(function(x){ return Cartesian.fromVector(x); });
     }
 
     /**
