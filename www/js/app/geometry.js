@@ -1,5 +1,5 @@
-define(['app/GeoCoord', 'app/Cartesian', 'app/Vector', 'voronoi'],
-function (GeoCoord, Cartesian, Vector, Voronoi) {
+define(['app/GeoCoord', 'app/Vector', 'voronoi'],
+function (GeoCoord, Vector, Voronoi) {
 
     var EarthRadiusMetres = 6378137;
 
@@ -268,9 +268,9 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
     }
 
     /**
-     * Projects a set of cartesian coordinates back into spherical space.
+     * Projects a set of cartesian coordinates onto a sphere.
      *
-     * @param {Cartesian[]} cartesians - A list of cartesian coordinates.
+     * @param {number[][]} cartesians - A list of 2d points in cartesian space.
      * @param {GeoCoord} origin - The origin on the sphere's surface to translate back to.
      * @param {number} sphereRadius - The radius in metres of the sphere.
      * @returns {GeoCoord[]} The Leaflet-friendly coordinates.
@@ -283,10 +283,10 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
-        return cartesians.map(function(cart) {
-            var rotatedX = cart.z;
-            var rotatedZ = cart.y;
-            var y = cart.x;
+        return cartesians.map(function(point) {
+            var rotatedX = sphereRadius;
+            var rotatedZ = point[1];
+            var y = point[0];
 
             // unrotate back up to correct latitude
             var z = rotatedZ * cosRotation - rotatedX * sinRotation;
@@ -332,8 +332,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                 var start = edge.getStartpoint();
                 return [start.x, start.y];
             });
-            var croppedVectors = cropToCircle2d(polygon, circleRadius, 3);
-            var croppedPolygon = croppedVectors.map(function(x){ return Cartesian.fromVector2d(x,EarthRadiusMetres); });
+            var croppedPolygon = cropToCircle2d(polygon, circleRadius, 3);
             return {
                 loc: cell.site.loc,
                 polygon: cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres)
@@ -344,8 +343,8 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
     function earthSurfaceCircleBounds(origin, circleRadius)
     {
         var bounds = [
-            new Cartesian(-circleRadius, -circleRadius, EarthRadiusMetres),
-            new Cartesian( circleRadius,  circleRadius, EarthRadiusMetres)
+            [-circleRadius, -circleRadius],
+            [ circleRadius,  circleRadius]
         ];
         return cartesianToGeoCoord(bounds, origin, EarthRadiusMetres);
     }

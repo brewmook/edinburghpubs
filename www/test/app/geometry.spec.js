@@ -256,11 +256,11 @@ function(Cartesian, GeoCoord, Vector, geometry) {
             var origin = new GeoCoord(1,1);
             var sphereRadius = 1000;
             var cartesians = [
-                new Cartesian(0.0, 0.0, sphereRadius),
-                new Cartesian(0, -17, sphereRadius),
-                new Cartesian(0,  17, sphereRadius),
-                new Cartesian(-17, 0, sphereRadius),
-                new Cartesian( 17, 0, sphereRadius)
+                [0.0, 0.0],
+                [0, -17],
+                [0,  17],
+                [-17, 0],
+                [ 17, 0]
             ];
             var expected = [
                 new GeoCoord(1,1),
