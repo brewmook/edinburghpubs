@@ -200,8 +200,8 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('returns intersections sorted by proximity to point1', function() {
             var intersections = geometry.lineCircleIntersections(
-                new Cartesian(-2, 0, 0),
-                new Cartesian(2, 0, 0),
+                [-2, 0, 0],
+                [2, 0, 0],
                 1.0
             );
             expect(intersections.length).toEqual(2);

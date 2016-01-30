@@ -12,19 +12,19 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
      *
      * It is assumed that [point1] and [point2] are not coincident.
      *
-     * @param {Cartesian} point1
-     * @param {Cartesian} point2
+     * @param {number[]} point1
+     * @param {number[]} point2
      * @param {number} radius - Radius of the circle placed at the origin.
      * @returns {number[]}
      */
     function lineCircleIntersections(point1, point2, radius)
     {
-        var dx = point2.x - point1.x;
-        var dy = point2.y - point1.y;
+        var dx = point2[0] - point1[0];
+        var dy = point2[1] - point1[1];
 
         var A = dx * dx + dy * dy;
-        var B = 2 * (dx * point1.x + dy * point1.y);
-        var C = quadrance2d(point1.x,point1.y) - radius * radius;
+        var B = 2 * (dx * point1[0] + dy * point1[1]);
+        var C = quadrance2d(point1[0],point1[1]) - radius * radius;
 
         var det = B * B - 4 * A * C;
         if ((A <= 0.0000001) || (det < 0))
@@ -84,7 +84,8 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
     /**
      * Crops a polygon to a circle at the origin.
      *
-     * Assumes polygon is concave and that points are defined in a clockwise direction.
+     * Assumes polygon is concave, points are defined in a clockwise direction, and
+     * all points are co-planar on a Z plane.
      *
      * @param {Cartesian[]} polygon - Polygon points.
      * @param {number} circleRadius - Radius of a circle centred on the origin (0,0).
@@ -128,8 +129,8 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                     // Inside the circle and will end up outside.
                     inside = false;
                     intersections = lineCircleIntersections(
-                        polygon[previousIndex],
-                        polygon[index],
+                        polygon[previousIndex].toVector(),
+                        polygon[index].toVector(),
                         circleRadius
                     ).filter(function(t) { return t > 0 && t <= 1; });
                     if (intersections.length > 0) {
@@ -149,8 +150,8 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                 // Outside the circle and will end up inside.
                 inside = true;
                 intersections = lineCircleIntersections(
-                    polygon[previousIndex],
-                    polygon[index],
+                    polygon[previousIndex].toVector(),
+                    polygon[index].toVector(),
                     circleRadius
                 ).filter(function(t) { return t > 0 && t <= 1; });
                 if (intersections.length > 0) {
@@ -170,8 +171,8 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
             else {
                 // Outside the circle and will remain so.
                 intersections = lineCircleIntersections(
-                    polygon[previousIndex],
-                    polygon[index],
+                    polygon[previousIndex].toVector(),
+                    polygon[index].toVector(),
                     circleRadius
                 ).filter(function(t) { return t >= 0 && t < 1; });
                 if (intersections.length == 2) {
@@ -201,8 +202,8 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
         if (exitPoint && !inside) {
             // We expect to end up back inside the circle
             intersections = lineCircleIntersections(
-                polygon[index],
-                polygon[startIndex],
+                polygon[index].toVector(),
+                polygon[startIndex].toVector(),
                 circleRadius
             ).filter(function(t) { return t >= 0 && t < 1; });
             if (intersections.length > 0) {
