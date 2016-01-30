@@ -33,9 +33,9 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('returns empty list if polygon is outside circle', function() {
             var polygon = [
-                new Cartesian(10,10,10),
-                new Cartesian(10,11,10),
-                new Cartesian(11,10,10)
+                [ 0,10,10],
+                [10,11,10],
+                [11,10,10]
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 45);
 
@@ -44,9 +44,9 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('returns polygon untouched if it is inside circle', function() {
             var polygon = [
-                new Cartesian(1,1,1),
-                new Cartesian(2,1,1),
-                new Cartesian(1,2,1)
+                [1,1,1],
+                [2,1,1],
+                [1,2,1]
             ];
             var cropped = geometry.cropToCircle(polygon, 10, 45);
 
@@ -55,17 +55,17 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('returns intersection of simple square and circle', function() {
             var polygon = [
-                new Cartesian(0, 0, 0),
-                new Cartesian(0, 2, 0),
-                new Cartesian(2, 2, 0),
-                new Cartesian(2, 0, 0)
+                [0, 0, 0],
+                [0, 2, 0],
+                [2, 2, 0],
+                [2, 0, 0]
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 10);
 
             // Check known points inside the circle
             expect(cropped[0]).toEqual(polygon[0]);
-            expect(cropped[1]).toEqual(new Cartesian(0,1,0));
-            expect(cropped[cropped.length-1]).toEqual(new Cartesian(1,0,0));
+            expect(cropped[1]).toEqual([0,1,0]);
+            expect(cropped[cropped.length-1]).toEqual([1,0,0]);
 
             // Simple check for expected number of points, in lieu of calculating exact points
             expect(cropped.length).toEqual(11);
@@ -73,10 +73,10 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('returns intersection of simple square and circle where only first point is outside', function() {
             var polygon = [
-                new Cartesian(0.9, 0.9, 0),
-                new Cartesian(0.9, 0, 0),
-                new Cartesian(0, 0, 0),
-                new Cartesian(0, 0.9, 0)
+                [0.9, 0.9, 0],
+                [0.9, 0, 0],
+                [0, 0, 0],
+                [0, 0.9, 0]
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 90);
 
@@ -91,20 +91,20 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('adds all points already inside the circle with relative order preserved', function() {
             var polygon = [
-                new Cartesian(0, 0, 0),
-                new Cartesian(0, 0.5, 0),
-                new Cartesian(0, 2, 0),
-                new Cartesian(2, 2, 0),
-                new Cartesian(2, 0, 0),
-                new Cartesian(0.5, 0, 0),
+                [0, 0, 0],
+                [0, 0.5, 0],
+                [0, 2, 0],
+                [2, 2, 0],
+                [2, 0, 0],
+                [0.5, 0, 0]
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 10);
 
             // Check known points inside the circle
             expect(cropped[0]).toEqual(polygon[0]);
-            expect(cropped[1]).toEqual(new Cartesian(0,0.5,0));
-            expect(cropped[2]).toEqual(new Cartesian(0,1,0));
-            expect(cropped[cropped.length-2]).toEqual(new Cartesian(1,0,0));
+            expect(cropped[1]).toEqual([0,0.5,0]);
+            expect(cropped[2]).toEqual([0,1,0]);
+            expect(cropped[cropped.length-2]).toEqual([1,0,0]);
             expect(cropped[cropped.length-1]).toEqual(polygon[5]);
 
             // Simple check for expected number of points, in lieu of calculating exact points
@@ -113,10 +113,10 @@ function(Cartesian, GeoCoord, Vector, geometry) {
 
         it('handles square intersection even though no points are inside circle', function() {
             var polygon = [
-                new Cartesian(-2, 0, 0),
-                new Cartesian(-2, 2, 0),
-                new Cartesian( 2, 2, 0),
-                new Cartesian( 2, 0, 0)
+                [-2, 0, 0],
+                [-2, 2, 0],
+                [ 2, 2, 0],
+                [ 2, 0, 0]
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 45);
 
@@ -124,16 +124,16 @@ function(Cartesian, GeoCoord, Vector, geometry) {
             expect(cropped.length).toEqual(5);
 
             // Check known points inside the circle
-            expect(cropped[0]).toEqual(new Cartesian(1,0,0));
-            expect(cropped[1]).toEqual(new Cartesian(-1,0,0));
+            expect(cropped[0]).toEqual([1,0,0]);
+            expect(cropped[1]).toEqual([-1,0,0]);
         });
 
         it('handles rectangle with edges tangential to circle', function() {
             var polygon = [
-                new Cartesian(-1, 0, 0),
-                new Cartesian(-1, 2, 0),
-                new Cartesian(1, 2, 0),
-                new Cartesian(1, 0, 0)
+                [-1, 0, 0],
+                [-1, 2, 0],
+                [1, 2, 0],
+                [1, 0, 0]
             ];
             var cropped = geometry.cropToCircle(polygon, 1, 45);
 
@@ -141,24 +141,24 @@ function(Cartesian, GeoCoord, Vector, geometry) {
             expect(cropped.length).toEqual(5);
 
             // Check known points inside the circle
-            expect(cropped[0]).toEqual(new Cartesian(-1,0,0));
-            expect(cropped[cropped.length-1]).toEqual(new Cartesian(1,0,0));
+            expect(cropped[0]).toEqual([-1,0,0]);
+            expect(cropped[cropped.length-1]).toEqual([1,0,0]);
         });
 
         it('handles XXX rectangle with two opposite edges intersecting circle', function() {
             var sinPiBy4 = Math.sin(Math.PI/4);
             var polygon = [
-                new Cartesian(-2, 0, 0),
-                new Cartesian(-2, 1, 0),
-                new Cartesian(2, 1, 0),
-                new Cartesian(2, 0, 0)
+                [-2, 0, 0],
+                [-2, 1, 0],
+                [2, 1, 0],
+                [2, 0, 0]
             ];
             var expected = [
-                new Cartesian(1, 0, 0),
-                new Cartesian(-1, 0, 0),
-                new Cartesian(-sinPiBy4, sinPiBy4, 0),
-                new Cartesian(0, 1, 0),
-                new Cartesian(sinPiBy4, sinPiBy4, 0)
+                [1, 0, 0],
+                [-1, 0, 0],
+                [-sinPiBy4, sinPiBy4, 0],
+                [0, 1, 0],
+                [sinPiBy4, sinPiBy4, 0]
             ];
 
             var cropped = geometry.cropToCircle(polygon, 1, 45);
@@ -172,18 +172,18 @@ function(Cartesian, GeoCoord, Vector, geometry) {
         it('handles rectangle with two opposite edges intersecting circle', function() {
             var sinPiBy4 = Math.sin(Math.PI/4);
             var polygon = [
-                new Cartesian(-2, sinPiBy4, 0),
-                new Cartesian( 2, sinPiBy4, 0),
-                new Cartesian( 2,-sinPiBy4, 0),
-                new Cartesian(-2,-sinPiBy4, 0)
+                [-2, sinPiBy4, 0],
+                [ 2, sinPiBy4, 0],
+                [ 2,-sinPiBy4, 0],
+                [-2,-sinPiBy4, 0]
             ];
             var expected = [
-                new Cartesian(-sinPiBy4, sinPiBy4, 0),
-                new Cartesian(sinPiBy4, sinPiBy4, 0),
-                new Cartesian(1, 0, 0),
-                new Cartesian(sinPiBy4, -sinPiBy4, 0),
-                new Cartesian(-sinPiBy4, -sinPiBy4, 0),
-                new Cartesian(-1, 0, 0)
+                [-sinPiBy4, sinPiBy4, 0],
+                [sinPiBy4, sinPiBy4, 0],
+                [1, 0, 0],
+                [sinPiBy4, -sinPiBy4, 0],
+                [-sinPiBy4, -sinPiBy4, 0],
+                [-1, 0, 0]
             ];
 
             var cropped = geometry.cropToCircle(polygon, 1, 45);

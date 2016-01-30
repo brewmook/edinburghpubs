@@ -87,10 +87,10 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
      * Assumes polygon is concave, points are defined in a clockwise direction, and
      * all points are co-planar on a Z plane.
      *
-     * @param {Cartesian[]} polygon - Polygon points.
+     * @param {number[][]} polygon - Polygon points.
      * @param {number} circleRadius - Radius of a circle centred on the origin (0,0).
      * @param {number} fillStepDegrees - Degrees to step by when adding circumference.
-     * @returns {Cartesian[]}
+     * @returns {number[][]}
      */
     function cropToCircle(polygon, circleRadius, fillStepDegrees)
     {
@@ -98,7 +98,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
 
         var circleQ = circleRadius * circleRadius;
         var quadrances = polygon.map(function (loc) {
-            return quadrance2d(loc.x,loc.y);
+            return quadrance2d(loc[0], loc[1]);
         });
 
         // Find a point inside the circle to start with
@@ -129,35 +129,35 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                     // Inside the circle and will end up outside.
                     inside = false;
                     intersections = lineCircleIntersections(
-                        polygon[previousIndex].toVector(),
-                        polygon[index].toVector(),
+                        polygon[previousIndex],
+                        polygon[index],
                         circleRadius
                     ).filter(function(t) { return t > 0 && t <= 1; });
                     if (intersections.length > 0) {
                         exitPoint = Vector.interpolate(
-                            polygon[previousIndex].toVector(),
-                            polygon[index].toVector(),
+                            polygon[previousIndex],
+                            polygon[index],
                             intersections[0]
                         );
                     }
                 }
                 else {
                     // Inside the circle and will remain so.
-                    result.push(polygon[index].toVector());
+                    result.push(polygon[index]);
                 }
             }
             else if (quadrances[index] < circleQ) {
                 // Outside the circle and will end up inside.
                 inside = true;
                 intersections = lineCircleIntersections(
-                    polygon[previousIndex].toVector(),
-                    polygon[index].toVector(),
+                    polygon[previousIndex],
+                    polygon[index],
                     circleRadius
                 ).filter(function(t) { return t > 0 && t <= 1; });
                 if (intersections.length > 0) {
                     entryPoint = Vector.interpolate(
-                        polygon[previousIndex].toVector(),
-                        polygon[index].toVector(),
+                        polygon[previousIndex],
+                        polygon[index],
                         intersections[0]
                     );
                     if (exitPoint) {
@@ -165,20 +165,20 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                         result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                     }
                     result.push(entryPoint);
-                    result.push(polygon[index].toVector());
+                    result.push(polygon[index]);
                 }
             }
             else {
                 // Outside the circle and will remain so.
                 intersections = lineCircleIntersections(
-                    polygon[previousIndex].toVector(),
-                    polygon[index].toVector(),
+                    polygon[previousIndex],
+                    polygon[index],
                     circleRadius
                 ).filter(function(t) { return t >= 0 && t < 1; });
                 if (intersections.length == 2) {
                     entryPoint = Vector.interpolate(
-                        polygon[previousIndex].toVector(),
-                        polygon[index].toVector(),
+                        polygon[previousIndex],
+                        polygon[index],
                         intersections[0]
                     );
                     if (exitPoint) {
@@ -187,13 +187,13 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                     }
                     result.push(entryPoint);
                     exitPoint = Vector.interpolate(
-                        polygon[previousIndex].toVector(),
-                        polygon[index].toVector(),
+                        polygon[previousIndex],
+                        polygon[index],
                         intersections[1]
                     );
                 }
                 else if (intersections.length == 1 && exitPoint == null) {
-                    exitPoint = polygon[index].toVector();
+                    exitPoint = polygon[index];
                 }
             }
             previousIndex = index;
@@ -202,14 +202,14 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
         if (exitPoint && !inside) {
             // We expect to end up back inside the circle
             intersections = lineCircleIntersections(
-                polygon[index].toVector(),
-                polygon[startIndex].toVector(),
+                polygon[index],
+                polygon[startIndex],
                 circleRadius
             ).filter(function(t) { return t >= 0 && t < 1; });
             if (intersections.length > 0) {
                 entryPoint = Vector.interpolate(
-                    polygon[index].toVector(),
-                    polygon[startIndex].toVector(),
+                    polygon[index],
+                    polygon[startIndex],
                     intersections[0]
                 );
                 result.push(exitPoint);
@@ -225,7 +225,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
             }
         }
 
-        return result.map(function(x){ return Cartesian.fromVector(x); });
+        return result;
     }
 
     /**
@@ -333,7 +333,9 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                 var start = edge.getStartpoint();
                 return new Cartesian(start.x, start.y, EarthRadiusMetres);
             });
-            var croppedPolygon = cropToCircle(polygon, circleRadius, 3);
+            var vectors = polygon.map(function(x){ return x.toVector(); });
+            var croppedVectors = cropToCircle(vectors, circleRadius, 3);
+            var croppedPolygon = croppedVectors.map(function(x){ return Cartesian.fromVector(x); });
             return {
                 loc: cell.site.loc,
                 polygon: cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres)
