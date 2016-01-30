@@ -12,12 +12,12 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
      *
      * It is assumed that [point1] and [point2] are not coincident.
      *
-     * @param {number[]} point1
-     * @param {number[]} point2
+     * @param {number[]} point1 - 2d point
+     * @param {number[]} point2 - 2d point
      * @param {number} radius - Radius of the circle placed at the origin.
      * @returns {number[]}
      */
-    function lineCircleIntersections(point1, point2, radius)
+    function lineCircleIntersections2d(point1, point2, radius)
     {
         var dx = point2[0] - point1[0];
         var dy = point2[1] - point1[1];
@@ -51,13 +51,13 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
     }
 
     /**
-     * @param {number[]} startPoint
-     * @param {number[]} endPoint
+     * @param {number[]} startPoint - 2d point to start at
+     * @param {number[]} endPoint - 2d point to end at
      * @param {number} circleRadius
      * @param {number} stepDegrees - Degrees to step by when adding circumference.
      * @returns {number[][]}
      */
-    function clockwiseArc(startPoint, endPoint, circleRadius, stepDegrees)
+    function clockwiseArc2d(startPoint, endPoint, circleRadius, stepDegrees)
     {
         var result = [];
 
@@ -72,8 +72,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
         while (a > endAngle) {
             result.push([
                 circleRadius * Math.cos(a),
-                circleRadius * Math.sin(a),
-                startPoint[2]
+                circleRadius * Math.sin(a)
             ]);
             a -= step;
         }
@@ -87,12 +86,12 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
      * Assumes polygon is concave, points are defined in a clockwise direction, and
      * all points are co-planar on a Z plane.
      *
-     * @param {number[][]} polygon - Polygon points.
+     * @param {number[][]} polygon - Polygon of 2d points.
      * @param {number} circleRadius - Radius of a circle centred on the origin (0,0).
      * @param {number} fillStepDegrees - Degrees to step by when adding circumference.
      * @returns {number[][]}
      */
-    function cropToCircle(polygon, circleRadius, fillStepDegrees)
+    function cropToCircle2d(polygon, circleRadius, fillStepDegrees)
     {
         if (polygon.length < 3) return polygon;
 
@@ -128,7 +127,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                 if (quadrances[index] > circleQ) {
                     // Inside the circle and will end up outside.
                     inside = false;
-                    intersections = lineCircleIntersections(
+                    intersections = lineCircleIntersections2d(
                         polygon[previousIndex],
                         polygon[index],
                         circleRadius
@@ -149,7 +148,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
             else if (quadrances[index] < circleQ) {
                 // Outside the circle and will end up inside.
                 inside = true;
-                intersections = lineCircleIntersections(
+                intersections = lineCircleIntersections2d(
                     polygon[previousIndex],
                     polygon[index],
                     circleRadius
@@ -162,7 +161,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                     );
                     if (exitPoint) {
                         result.push(exitPoint);
-                        result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                        result = result.concat(clockwiseArc2d(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                     }
                     result.push(entryPoint);
                     result.push(polygon[index]);
@@ -170,7 +169,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
             }
             else {
                 // Outside the circle and will remain so.
-                intersections = lineCircleIntersections(
+                intersections = lineCircleIntersections2d(
                     polygon[previousIndex],
                     polygon[index],
                     circleRadius
@@ -183,7 +182,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                     );
                     if (exitPoint) {
                         result.push(exitPoint);
-                        result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                        result = result.concat(clockwiseArc2d(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                     }
                     result.push(entryPoint);
                     exitPoint = Vector.interpolate(
@@ -201,7 +200,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
 
         if (exitPoint && !inside) {
             // We expect to end up back inside the circle
-            intersections = lineCircleIntersections(
+            intersections = lineCircleIntersections2d(
                 polygon[index],
                 polygon[startIndex],
                 circleRadius
@@ -213,7 +212,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
                     intersections[0]
                 );
                 result.push(exitPoint);
-                result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                result = result.concat(clockwiseArc2d(exitPoint, entryPoint, circleRadius, fillStepDegrees));
                 if (!Vector.equals(entryPoint, result[0])) {
                     result.push(entryPoint);
                 }
@@ -221,7 +220,7 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
             else {
                 entryPoint = result[0];
                 result.push(exitPoint);
-                result = result.concat(clockwiseArc(exitPoint, entryPoint, circleRadius, fillStepDegrees));
+                result = result.concat(clockwiseArc2d(exitPoint, entryPoint, circleRadius, fillStepDegrees));
             }
         }
 
@@ -328,14 +327,13 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
         );
 
         return computed.cells.map(function(cell) {
-            /** @type {Cartesian[]} */
+            /** @type {number[][]} */
             var polygon = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
-                return new Cartesian(start.x, start.y, EarthRadiusMetres);
+                return [start.x, start.y];
             });
-            var vectors = polygon.map(function(x){ return x.toVector(); });
-            var croppedVectors = cropToCircle(vectors, circleRadius, 3);
-            var croppedPolygon = croppedVectors.map(function(x){ return Cartesian.fromVector(x); });
+            var croppedVectors = cropToCircle2d(polygon, circleRadius, 3);
+            var croppedPolygon = croppedVectors.map(function(x){ return Cartesian.fromVector2d(x,EarthRadiusMetres); });
             return {
                 loc: cell.site.loc,
                 polygon: cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres)
@@ -355,11 +353,11 @@ function (GeoCoord, Cartesian, Vector, Voronoi) {
     return {
         calculateCartesians: calculateCartesians,
         cartesianToGeoCoord: cartesianToGeoCoord,
-        clockwiseArc: clockwiseArc,
-        cropToCircle: cropToCircle,
+        clockwiseArc2d: clockwiseArc2d,
+        cropToCircle2d: cropToCircle2d,
         earthSurfaceCircleBounds: earthSurfaceCircleBounds,
         earthSurfaceVoronoi: earthSurfaceVoronoi,
-        lineCircleIntersections: lineCircleIntersections
+        lineCircleIntersections2d: lineCircleIntersections2d
     };
 
 });

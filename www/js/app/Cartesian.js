@@ -66,10 +66,11 @@ define([], function() {
 
     /**
      * @param {number[]} vector
+     * @param {number} z
      * @returns {Cartesian}
      */
-    Cartesian.fromVector = function(vector) {
-        return new Cartesian(vector[0], vector[1], vector[2]);
+    Cartesian.fromVector2d = function(vector, z) {
+        return new Cartesian(vector[0], vector[1], z);
     };
 
     return Cartesian;
