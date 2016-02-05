@@ -1,5 +1,23 @@
-define(['app/Cartesian', 'app/GeoCoord', 'app/Vector', 'app/geometry'],
-function(Cartesian, GeoCoord, Vector, geometry) {
+define(['app/GeoCoord', 'app/Vector', 'app/geometry'],
+function(GeoCoord, Vector, geometry) {
+
+    function cartesian(x, y, z) {
+        return { x: x, y: y, z: z };
+    }
+
+    function isCartesian(a) {
+        return a.hasOwnProperty('x') && a.hasOwnProperty('y') && a.hasOwnProperty('z');
+    }
+
+    function almostEquals(a, b, epsilon) {
+        return Math.abs(a - b) < epsilon;
+    }
+
+    function cartesiansAlmostEqual(a, b, epsilon) {
+        return almostEquals(a.x, b.x, epsilon)
+            && almostEquals(a.y, b.y, epsilon)
+            && almostEquals(a.z, b.z, epsilon);
+    }
 
     var customMatchers = {
         toBeAlmostEqual: function(util, customEqualityTesters) {
@@ -8,6 +26,11 @@ function(Cartesian, GeoCoord, Vector, geometry) {
                     if (actual instanceof Array && expected instanceof Array) {
                         return {
                             pass: Vector.almostEquals(actual, expected, epsilon)
+                        }
+                    }
+                    if (isCartesian(actual) && isCartesian(expected)) {
+                        return {
+                            pass: cartesiansAlmostEqual(actual, expected, epsilon)
                         }
                     }
                     return {
@@ -21,7 +44,6 @@ function(Cartesian, GeoCoord, Vector, geometry) {
     describe('cropToCircle2d()', function() {
 
         beforeEach(function() {
-            jasmine.addCustomEqualityTester(Cartesian.equals);
             jasmine.addMatchers(customMatchers);
         });
 
@@ -228,19 +250,18 @@ function(Cartesian, GeoCoord, Vector, geometry) {
                 new GeoCoord(1,2)
             ];
             var expected = [
-                new Cartesian(0.0, 0.0, sphereRadius),
-                new Cartesian(0, -17, sphereRadius),
-                new Cartesian(0,  17, sphereRadius),
-                new Cartesian(-17, 0, sphereRadius),
-                new Cartesian( 17, 0, sphereRadius)
+                cartesian(0.0, 0.0, sphereRadius),
+                cartesian(0, -17, sphereRadius),
+                cartesian(0,  17, sphereRadius),
+                cartesian(-17, 0, sphereRadius),
+                cartesian( 17, 0, sphereRadius)
             ];
 
             var actual = geometry.calculateCartesians(geocoords, origin, sphereRadius);
             expect(actual.length).toEqual(expected.length);
 
             for (var i = 0; i < actual.length; ++i) {
-                var cartesian = new Cartesian(actual[i].x, actual[i].y, actual[i].z);
-                expect(cartesian).toBeAlmostEqual(expected[i], 1);
+                expect(actual[i]).toBeAlmostEqual(expected[i], 1);
             }
         });
 
