@@ -1,12 +1,12 @@
 define(['app/GeoCoord', 'app/Vector', 'app/geometry'],
 function(GeoCoord, Vector, geometry) {
 
-    function cartesian(x, y, z) {
-        return { x: x, y: y, z: z };
+    function cartesian(x, y) {
+        return { x: x, y: y };
     }
 
     function isCartesian(a) {
-        return a.hasOwnProperty('x') && a.hasOwnProperty('y') && a.hasOwnProperty('z');
+        return a.hasOwnProperty('x') && a.hasOwnProperty('y');
     }
 
     function almostEquals(a, b, epsilon) {
@@ -15,8 +15,7 @@ function(GeoCoord, Vector, geometry) {
 
     function cartesiansAlmostEqual(a, b, epsilon) {
         return almostEquals(a.x, b.x, epsilon)
-            && almostEquals(a.y, b.y, epsilon)
-            && almostEquals(a.z, b.z, epsilon);
+            && almostEquals(a.y, b.y, epsilon);
     }
 
     var customMatchers = {
@@ -233,7 +232,7 @@ function(GeoCoord, Vector, geometry) {
 
     });
 
-    describe('calculateCartesians', function() {
+    describe('projectGeoCoordsToXY', function() {
 
         beforeEach(function() {
             jasmine.addMatchers(customMatchers);
@@ -250,21 +249,54 @@ function(GeoCoord, Vector, geometry) {
                 new GeoCoord(1,2)
             ];
             var expected = [
-                cartesian(0.0, 0.0, sphereRadius),
-                cartesian(0, -17, sphereRadius),
-                cartesian(0,  17, sphereRadius),
-                cartesian(-17, 0, sphereRadius),
-                cartesian( 17, 0, sphereRadius)
+                cartesian(0.0, 0.0),
+                cartesian(0, -17.45),
+                cartesian(0,  17.45),
+                cartesian(-17.45, 0),
+                cartesian( 17.45, 0)
             ];
 
-            var actual = geometry.calculateCartesians(geocoords, origin, sphereRadius);
+            var actual = geometry.projectGeoCoordsToXY(geocoords, origin, sphereRadius);
+            expect(actual.length).toEqual(expected.length);
+
+            for (var i = 0; i < actual.length; ++i) {
+                expect(actual[i]).toBeAlmostEqual(expected[i], 0.01);
+            }
+        });
+
+        it('converts lat/lng to cartesian coordinates (triangulation)', function() {
+            var origin = new GeoCoord(45,90);
+            var sphereRadius = 1000;
+            var geocoords = [
+                new GeoCoord( 0, 45),
+                new GeoCoord( 0, 90),
+                new GeoCoord( 0,135),
+                new GeoCoord(45, 45),
+                new GeoCoord(45, 90),
+                new GeoCoord(45,135),
+                new GeoCoord(90, 45),
+                new GeoCoord(90, 90),
+                new GeoCoord(90,135)
+            ];
+            var expected = [
+                cartesian(-707, -500),
+                cartesian(   0, -707),
+                cartesian( 707, -500),
+                cartesian(-500,  146),
+                cartesian(   0,    0),
+                cartesian( 500,  146),
+                cartesian(   0,  707),
+                cartesian(   0,  707),
+                cartesian(   0,  707)
+            ];
+
+            var actual = geometry.projectGeoCoordsToXY(geocoords, origin, sphereRadius);
             expect(actual.length).toEqual(expected.length);
 
             for (var i = 0; i < actual.length; ++i) {
                 expect(actual[i]).toBeAlmostEqual(expected[i], 1);
             }
         });
-
     });
 
     describe('cartesianToGeoCoord', function() {

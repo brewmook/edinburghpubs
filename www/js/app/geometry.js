@@ -2,6 +2,7 @@ define(['app/GeoCoord', 'app/Vector', 'voronoi'],
 function (GeoCoord, Vector, Voronoi) {
 
     var EarthRadiusMetres = 6378137;
+    var DegToRad = Math.PI/180.0;
 
     function quadrance2d(x, y) {
         return x*x + y*y;
@@ -228,41 +229,38 @@ function (GeoCoord, Vector, Voronoi) {
     }
 
     /**
-     * Convert sphere-space coordinates to cartesian coordinates.
+     * Project GeoCoords to 2d cartesian.
      *
      * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects.
      * @param {GeoCoord} origin - The origin on the sphere's surface.
-     * @param {number} sphereRadius - The radius in metres of the sphere.
+     * @param {number} radius - The radius in metres of the sphere.
      * @returns {{x:number, y:number, z:number, loc:Object}[]}
      *     The loc object is the corresponding original object from locations.
      */
-    function calculateCartesians(locations, origin, sphereRadius)
+    function projectGeoCoordsToXY(locations, origin, radius)
     {
-        var degToRad = Math.PI/180.0;
-        var rotation = origin.lat * degToRad;
-        var cosRotation = Math.cos(rotation);
-        var sinRotation = Math.sin(rotation);
+        var originLatRad = origin.lat * DegToRad;
+        var cosOriginLat = Math.cos(originLatRad);
+        var sinOriginLat = Math.sin(originLatRad);
 
         return locations.map(function(loc) {
-            var theta = (90 - loc.lat) * degToRad;
-            var phi = (loc.lon - origin.lon) * degToRad;
+            var theta = (90 - loc.lat) * DegToRad;
+            var phi = (loc.lon - origin.lon) * DegToRad;
 
             // to 3d cartesian coordinates
             var sinTheta = Math.sin(theta);
-            var x = sphereRadius * sinTheta * Math.cos(phi);
-            var y = sphereRadius * sinTheta * Math.sin(phi);
-            var z = sphereRadius * Math.cos(theta);
+            var x = radius * sinTheta * Math.cos(phi);
+            var y = radius * sinTheta * Math.sin(phi);
+            var z = radius * Math.cos(theta);
 
             // rotate down to equator
-            var newZ = z * cosRotation - x * sinRotation;
-            var newX = z * sinRotation + x * cosRotation;
+            var newZ = z * cosOriginLat - x * sinOriginLat;
 
             // project onto new xy orientation
             return {
                 loc: loc,
                 x: y,
-                y: newZ,
-                z: newX
+                y: newZ
             };
         });
     }
@@ -277,9 +275,8 @@ function (GeoCoord, Vector, Voronoi) {
      */
     function cartesianToGeoCoord(cartesians, origin, sphereRadius)
     {
-        var degToRad = Math.PI/180.0;
         var radToDeg = 180.0/Math.PI;
-        var rotation = -origin.lat * degToRad;
+        var rotation = -origin.lat * DegToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
@@ -322,7 +319,7 @@ function (GeoCoord, Vector, Voronoi) {
     {
         var voronoi = new Voronoi();
         var computed = voronoi.compute(
-            calculateCartesians(locations, origin, EarthRadiusMetres),
+            projectGeoCoordsToXY(locations, origin, EarthRadiusMetres),
             squareBoundingBox(2*circleRadius+100)
         );
 
@@ -350,7 +347,7 @@ function (GeoCoord, Vector, Voronoi) {
     }
 
     return {
-        calculateCartesians: calculateCartesians,
+        projectGeoCoordsToXY: projectGeoCoordsToXY,
         cartesianToGeoCoord: cartesianToGeoCoord,
         clockwiseArc2d: clockwiseArc2d,
         cropToCircle2d: cropToCircle2d,
