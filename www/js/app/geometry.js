@@ -308,14 +308,20 @@ function (GeoCoord, Vector, Voronoi) {
     }
 
     /**
+     * @callback voronoiCellCallback
+     * @param {Object} object - The original object with {GeoCoord}-like attributes.
+     * @param {GeoCoord[]} polygon - The {GeoCoord}s of the voronoi cell surrounding [object].
+     */
+
+    /**
      * Compute the voronoi polygon of a set of objects on the surface of the Earth.
      *
      * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects
      * @param {GeoCoord} origin - Origin on the surface of the Earth.
      * @param {number} circleRadius - Radius in metres of circle around [origin] to crop results to.
-     * @returns {{loc:Object, polygon:GeoCoord[]}[]}
+     * @param {voronoiCellCallback} callback - Called for every cell calculated.
      */
-    function earthSurfaceVoronoi(locations, origin, circleRadius)
+    function earthSurfaceVoronoi(locations, origin, circleRadius, callback)
     {
         var voronoi = new Voronoi();
         var computed = voronoi.compute(
@@ -323,17 +329,15 @@ function (GeoCoord, Vector, Voronoi) {
             squareBoundingBox(2*circleRadius+100)
         );
 
-        return computed.cells.map(function(cell) {
+        computed.cells.forEach(function(cell) {
             /** @type {number[][]} */
             var polygon = cell.halfedges.map(function (edge) {
                 var start = edge.getStartpoint();
                 return [start.x, start.y];
             });
             var croppedPolygon = cropToCircle2d(polygon, circleRadius, 3);
-            return {
-                loc: cell.site.loc,
-                polygon: cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres)
-            }
+            var geoCoordPolygon = cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres);
+            callback(cell.site.loc, geoCoordPolygon);
         });
     }
 

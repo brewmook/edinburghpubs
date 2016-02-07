@@ -30,35 +30,25 @@ define(['leaflet'], function (leaflet)
         this._legendDiv.innerHTML = items.join('<br/>');
     };
 
-    /**
-     * @param {VoronoiView.Polygon[]} polygons
-     */
-    VoronoiView.prototype.setPolygons = function(polygons)
+    VoronoiView.prototype.clearPolygons = function()
     {
         this._layer.clearLayers();
-
-        var voronoiLayer = this._layer;
-        polygons.forEach(function(polygon) {
-            leaflet.polygon(
-                polygon.points.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
-                {
-                    fillColor: polygon.colour.toString(),
-                    stroke: false,
-                    fillOpacity: 0.5
-                }
-            ).addTo(voronoiLayer).bringToBack();
-        });
     };
 
     /**
      * @param {GeoCoord[]} points
      * @param {Colour} colour
-     * @constructor
      */
-    VoronoiView.Polygon = function(points, colour)
+    VoronoiView.prototype.addPolygon = function(points, colour)
     {
-        this.points = points;
-        this.colour = colour;
+        leaflet.polygon(
+            points.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
+            {
+                fillColor: colour.toString(),
+                stroke: false,
+                fillOpacity: 0.5
+            }
+        ).addTo(this._layer).bringToBack();
     };
 
     /**

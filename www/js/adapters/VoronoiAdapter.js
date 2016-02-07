@@ -37,13 +37,17 @@ function (Colour, ColourMap, geometry, VoronoiView) {
             }
             legendEntries.push(new VoronoiView.LegendEntry("No data ", colourMap.colour(Number.MAX_VALUE)));
             view.setLegend(stat.label(), legendEntries);
+            view.clearPolygons();
 
-            var voronoi = geometry.earthSurfaceVoronoi(sitesModel.sites.get(), target.origin, target.radius);
-            var polygons = voronoi.map(function(cell) {
-                var value = stat.getValue(cell.loc);
-                return new VoronoiView.Polygon(cell.polygon, colourMap.colour(value));
-            });
-            view.setPolygons(polygons);
+            geometry.earthSurfaceVoronoi(
+                sitesModel.sites.get(),
+                target.origin,
+                target.radius,
+                function(site, polygon) {
+                    var value = stat.getValue(site);
+                    view.addPolygon(polygon, colourMap.colour(value));
+                }
+            );
         });
     }
 
