@@ -11,7 +11,7 @@ define(['app/geometry', 'leaflet'], function (geometry, leaflet) {
     }
 
     /**
-     * @param {GeoCoord} origin - The map origin.
+     * @param {number[]} origin - The geographic coordinates of the map origin.
      * @param {number} circleRadius - The circle radius in metres for target area.
      */
     TargetView.prototype.setTarget = function(origin, circleRadius)

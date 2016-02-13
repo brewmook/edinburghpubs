@@ -1,7 +1,7 @@
-define(['app/Grouper', 'app/GeoCoord',
+define(['app/Grouper',
         'views/View', 'adapters/SitesAdapter', 'adapters/TagsAdapter', 'adapters/VoronoiAdapter',
         'models/SitesModel', 'models/StatsModel', 'data/pubs'],
-function(Grouper, GeoCoord,
+function(Grouper,
          View, SitesAdapter, TagsAdapter, VoronoiAdapter,
          SitesModel, StatsModel, pubsData) {
 
@@ -121,10 +121,7 @@ function(Grouper, GeoCoord,
             "Expected first feature to be the target area."
         );
         var target = {
-            origin: new GeoCoord(
-                targetFeature.geometry.coordinates[0],
-                targetFeature.geometry.coordinates[1]
-            ),
+            origin: targetFeature.geometry.coordinates,
             radius: targetFeature.properties.radius
         };
 

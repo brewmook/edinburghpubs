@@ -240,7 +240,7 @@ function(GeoCoord, Vector, geometry) {
         });
 
         it('converts lat/lng to cartesian coordinates', function() {
-            var origin = new GeoCoord(1,1);
+            var origin = [1,1];
             var sphereRadius = 1000;
             var geocoords = [
                 pointFeature(1,1),
@@ -266,7 +266,7 @@ function(GeoCoord, Vector, geometry) {
         });
 
         it('converts lat/lng to cartesian coordinates (triangulation)', function() {
-            var origin = new GeoCoord(45,90);
+            var origin = [45,90];
             var sphereRadius = 1000;
             var geocoords = [
                 pointFeature( 0, 45),
@@ -307,7 +307,7 @@ function(GeoCoord, Vector, geometry) {
         });
 
         it('converts cartesians to lat/lng', function() {
-            var origin = new GeoCoord(1,1);
+            var origin = [1,1];
             var sphereRadius = 1000;
             var cartesians = [
                 [0.0, 0.0],

@@ -233,14 +233,16 @@ function (GeoCoord, Vector, Voronoi) {
      * Project GeoCoords to 2d cartesian.
      *
      * @param {Object[]} pointFeatures - A list of GeoJSON point features
-     * @param {GeoCoord} origin - The origin on the sphere's surface.
+     * @param {number[]} origin - The geographic coordinates of the origin (lat, lon) on the sphere's surface.
      * @param {number} radius - The radius in metres of the sphere.
      * @returns {{x:number, y:number, z:number, loc:Object}[]}
      *     The loc object is the corresponding original object from locations.
      */
     function projectGeoCoordsToXY(pointFeatures, origin, radius)
     {
-        var originLatRad = origin.lat * DegToRad;
+        var originLat = origin[0];
+        var originLon = origin[1];
+        var originLatRad = originLat * DegToRad;
         var cosOriginLat = Math.cos(originLatRad);
         var sinOriginLat = Math.sin(originLatRad);
 
@@ -248,7 +250,7 @@ function (GeoCoord, Vector, Voronoi) {
             var lat = point.geometry.coordinates[0];
             var lon = point.geometry.coordinates[1];
             var theta = (90 - lat) * DegToRad;
-            var phi = (lon - origin.lon) * DegToRad;
+            var phi = (lon - originLon) * DegToRad;
 
             // to 3d cartesian coordinates
             var sinTheta = Math.sin(theta);
@@ -272,14 +274,16 @@ function (GeoCoord, Vector, Voronoi) {
      * Projects a set of cartesian coordinates onto a sphere.
      *
      * @param {number[][]} cartesians - A list of 2d points in cartesian space.
-     * @param {GeoCoord} origin - The origin on the sphere's surface to translate back to.
+     * @param {number[]} origin - The geographic coordinates of the origin (lat, lon) on the sphere's surface to translate back to.
      * @param {number} sphereRadius - The radius in metres of the sphere.
      * @returns {number[][]} The geographic coordinates (lat, lon).
      */
     function cartesianToGeoCoord(cartesians, origin, sphereRadius)
     {
+        var originLat = origin[0];
+        var originLon = origin[1];
         var radToDeg = 180.0/Math.PI;
-        var rotation = -origin.lat * DegToRad;
+        var rotation = -originLat * DegToRad;
         var cosRotation = Math.cos(rotation);
         var sinRotation = Math.sin(rotation);
 
@@ -288,14 +292,14 @@ function (GeoCoord, Vector, Voronoi) {
             var rotatedZ = point[1];
             var y = point[0];
 
-            // unrotate back up to correct latitude
+            // rotate back up to correct latitude
             var z = rotatedZ * cosRotation - rotatedX * sinRotation;
             var x = rotatedZ * sinRotation + rotatedX * cosRotation;
 
             var theta = Math.acos(z/sphereRadius) * radToDeg;
             var phi = Math.atan(y/x) * radToDeg;
 
-            return [90.0 - theta, phi + origin.lon];
+            return [90.0 - theta, phi + originLon];
         });
     }
 
@@ -320,7 +324,7 @@ function (GeoCoord, Vector, Voronoi) {
      * Compute the voronoi polygon of a set of objects on the surface of the Earth.
      *
      * @param {Object[]} pointFeatures - A list of GeoJSON point features.
-     * @param {GeoCoord} origin - Origin on the surface of the Earth.
+     * @param {number[]} origin - The geographic coordinates of the origin (lat, lon) on the surface of the Earth.
      * @param {number} circleRadius - Radius in metres of circle around [origin] to crop results to.
      * @param {voronoiCellCallback} callback - Called for every cell calculated.
      */
@@ -345,6 +349,11 @@ function (GeoCoord, Vector, Voronoi) {
         voronoi.recycle(computed);
     }
 
+    /**
+     * @param {number[]} origin - A geographic location [lat,lon]
+     * @param {number} circleRadius
+     * @returns {number[][]}
+     */
     function earthSurfaceCircleBounds(origin, circleRadius)
     {
         var bounds = [
