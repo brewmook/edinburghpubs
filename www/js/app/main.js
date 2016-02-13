@@ -1,7 +1,7 @@
-define(['app/Grouper',
+define(['app/Grouper', 'app/GeoCoord',
         'views/View', 'adapters/SitesAdapter', 'adapters/TagsAdapter', 'adapters/VoronoiAdapter',
         'models/SitesModel', 'models/StatsModel', 'data/pubs'],
-function(Grouper,
+function(Grouper, GeoCoord,
          View, SitesAdapter, TagsAdapter, VoronoiAdapter,
          SitesModel, StatsModel, pubsData) {
 
@@ -114,8 +114,22 @@ function(Grouper,
     {
         var view = new View();
         view.setStatusMessage("Calculating...");
-        view.target.setTarget(pubsData.target.origin, pubsData.target.radius);
-        view.tags.setTags(uniqueTags(pubsData.sites));
+
+        var targetFeature = pubsData.features.shift();
+        console.assert(
+            targetFeature.properties.type === "Target",
+            "Expected first feature to be the target area."
+        );
+        var target = {
+            origin: new GeoCoord(
+                targetFeature.geometry.coordinates[0],
+                targetFeature.geometry.coordinates[1]
+            ),
+            radius: targetFeature.properties.radius
+        };
+
+        view.target.setTarget(target.origin, target.radius);
+        view.tags.setTags(uniqueTags(pubsData.features));
 
         view.sites.addGroup("Visited (green)", "green", true);
         view.sites.addGroup("Todo (gold)", "gold", true);
@@ -126,10 +140,10 @@ function(Grouper,
         grouper.addGroup("Todo", function(site) { return !isBlogged(site) && !isExcluded(site); });
         grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
 
-        var sitesModel = new SitesModel(pubsData.sites, grouper);
-        var statsModel = new StatsModel(new Price(), pubsData.sites);
+        var sitesModel = new SitesModel(pubsData.features, grouper);
+        var statsModel = new StatsModel(new Price(), pubsData.features);
 
-        var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, pubsData.target);
+        var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
         var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 

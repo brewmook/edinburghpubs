@@ -13,17 +13,23 @@ function addRequireJSCode(text) {
 
 var originalData = JSON.parse(stripRequireJSCode(fs.readFileSync('www/data/pubs.js', 'utf8')));
 var newData = {
-    target: originalData.target,
-    sites: originalData.sites.map(function(site){
-        return {
+    type: "FeatureCollection",
+    features: [
+        {
             type: "Feature",
             geometry: {
                 type: "Point",
-                coordinates: [site.lat, site.lon]
+                coordinates: [
+                    originalData.target.origin.lat,
+                    originalData.target.origin.lon
+                ]
             },
-            properties: site.properties
-        };
-    })
+            properties: {
+                type: "Target",
+                radius: originalData.target.radius
+            }
+        }
+    ].concat(originalData.sites)
 };
 var newFileContents = addRequireJSCode(JSON.stringify(newData, null, '\t'));
 

@@ -1,12 +1,20 @@
 define(function(){return{
-	"target": {
-		"origin": {
-			"lat": 55.94816654144937,
-			"lon": -3.1994622945785522
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.94816654144937,
+					-3.1994622945785522
+				]
+			},
+			"properties": {
+				"type": "Target",
+				"radius": 1609
+			}
 		},
-		"radius": 1609
-	},
-	"sites": [
 		{
 			"type": "Feature",
 			"geometry": {
