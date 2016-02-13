@@ -5,6 +5,10 @@ function(GeoCoord, Vector, geometry) {
         return { x: x, y: y };
     }
 
+    function pointFeature(lat, lon) {
+        return { geometry: { coordinates: [lat, lon] } };
+    }
+
     function isCartesian(a) {
         return a.hasOwnProperty('x') && a.hasOwnProperty('y');
     }
@@ -239,11 +243,11 @@ function(GeoCoord, Vector, geometry) {
             var origin = new GeoCoord(1,1);
             var sphereRadius = 1000;
             var geocoords = [
-                new GeoCoord(1,1),
-                new GeoCoord(0,1),
-                new GeoCoord(2,1),
-                new GeoCoord(1,0),
-                new GeoCoord(1,2)
+                pointFeature(1,1),
+                pointFeature(0,1),
+                pointFeature(2,1),
+                pointFeature(1,0),
+                pointFeature(1,2)
             ];
             var expected = [
                 cartesian(0.0, 0.0),
@@ -265,15 +269,15 @@ function(GeoCoord, Vector, geometry) {
             var origin = new GeoCoord(45,90);
             var sphereRadius = 1000;
             var geocoords = [
-                new GeoCoord( 0, 45),
-                new GeoCoord( 0, 90),
-                new GeoCoord( 0,135),
-                new GeoCoord(45, 45),
-                new GeoCoord(45, 90),
-                new GeoCoord(45,135),
-                new GeoCoord(90, 45),
-                new GeoCoord(90, 90),
-                new GeoCoord(90,135)
+                pointFeature( 0, 45),
+                pointFeature( 0, 90),
+                pointFeature( 0,135),
+                pointFeature(45, 45),
+                pointFeature(45, 90),
+                pointFeature(45,135),
+                pointFeature(90, 45),
+                pointFeature(90, 90),
+                pointFeature(90,135)
             ];
             var expected = [
                 cartesian(-707, -500),

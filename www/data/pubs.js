@@ -8,8 +8,14 @@ define(function(){return{
 	},
 	"sites": [
 		{
-			"lat": 55.9536643,
-			"lon": -3.1901767,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9536643,
+					-3.1901767
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Guildford Arms",
@@ -37,8 +43,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9423554,
-			"lon": -3.2011712,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9423554,
+					-3.2011712
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The International Bar",
@@ -65,8 +77,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9513129,
-			"lon": -3.2052029,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9513129,
+					-3.2052029
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Scotts",
@@ -96,8 +114,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9514512,
-			"lon": -3.2053004,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9514512,
+					-3.2053004
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "1780",
@@ -126,8 +150,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9515016,
-			"lon": -3.2049952,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9515016,
+					-3.2049952
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Dirty Dicks",
@@ -155,8 +185,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9515296,
-			"lon": -3.2039328,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9515296,
+					-3.2039328
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Rose & Crown",
@@ -183,8 +219,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9516706,
-			"lon": -3.2039712,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9516706,
+					-3.2039712
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Shoogly Peg",
@@ -225,8 +267,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9515783,
-			"lon": -3.2036294,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9515783,
+					-3.2036294
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Black Cat",
@@ -256,8 +304,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9517885,
-			"lon": -3.2022759,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9517885,
+					-3.2022759
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Kenilworth",
@@ -287,8 +341,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9522826,
-			"lon": -3.1993756,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9522826,
+					-3.1993756
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Auld Hundred",
@@ -318,8 +378,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9525442,
-			"lon": -3.1989321,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9525442,
+					-3.1989321
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Rose Street Brewery",
@@ -346,8 +412,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9526722,
-			"lon": -3.1981185,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9526722,
+					-3.1981185
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Black Rose Tavern",
@@ -376,8 +448,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9529632,
-			"lon": -3.1964321,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9529632,
+					-3.1964321
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Milnes of Rose street",
@@ -407,8 +485,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.94814555,
-			"lon": -3.1868201999999997,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.94814555,
+					-3.1868201999999997
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Biblos",
@@ -436,8 +520,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9481205,
-			"lon": -3.1869529500000002,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9481205,
+					-3.1869529500000002
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Jazz Bar",
@@ -460,8 +550,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.953804,
-			"lon": -3.1905018,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.953804,
+					-3.1905018
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cafe Royal",
@@ -486,8 +582,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9589777,
-			"lon": -3.1971201,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9589777,
+					-3.1971201
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cumberland Bar",
@@ -518,8 +620,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9351917,
-			"lon": -3.2109226,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9351917,
+					-3.2109226
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Napier Students' Association",
@@ -542,8 +650,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9514869,
-			"lon": -3.1801709999999996,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9514869,
+					-3.1801709999999996
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Tollbooth Tavern",
@@ -574,8 +688,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9534277,
-			"lon": -3.1955331,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9534277,
+					-3.1955331
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Dome Bar and Grill",
@@ -601,8 +721,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9595062,
-			"lon": -3.21483535,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9595062,
+					-3.21483535
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Raeburn Hotel",
@@ -632,8 +758,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9398768,
-			"lon": -3.20368925,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9398768,
+					-3.20368925
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Golf Tavern",
@@ -662,8 +794,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.94580995,
-			"lon": -3.21734725,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.94580995,
+					-3.21734725
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Ryries",
@@ -692,8 +830,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9427311,
-			"lon": -3.1824789,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9427311,
+					-3.1824789
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Dog House",
@@ -740,8 +884,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9500525,
-			"lon": -3.1873006,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9500525,
+					-3.1873006
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Inn On The Mile",
@@ -774,8 +924,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9480679,
-			"lon": -3.1861969,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9480679,
+					-3.1861969
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Royal Oak",
@@ -803,8 +959,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9434879,
-			"lon": -3.1802742,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9434879,
+					-3.1802742
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Auld Hoose",
@@ -834,8 +996,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9574763,
-			"lon": -3.2071208,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9574763,
+					-3.2071208
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Bailie",
@@ -868,8 +1036,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9527511,
-			"lon": -3.2060102,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9527511,
+					-3.2060102
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cambridge Bar",
@@ -897,8 +1071,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9529618,
-			"lon": -3.2047389,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9529618,
+					-3.2047389
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Oxford Bar",
@@ -925,8 +1105,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.959046,
-			"lon": -3.1902971,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.959046,
+					-3.1902971
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Cask and Barrel",
@@ -952,8 +1138,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.942115,
-			"lon": -3.179221,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.942115,
+					-3.179221
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Montague",
@@ -980,8 +1172,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.949698,
-			"lon": -3.2088351,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.949698,
+					-3.2088351
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "P.D.T. Mezcaleria",
@@ -997,8 +1195,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9444464,
-			"lon": -3.18537,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9444464,
+					-3.18537
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Pear Tree",
@@ -1024,8 +1228,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9445207,
-			"lon": -3.1852171,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9445207,
+					-3.1852171
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Blind Poet",
@@ -1055,8 +1265,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9440818,
-			"lon": -3.1852249,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9440818,
+					-3.1852249
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "56 North",
@@ -1083,8 +1299,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9421441,
-			"lon": -3.1839083,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9421441,
+					-3.1839083
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Dagda",
@@ -1115,8 +1337,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9427088,
-			"lon": -3.1845678,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9427088,
+					-3.1845678
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Southside Social",
@@ -1144,8 +1372,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9381612,
-			"lon": -3.2182135,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9381612,
+					-3.2182135
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Polwarth Tavern",
@@ -1172,8 +1406,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9390679,
-			"lon": -3.2188177,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9390679,
+					-3.2188177
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Golden Rule",
@@ -1201,8 +1441,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9402871,
-			"lon": -3.2179484,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9402871,
+					-3.2179484
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Fountain",
@@ -1231,8 +1477,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9407101,
-			"lon": -3.2180407,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9407101,
+					-3.2180407
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "McCowans",
@@ -1263,8 +1515,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9358639,
-			"lon": -3.2091972,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9358639,
+					-3.2091972
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Montpeliers",
@@ -1292,8 +1550,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9540937,
-			"lon": -3.1989693,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9540937,
+					-3.1989693
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Thistle Street Bar",
@@ -1322,8 +1586,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9477999,
-			"lon": -3.1815633,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9477999,
+					-3.1815633
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Pleasance",
@@ -1349,8 +1619,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9449036,
-			"lon": -3.1886208,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9449036,
+					-3.1886208
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Teviot",
@@ -1373,8 +1649,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9442459,
-			"lon": -3.2019494,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9442459,
+					-3.2019494
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Brauhaus",
@@ -1398,8 +1680,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9417361,
-			"lon": -3.2032072,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9417361,
+					-3.2032072
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bennets Bar",
@@ -1427,8 +1715,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9459463,
-			"lon": -3.2031782,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9459463,
+					-3.2031782
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Blue Blazer",
@@ -1456,8 +1750,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9466693,
-			"lon": -3.1984915,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9466693,
+					-3.1984915
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "WJ Christie & Sons",
@@ -1486,8 +1786,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9481786,
-			"lon": -3.1917,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9481786,
+					-3.1917
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Opium",
@@ -1514,8 +1820,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9481951,
-			"lon": -3.1915223,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9481951,
+					-3.1915223
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Sneaky Pete's",
@@ -1538,8 +1850,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.948264,
-			"lon": -3.1901285,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.948264,
+					-3.1901285
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Three Sisters",
@@ -1571,8 +1889,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9375368,
-			"lon": -3.2027382,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9375368,
+					-3.2027382
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Links Bar",
@@ -1603,8 +1927,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9581296,
-			"lon": -3.1899414,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9581296,
+					-3.1899414
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Liquor Library",
@@ -1620,8 +1950,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9391025,
-			"lon": -3.1817525,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9391025,
+					-3.1817525
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Drouthy Neebors",
@@ -1647,8 +1983,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9434539,
-			"lon": -3.1782183,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9434539,
+					-3.1782183
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Jeanie Deans Tryste",
@@ -1680,8 +2022,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9438995,
-			"lon": -3.1837414,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9438995,
+					-3.1837414
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Greenmantle",
@@ -1712,8 +2060,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.950658,
-			"lon": -3.1906398,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.950658,
+					-3.1906398
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Malt Shovel",
@@ -1741,8 +2095,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.958021,
-			"lon": -3.2034978,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.958021,
+					-3.2034978
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Saint Vincent Bar",
@@ -1771,8 +2131,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9451951,
-			"lon": -3.183745,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9451951,
+					-3.183745
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Southsider",
@@ -1800,8 +2166,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9534796,
-			"lon": -3.1960559,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9534796,
+					-3.1960559
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Le Monde",
@@ -1831,8 +2203,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9587858,
-			"lon": -3.2096834,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9587858,
+					-3.2096834
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Hectors",
@@ -1858,8 +2236,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.95895,
-			"lon": -3.2099661,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.95895,
+					-3.2099661
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Stockbridge Tap",
@@ -1890,8 +2274,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.958196,
-			"lon": -3.2080531,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.958196,
+					-3.2080531
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Hamilton's Bar and Kitchen",
@@ -1919,8 +2309,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9589789,
-			"lon": -3.2101654,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9589789,
+					-3.2101654
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "St Bernards Bar",
@@ -1946,8 +2342,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.957959,
-			"lon": -3.2062075,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.957959,
+					-3.2062075
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Antiquary",
@@ -1977,8 +2379,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9623588,
-			"lon": -3.1972207,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9623588,
+					-3.1972207
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cross & Corner",
@@ -2007,8 +2415,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9625655,
-			"lon": -3.196251,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9625655,
+					-3.196251
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Other Place",
@@ -2035,8 +2449,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9455179,
-			"lon": -3.190919,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9455179,
+					-3.190919
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Doctors",
@@ -2065,8 +2485,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9503992,
-			"lon": -3.1867667,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9503992,
+					-3.1867667
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Royal Mile",
@@ -2097,8 +2523,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9457066,
-			"lon": -3.2037108,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9457066,
+					-3.2037108
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Monboddo",
@@ -2126,8 +2558,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9457048,
-			"lon": -3.2038263,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9457048,
+					-3.2038263
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Chanter",
@@ -2156,8 +2594,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9460338,
-			"lon": -3.2036537,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9460338,
+					-3.2036537
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Footlights Bar & Grill",
@@ -2186,8 +2630,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9501558,
-			"lon": -3.1884318,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9501558,
+					-3.1884318
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Albanach",
@@ -2218,8 +2668,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9473852,
-			"lon": -3.1916772,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9473852,
+					-3.1916772
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Frankenstein",
@@ -2247,8 +2703,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9498377,
-			"lon": -3.1939928,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9498377,
+					-3.1939928
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Wash Bar",
@@ -2274,8 +2736,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9590502,
-			"lon": -3.1909659,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9590502,
+					-3.1909659
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Ox",
@@ -2303,8 +2771,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9382217,
-			"lon": -3.2058349,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9382217,
+					-3.2058349
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bisque",
@@ -2329,8 +2803,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.942227,
-			"lon": -3.2027656,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.942227,
+					-3.2027656
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Burlington Bertie",
@@ -2356,8 +2836,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9583336,
-			"lon": -3.2079185,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9583336,
+					-3.2079185
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Smith & Gertrude",
@@ -2375,8 +2861,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9620429,
-			"lon": -3.1977538,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9620429,
+					-3.1977538
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Smithie's Ale House",
@@ -2404,8 +2896,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9504119,
-			"lon": -3.1888113,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9504119,
+					-3.1888113
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Secret Arcade",
@@ -2427,8 +2925,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9512937,
-			"lon": -3.2112702,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9512937,
+					-3.2112702
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Westroom",
@@ -2454,8 +2958,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9460346,
-			"lon": -3.2134605,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9460346,
+					-3.2134605
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Carters",
@@ -2482,8 +2992,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9463839,
-			"lon": -3.2161818,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9463839,
+					-3.2161818
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Haymarket",
@@ -2511,8 +3027,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9585881,
-			"lon": -3.2103788,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9585881,
+					-3.2103788
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Bon Vivant Stockbridge",
@@ -2538,8 +3060,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.957839,
-			"lon": -3.212814,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.957839,
+					-3.212814
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Raeburn",
@@ -2567,8 +3095,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9503821,
-			"lon": -3.186896,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9503821,
+					-3.186896
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Mitre",
@@ -2599,8 +3133,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9453044,
-			"lon": -3.1865217,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9453044,
+					-3.1865217
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Potting Shed",
@@ -2627,8 +3167,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9495349,
-			"lon": -3.1929486,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9495349,
+					-3.1929486
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Deacon Brodie's Tavern",
@@ -2659,8 +3205,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9495835,
-			"lon": -3.1876144,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9495835,
+					-3.1876144
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Tron",
@@ -2686,8 +3238,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9526758,
-			"lon": -3.2033575,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9526758,
+					-3.2033575
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Copper Blossom",
@@ -2704,8 +3262,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9444999,
-			"lon": -3.1852839,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9444999,
+					-3.1852839
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Counting House",
@@ -2732,8 +3296,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9537827,
-			"lon": -3.1881886,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9537827,
+					-3.1881886
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Newsroom",
@@ -2760,8 +3330,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9573347,
-			"lon": -3.1870575,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9573347,
+					-3.1870575
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Outhouse",
@@ -2788,8 +3364,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9537621,
-			"lon": -3.1970655,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9537621,
+					-3.1970655
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "All Bar One",
@@ -2816,8 +3398,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9583594,
-			"lon": -3.1836243,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9583594,
+					-3.1836243
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Jeremiah's Tap Room",
@@ -2846,8 +3434,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9389607,
-			"lon": -3.1800426,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9389607,
+					-3.1800426
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cask & Barrel Southside",
@@ -2873,8 +3467,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9570705,
-			"lon": -3.1879231,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9570705,
+					-3.1879231
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Mathers",
@@ -2903,8 +3503,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9568932,
-			"lon": -3.1877875,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9568932,
+					-3.1877875
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Street",
@@ -2933,8 +3539,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9573876,
-			"lon": -3.1882337,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9573876,
+					-3.1882337
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Treacle",
@@ -2961,8 +3573,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9570085,
-			"lon": -3.1883445,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9570085,
+					-3.1883445
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "the basement",
@@ -2987,8 +3605,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9527396,
-			"lon": -3.1977443,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9527396,
+					-3.1977443
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Robertsons 37 Bar",
@@ -3014,8 +3638,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9493788,
-			"lon": -3.1869167,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9493788,
+					-3.1869167
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Banshee Labyrinth",
@@ -3044,8 +3674,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9468912,
-			"lon": -3.19787,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9468912,
+					-3.19787
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Fiddler's Arms",
@@ -3077,8 +3713,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9484235,
-			"lon": -3.1941366,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9484235,
+					-3.1941366
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bow Bar",
@@ -3108,8 +3750,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9532705,
-			"lon": -3.1946516,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9532705,
+					-3.1946516
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Abbotsford",
@@ -3140,8 +3788,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9589984,
-			"lon": -3.1830369,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9589984,
+					-3.1830369
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Joseph Pearce",
@@ -3168,8 +3822,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.954145,
-			"lon": -3.1874076,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.954145,
+					-3.1874076
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Pivo",
@@ -3196,8 +3856,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9493852,
-			"lon": -3.1879006,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9493852,
+					-3.1879006
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The City Cafe",
@@ -3229,8 +3895,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9503609,
-			"lon": -3.1881082,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9503609,
+					-3.1881082
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Scotsman's Lounge",
@@ -3255,8 +3927,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9493237,
-			"lon": -3.2123286,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9493237,
+					-3.2123286
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Teuchters",
@@ -3286,8 +3964,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9500005,
-			"lon": -3.2077642,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9500005,
+					-3.2077642
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Huxley",
@@ -3315,8 +3999,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9564749,
-			"lon": -3.1878523,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9564749,
+					-3.1878523
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Conan Doyle",
@@ -3344,8 +4034,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9571783,
-			"lon": -3.1850761,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9571783,
+					-3.1850761
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Theatre Royal",
@@ -3377,8 +4073,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9570708,
-			"lon": -3.185202,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9570708,
+					-3.185202
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "C.C. Blooms",
@@ -3406,8 +4108,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9484747,
-			"lon": -3.1864289,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9484747,
+					-3.1864289
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Caves",
@@ -3431,8 +4139,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.947502,
-			"lon": -3.1919993,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.947502,
+					-3.1919993
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Oz Bar",
@@ -3459,8 +4173,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9485285,
-			"lon": -3.1947345,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9485285,
+					-3.1947345
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Castle Arms",
@@ -3490,8 +4210,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9542426,
-			"lon": -3.1873677,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9542426,
+					-3.1873677
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Black Bull",
@@ -3517,8 +4243,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9508675,
-			"lon": -3.1907041,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9508675,
+					-3.1907041
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Hebrides",
@@ -3544,8 +4276,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9508879,
-			"lon": -3.1905922,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9508879,
+					-3.1905922
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Doric Bar",
@@ -3570,8 +4308,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9536227,
-			"lon": -3.1920912,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9536227,
+					-3.1920912
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Tiles Bar",
@@ -3597,8 +4341,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9508253,
-			"lon": -3.2079252,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9508253,
+					-3.2079252
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Whighams Wine Cellars",
@@ -3629,8 +4379,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9520662,
-			"lon": -3.2007312,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9520662,
+					-3.2007312
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Element",
@@ -3657,8 +4413,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9502522,
-			"lon": -3.2086385,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9502522,
+					-3.2086385
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Mathers Bar",
@@ -3686,8 +4448,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9506787,
-			"lon": -3.2078124,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9506787,
+					-3.2078124
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Angels Share",
@@ -3712,8 +4480,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9557144,
-			"lon": -3.2050284,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9557144,
+					-3.2050284
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Kay's Bar",
@@ -3743,8 +4517,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9573512,
-			"lon": -3.1955177,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9573512,
+					-3.1955177
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Star Bar",
@@ -3777,8 +4557,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9582765,
-			"lon": -3.1894464,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9582765,
+					-3.1894464
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Barony Bar",
@@ -3807,8 +4593,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9568218,
-			"lon": -3.1985851,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9568218,
+					-3.1985851
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Wally Dug",
@@ -3839,8 +4631,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9567567,
-			"lon": -3.1931081,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9567567,
+					-3.1931081
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Magnum",
@@ -3867,8 +4665,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9551362,
-			"lon": -3.195763,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9551362,
+					-3.195763
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Jam House",
@@ -3892,8 +4696,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9517687,
-			"lon": -3.2034896,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9517687,
+					-3.2034896
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Amber Rose",
@@ -3922,8 +4732,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9462645,
-			"lon": -3.1891555,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9462645,
+					-3.1891555
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Paradise Palms",
@@ -3951,8 +4767,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9449647,
-			"lon": -3.1887877,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9449647,
+					-3.1887877
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Library Bar",
@@ -3975,8 +4797,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9461633,
-			"lon": -3.1891579,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9461633,
+					-3.1891579
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Boteco Do Brasil",
@@ -4009,8 +4837,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9570449,
-			"lon": -3.1939224,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9570449,
+					-3.1939224
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Spit/Fire",
@@ -4038,8 +4872,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9512756,
-			"lon": -3.209621,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9512756,
+					-3.209621
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Sygn",
@@ -4066,8 +4906,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.948903,
-			"lon": -3.2106596,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.948903,
+					-3.2106596
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Au Bar",
@@ -4097,8 +4943,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9380044,
-			"lon": -3.192882,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9380044,
+					-3.192882
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Earl of Marchmont",
@@ -4128,8 +4980,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9507069,
-			"lon": -3.1772921,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9507069,
+					-3.1772921
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Hemma",
@@ -4161,8 +5019,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9462412,
-			"lon": -3.21228,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9462412,
+					-3.21228
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Thomson's Bar",
@@ -4190,8 +5054,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9464746,
-			"lon": -3.2019795,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9464746,
+					-3.2019795
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Timberyard",
@@ -4220,8 +5090,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9484187,
-			"lon": -3.2061447,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9484187,
+					-3.2061447
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Red Squirrel",
@@ -4250,8 +5126,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9474318,
-			"lon": -3.2069644,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9474318,
+					-3.2069644
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "All Bar One",
@@ -4281,8 +5163,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9494425,
-			"lon": -3.2125026,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9494425,
+					-3.2125026
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bert's bar",
@@ -4329,8 +5217,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9460725,
-			"lon": -3.191285,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9460725,
+					-3.191285
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Sandy Bell's",
@@ -4359,8 +5253,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9584582,
-			"lon": -3.1901573,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9584582,
+					-3.1901573
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Phoenix",
@@ -4387,8 +5287,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.949853,
-			"lon": -3.2092931,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.949853,
+					-3.2092931
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Grosvenor",
@@ -4416,8 +5322,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9498913,
-			"lon": -3.208402,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9498913,
+					-3.208402
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Rat Pack",
@@ -4442,8 +5354,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9537298,
-			"lon": -3.1906031,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9537298,
+					-3.1906031
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Voodoo Rooms",
@@ -4470,8 +5388,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9472618,
-			"lon": -3.185283,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9472618,
+					-3.185283
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Brass Monkey",
@@ -4499,8 +5423,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9468703,
-			"lon": -3.2158788,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9468703,
+					-3.2158788
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Mercat Bar",
@@ -4525,8 +5455,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9514905,
-			"lon": -3.2100788,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9514905,
+					-3.2100788
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Harry's Bar",
@@ -4554,8 +5490,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9513702,
-			"lon": -3.2115575,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9513702,
+					-3.2115575
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "52 Canoes Tiki Den",
@@ -4586,8 +5528,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.949532,
-			"lon": -3.2122353,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.949532,
+					-3.2122353
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Melville",
@@ -4612,8 +5560,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9591358,
-			"lon": -3.2144495,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9591358,
+					-3.2144495
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Scran & Scallie",
@@ -4638,8 +5592,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9421663,
-			"lon": -3.2031887,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9421663,
+					-3.2031887
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cuckoo's Nest",
@@ -4666,8 +5626,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.941049,
-			"lon": -3.20371,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.941049,
+					-3.20371
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Blackbird",
@@ -4696,8 +5662,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9458208,
-			"lon": -3.1909205,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9458208,
+					-3.1909205
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Malones",
@@ -4725,8 +5697,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.94265,
-			"lon": -3.2040985,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.94265,
+					-3.2040985
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cameo Bar",
@@ -4754,8 +5732,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9403718,
-			"lon": -3.2037308,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9403718,
+					-3.2037308
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Henricks Bar & Bistro",
@@ -4786,8 +5770,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9562845,
-			"lon": -3.2025675,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9562845,
+					-3.2025675
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Mother's",
@@ -4830,8 +5820,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9545384,
-			"lon": -3.1981123,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9545384,
+					-3.1981123
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Jekyll & Hyde",
@@ -4862,8 +5858,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9545246,
-			"lon": -3.1975013,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9545246,
+					-3.1975013
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "99 Hanover Street",
@@ -4888,8 +5890,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9540721,
-			"lon": -3.1972479,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9540721,
+					-3.1972479
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Grand Cru",
@@ -4915,8 +5923,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9534114,
-			"lon": -3.1989539,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9534114,
+					-3.1989539
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Opal Lounge",
@@ -4939,8 +5953,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9526918,
-			"lon": -3.2040299,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9526918,
+					-3.2040299
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Tonic",
@@ -4965,8 +5985,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9525837,
-			"lon": -3.2041424,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9525837,
+					-3.2041424
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Slug and Lettuce",
@@ -4994,8 +6020,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9524016,
-			"lon": -3.2052183,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9524016,
+					-3.2052183
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Tigerlily",
@@ -5022,8 +6054,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9523166,
-			"lon": -3.2057181,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9523166,
+					-3.2057181
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Browns",
@@ -5049,8 +6087,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.944373,
-			"lon": -3.2058949,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.944373,
+					-3.2058949
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Lock 25",
@@ -5077,8 +6121,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.950708,
-			"lon": -3.2063304,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.950708,
+					-3.2063304
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Shandwick's",
@@ -5106,8 +6156,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9498027,
-			"lon": -3.2080511,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9498027,
+					-3.2080511
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Ghillie-Dhu",
@@ -5133,8 +6189,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9536531,
-			"lon": -3.1880821,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9536531,
+					-3.1880821
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Waterloo Bar",
@@ -5159,8 +6221,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9498942,
-			"lon": -3.1936994,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9498942,
+					-3.1936994
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Makar's Rest",
@@ -5199,8 +6267,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9498111,
-			"lon": -3.1888791,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9498111,
+					-3.1888791
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Royal McGregor",
@@ -5230,8 +6304,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.951038,
-			"lon": -3.1882238,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.951038,
+					-3.1882238
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "North Bridge Brasserie",
@@ -5257,8 +6337,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9504288,
-			"lon": -3.1865438,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9504288,
+					-3.1865438
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Whiski",
@@ -5288,8 +6374,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9483708,
-			"lon": -3.189683,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9483708,
+					-3.189683
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Brew Dog",
@@ -5315,8 +6407,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9477348,
-			"lon": -3.1940191,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9477348,
+					-3.1940191
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bar Salsa",
@@ -5342,8 +6440,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9475568,
-			"lon": -3.2058334,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9475568,
+					-3.2058334
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Shakespeares",
@@ -5373,8 +6477,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9459426,
-			"lon": -3.2062907,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9459426,
+					-3.2062907
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Lebowskis",
@@ -5402,8 +6512,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9459442,
-			"lon": -3.2062158,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9459442,
+					-3.2062158
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Henry's Cellar Bar",
@@ -5428,8 +6544,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9536675,
-			"lon": -3.200505,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9536675,
+					-3.200505
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Queen's Arms",
@@ -5458,8 +6580,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9539653,
-			"lon": -3.2006949,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9539653,
+					-3.2006949
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Rick's",
@@ -5485,8 +6613,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9544427,
-			"lon": -3.1980662,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9544427,
+					-3.1980662
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Soba",
@@ -5511,8 +6645,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9538261,
-			"lon": -3.196734,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9538261,
+					-3.196734
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Printing Press",
@@ -5545,8 +6685,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9476322,
-			"lon": -3.1921629,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9476322,
+					-3.1921629
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Under the Stairs",
@@ -5572,8 +6718,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9564594,
-			"lon": -3.1856577,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9564594,
+					-3.1856577
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Playfair",
@@ -5599,8 +6751,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9515458,
-			"lon": -3.2098937,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9515458,
+					-3.2098937
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Le Di-Vin",
@@ -5626,8 +6784,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9511347,
-			"lon": -3.2096344,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9511347,
+					-3.2096344
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Indigo Yard",
@@ -5653,8 +6817,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.952138,
-			"lon": -3.1995558,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.952138,
+					-3.1995558
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Boozy Cow",
@@ -5682,8 +6852,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.957258,
-			"lon": -3.193373,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.957258,
+					-3.193373
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Stac Polly",
@@ -5709,8 +6885,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9509356,
-			"lon": -3.1902406,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9509356,
+					-3.1902406
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Belushi's",
@@ -5740,8 +6922,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9532211,
-			"lon": -3.1977817,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9532211,
+					-3.1977817
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Madogs",
@@ -5767,8 +6955,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9470088,
-			"lon": -3.1865074,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9470088,
+					-3.1865074
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Captains Bar",
@@ -5797,8 +6991,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9463737,
-			"lon": -3.1994809,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9463737,
+					-3.1994809
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Dragonfly",
@@ -5824,8 +7024,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9564886,
-			"lon": -3.1901957,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9564886,
+					-3.1901957
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Place",
@@ -5852,8 +7058,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9454485,
-			"lon": -3.2050417,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9454485,
+					-3.2050417
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Hanging Bat",
@@ -5882,8 +7094,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.946311,
-			"lon": -3.2152697,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.946311,
+					-3.2152697
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Jolly Botanist",
@@ -5927,8 +7145,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9399617,
-			"lon": -3.1815162,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9399617,
+					-3.1815162
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Royal Dick",
@@ -5958,8 +7182,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9382505,
-			"lon": -3.1916117,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9382505,
+					-3.1916117
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Argyle Bar",
@@ -5989,8 +7219,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9431786,
-			"lon": -3.2083293,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9431786,
+					-3.2083293
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Akva",
@@ -6035,8 +7271,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9497597,
-			"lon": -3.2074169,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9497597,
+					-3.2074169
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Caley Bar",
@@ -6060,8 +7302,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9486923,
-			"lon": -3.1882174,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9486923,
+					-3.1882174
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "OX184",
@@ -6089,8 +7337,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9495157,
-			"lon": -3.1879514,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9495157,
+					-3.1879514
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Advocate",
@@ -6121,8 +7375,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9404684,
-			"lon": -3.180898,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9404684,
+					-3.180898
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Southern",
@@ -6153,8 +7413,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9504304,
-			"lon": -3.2082409,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9504304,
+					-3.2082409
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Usquabae",
@@ -6167,8 +7433,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9569349,
-			"lon": -3.1875427,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9569349,
+					-3.1875427
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Clouds & Soil",
@@ -6196,8 +7468,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9436826,
-			"lon": -3.202915,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9436826,
+					-3.202915
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Ventoux",
@@ -6224,8 +7502,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9450934,
-			"lon": -3.2049232,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9450934,
+					-3.2049232
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Moriarty",
@@ -6270,8 +7554,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9415183,
-			"lon": -3.1817519,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9415183,
+					-3.1817519
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Grapes",
@@ -6295,8 +7585,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9432724,
-			"lon": -3.2018829,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9432724,
+					-3.2018829
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cloisters Bar",
@@ -6326,8 +7622,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9486091,
-			"lon": -3.1930739,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9486091,
+					-3.1930739
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Espionage",
@@ -6356,8 +7658,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.948557,
-			"lon": -3.1935392,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.948557,
+					-3.1935392
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Finnegan's Wake",
@@ -6384,8 +7692,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9481394,
-			"lon": -3.1916619,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9481394,
+					-3.1916619
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Slighhouse",
@@ -6413,8 +7727,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9569966,
-			"lon": -3.185289,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9569966,
+					-3.185289
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cafe Habana",
@@ -6439,8 +7759,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9473239,
-			"lon": -3.1974729,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9473239,
+					-3.1974729
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Black Bull",
@@ -6474,8 +7800,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9474125,
-			"lon": -3.1971623,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9474125,
+					-3.1971623
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Beehive Inn",
@@ -6504,8 +7836,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9475008,
-			"lon": -3.1967728,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9475008,
+					-3.1967728
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The White Hart Inn",
@@ -6534,8 +7872,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9478313,
-			"lon": -3.1953377,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9478313,
+					-3.1953377
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Last Drop",
@@ -6564,8 +7908,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9479185,
-			"lon": -3.1950739,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9479185,
+					-3.1950739
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Maggie Dickson's Pub",
@@ -6592,8 +7942,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9479678,
-			"lon": -3.1948846,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9479678,
+					-3.1948846
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Biddy Mulligans",
@@ -6622,8 +7978,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9492026,
-			"lon": -3.1944624,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9492026,
+					-3.1944624
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Ensign Ewart",
@@ -6650,8 +8012,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9495199,
-			"lon": -3.1939483,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9495199,
+					-3.1939483
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Jolly Judge",
@@ -6678,8 +8046,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9468275,
-			"lon": -3.1914896,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9468275,
+					-3.1914896
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Greyfriars Bobby's Bar",
@@ -6706,8 +8080,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9488466,
-			"lon": -3.1866449,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9488466,
+					-3.1866449
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bannerman's Bar",
@@ -6737,8 +8117,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9487847,
-			"lon": -3.1860065,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9487847,
+					-3.1860065
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Pilgrim",
@@ -6765,8 +8151,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9438771,
-			"lon": -3.219036,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9438771,
+					-3.219036
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Dickens",
@@ -6793,8 +8185,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9485463,
-			"lon": -3.1864684,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9485463,
+					-3.1864684
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Rowantree",
@@ -6818,8 +8216,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9480207,
-			"lon": -3.191582,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9480207,
+					-3.191582
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Villager",
@@ -6846,8 +8250,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9509189,
-			"lon": -3.1904398,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9509189,
+					-3.1904398
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Jake's Place",
@@ -6876,8 +8286,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9478483,
-			"lon": -3.1913274,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9478483,
+					-3.1913274
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Dropkick Murphys",
@@ -6903,8 +8319,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9496956,
-			"lon": -3.1870785,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9496956,
+					-3.1870785
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Globe Bar",
@@ -6934,8 +8356,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9462614,
-			"lon": -3.2144247,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9462614,
+					-3.2144247
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Diane's Pool Hall",
@@ -6961,8 +8389,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9426513,
-			"lon": -3.2033557,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9426513,
+					-3.2033557
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Kings Arms",
@@ -6987,8 +8421,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9560603,
-			"lon": -3.1927566,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9560603,
+					-3.1927566
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Lord Bodo's Bar",
@@ -7010,8 +8450,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9577513,
-			"lon": -3.2066055,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9577513,
+					-3.2066055
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Last Word",
@@ -7039,8 +8485,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9539831,
-			"lon": -3.1996939,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9539831,
+					-3.1996939
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Bon Vivant",
@@ -7066,8 +8518,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9601534,
-			"lon": -3.2010233,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9601534,
+					-3.2010233
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Clark's Bar",
@@ -7093,8 +8551,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.958676,
-			"lon": -3.1904335,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.958676,
+					-3.1904335
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Pickles",
@@ -7121,8 +8585,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.952528,
-			"lon": -3.2044479,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.952528,
+					-3.2044479
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Candy",
@@ -7149,8 +8619,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.938296,
-			"lon": -3.1915943,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.938296,
+					-3.1915943
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cellar Monkey",
@@ -7172,8 +8648,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9581259,
-			"lon": -3.1898042,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9581259,
+					-3.1898042
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bangkok Bar",
@@ -7201,8 +8683,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.946248,
-			"lon": -3.2126362,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.946248,
+					-3.2126362
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Priory",
@@ -7227,8 +8715,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9492753,
-			"lon": -3.1855034,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9492753,
+					-3.1855034
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Blackfriars",
@@ -7241,8 +8735,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9473369,
-			"lon": -3.1859154,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9473369,
+					-3.1859154
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Rascals",
@@ -7267,8 +8767,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9463053,
-			"lon": -3.1838351,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9463053,
+					-3.1838351
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "10 Wine Bar",
@@ -7294,8 +8800,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9541892,
-			"lon": -3.2015393,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9541892,
+					-3.2015393
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Lucky Liquor Co.",
@@ -7319,8 +8831,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9532255,
-			"lon": -3.2070146,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9532255,
+					-3.2070146
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Panda & Sons",
@@ -7346,8 +8864,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.950319,
-			"lon": -3.1916579,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.950319,
+					-3.1916579
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Devil's Advocate",
@@ -7373,8 +8897,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9458278,
-			"lon": -3.1977595,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9458278,
+					-3.1977595
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Wee Red Bar",
@@ -7397,8 +8927,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.959328,
-			"lon": -3.2143392,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.959328,
+					-3.2143392
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Rollo",
@@ -7421,8 +8957,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9522424,
-			"lon": -3.1890178,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9522424,
+					-3.1890178
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Nor' Loch",
@@ -7447,8 +8989,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9428529,
-			"lon": -3.2085302,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9428529,
+					-3.2085302
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Badabing",
@@ -7489,8 +9037,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9479383,
-			"lon": -3.1949977,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9479383,
+					-3.1949977
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Wee Pub",
@@ -7512,8 +9066,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9492302,
-			"lon": -3.1861131,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9492302,
+					-3.1861131
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bar 50",
@@ -7543,8 +9103,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9464428,
-			"lon": -3.2144326,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9464428,
+					-3.2144326
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Mad Hatter",
@@ -7572,8 +9138,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9570806,
-			"lon": -3.1866874,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9570806,
+					-3.1866874
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Beer & Skittles",
@@ -7603,8 +9175,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9396108,
-			"lon": -3.1802505,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9396108,
+					-3.1802505
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Clerk's Bar",
@@ -7632,8 +9210,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9386963,
-			"lon": -3.1815433,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9386963,
+					-3.1815433
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Victoria Bar & Lounge",
@@ -7660,8 +9244,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.945708,
-			"lon": -3.2036262,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.945708,
+					-3.2036262
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "SkyBar",
@@ -7683,8 +9273,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9511467,
-			"lon": -3.1887459,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9511467,
+					-3.1887459
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Sportsters",
@@ -7711,8 +9307,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9460012,
-			"lon": -3.2184457,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9460012,
+					-3.2184457
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Platform 5",
@@ -7741,8 +9343,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9504645,
-			"lon": -3.1888468,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9504645,
+					-3.1888468
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Arcade Bar",
@@ -7771,8 +9379,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9563435,
-			"lon": -3.1858006,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9563435,
+					-3.1858006
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Slug & Lettuce",
@@ -7800,8 +9414,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9529904,
-			"lon": -3.1899776,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9529904,
+					-3.1899776
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Balmoral Bar",
@@ -7827,8 +9447,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9499129,
-			"lon": -3.2079909,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9499129,
+					-3.2079909
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Heads & Tales",
@@ -7853,8 +9479,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9509718,
-			"lon": -3.1888797,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9509718,
+					-3.1888797
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Halfway House",
@@ -7881,8 +9513,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9509023,
-			"lon": -3.1888514,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9509023,
+					-3.1888514
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Jinglin' Geordie",
@@ -7913,8 +9551,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9489093,
-			"lon": -3.1872526,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9489093,
+					-3.1872526
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Cafe Voltaire",
@@ -7942,8 +9586,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9499346,
-			"lon": -3.1872649,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9499346,
+					-3.1872649
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Whistlebinkies",
@@ -7970,8 +9620,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9504575,
-			"lon": -3.1842655,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9504575,
+					-3.1842655
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Waverley",
@@ -7984,8 +9640,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.950508,
-			"lon": -3.1843266,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.950508,
+					-3.1843266
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The World's End",
@@ -8014,8 +9676,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9496224,
-			"lon": -3.1870411,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9496224,
+					-3.1870411
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Hive",
@@ -8038,8 +9706,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9505002,
-			"lon": -3.1861418,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9505002,
+					-3.1861418
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Rabbie Burns",
@@ -8062,8 +9736,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9499058,
-			"lon": -3.1934663,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9499058,
+					-3.1934663
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Whiski Rooms",
@@ -8092,8 +9772,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9493407,
-			"lon": -3.1826552,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9493407,
+					-3.1826552
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Holyrood 9A",
@@ -8121,8 +9807,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.944553,
-			"lon": -3.1851474,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.944553,
+					-3.1851474
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Andrew Usher & Co.",
@@ -8135,8 +9827,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.952191,
-			"lon": -3.1770091,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.952191,
+					-3.1770091
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Kilderkin",
@@ -8165,8 +9863,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9395588,
-			"lon": -3.1795881,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9395588,
+					-3.1795881
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Abbey",
@@ -8197,8 +9901,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9506189,
-			"lon": -3.1835665,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9506189,
+					-3.1835665
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "White Horse",
@@ -8226,8 +9936,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9507741,
-			"lon": -3.1824251,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9507741,
+					-3.1824251
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Canons' Gait",
@@ -8255,8 +9971,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.951814,
-			"lon": -3.2061799,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.951814,
+					-3.2061799
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "George Street Bar and Grill",
@@ -8283,8 +10005,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9518714,
-			"lon": -3.2053095,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9518714,
+					-3.2053095
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Alexander Graham Bell",
@@ -8312,8 +10040,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9529173,
-			"lon": -3.1995774,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9529173,
+					-3.1995774
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Standing Order",
@@ -8340,8 +10074,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.95246,
-			"lon": -3.1964337,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.95246,
+					-3.1964337
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Hoot the Redeemer",
@@ -8354,8 +10094,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9507003,
-			"lon": -3.1844017,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9507003,
+					-3.1844017
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "No.1 High Street",
@@ -8387,8 +10133,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9407112,
-			"lon": -3.215727,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9407112,
+					-3.215727
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bainfield Union",
@@ -8411,8 +10163,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9548523,
-			"lon": -3.1975703,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9548523,
+					-3.1975703
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Bramble",
@@ -8436,8 +10194,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9541427,
-			"lon": -3.2007844,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9541427,
+					-3.2007844
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Fingers Piano Bar",
@@ -8459,8 +10223,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9519939,
-			"lon": -3.2024014,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9519939,
+					-3.2024014
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "International Vodka and Beer Bar",
@@ -8485,8 +10255,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9575734,
-			"lon": -3.1846236,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9575734,
+					-3.1846236
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Planet",
@@ -8515,8 +10291,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9466412,
-			"lon": -3.2054839,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9466412,
+					-3.2054839
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "The Beer Kitchen",
@@ -8544,8 +10326,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9436148,
-			"lon": -3.1938586,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9436148,
+					-3.1938586
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "No.8 Lister Square",
@@ -8558,8 +10346,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9443423,
-			"lon": -3.2116916,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9443423,
+					-3.2116916
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Marcos",
@@ -8585,8 +10379,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9531932,
-			"lon": -3.1908602,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9531932,
+					-3.1908602
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Juniper",
@@ -8615,8 +10415,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.950412,
-			"lon": -3.2083047,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.950412,
+					-3.2083047
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Ryan's Bar",
@@ -8644,8 +10450,14 @@ define(function(){return{
 			}
 		},
 		{
-			"lat": 55.9464399,
-			"lon": -3.2053995,
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9464399,
+					-3.2053995
+				]
+			},
 			"properties": {
 				"current": {
 					"name": "Velveteen",

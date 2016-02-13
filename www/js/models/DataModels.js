@@ -34,9 +34,19 @@ define(function() {
     /**
      * @constructor
      */
+    function Point(lat, lon) {
+        /** @type {string} */
+        this.type = "Point";
+        /** @type {number[]} */
+        this.coordinates = [lat, lon];
+    }
+
+    /**
+     * @constructor
+     */
     function Site() {
-        this.lat = 0;
-        this.lon = 0;
+        this.type = "Feature";
+        this.geometry = new Point(0,0);
         this.properties = {
             /** @type {Pub} */
             current: null,

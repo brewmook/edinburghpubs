@@ -232,21 +232,23 @@ function (GeoCoord, Vector, Voronoi) {
     /**
      * Project GeoCoords to 2d cartesian.
      *
-     * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects.
+     * @param {Object[]} pointFeatures - A list of GeoJSON point features
      * @param {GeoCoord} origin - The origin on the sphere's surface.
      * @param {number} radius - The radius in metres of the sphere.
      * @returns {{x:number, y:number, z:number, loc:Object}[]}
      *     The loc object is the corresponding original object from locations.
      */
-    function projectGeoCoordsToXY(locations, origin, radius)
+    function projectGeoCoordsToXY(pointFeatures, origin, radius)
     {
         var originLatRad = origin.lat * DegToRad;
         var cosOriginLat = Math.cos(originLatRad);
         var sinOriginLat = Math.sin(originLatRad);
 
-        return locations.map(function(loc) {
-            var theta = (90 - loc.lat) * DegToRad;
-            var phi = (loc.lon - origin.lon) * DegToRad;
+        return pointFeatures.map(function(point) {
+            var lat = point.geometry.coordinates[0];
+            var lon = point.geometry.coordinates[1];
+            var theta = (90 - lat) * DegToRad;
+            var phi = (lon - origin.lon) * DegToRad;
 
             // to 3d cartesian coordinates
             var sinTheta = Math.sin(theta);
@@ -259,7 +261,7 @@ function (GeoCoord, Vector, Voronoi) {
 
             // project onto new xy orientation
             return {
-                loc: loc,
+                loc: point,
                 x: y,
                 y: newZ
             };
@@ -317,15 +319,15 @@ function (GeoCoord, Vector, Voronoi) {
     /**
      * Compute the voronoi polygon of a set of objects on the surface of the Earth.
      *
-     * @param {GeoCoord[]} locations - A list of GeoCoord (or GeoCoord-like) objects
+     * @param {Object[]} pointFeatures - A list of GeoJSON point features.
      * @param {GeoCoord} origin - Origin on the surface of the Earth.
      * @param {number} circleRadius - Radius in metres of circle around [origin] to crop results to.
      * @param {voronoiCellCallback} callback - Called for every cell calculated.
      */
-    function earthSurfaceVoronoi(locations, origin, circleRadius, callback)
+    function earthSurfaceVoronoi(pointFeatures, origin, circleRadius, callback)
     {
         var computed = voronoi.compute(
-            projectGeoCoordsToXY(locations, origin, EarthRadiusMetres),
+            projectGeoCoordsToXY(pointFeatures, origin, EarthRadiusMetres),
             squareBoundingBox(2*circleRadius+100)
         );
 

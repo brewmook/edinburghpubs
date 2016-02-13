@@ -16,12 +16,12 @@ var newData = {
     target: originalData.target,
     sites: originalData.sites.map(function(site){
         return {
-            lat: site.lat,
-            lon: site.lon,
-            properties: {
-                current: site.current,
-                history: site.history
-            }
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [site.lat, site.lon]
+            },
+            properties: site.properties
         };
     })
 };

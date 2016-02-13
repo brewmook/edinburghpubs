@@ -70,8 +70,8 @@ function (SitesView) {
     {
         return new SitesView.Site(
             site.properties.current.name,
-            site.lat,
-            site.lon,
+            site.geometry.coordinates[0],
+            site.geometry.coordinates[1],
             bubbleHtml(site)
         );
     }
