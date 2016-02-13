@@ -3,6 +3,7 @@ function (GeoCoord, Vector, Voronoi) {
 
     var EarthRadiusMetres = 6378137;
     var DegToRad = Math.PI/180.0;
+    var voronoi = new Voronoi();
 
     function quadrance2d(x, y) {
         return x*x + y*y;
@@ -271,7 +272,7 @@ function (GeoCoord, Vector, Voronoi) {
      * @param {number[][]} cartesians - A list of 2d points in cartesian space.
      * @param {GeoCoord} origin - The origin on the sphere's surface to translate back to.
      * @param {number} sphereRadius - The radius in metres of the sphere.
-     * @returns {GeoCoord[]} The Leaflet-friendly coordinates.
+     * @returns {number[][]} The geographic coordinates (lat, lon).
      */
     function cartesianToGeoCoord(cartesians, origin, sphereRadius)
     {
@@ -292,7 +293,7 @@ function (GeoCoord, Vector, Voronoi) {
             var theta = Math.acos(z/sphereRadius) * radToDeg;
             var phi = Math.atan(y/x) * radToDeg;
 
-            return new GeoCoord(90.0 - theta, phi + origin.lon);
+            return [90.0 - theta, phi + origin.lon];
         });
     }
 
@@ -310,7 +311,7 @@ function (GeoCoord, Vector, Voronoi) {
     /**
      * @callback voronoiCellCallback
      * @param {Object} object - The original object with {GeoCoord}-like attributes.
-     * @param {GeoCoord[]} polygon - The {GeoCoord}s of the voronoi cell surrounding [object].
+     * @param {number[][]} polygon - The geographic coordinates (lat, lon) of the voronoi cell surrounding [object].
      */
 
     /**
@@ -323,7 +324,6 @@ function (GeoCoord, Vector, Voronoi) {
      */
     function earthSurfaceVoronoi(locations, origin, circleRadius, callback)
     {
-        var voronoi = new Voronoi();
         var computed = voronoi.compute(
             projectGeoCoordsToXY(locations, origin, EarthRadiusMetres),
             squareBoundingBox(2*circleRadius+100)
@@ -339,6 +339,8 @@ function (GeoCoord, Vector, Voronoi) {
             var geoCoordPolygon = cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres);
             callback(cell.site.loc, geoCoordPolygon);
         });
+
+        voronoi.recycle(computed);
     }
 
     function earthSurfaceCircleBounds(origin, circleRadius)

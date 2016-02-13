@@ -36,13 +36,13 @@ define(['leaflet'], function (leaflet)
     };
 
     /**
-     * @param {GeoCoord[]} points
+     * @param {number[][]} points - Geographic coordinates, [lat, lon].
      * @param {Colour} colour
      */
     VoronoiView.prototype.addPolygon = function(points, colour)
     {
         leaflet.polygon(
-            points.map(function(coord) { return leaflet.latLng([coord.lat, coord.lon]); }),
+            points,
             {
                 fillColor: colour.toString(),
                 stroke: false,

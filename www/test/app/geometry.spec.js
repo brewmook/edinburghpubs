@@ -32,9 +32,6 @@ function(GeoCoord, Vector, geometry) {
                             pass: cartesiansAlmostEqual(actual, expected, epsilon)
                         }
                     }
-                    return {
-                        pass: actual.almostEquals(expected, epsilon)
-                    };
                 }
             }
         }
@@ -316,11 +313,11 @@ function(GeoCoord, Vector, geometry) {
                 [ 17, 0]
             ];
             var expected = [
-                new GeoCoord(1,1),
-                new GeoCoord(0,1),
-                new GeoCoord(2,1),
-                new GeoCoord(1,0),
-                new GeoCoord(1,2)
+                [1,1],
+                [0,1],
+                [2,1],
+                [1,0],
+                [1,2]
             ];
 
             var actual = geometry.cartesianToGeoCoord(cartesians, origin, sphereRadius);
