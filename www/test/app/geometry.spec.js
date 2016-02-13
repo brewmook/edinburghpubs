@@ -233,7 +233,7 @@ function(Vector, geometry) {
 
     });
 
-    describe('projectGeoCoordsToXY', function() {
+    describe('pointFeaturesToCartesians', function() {
 
         beforeEach(function() {
             jasmine.addMatchers(customMatchers);
@@ -242,7 +242,7 @@ function(Vector, geometry) {
         it('converts lat/lng to cartesian coordinates', function() {
             var origin = [1,1];
             var sphereRadius = 1000;
-            var geocoords = [
+            var features = [
                 pointFeature(1,1),
                 pointFeature(0,1),
                 pointFeature(2,1),
@@ -257,7 +257,7 @@ function(Vector, geometry) {
                 cartesian( 17.45, 0)
             ];
 
-            var actual = geometry.projectGeoCoordsToXY(geocoords, origin, sphereRadius);
+            var actual = geometry.pointFeaturesToCartesians(features, origin, sphereRadius);
             expect(actual.length).toEqual(expected.length);
 
             for (var i = 0; i < actual.length; ++i) {
@@ -268,7 +268,7 @@ function(Vector, geometry) {
         it('converts lat/lng to cartesian coordinates (triangulation)', function() {
             var origin = [45,90];
             var sphereRadius = 1000;
-            var geocoords = [
+            var features = [
                 pointFeature( 0, 45),
                 pointFeature( 0, 90),
                 pointFeature( 0,135),
@@ -291,7 +291,7 @@ function(Vector, geometry) {
                 cartesian(   0,  707)
             ];
 
-            var actual = geometry.projectGeoCoordsToXY(geocoords, origin, sphereRadius);
+            var actual = geometry.pointFeaturesToCartesians(features, origin, sphereRadius);
             expect(actual.length).toEqual(expected.length);
 
             for (var i = 0; i < actual.length; ++i) {
@@ -300,7 +300,7 @@ function(Vector, geometry) {
         });
     });
 
-    describe('cartesianToGeoCoord', function() {
+    describe('cartesiansToGeoCoords', function() {
 
         beforeEach(function() {
             jasmine.addMatchers(customMatchers);
@@ -324,7 +324,7 @@ function(Vector, geometry) {
                 [1,2]
             ];
 
-            var actual = geometry.cartesianToGeoCoord(cartesians, origin, sphereRadius);
+            var actual = geometry.cartesiansToGeoCoords(cartesians, origin, sphereRadius);
             expect(actual.length).toEqual(expected.length);
 
             for (var i = 0; i < actual.length; ++i) {

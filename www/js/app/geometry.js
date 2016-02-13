@@ -230,15 +230,15 @@ function (Vector, Voronoi) {
     }
 
     /**
-     * Project GeoCoords to 2d cartesian.
+     * Project GeoJSON point features onto 2d cartesian plane.
      *
      * @param {Object[]} pointFeatures - A list of GeoJSON point features
      * @param {number[]} origin - The geographic coordinates of the origin (lat, lon) on the sphere's surface.
      * @param {number} radius - The radius in metres of the sphere.
-     * @returns {{x:number, y:number, z:number, feature:Object}[]}
+     * @returns {{x:number, y:number, feature:Object}[]}
      *     The [feature] member is the corresponding original feature from [pointFeatures].
      */
-    function projectGeoCoordsToXY(pointFeatures, origin, radius)
+    function pointFeaturesToCartesians(pointFeatures, origin, radius)
     {
         var originLat = origin[0];
         var originLon = origin[1];
@@ -278,7 +278,7 @@ function (Vector, Voronoi) {
      * @param {number} sphereRadius - The radius in metres of the sphere.
      * @returns {number[][]} The geographic coordinates (lat, lon).
      */
-    function cartesianToGeoCoord(cartesians, origin, sphereRadius)
+    function cartesiansToGeoCoords(cartesians, origin, sphereRadius)
     {
         var originLat = origin[0];
         var originLon = origin[1];
@@ -331,7 +331,7 @@ function (Vector, Voronoi) {
     function earthSurfaceVoronoi(pointFeatures, origin, circleRadius, callback)
     {
         var computed = voronoi.compute(
-            projectGeoCoordsToXY(pointFeatures, origin, EarthRadiusMetres),
+            pointFeaturesToCartesians(pointFeatures, origin, EarthRadiusMetres),
             squareBoundingBox(2*circleRadius+100)
         );
 
@@ -342,7 +342,7 @@ function (Vector, Voronoi) {
                 return [start.x, start.y];
             });
             var croppedPolygon = cropToCircle2d(polygon, circleRadius, 3);
-            var geoCoordPolygon = cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres);
+            var geoCoordPolygon = cartesiansToGeoCoords(croppedPolygon, origin, EarthRadiusMetres);
             callback(cell.site.feature, geoCoordPolygon);
         });
 
@@ -360,12 +360,12 @@ function (Vector, Voronoi) {
             [-circleRadius, -circleRadius],
             [ circleRadius,  circleRadius]
         ];
-        return cartesianToGeoCoord(bounds, origin, EarthRadiusMetres);
+        return cartesiansToGeoCoords(bounds, origin, EarthRadiusMetres);
     }
 
     return {
-        projectGeoCoordsToXY: projectGeoCoordsToXY,
-        cartesianToGeoCoord: cartesianToGeoCoord,
+        pointFeaturesToCartesians: pointFeaturesToCartesians,
+        cartesiansToGeoCoords: cartesiansToGeoCoords,
         clockwiseArc2d: clockwiseArc2d,
         cropToCircle2d: cropToCircle2d,
         earthSurfaceCircleBounds: earthSurfaceCircleBounds,
