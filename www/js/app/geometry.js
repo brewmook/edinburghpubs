@@ -1,5 +1,5 @@
-define(['app/GeoCoord', 'app/Vector', 'voronoi'],
-function (GeoCoord, Vector, Voronoi) {
+define(['app/Vector', 'voronoi'],
+function (Vector, Voronoi) {
 
     var EarthRadiusMetres = 6378137;
     var DegToRad = Math.PI/180.0;
@@ -235,8 +235,8 @@ function (GeoCoord, Vector, Voronoi) {
      * @param {Object[]} pointFeatures - A list of GeoJSON point features
      * @param {number[]} origin - The geographic coordinates of the origin (lat, lon) on the sphere's surface.
      * @param {number} radius - The radius in metres of the sphere.
-     * @returns {{x:number, y:number, z:number, loc:Object}[]}
-     *     The loc object is the corresponding original object from locations.
+     * @returns {{x:number, y:number, z:number, feature:Object}[]}
+     *     The [feature] member is the corresponding original feature from [pointFeatures].
      */
     function projectGeoCoordsToXY(pointFeatures, origin, radius)
     {
@@ -263,7 +263,7 @@ function (GeoCoord, Vector, Voronoi) {
 
             // project onto new xy orientation
             return {
-                loc: point,
+                feature: point,
                 x: y,
                 y: newZ
             };
@@ -316,7 +316,7 @@ function (GeoCoord, Vector, Voronoi) {
 
     /**
      * @callback voronoiCellCallback
-     * @param {Object} object - The original object with {GeoCoord}-like attributes.
+     * @param {Object} feature - The original GeoJSON feature.
      * @param {number[][]} polygon - The geographic coordinates (lat, lon) of the voronoi cell surrounding [object].
      */
 
@@ -343,7 +343,7 @@ function (GeoCoord, Vector, Voronoi) {
             });
             var croppedPolygon = cropToCircle2d(polygon, circleRadius, 3);
             var geoCoordPolygon = cartesianToGeoCoord(croppedPolygon, origin, EarthRadiusMetres);
-            callback(cell.site.loc, geoCoordPolygon);
+            callback(cell.site.feature, geoCoordPolygon);
         });
 
         voronoi.recycle(computed);

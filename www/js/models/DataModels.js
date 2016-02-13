@@ -4,7 +4,7 @@ define(function() {
      * @constructor
      */
     function Target() {
-        this.origin = new GeoCoord(0,0);
+        this.origin = [0,0];
         this.radius = 0;
     }
 

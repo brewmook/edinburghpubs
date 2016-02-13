@@ -1,5 +1,5 @@
-define(['app/GeoCoord', 'app/Vector', 'app/geometry'],
-function(GeoCoord, Vector, geometry) {
+define(['app/Vector', 'app/geometry'],
+function(Vector, geometry) {
 
     function cartesian(x, y) {
         return { x: x, y: y };
