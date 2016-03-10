@@ -141,12 +141,14 @@ function(Grouper,
         grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
 
         var sitesModel = new SitesModel(pubsData.features, grouper);
-        var statsModel = new StatsModel(new Price());
+        var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
 
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
 
+        // TODO: This is a little fragile. Must go before setVisibleGroups call.
+        statsModel.stat.raise(new Price());
 
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
         view.setStatusMessage("");

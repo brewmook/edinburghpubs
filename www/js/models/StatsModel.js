@@ -1,5 +1,5 @@
-define(['app/Observable', 'app/ObservableValue'],
-function (Observable, ObservableValue) {
+define(['app/Observable'],
+function (Observable) {
 
     // ---------------------------------------------------------------------------------------------
     // Private functions
@@ -17,12 +17,21 @@ function (Observable, ObservableValue) {
     /**
      * @constructor
      */
-    function StatsModel(stat)
+    function StatsModel()
     {
-        /** @type {ObservableValue.<StatsModel.Stat>} */
-        this.stat = new ObservableValue(stat);
+        /** @type {Observable.<StatsModel.Stat>} */
+        this.stat = new Observable();
         /** @type {Observable.<StatsModel.Summary>} */
         this.summary = new Observable();
+        /**
+         * @type {?StatsModel.Stat}
+         * @private
+         */
+        this._cachedStat = null;
+
+        this.stat.subscribe(function(stat) {
+            this._cachedStat = stat;
+        }, this);
     }
 
     /**
@@ -32,8 +41,8 @@ function (Observable, ObservableValue) {
     {
         var me = this;
         sitesModel.sites.subscribe(function(sites) {
-            if (sites.length > 0) {
-                var stat = me.stat.get();
+            var stat = me._cachedStat;
+            if (stat && sites.length > 0) {
                 var values = stat.filterValidValues(sites.map(stat.getValue)).sort(compareNumbers);
                 var summary = null;
                 if (values.length > 0) {

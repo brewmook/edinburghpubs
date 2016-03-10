@@ -1,5 +1,5 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'views/VoronoiView'],
-function (Colour, ColourMap, geometry, VoronoiView) {
+define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/Observable', 'views/VoronoiView'],
+function (Colour, ColourMap, geometry, Observable, VoronoiView) {
 
     /**
      * @param {ColourMap} colourMap
@@ -27,10 +27,10 @@ function (Colour, ColourMap, geometry, VoronoiView) {
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
 
-        statsModel.summary.subscribe(function(summary) {
-            setColours(colourMap, summary);
+        Observable.Combine([statsModel.stat, statsModel.summary], function(stat, summary) {
+            if (!stat) return;
 
-            var stat = statsModel.stat.get();
+            setColours(colourMap, summary);
 
             var legendEntries = [];
             if (summary) {
@@ -43,7 +43,9 @@ function (Colour, ColourMap, geometry, VoronoiView) {
         });
 
         sitesModel.sites.subscribe(function(sites) {
-            var stat = statsModel.stat.get();
+            // TODO: This should use statsModel.stat.subscribe() somehow
+            var stat = statsModel._cachedStat;
+            if (!stat) return;
 
             view.clearPolygons();
 
