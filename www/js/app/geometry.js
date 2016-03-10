@@ -85,7 +85,8 @@ function (Vector, Voronoi) {
     /**
      * Crops a polygon to a circle at the origin.
      *
-     * Assumes polygon is concave, points are defined in a clockwise direction, and
+     * Assumes polygon is convex, points are defined in a clockwise direction, and
+     * Assumes polygon is convex, points are defined in a clockwise direction, and
      * all points are co-planar on a Z plane.
      *
      * @param {number[][]} polygon - Polygon of 2d points.

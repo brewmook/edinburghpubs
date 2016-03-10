@@ -1,5 +1,5 @@
-define(['views/MapView', 'views/SitesView', 'views/TagsView', 'views/TargetView', 'views/VoronoiView'],
-function(MapView, SitesView, TagsView, TargetView, VoronoiView) {
+define(['views/MapView', 'views/SitesView', 'views/FilterView', 'views/TargetView', 'views/VoronoiView'],
+function(MapView, SitesView, FilterView, TargetView, VoronoiView) {
 
     /**
      * @constructor
@@ -10,7 +10,7 @@ function(MapView, SitesView, TagsView, TargetView, VoronoiView) {
         this.target = new TargetView(mapView.map);
         this.voronoi = new VoronoiView(mapView.map);
         this.sites = new SitesView(mapView.map);
-        this.tags = new TagsView(mapView.map);
+        this.filter = new FilterView(mapView.map);
     }
 
     /**

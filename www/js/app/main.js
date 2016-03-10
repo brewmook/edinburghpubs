@@ -1,9 +1,13 @@
 define(['app/Grouper',
-        'views/View', 'adapters/SitesAdapter', 'adapters/TagsAdapter', 'adapters/VoronoiAdapter',
-        'models/SitesModel', 'models/StatsModel', 'data/pubs'],
+        'views/View', 'adapters/SitesAdapter', 'adapters/VoronoiAdapter',
+        'models/FilterModel', 'models/SitesModel', 'models/StatsModel',
+        'intent/FilterIntent',
+        'data/pubs'],
 function(Grouper,
-         View, SitesAdapter, TagsAdapter, VoronoiAdapter,
-         SitesModel, StatsModel, pubsData) {
+         View, SitesAdapter, VoronoiAdapter,
+         FilterModel, SitesModel, StatsModel,
+         FilterIntent,
+         pubsData) {
 
     /**
      * @param {string[]} tags1
@@ -126,7 +130,6 @@ function(Grouper,
         };
 
         view.target.setTarget(target.origin, target.radius);
-        view.tags.setTags(uniqueTags(pubsData.features));
 
         view.sites.addGroup("Visited (green)", "green", true);
         view.sites.addGroup("Todo (gold)", "gold", true);
@@ -142,7 +145,6 @@ function(Grouper,
 
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
-        var tagsAdapter = new TagsAdapter(sitesModel, view.tags);
 
         sitesModel.sites.subscribe(function(sites) {
             statsModel.collectStats(sites);
@@ -150,6 +152,14 @@ function(Grouper,
 
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
         view.setStatusMessage("");
+
+        var filterModel = new FilterModel();
+        var filterIntent = new FilterIntent();
+        filterModel.setup(filterIntent, sitesModel);
+        view.filter.setup(filterModel);
+        filterIntent.setup(view.filter);
+
+        filterModel.allTags.raise(uniqueTags(pubsData.features));
     }
 
     initialiseMap();
