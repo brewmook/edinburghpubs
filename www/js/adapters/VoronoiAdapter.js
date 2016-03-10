@@ -26,7 +26,6 @@ function (Colour, ColourMap, geometry, VoronoiView) {
     {
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
-        setColours(colourMap, statsModel.summary.get());
 
         statsModel.summary.subscribe(function(summary) {
             setColours(colourMap, summary);
@@ -41,10 +40,15 @@ function (Colour, ColourMap, geometry, VoronoiView) {
             }
             legendEntries.push(new VoronoiView.LegendEntry("No data ", colourMap.colour(Number.MAX_VALUE)));
             view.setLegend(stat.label(), legendEntries);
+        });
+
+        sitesModel.sites.subscribe(function(sites) {
+            var stat = statsModel.stat.get();
+
             view.clearPolygons();
 
             geometry.earthSurfaceVoronoi(
-                sitesModel.sites.get(),
+                sites,
                 target.origin,
                 target.radius,
                 function(site, polygon) {

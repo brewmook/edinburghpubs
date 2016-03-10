@@ -141,14 +141,12 @@ function(Grouper,
         grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
 
         var sitesModel = new SitesModel(pubsData.features, grouper);
-        var statsModel = new StatsModel(new Price(), pubsData.features);
+        var statsModel = new StatsModel(new Price());
+        statsModel.setup(sitesModel);
 
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
         var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
 
-        sitesModel.sites.subscribe(function(sites) {
-            statsModel.collectStats(sites);
-        });
 
         sitesModel.setVisibleGroups(['Visited', 'Todo']);
         view.setStatusMessage("");

@@ -1,5 +1,5 @@
-define(['app/ObservableValue'],
-function (ObservableValue) {
+define(['app/Observable', 'app/ObservableValue'],
+function (Observable, ObservableValue) {
 
     // ---------------------------------------------------------------------------------------------
     // Private functions
@@ -17,34 +17,35 @@ function (ObservableValue) {
     /**
      * @constructor
      */
-    function StatsModel(stat, objects)
+    function StatsModel(stat)
     {
         /** @type {ObservableValue.<StatsModel.Stat>} */
         this.stat = new ObservableValue(stat);
-        /** @type {ObservableValue.<StatsModel.Summary>} */
-        this.summary = new ObservableValue(undefined);
-
-        this.collectStats(objects);
+        /** @type {Observable.<StatsModel.Summary>} */
+        this.summary = new Observable();
     }
 
     /**
-     * @param {Object[]} objects
+     * @param {SitesModel} sitesModel
      */
-    StatsModel.prototype.collectStats = function(objects)
+    StatsModel.prototype.setup = function(sitesModel)
     {
-        if (objects.length > 0) {
-            var stat = this.stat.get();
-            var values = stat.filterValidValues(objects.map(stat.getValue)).sort(compareNumbers);
-            var summary = null;
-            if (values.length > 0) {
-                summary = new StatsModel.Summary(
-                    values[0],
-                    values[values.length-1],
-                    values[Math.floor(values.length/2)]
-                );
+        var me = this;
+        sitesModel.sites.subscribe(function(sites) {
+            if (sites.length > 0) {
+                var stat = me.stat.get();
+                var values = stat.filterValidValues(sites.map(stat.getValue)).sort(compareNumbers);
+                var summary = null;
+                if (values.length > 0) {
+                    summary = new StatsModel.Summary(
+                        values[0],
+                        values[values.length-1],
+                        values[Math.floor(values.length/2)]
+                    );
+                }
+                me.summary.raise(summary);
             }
-            this.summary.set(summary);
-        }
+        });
     };
 
     // ---------------------------------------------------------------------------------------------
