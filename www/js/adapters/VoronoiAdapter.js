@@ -1,13 +1,17 @@
 define(['app/Colour', 'app/ColourMap', 'app/geometry', 'views/VoronoiView'],
 function (Colour, ColourMap, geometry, VoronoiView) {
 
-    function setColours(colourMap, stats)
+    /**
+     * @param {ColourMap} colourMap
+     * @param {StatsModel.Summary} summary
+     */
+    function setColours(colourMap, summary)
     {
         colourMap.clear();
-        if (stats) {
-            colourMap.addColour(stats.minimum, new Colour(0,255,0));
-            colourMap.addColour(stats.median, new Colour(0,0,255));
-            colourMap.addColour(stats.maximum, new Colour(255,0,0));
+        if (summary) {
+            colourMap.addColour(summary.minimum, new Colour(0,255,0));
+            colourMap.addColour(summary.median, new Colour(0,0,255));
+            colourMap.addColour(summary.maximum, new Colour(255,0,0));
         }
     }
 
@@ -22,18 +26,18 @@ function (Colour, ColourMap, geometry, VoronoiView) {
     {
         var colourMap = new ColourMap();
         colourMap.setOutOfRangeColour(new Colour(64,64,64));
-        setColours(colourMap, statsModel.stats.get());
+        setColours(colourMap, statsModel.summary.get());
 
-        statsModel.stats.subscribe(function(stats) {
-            setColours(colourMap, stats);
+        statsModel.summary.subscribe(function(summary) {
+            setColours(colourMap, summary);
 
             var stat = statsModel.stat.get();
 
             var legendEntries = [];
-            if (stats) {
-                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(stats.minimum), colourMap.colour(stats.minimum)));
-                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(stats.median), colourMap.colour(stats.median)));
-                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(stats.maximum), colourMap.colour(stats.maximum)));
+            if (summary) {
+                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(summary.minimum), colourMap.colour(summary.minimum)));
+                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(summary.median), colourMap.colour(summary.median)));
+                legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(summary.maximum), colourMap.colour(summary.maximum)));
             }
             legendEntries.push(new VoronoiView.LegendEntry("No data ", colourMap.colour(Number.MAX_VALUE)));
             view.setLegend(stat.label(), legendEntries);

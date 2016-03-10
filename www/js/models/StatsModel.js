@@ -10,13 +10,6 @@ function (ObservableValue) {
         return a - b;
     }
 
-    function Stats(minimum, maximum, median)
-    {
-        this.minimum = minimum;
-        this.maximum = maximum;
-        this.median = median;
-    }
-
     // ---------------------------------------------------------------------------------------------
     // StatsModel
     // ---------------------------------------------------------------------------------------------
@@ -28,8 +21,8 @@ function (ObservableValue) {
     {
         /** @type {ObservableValue.<StatsModel.Stat>} */
         this.stat = new ObservableValue(stat);
-        /** @type {ObservableValue.<Stats>} */
-        this.stats = new ObservableValue(undefined);
+        /** @type {ObservableValue.<StatsModel.Summary>} */
+        this.summary = new ObservableValue(undefined);
 
         this.collectStats(objects);
     }
@@ -42,15 +35,15 @@ function (ObservableValue) {
         if (objects.length > 0) {
             var stat = this.stat.get();
             var values = stat.filterValidValues(objects.map(stat.getValue)).sort(compareNumbers);
-            var stats = null;
+            var summary = null;
             if (values.length > 0) {
-                stats = new Stats(
+                summary = new StatsModel.Summary(
                     values[0],
                     values[values.length-1],
                     values[Math.floor(values.length/2)]
                 );
             }
-            this.stats.set(stats);
+            this.summary.set(summary);
         }
     };
 
@@ -86,6 +79,23 @@ function (ObservableValue) {
      * @returns {number[]}
      */
     StatsModel.Stat.prototype.filterValidValues = function(values) {};
+
+    // ---------------------------------------------------------------------------------------------
+    // StatsModel.Summary
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * @param minimum
+     * @param maximum
+     * @param median
+     * @constructor
+     */
+    StatsModel.Summary = function(minimum, maximum, median)
+    {
+        this.minimum = minimum;
+        this.maximum = maximum;
+        this.median = median;
+    };
 
     // ---------------------------------------------------------------------------------------------
 
