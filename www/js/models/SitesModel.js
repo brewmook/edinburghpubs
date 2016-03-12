@@ -1,5 +1,5 @@
-define(['app/ObservableValue'],
-function (ObservableValue) {
+define(['app/Observable'],
+function (Observable) {
 
     /**
      * @param {Site[]} sites
@@ -26,7 +26,7 @@ function (ObservableValue) {
      * @param {string[]} visibleGroups
      * @param {Site[]} allSites
      * @param {Grouper} grouper
-     * @param {ObservableValue.<Site[]>} sites
+     * @param {Observable.<Site[]>} sites
      */
     function updateSites(tag, visibleGroups, allSites, grouper, sites)
     {
@@ -41,7 +41,7 @@ function (ObservableValue) {
 
         var groups = grouper.groupSites(visibleSites);
         var filteredGroups = groups.filter(function(g) { return inList(g.label, visibleGroups); });
-        sites.set(filteredGroups.reduce(function(result, group) { return result.concat(group.sites); }, []));
+        sites.raise(filteredGroups.reduce(function(result, group) { return result.concat(group.sites); }, []));
     }
 
     /**
@@ -51,7 +51,7 @@ function (ObservableValue) {
      */
     function SitesModel(allSites, grouper)
     {
-        this.sites = new ObservableValue(allSites.slice());
+        this.sites = new Observable();
         this.grouper = grouper;
 
         this._allSites = allSites;

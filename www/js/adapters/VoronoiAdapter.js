@@ -42,12 +42,10 @@ function (Colour, ColourMap, geometry, Observable, VoronoiView) {
             view.setLegend(stat.label(), legendEntries);
         });
 
-        sitesModel.sites.subscribe(function(sites) {
-            // TODO: This should use statsModel.stat.subscribe() somehow
-            var stat = statsModel._cachedStat;
-            if (!stat) return;
-
+        Observable.Combine([sitesModel.sites, statsModel.stat], function(sites, stat) {
             view.clearPolygons();
+
+            if (!stat || !sites) return;
 
             geometry.earthSurfaceVoronoi(
                 sites,
