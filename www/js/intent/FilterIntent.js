@@ -1,4 +1,4 @@
-define(['app/Observable'],
+define(['utility/Observable'],
 function (Observable) {
 
     /**

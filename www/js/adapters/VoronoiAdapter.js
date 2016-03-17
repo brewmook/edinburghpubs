@@ -1,5 +1,5 @@
-define(['app/Colour', 'app/ColourMap', 'app/geometry', 'app/Observable', 'views/VoronoiView'],
-function (Colour, ColourMap, geometry, Observable, VoronoiView) {
+define(['app/geometry', 'utility/Colour', 'utility/ColourMap', 'utility/Observable', 'views/VoronoiView'],
+function (geometry, Colour, ColourMap, Observable, VoronoiView) {
 
     /**
      * @param {ColourMap} colourMap

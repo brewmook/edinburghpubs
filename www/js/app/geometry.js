@@ -1,4 +1,4 @@
-define(['app/Vector', 'voronoi'],
+define(['utility/Vector', 'voronoi'],
 function (Vector, Voronoi) {
 
     var EarthRadiusMetres = 6378137;

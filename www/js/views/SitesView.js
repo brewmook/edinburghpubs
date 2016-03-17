@@ -1,4 +1,4 @@
-define(['app/Observable', 'app/Set', 'leaflet'],
+define(['utility/Observable', 'utility/Set', 'leaflet'],
 function (Observable, Set, leaflet) {
 
     // -----------------------------------------------------------------------------------------------------------------
