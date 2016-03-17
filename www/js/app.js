@@ -3,7 +3,7 @@ requirejs.config({
     paths: {
         data: "../data",
         leaflet: "http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet",
-        voronoi: "lib/rhill-voronoi-core"
+        voronoi: "../lib/rhill-voronoi-core"
     },
     shim: {
         voronoi: { "exports": "Voronoi" }
