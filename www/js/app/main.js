@@ -131,10 +131,6 @@ function(Grouper,
 
         view.target.setTarget(target.origin, target.radius);
 
-        view.sites.addGroup("Visited (green)", "green", true);
-        view.sites.addGroup("Todo (gold)", "gold", true);
-        view.sites.addGroup("Excluded (red)", "red", false);
-
         var grouper = new Grouper();
         grouper.addGroup("Visited", isBlogged);
         grouper.addGroup("Todo", function(site) { return !isBlogged(site) && !isExcluded(site); });
@@ -144,8 +140,13 @@ function(Grouper,
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
 
+        view.sites.setup(sitesModel, grouper);
+        view.sites.addGroup("Visited (green)", "green", true);
+        view.sites.addGroup("Todo (gold)", "gold", true);
+        view.sites.addGroup("Excluded (red)", "red", false);
+
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
-        var sitesAdapter = new SitesAdapter(sitesModel, view.sites, grouper);
+        var sitesAdapter = new SitesAdapter(sitesModel, view.sites);
 
         // TODO: This is a little fragile. Must go before setVisibleGroups call.
         statsModel.stat.raise(new Price());
