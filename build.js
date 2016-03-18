@@ -10,5 +10,6 @@
     },
     modules: [
         {name: "app"}
-    ]
+    ],
+    fileExclusionRegExp: /^\.|^karma|^test|^leaflet/
 })
