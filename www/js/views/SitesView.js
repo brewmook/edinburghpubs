@@ -104,9 +104,8 @@ function (Observable, Set, leaflet) {
 
     /**
      * @param {SitesModel} sitesModel
-     * @param {Grouper} grouper
      */
-    SitesView.prototype.setup = function(sitesModel, grouper)
+    SitesView.prototype.setup = function(sitesModel)
     {
         var visibleGroups = this.visibleGroups;
         var visibleGroupsSet = this._visibleGroupsSet;
@@ -123,10 +122,9 @@ function (Observable, Set, leaflet) {
 
         var viewGroups = this._groups;
         sitesModel.sites.subscribe(function(sites) {
-            var groups = grouper.groupSites(sites);
             viewGroups.forEach(function(viewGroup) {
-                var group = groups.filter(function(g) { return viewGroup.label.indexOf(g.label) == 0; })[0];
-                viewGroup.setSites(group.sites.map(createViewSite));
+                var group = sites.filter(function(site) { return viewGroup.label.indexOf(site.properties.group) == 0; });
+                viewGroup.setSites(group.map(createViewSite));
             });
         });
     };

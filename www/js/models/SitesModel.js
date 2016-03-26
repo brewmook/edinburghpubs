@@ -25,10 +25,9 @@ function (Observable) {
      * @param {string} tag
      * @param {string[]} visibleGroups
      * @param {Site[]} allSites
-     * @param {Grouper} grouper
      * @param {Observable.<Site[]>} sites
      */
-    function updateSites(tag, visibleGroups, allSites, grouper, sites)
+    function updateSites(tag, visibleGroups, allSites, sites)
     {
         var visibleSites;
 
@@ -39,20 +38,17 @@ function (Observable) {
             visibleSites = sitesMatchingTag(allSites, tag);
         }
 
-        var groups = grouper.groupSites(visibleSites);
-        var filteredGroups = groups.filter(function(g) { return inList(g.label, visibleGroups); });
-        sites.raise(filteredGroups.reduce(function(result, group) { return result.concat(group.sites); }, []));
+        visibleSites = visibleSites.filter(function(site) { return inList(site.properties.group, visibleGroups); });
+        sites.raise(visibleSites);
     }
 
     /**
      * @param {Site[]} allSites
-     * @param {Grouper} grouper
      * @constructor
      */
-    function SitesModel(allSites, grouper)
+    function SitesModel(allSites)
     {
         this.sites = new Observable();
-        this.grouper = grouper;
 
         this._allSites = allSites;
         this._tag = '';
@@ -65,7 +61,7 @@ function (Observable) {
     SitesModel.prototype.setTag = function(tag)
     {
         this._tag = tag;
-        updateSites(this._tag, this._visibleGroups, this._allSites, this.grouper, this.sites);
+        updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
     };
 
     /**
@@ -74,7 +70,7 @@ function (Observable) {
     SitesModel.prototype.setVisibleGroups = function(visibleGroups)
     {
         this._visibleGroups = visibleGroups;
-        updateSites(this._tag, this._visibleGroups, this._allSites, this.grouper, this.sites);
+        updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
     };
 
     return SitesModel;

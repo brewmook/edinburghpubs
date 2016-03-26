@@ -1,10 +1,8 @@
-define(['app/Grouper',
-        'views/View', 'adapters/SitesAdapter', 'adapters/VoronoiAdapter',
+define(['views/View', 'adapters/SitesAdapter', 'adapters/VoronoiAdapter',
         'models/FilterModel', 'models/SitesModel', 'models/StatsModel',
         'intent/FilterIntent',
         'data/pubs'],
-function(Grouper,
-         View, SitesAdapter, VoronoiAdapter,
+function(View, SitesAdapter, VoronoiAdapter,
          FilterModel, SitesModel, StatsModel,
          FilterIntent,
          pubsData) {
@@ -131,16 +129,23 @@ function(Grouper,
 
         view.target.setTarget(target.origin, target.radius);
 
-        var grouper = new Grouper();
-        grouper.addGroup("Visited", isBlogged);
-        grouper.addGroup("Todo", function(site) { return !isBlogged(site) && !isExcluded(site); });
-        grouper.addGroup("Excluded", function(site) { return !isBlogged(site) && isExcluded(site); });
+        pubsData.features.forEach(function(site) {
+            if (isBlogged(site)) {
+                site.properties.group = "Visited";
+            } else {
+                if (isExcluded(site)) {
+                    site.properties.group = "Excluded";
+                } else {
+                    site.properties.group = "Todo";
+                }
+            }
+        });
 
-        var sitesModel = new SitesModel(pubsData.features, grouper);
+        var sitesModel = new SitesModel(pubsData.features);
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
 
-        view.sites.setup(sitesModel, grouper);
+        view.sites.setup(sitesModel);
         view.sites.addGroup("Visited (green)", "green", true);
         view.sites.addGroup("Todo (gold)", "gold", true);
         view.sites.addGroup("Excluded (red)", "red", false);
