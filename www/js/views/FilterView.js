@@ -7,7 +7,7 @@ function (Observable, leaflet) {
      */
     function FilterView(map)
     {
-        this.textBoxValue = new Observable();
+        this.textBoxChange = new Observable();
 
         var filterDiv = leaflet.DomUtil.create('div', 'filter');
 
@@ -36,11 +36,8 @@ function (Observable, leaflet) {
      */
     FilterView.prototype.setup = function(model)
     {
-        var textBox = this._filterTextBox;
-        var textBoxValue = this.textBoxValue;
-        textBox.addEventListener('change', function (e) {
-            textBoxValue.raise(textBox.value);
-        });
+        var textBoxChange = this.textBoxChange;
+        this._filterTextBox.addEventListener('change', function(e) { textBoxChange.raise(e); });
 
         var filterDatalist = this._filterDatalist;
         model.allTags.subscribe(function(tags) {

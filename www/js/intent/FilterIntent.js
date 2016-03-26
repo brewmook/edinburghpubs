@@ -14,7 +14,10 @@ function (Observable) {
      */
     FilterIntent.prototype.setup = function(view)
     {
-        Observable.Forward(view.textBoxValue, this.tagFilter);
+        var tagFilter = this.tagFilter;
+        view.textBoxChange.subscribe(function(event) {
+            tagFilter.raise(event.target.value);
+        });
     };
 
     return FilterIntent;
