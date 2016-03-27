@@ -43,12 +43,54 @@ function (Observable) {
     }
 
     /**
+     * @param {string[]} tags1
+     * @param {string[]} tags2
+     * @returns {boolean}
+     */
+    function tagsIntersect(tags1, tags2)
+    {
+        return tags1.some(function(tag1) {
+            return tags2.some(function(tag2) {
+                return tag1 == tag2;
+            });
+        });
+    }
+
+    function isBlogged(site) {
+        var current = site.properties.current;
+        return current
+            && current.visits.length
+            && current.visits[0].link;
+    }
+
+    function isExcluded(site) {
+        var excludedTags = ['Disqualified', 'Closed'];
+        return tagsIntersect(site.properties.current.tags, excludedTags);
+    }
+
+    function groupSites(sites) {
+        sites.forEach(function(site) {
+            if (isBlogged(site)) {
+                site.properties.group = "Visited";
+            } else {
+                if (isExcluded(site)) {
+                    site.properties.group = "Excluded";
+                } else {
+                    site.properties.group = "Todo";
+                }
+            }
+        });
+    }
+
+    /**
      * @param {Site[]} allSites
      * @constructor
      */
     function SitesModel(allSites)
     {
         this.sites = new Observable();
+
+        groupSites(allSites);
 
         this._allSites = allSites;
         this._tag = '';

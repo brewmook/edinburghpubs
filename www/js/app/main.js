@@ -7,31 +7,6 @@ function(View, SitesAdapter, VoronoiAdapter,
          FilterIntent,
          pubsData) {
 
-    /**
-     * @param {string[]} tags1
-     * @param {string[]} tags2
-     * @returns {boolean}
-     */
-    function tagsIntersect(tags1, tags2)
-    {
-        return tags1.some(function(tag1) {
-            return tags2.some(function(tag2) {
-                return tag1 == tag2;
-            });
-        });
-    }
-
-    function isBlogged(site) {
-        return site.properties.current
-            && site.properties.current.visits.length
-            && site.properties.current.visits[0].link;
-    }
-
-    function isExcluded(site) {
-        var excludedTags = ['Disqualified', 'Closed'];
-        return tagsIntersect(site.properties.current.tags, excludedTags);
-    }
-
     function uniqueTags(sites)
     {
         var tags = {};
@@ -128,18 +103,6 @@ function(View, SitesAdapter, VoronoiAdapter,
         };
 
         view.target.setTarget(target.origin, target.radius);
-
-        pubsData.features.forEach(function(site) {
-            if (isBlogged(site)) {
-                site.properties.group = "Visited";
-            } else {
-                if (isExcluded(site)) {
-                    site.properties.group = "Excluded";
-                } else {
-                    site.properties.group = "Todo";
-                }
-            }
-        });
 
         var sitesModel = new SitesModel(pubsData.features);
         var statsModel = new StatsModel();
