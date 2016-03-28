@@ -1,10 +1,10 @@
-define(['views/View', 'adapters/SitesAdapter', 'adapters/VoronoiAdapter',
-        'models/FilterModel', 'models/SitesModel', 'models/StatsModel',
-        'intent/FilterIntent',
+define(['views/View', 'adapters/VoronoiAdapter',
+        'models/FilterModel', 'models/GroupsModel', 'models/SitesModel', 'models/StatsModel',
+        'intent/FilterIntent', 'intent/GroupsIntent',
         'data/pubs'],
-function(View, SitesAdapter, VoronoiAdapter,
-         FilterModel, SitesModel, StatsModel,
-         FilterIntent,
+function(View, VoronoiAdapter,
+         FilterModel, GroupsModel, SitesModel, StatsModel,
+         FilterIntent, GroupsIntent,
          pubsData) {
 
     function uniqueTags(sites)
@@ -19,6 +19,13 @@ function(View, SitesAdapter, VoronoiAdapter,
             });
         });
         return Object.keys(tags).sort();
+    }
+
+    function setupMVI(model, view, intent)
+    {
+        model.setup(intent);
+        intent.setup(view);
+        view.setup(model);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -104,22 +111,23 @@ function(View, SitesAdapter, VoronoiAdapter,
 
         view.target.setTarget(target.origin, target.radius);
 
+        var groupsModel = new GroupsModel();
+        var groupsIntent = new GroupsIntent();
+        setupMVI(groupsModel, view.groups, groupsIntent);
+
         var sitesModel = new SitesModel(pubsData.features);
+        // Order here is important, the view has to set up groups first so that icons exist
+        // before groups requiring those icons are shown.
+        view.sites.setup(sitesModel, groupsModel);
+        sitesModel.setup(groupsModel);
+
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
 
-        view.sites.setup(sitesModel);
-        view.sites.addGroup("Visited (green)", "green", true);
-        view.sites.addGroup("Todo (gold)", "gold", true);
-        view.sites.addGroup("Excluded (red)", "red", false);
-
         var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
-        var sitesAdapter = new SitesAdapter(sitesModel, view.sites);
 
-        // TODO: This is a little fragile. Must go before setVisibleGroups call.
         statsModel.stat.raise(new Price());
 
-        sitesModel.setVisibleGroups(['Visited', 'Todo']);
         view.setStatusMessage("");
 
         var filterModel = new FilterModel();
@@ -127,6 +135,12 @@ function(View, SitesAdapter, VoronoiAdapter,
         filterModel.setup(filterIntent, sitesModel);
         view.filter.setup(filterModel);
         filterIntent.setup(view.filter);
+
+        groupsModel.setGroups([
+            new GroupsModel.Group("Visited", "green", true),
+            new GroupsModel.Group("Todo", "gold", true),
+            new GroupsModel.Group("Excluded", "red", false)
+        ]);
 
         filterModel.allTags.raise(uniqueTags(pubsData.features));
     }

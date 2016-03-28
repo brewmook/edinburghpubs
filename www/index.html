@@ -15,7 +15,7 @@
         body { padding:0; margin:0; }
         html, body, #map { height: 100%; }
         #message { position: absolute; top:0; right:0; background-color: white; padding:0 4px 2px; text-align:right; }
-        .filter, .legend {
+        .filter, .legend, .groups {
             padding: 6px 8px;
             background: white;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -29,6 +29,16 @@
             float: left;
             margin-right: 8px;
             opacity: 0.5;
+        }
+        .groups {
+            padding-right: 10px;
+        }
+        .groups label {
+            display: block;
+        }
+        .groups input {
+            position: relative;
+            top: 1px;
         }
     </style>
 </head>
