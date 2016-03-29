@@ -7,18 +7,26 @@ function (Observable) {
     function FilterModel()
     {
         this.allTags = new Observable();
+        this.currentTag = new Observable();
+        this._currentTagCache = '';
     }
 
     /**
      * @param {FilterIntent} filterIntent
-     * @param {SitesModel} sitesModel
      */
-    FilterModel.prototype.setup = function(filterIntent, sitesModel)
+    FilterModel.prototype.setup = function(filterIntent)
     {
-        // Temporary, should be doing the filter behaviour here instead.
         filterIntent.tagFilter.subscribe(function(tag) {
-            sitesModel.setTag(tag);
-        });
+            if (this._currentTagCache != tag) {
+                this._currentTagCache = tag;
+                this.currentTag.raise(tag);
+            }
+        }, this);
+    };
+
+    FilterModel.prototype.setAllTags = function(allTags)
+    {
+        this.allTags.raise(allTags);
     };
 
     return FilterModel;

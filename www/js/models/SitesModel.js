@@ -99,10 +99,17 @@ function (Observable) {
     }
 
     /**
+     * @param {FilterModel} filterModel
      * @param {GroupsModel} groupsModel
      */
-    SitesModel.prototype.setup = function(groupsModel)
+    SitesModel.prototype.setup = function(filterModel, groupsModel)
     {
+        filterModel.currentTag.subscribe(function(tag)
+        {
+            this._tag = tag;
+            updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
+        }, this);
+
         groupsModel.groups.subscribe(function(groups)
         {
             this._visibleGroups = groups
@@ -120,15 +127,6 @@ function (Observable) {
             }
             updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
         }, this);
-    }
-
-    /**
-     * @param {string} tag
-     */
-    SitesModel.prototype.setTag = function(tag)
-    {
-        this._tag = tag;
-        updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
     };
 
     return SitesModel;

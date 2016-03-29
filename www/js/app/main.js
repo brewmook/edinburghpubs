@@ -111,6 +111,10 @@ function(View, VoronoiAdapter,
 
         view.target.setTarget(target.origin, target.radius);
 
+        var filterModel = new FilterModel();
+        var filterIntent = new FilterIntent();
+        setupMVI(filterModel, view.filter, filterIntent);
+
         var groupsModel = new GroupsModel();
         var groupsIntent = new GroupsIntent();
         setupMVI(groupsModel, view.groups, groupsIntent);
@@ -119,7 +123,7 @@ function(View, VoronoiAdapter,
         // Order here is important, the view has to set up groups first so that icons exist
         // before groups requiring those icons are shown.
         view.sites.setup(sitesModel, groupsModel);
-        sitesModel.setup(groupsModel);
+        sitesModel.setup(filterModel, groupsModel);
 
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
@@ -130,19 +134,13 @@ function(View, VoronoiAdapter,
 
         view.setStatusMessage("");
 
-        var filterModel = new FilterModel();
-        var filterIntent = new FilterIntent();
-        filterModel.setup(filterIntent, sitesModel);
-        view.filter.setup(filterModel);
-        filterIntent.setup(view.filter);
-
         groupsModel.setGroups([
             new GroupsModel.Group("Visited", "green", true),
             new GroupsModel.Group("Todo", "gold", true),
             new GroupsModel.Group("Excluded", "red", false)
         ]);
 
-        filterModel.allTags.raise(uniqueTags(pubsData.features));
+        filterModel.setAllTags(uniqueTags(pubsData.features));
     }
 
     initialiseMap();
