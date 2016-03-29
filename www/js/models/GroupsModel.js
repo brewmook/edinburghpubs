@@ -33,11 +33,12 @@ function (Observable) {
         this.groups.raise(this._groupsCache);
     };
 
-    GroupsModel.Group = function(name, colour, visible)
+    GroupsModel.Group = function(name, colour, visible, filter)
     {
         this.name = name;
         this.colour = colour;
         this.visible = visible;
+        this.filter = filter;
     };
 
     return GroupsModel;

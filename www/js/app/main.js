@@ -28,6 +28,32 @@ function(View, VoronoiAdapter,
         view.setup(model);
     }
 
+    /**
+     * @param {string[]} tags1
+     * @param {string[]} tags2
+     * @returns {boolean}
+     */
+    function tagsIntersect(tags1, tags2)
+    {
+        return tags1.some(function(tag1) {
+            return tags2.some(function(tag2) {
+                return tag1 == tag2;
+            });
+        });
+    }
+
+    function isBlogged(site) {
+        var current = site.properties.current;
+        return current
+            && current.visits.length
+            && current.visits[0].link;
+    }
+
+    function isExcluded(site) {
+        var excludedTags = ['Disqualified', 'Closed'];
+        return tagsIntersect(site.properties.current.tags, excludedTags);
+    }
+
     // ---------------------------------------------------------------------------------------------
 
     /**
@@ -133,9 +159,9 @@ function(View, VoronoiAdapter,
         view.setStatusMessage("");
 
         groupsModel.setGroups([
-            new GroupsModel.Group("Visited", "green", true),
-            new GroupsModel.Group("Todo", "gold", true),
-            new GroupsModel.Group("Excluded", "red", false)
+            new GroupsModel.Group("Visited", "green", true, isBlogged),
+            new GroupsModel.Group("Todo", "gold", true, function(site) { return !isBlogged(site) && !isExcluded(site); }),
+            new GroupsModel.Group("Excluded", "red", false, function(site) { return !isBlogged(site) && isExcluded(site); })
         ]);
 
         sitesModel.setSites(pubsData.features);
