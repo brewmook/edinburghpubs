@@ -39,9 +39,8 @@ function (Observable) {
      */
     StatsModel.prototype.setup = function(sitesModel)
     {
-        var me = this;
         sitesModel.sites.subscribe(function(sites) {
-            var stat = me._cachedStat;
+            var stat = this._cachedStat;
             if (stat && sites.length > 0) {
                 var values = stat.filterValidValues(sites.map(stat.getValue)).sort(compareNumbers);
                 var summary = null;
@@ -52,9 +51,9 @@ function (Observable) {
                         values[Math.floor(values.length/2)]
                     );
                 }
-                me.summary.raise(summary);
+                this.summary.raise(summary);
             }
-        });
+        }, this);
     };
 
     // ---------------------------------------------------------------------------------------------

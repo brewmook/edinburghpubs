@@ -94,8 +94,6 @@ function (Observable) {
         groupSites(allSites);
 
         this._allSites = allSites;
-        this._tag = '';
-        this._visibleGroups = [];
     }
 
     /**
@@ -104,28 +102,31 @@ function (Observable) {
      */
     SitesModel.prototype.setup = function(filterModel, groupsModel)
     {
+        var currentTag = '';
+        var visibleGroups = [];
+
         filterModel.currentTag.subscribe(function(tag)
         {
-            this._tag = tag;
-            updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
+            currentTag = tag;
+            updateSites(currentTag, visibleGroups, this._allSites, this.sites);
         }, this);
 
         groupsModel.groups.subscribe(function(groups)
         {
-            this._visibleGroups = groups
+            visibleGroups = groups
                 .filter(function(g) { return g.visible; })
                 .map(function(g) { return g.name });
-            updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
+            updateSites(currentTag, visibleGroups, this._allSites, this.sites);
         }, this);
 
         groupsModel.groupChange.subscribe(function(group)
         {
             if (group.visible) {
-                this._visibleGroups.push(group.name);
+                visibleGroups.push(group.name);
             } else {
-                this._visibleGroups = this._visibleGroups.filter(function(g) { return g !== group.name; });
+                visibleGroups = visibleGroups.filter(function(g) { return g !== group.name; });
             }
-            updateSites(this._tag, this._visibleGroups, this._allSites, this.sites);
+            updateSites(currentTag, visibleGroups, this._allSites, this.sites);
         }, this);
     };
 
