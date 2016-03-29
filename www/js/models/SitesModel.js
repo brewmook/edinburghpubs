@@ -23,14 +23,17 @@ function (Observable) {
 
     /**
      * @param {string} tag
-     * @param {string[]} visibleGroups
+     * @param {GroupsModel.Group[]} groups
      * @param {Site[]} allSites
      * @param {Observable.<Site[]>} sites
      */
-    function updateSites(tag, visibleGroups, allSites, sites)
+    function updateSites(tag, groups, allSites, sites)
     {
-        var visibleSites;
+        var visibleGroups = groups
+            .filter(function(g) { return g.visible; })
+            .map(function(g) { return g.name });
 
+        var visibleSites = [];
         if (tag == '') {
             visibleSites = allSites.slice();
         }
@@ -38,7 +41,11 @@ function (Observable) {
             visibleSites = sitesMatchingTag(allSites, tag);
         }
 
-        visibleSites = visibleSites.filter(function(site) { return inList(site.properties.group, visibleGroups); });
+        visibleSites = visibleSites.filter(function(site)
+        {
+            return inList(site.properties.group, visibleGroups);
+        });
+
         sites.raise(visibleSites);
     }
 
@@ -83,17 +90,15 @@ function (Observable) {
     }
 
     /**
-     * @param {Site[]} allSites
-     * @param {GroupsModel} groupsModel
      * @constructor
      */
-    function SitesModel(allSites)
+    function SitesModel()
     {
         this.sites = new Observable();
 
-        groupSites(allSites);
-
-        this._allSites = allSites;
+        this._currentTag = '';
+        this._allSites = [];
+        this._groups = [];
     }
 
     /**
@@ -102,32 +107,33 @@ function (Observable) {
      */
     SitesModel.prototype.setup = function(filterModel, groupsModel)
     {
-        var currentTag = '';
-        var visibleGroups = [];
-
         filterModel.currentTag.subscribe(function(tag)
         {
-            currentTag = tag;
-            updateSites(currentTag, visibleGroups, this._allSites, this.sites);
+            this._currentTag = tag;
+            updateSites(this._currentTag, this._groups, this._allSites, this.sites);
         }, this);
 
         groupsModel.groups.subscribe(function(groups)
         {
-            visibleGroups = groups
-                .filter(function(g) { return g.visible; })
-                .map(function(g) { return g.name });
-            updateSites(currentTag, visibleGroups, this._allSites, this.sites);
+            this._groups = groups;
+            updateSites(this._currentTag, this._groups, this._allSites, this.sites);
         }, this);
 
-        groupsModel.groupChange.subscribe(function(group)
+        groupsModel.groupChange.subscribe(function(/*group*/)
         {
-            if (group.visible) {
-                visibleGroups.push(group.name);
-            } else {
-                visibleGroups = visibleGroups.filter(function(g) { return g !== group.name; });
-            }
-            updateSites(currentTag, visibleGroups, this._allSites, this.sites);
+            updateSites(this._currentTag, this._groups, this._allSites, this.sites);
         }, this);
+    };
+
+    /**
+     * @param {Site[]} allSites
+     * @constructor
+     */
+    SitesModel.prototype.setSites = function(allSites)
+    {
+        groupSites(allSites);
+        this._allSites = allSites;
+        updateSites(this._currentTag, this._groups, this._allSites, this.sites);
     };
 
     return SitesModel;

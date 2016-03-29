@@ -119,11 +119,9 @@ function(View, VoronoiAdapter,
         var groupsIntent = new GroupsIntent();
         setupMVI(groupsModel, view.groups, groupsIntent);
 
-        var sitesModel = new SitesModel(pubsData.features);
-        // Order here is important, the view has to set up groups first so that icons exist
-        // before groups requiring those icons are shown.
-        view.sites.setup(sitesModel, groupsModel);
+        var sitesModel = new SitesModel();
         sitesModel.setup(filterModel, groupsModel);
+        view.sites.setup(sitesModel, groupsModel);
 
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
@@ -139,6 +137,8 @@ function(View, VoronoiAdapter,
             new GroupsModel.Group("Todo", "gold", true),
             new GroupsModel.Group("Excluded", "red", false)
         ]);
+
+        sitesModel.setSites(pubsData.features);
 
         filterModel.setAllTags(uniqueTags(pubsData.features));
     }
