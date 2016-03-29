@@ -87,7 +87,7 @@ function (leaflet) {
      */
     SitesView.prototype.setup = function(sitesModel, groupsModel)
     {
-        sitesModel.sites.subscribe(function(sites)
+        sitesModel.visibleSites.subscribe(function(sites)
         {
             this._layer.clearLayers();
             sites.forEach(function(site) {

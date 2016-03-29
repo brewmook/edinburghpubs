@@ -42,7 +42,7 @@ function (geometry, Colour, ColourMap, Observable, VoronoiView) {
             view.setLegend(stat.label(), legendEntries);
         });
 
-        Observable.Combine([sitesModel.sites, statsModel.stat], function(sites, stat) {
+        Observable.Combine([sitesModel.visibleSites, statsModel.stat], function(sites, stat) {
             view.clearPolygons();
 
             if (!stat || !sites) return;

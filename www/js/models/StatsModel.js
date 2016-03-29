@@ -39,7 +39,7 @@ function (Observable) {
      */
     StatsModel.prototype.setup = function(sitesModel)
     {
-        sitesModel.sites.subscribe(function(sites) {
+        sitesModel.visibleSites.subscribe(function(sites) {
             var stat = this._cachedStat;
             if (stat && sites.length > 0) {
                 var values = stat.filterValidValues(sites.map(stat.getValue)).sort(compareNumbers);
