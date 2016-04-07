@@ -1,6 +1,11 @@
 define(['app/geometry', 'utility/Observable', 'leaflet'],
 function (geometry, Observable, leaflet)
 {
+    function legendHtml(label, colour)
+    {
+        return '<br/><span style="background:' + colour.toString() + '"></span> ' + label;
+    }
+
     /**
      * @constructor
      */
@@ -23,43 +28,17 @@ function (geometry, Observable, leaflet)
             function(stat, summary, colourMap) {
                 if (!stat || !colourMap) return;
 
-                var legendEntries = [];
+                var html = stat.label();
                 if (summary) {
-                    legendEntries.push(new StatsView.LegendEntry(stat.formatValue(summary.minimum), colourMap.colour(summary.minimum)));
-                    legendEntries.push(new StatsView.LegendEntry(stat.formatValue(summary.median), colourMap.colour(summary.median)));
-                    legendEntries.push(new StatsView.LegendEntry(stat.formatValue(summary.maximum), colourMap.colour(summary.maximum)));
+                    html += legendHtml(stat.formatValue(summary.minimum), colourMap.colour(summary.minimum));
+                    html += legendHtml(stat.formatValue(summary.median),  colourMap.colour(summary.median));
+                    html += legendHtml(stat.formatValue(summary.maximum), colourMap.colour(summary.maximum));
                 }
-                legendEntries.push(new StatsView.LegendEntry("No data ", colourMap.colour(Number.MAX_VALUE)));
-                this.setLegend(stat.label(), legendEntries);
-            }, this
+                html += legendHtml("No data ", colourMap.colour(Number.MAX_VALUE));
+                this._legendDiv.innerHTML = html;
+            },
+            this
         );
-    };
-
-    /**
-     * @param {string} label
-     * @param {StatsView.LegendEntry[]} entries
-     */
-    StatsView.prototype.setLegend = function(label, entries)
-    {
-        var items = [label];
-        entries.forEach(function(entry) {
-            items.push(
-                '<span style="background:' + entry.colour.toString() + '"></span> '
-                + entry.label
-            );
-        });
-        this._legendDiv.innerHTML = items.join('<br/>');
-    };
-
-    /**
-     * @param {string} label
-     * @param {Colour} colour
-     * @constructor
-     */
-    StatsView.LegendEntry = function(label, colour)
-    {
-        this.label = label;
-        this.colour = colour;
     };
 
     return StatsView;
