@@ -1,5 +1,5 @@
-define(['views/FilterView', 'views/GroupsView', 'views/MapView', 'views/SitesView', 'views/TargetView', 'views/VoronoiView'],
-function(FilterView, GroupsView, MapView, SitesView, TargetView, VoronoiView) {
+define(['views/FilterView', 'views/GroupsView', 'views/MapView', 'views/SitesView', 'views/StatsView', 'views/TargetView', 'views/VoronoiView'],
+function(FilterView, GroupsView, MapView, SitesView, StatsView, TargetView, VoronoiView) {
 
     /**
      * @constructor
@@ -12,6 +12,7 @@ function(FilterView, GroupsView, MapView, SitesView, TargetView, VoronoiView) {
         this.target = new TargetView(mapView.map);
         this.voronoi = new VoronoiView(mapView.map);
         this.sites = new SitesView(mapView.map);
+        this.stats = new StatsView(mapView.map);
     }
 
     /**

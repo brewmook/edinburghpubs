@@ -151,6 +151,7 @@ function(View,
 
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
+        view.stats.setup(statsModel);
 
         view.voronoi.setup(sitesModel, statsModel, target);
 
