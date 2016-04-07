@@ -1,5 +1,5 @@
-define(['utility/Observable'],
-function (Observable) {
+define(['utility/Colour', 'utility/ColourMap', 'utility/Observable'],
+function (Colour, ColourMap, Observable) {
 
     // ---------------------------------------------------------------------------------------------
     // Private functions
@@ -19,6 +19,8 @@ function (Observable) {
      */
     function StatsModel()
     {
+        /** @type {Observable.<ColourMap>} */
+        this.colourMap = new Observable();
         /** @type {Observable.<StatsModel.Stat>} */
         this.stat = new Observable();
         /** @type {Observable.<StatsModel.Summary>} */
@@ -52,6 +54,15 @@ function (Observable) {
                     );
                 }
                 this.summary.raise(summary);
+
+                var colourMap = new ColourMap();
+                colourMap.setOutOfRangeColour(new Colour(64,64,64));
+                if (summary) {
+                    colourMap.addColour(summary.minimum, new Colour(0,255,0));
+                    colourMap.addColour(summary.median, new Colour(0,0,255));
+                    colourMap.addColour(summary.maximum, new Colour(255,0,0));
+                }
+                this.colourMap.raise(colourMap);
             }
         }, this);
     };
