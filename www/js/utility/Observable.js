@@ -60,15 +60,16 @@ define(function() {
      *
      * @param {Observable[]} sources
      * @param {Function} callback
+     * @param {*?} self - The object to use as 'this' in the callback.
      * @static
      */
-    Observable.Combine = function(sources, callback)
+    Observable.Combine = function(sources, callback, self)
     {
         var cache = new Array(sources.length);
         sources.forEach(function(source, index) {
             source.subscribe(function() {
                 cache[index] = Array.prototype.slice.call(arguments);
-                callback.apply(callback, [].concat.apply([], cache));
+                callback.apply(self, [].concat.apply([], cache));
             });
         });
     };

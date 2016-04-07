@@ -328,8 +328,9 @@ function (Vector, Voronoi) {
      * @param {number[]} origin - The geographic coordinates of the origin (lat, lon) on the surface of the Earth.
      * @param {number} circleRadius - Radius in metres of circle around [origin] to crop results to.
      * @param {voronoiCellCallback} callback - Called for every cell calculated.
+     * @param {*?} self - The object to use as 'this' in the callback.
      */
-    function earthSurfaceVoronoi(pointFeatures, origin, circleRadius, callback)
+    function earthSurfaceVoronoi(pointFeatures, origin, circleRadius, callback, self)
     {
         var computed = voronoi.compute(
             pointFeaturesToCartesians(pointFeatures, origin, EarthRadiusMetres),
@@ -344,7 +345,7 @@ function (Vector, Voronoi) {
             });
             var croppedPolygon = cropToCircle2d(polygon, circleRadius, 3);
             var geoCoordPolygon = cartesiansToGeoCoords(croppedPolygon, origin, EarthRadiusMetres);
-            callback(cell.site.feature, geoCoordPolygon);
+            callback.call(self, cell.site.feature, geoCoordPolygon);
         });
 
         voronoi.recycle(computed);

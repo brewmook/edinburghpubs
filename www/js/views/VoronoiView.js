@@ -1,4 +1,5 @@
-define(['leaflet'], function (leaflet)
+define(['app/geometry', 'utility/Observable', 'leaflet'],
+function (geometry, Observable, leaflet)
 {
     /**
      * @constructor
@@ -13,6 +14,51 @@ define(['leaflet'], function (leaflet)
         legend.addTo(map);
         this._legendDiv = legendDiv;
     }
+
+    /**
+     * @param {SitesModel} sitesModel
+     * @param {StatsModel} statsModel
+     * @param {Target} target
+     */
+    VoronoiView.prototype.setup = function(sitesModel, statsModel, target)
+    {
+        Observable.Combine(
+            [statsModel.stat, statsModel.summary, statsModel.colourMap],
+            function(stat, summary, colourMap) {
+                if (!stat || !colourMap) return;
+
+                var legendEntries = [];
+                if (summary) {
+                    legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(summary.minimum), colourMap.colour(summary.minimum)));
+                    legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(summary.median), colourMap.colour(summary.median)));
+                    legendEntries.push(new VoronoiView.LegendEntry(stat.formatValue(summary.maximum), colourMap.colour(summary.maximum)));
+                }
+                legendEntries.push(new VoronoiView.LegendEntry("No data ", colourMap.colour(Number.MAX_VALUE)));
+                this.setLegend(stat.label(), legendEntries);
+            }, this
+        );
+
+        Observable.Combine(
+            [sitesModel.visibleSites, statsModel.stat, statsModel.colourMap],
+            function(sites, stat, colourMap) {
+                this.clearPolygons();
+
+                if (!stat || !sites || !colourMap) return;
+
+                geometry.earthSurfaceVoronoi(
+                    sites,
+                    target.origin,
+                    target.radius,
+                    function(site, polygon) {
+                        var value = stat.getValue(site);
+                        this.addPolygon(polygon, colourMap.colour(value));
+                    },
+                    this
+                );
+            },
+            this
+        );
+    };
 
     /**
      * @param {string} label

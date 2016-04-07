@@ -1,8 +1,8 @@
-define(['views/View', 'adapters/VoronoiAdapter',
+define(['views/View',
         'models/FilterModel', 'models/GroupsModel', 'models/SitesModel', 'models/StatsModel',
         'intent/FilterIntent', 'intent/GroupsIntent',
         'data/pubs'],
-function(View, VoronoiAdapter,
+function(View,
          FilterModel, GroupsModel, SitesModel, StatsModel,
          FilterIntent, GroupsIntent,
          pubsData) {
@@ -152,7 +152,7 @@ function(View, VoronoiAdapter,
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);
 
-        var voronoiAdapter = new VoronoiAdapter(sitesModel, statsModel, view.voronoi, target);
+        view.voronoi.setup(sitesModel, statsModel, target);
 
         statsModel.stat.raise(new Price());
 
