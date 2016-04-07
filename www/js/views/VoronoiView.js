@@ -1,6 +1,31 @@
 define(['app/geometry', 'utility/Observable', 'leaflet'],
 function (geometry, Observable, leaflet)
 {
+    // ---------------------------------------------------------------------------------------------
+    // Private functions
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * @param {number[][]} points - Geographic coordinates, [lat, lon].
+     * @param {Colour} colour
+     * @param {leaflet.Layer} layer
+     */
+    function addPolygon(points, colour, layer)
+    {
+        leaflet.polygon(
+            points,
+            {
+                fillColor: colour.toString(),
+                stroke: false,
+                fillOpacity: 0.5
+            }
+        ).addTo(layer).bringToBack();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // VoronoiView
+    // ---------------------------------------------------------------------------------------------
+
     /**
      * @constructor
      */
@@ -19,7 +44,7 @@ function (geometry, Observable, leaflet)
         Observable.Combine(
             [sitesModel.visibleSites, statsModel.stat, statsModel.colourMap],
             function(sites, stat, colourMap) {
-                this.clearPolygons();
+                this._layer.clearLayers();
 
                 if (!stat || !sites || !colourMap) return;
 
@@ -29,34 +54,13 @@ function (geometry, Observable, leaflet)
                     target.radius,
                     function(site, polygon) {
                         var value = stat.getValue(site);
-                        this.addPolygon(polygon, colourMap.colour(value));
+                        addPolygon(polygon, colourMap.colour(value), this._layer);
                     },
                     this
                 );
             },
             this
         );
-    };
-
-    VoronoiView.prototype.clearPolygons = function()
-    {
-        this._layer.clearLayers();
-    };
-
-    /**
-     * @param {number[][]} points - Geographic coordinates, [lat, lon].
-     * @param {Colour} colour
-     */
-    VoronoiView.prototype.addPolygon = function(points, colour)
-    {
-        leaflet.polygon(
-            points,
-            {
-                fillColor: colour.toString(),
-                stroke: false,
-                fillOpacity: 0.5
-            }
-        ).addTo(this._layer).bringToBack();
     };
 
     return VoronoiView;
