@@ -41,9 +41,9 @@ function (geometry, Observable, leaflet)
      */
     VoronoiView.prototype.setup = function(sitesModel, statsModel, target)
     {
-        Observable.Combine(
-            [sitesModel.visibleSites, statsModel.stat, statsModel.colourMap],
-            function(sites, stat, colourMap) {
+        Observable.Combine(sitesModel.visibleSites, statsModel.stat, statsModel.colourMap)
+            .buffer(50)
+            .subscribe(function(sites, stat, colourMap) {
                 this._layer.clearLayers();
 
                 if (!stat || !sites || !colourMap) return;
@@ -55,12 +55,9 @@ function (geometry, Observable, leaflet)
                     function(site, polygon) {
                         var value = stat.getValue(site);
                         addPolygon(polygon, colourMap.colour(value), this._layer);
-                    },
-                    this
+                    }, this
                 );
-            },
-            this
-        );
+            }, this);
     };
 
     return VoronoiView;

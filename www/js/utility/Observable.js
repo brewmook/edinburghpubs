@@ -42,6 +42,28 @@ define(function() {
     };
 
     /**
+     * Buffers notifications until nothing is received for [milliseconds].
+     * @param {number} milliseconds
+     * @returns {Observable}
+     */
+    Observable.prototype.buffer = function(milliseconds)
+    {
+        var buffered = new Observable();
+        var timeoutID = 0;
+        this.subscribe(function() {
+            var args = arguments;
+            if (timeoutID > 0) {
+                window.clearTimeout(timeoutID);
+            }
+            timeoutID = window.setTimeout(function() {
+                buffered.raise.apply(buffered, args);
+                timeoutID = 0;
+            }, milliseconds);
+        });
+        return buffered;
+    };
+
+    /**
      * @static
      * @param {Observable} source
      * @param {Observable} destination
@@ -54,24 +76,28 @@ define(function() {
     };
 
     /**
-     * Combines multiple Observables into one notification.
+     * Combines multiple Observables into one.
      *
-     * Arguments to each source are cached. All arguments to all sources are flattened before calling callback.
+     * Arguments to each source are cached and forwarded together, flattened.
      *
-     * @param {Observable[]} sources
-     * @param {Function} callback
-     * @param {*?} self - The object to use as 'this' in the callback.
+     * As an example, given 2 Observables A and B, where A raises 2 arguments and B raises 1,
+     * then the returned Observable will raise 3: A1, A2, B1.
+     *
+     * @param {...Observable}
      * @static
      */
-    Observable.Combine = function(sources, callback, self)
+    Observable.Combine = function()
     {
+        var combined = new Observable();
+        var sources = Array.prototype.slice.call(arguments);
         var cache = new Array(sources.length);
         sources.forEach(function(source, index) {
             source.subscribe(function() {
                 cache[index] = Array.prototype.slice.call(arguments);
-                callback.apply(self, [].concat.apply([], cache));
+                combined.raise.apply(combined, [].concat.apply([], cache));
             });
         });
+        return combined;
     };
 
     return Observable;
