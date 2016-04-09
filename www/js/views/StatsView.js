@@ -32,7 +32,7 @@ function (geometry, Observable, leaflet)
     StatsView.prototype.setup = function(statsModel)
     {
         Observable.Combine(statsModel.stat, statsModel.summary, statsModel.colourMap)
-            .buffer(50)
+            .bufferMilliseconds(50)
             .subscribe(function(stat, summary, colourMap) {
                 if (!stat || !colourMap) return;
 

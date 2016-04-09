@@ -42,11 +42,11 @@ define(function() {
     };
 
     /**
-     * Buffers notifications until nothing is received for [milliseconds].
+     * Buffers notifications until nothing is received for the given number of milliseconds.
      * @param {number} milliseconds
      * @returns {Observable}
      */
-    Observable.prototype.buffer = function(milliseconds)
+    Observable.prototype.bufferMilliseconds = function(milliseconds)
     {
         var buffered = new Observable();
         var timeoutID = 0;

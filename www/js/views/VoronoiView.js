@@ -42,7 +42,7 @@ function (geometry, Observable, leaflet)
     VoronoiView.prototype.setup = function(sitesModel, statsModel, target)
     {
         Observable.Combine(sitesModel.visibleSites, statsModel.stat, statsModel.colourMap)
-            .buffer(50)
+            .bufferMilliseconds(50)
             .subscribe(function(sites, stat, colourMap) {
                 this._layer.clearLayers();
 
