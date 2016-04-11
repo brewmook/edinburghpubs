@@ -55,4 +55,8 @@ define(function() {
         }
     }
 
+    return {
+        Site: Site
+    };
+
 });

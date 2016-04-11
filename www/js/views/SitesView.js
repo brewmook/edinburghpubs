@@ -87,20 +87,21 @@ function (leaflet) {
      */
     SitesView.prototype.setup = function(sitesModel, groupsModel)
     {
-        sitesModel.visibleSites.subscribe(function(sites)
-        {
-            this._layer.clearLayers();
-            sites.forEach(function(site) {
-                var marker = leaflet.marker(
-                    site.geometry.coordinates,
-                    {
-                        title: site.properties.current.name,
-                        icon: this._icons[site.properties.group]
-                    });
-                marker.bindPopup(bubbleHtml(site));
-                marker.addTo(this._layer);
+        sitesModel.visibleSites
+            .bufferMilliseconds(0)
+            .subscribe(function(sites) {
+                this._layer.clearLayers();
+                sites.forEach(function(site) {
+                    var marker = leaflet.marker(
+                        site.geometry.coordinates,
+                        {
+                            title: site.properties.current.name,
+                            icon: this._icons[site.properties.group]
+                        });
+                    marker.bindPopup(bubbleHtml(site));
+                    marker.addTo(this._layer);
+                }, this);
             }, this);
-        }, this);
 
         groupsModel.groups.subscribe(function(groups)
         {

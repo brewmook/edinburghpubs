@@ -25,9 +25,9 @@ function (Observable) {
      * @param {string} tag
      * @param {GroupsModel.Group[]} groups
      * @param {Site[]} allSites
-     * @param {Observable.<Site[]>} observable
+     * @return {Site[]}
      */
-    function updateSites(tag, groups, allSites, observable)
+    function filterSites(allSites, tag, groups)
     {
         var visibleGroups = groups
             .filter(function(g) { return g.visible; })
@@ -46,7 +46,7 @@ function (Observable) {
             return inList(site.properties.group, visibleGroups);
         });
 
-        observable.raise(visibleSites);
+        return visibleSites;
     }
 
     function groupSites(groups, sites) {
@@ -79,22 +79,17 @@ function (Observable) {
      */
     SitesModel.prototype.setup = function(filterModel, groupsModel)
     {
-        filterModel.currentTag.subscribe(function(tag)
-        {
-            this._currentTag = tag;
-            updateSites(this._currentTag, this._groups, this._allSites, this.visibleSites);
-        }, this);
+        Observable.Combine(filterModel.currentTag, groupsModel.groupChange)
+            .bufferMilliseconds(0)
+            .subscribe(function(tag/*, group*/) {
+                this._currentTag = tag || '';
+                this.visibleSites.raise(filterSites(this._allSites, this._currentTag, this._groups));
+            }, this);
 
-        groupsModel.groups.subscribe(function(groups)
-        {
+        groupsModel.groups.subscribe(function(groups) {
             this._groups = groups;
             groupSites(this._groups, this._allSites);
-            updateSites(this._currentTag, this._groups, this._allSites, this.visibleSites);
-        }, this);
-
-        groupsModel.groupChange.subscribe(function(/*group*/)
-        {
-            updateSites(this._currentTag, this._groups, this._allSites, this.visibleSites);
+            this.visibleSites.raise(filterSites(this._allSites, this._currentTag, this._groups));
         }, this);
     };
 
@@ -106,7 +101,7 @@ function (Observable) {
     {
         this._allSites = allSites;
         groupSites(this._groups, this._allSites);
-        updateSites(this._currentTag, this._groups, this._allSites, this.visibleSites);
+        this.visibleSites.raise(filterSites(this._allSites, this._currentTag, this._groups));
     };
 
     return SitesModel;
