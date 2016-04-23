@@ -1,5 +1,5 @@
-define(['leaflet'],
-function (leaflet) {
+define(['leaflet', 'd3'],
+function (leaflet, d3) {
 
     // -----------------------------------------------------------------------------------------------------------------
     // Private functions
@@ -76,9 +76,7 @@ function (leaflet) {
      */
     function SitesView(map)
     {
-        this._layer = leaflet.layerGroup();
-        this._layer.addTo(map);
-        this._icons = {};
+        this._map = map;
     }
 
     /**
@@ -87,36 +85,63 @@ function (leaflet) {
      */
     SitesView.prototype.setup = function(sitesModel, groupsModel)
     {
+        var map = this._map;
+
+        var svg = d3.select(map.getPanes().overlayPane).append("svg");
+        var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+        svg.attr('class', 'sites-view');
+
+        var transform = d3.geo.transform({point: projectPoint});
+        var path = d3.geo.path().projection(transform);
+
+        var resetter = { reset: function() {} };
+
+        map.on("viewreset", function() { resetter.reset(); });
+
+        // Use Leaflet to implement a D3 geometric transformation.
+        var projectPointLatLng = new leaflet.LatLng(0,0);
+        function projectPoint(x, y) {
+            projectPointLatLng.lat = x;
+            projectPointLatLng.lng = y;
+            var point = map.latLngToLayerPoint(projectPointLatLng);
+            this.stream.point(point.x, point.y);
+        }
+
         sitesModel.visibleSites
             .bufferMilliseconds(0)
             .subscribe(function(sites) {
-                this._layer.clearLayers();
-                sites.forEach(function(site) {
-                    var marker = leaflet.marker(
-                        site.geometry.coordinates,
-                        {
-                            title: site.properties.current.name,
-                            icon: this._icons[site.properties.group]
-                        });
-                    marker.bindPopup(bubbleHtml(site));
-                    marker.addTo(this._layer);
-                }, this);
-            }, this);
+                resetter.reset = function() {
+                    var padding = 10;
+                    var bounds = path.bounds({"type": "FeatureCollection", "features": sites});
+                    var topLeft = bounds[0];
+                    var bottomRight = bounds[1];
+                    topLeft[0] -= padding;
+                    topLeft[1] -= padding;
+                    bottomRight[0] += padding;
+                    bottomRight[1] += padding;
 
-        groupsModel.groups.subscribe(function(groups)
-        {
-            this._icons = {};
-            groups.forEach(function(group)
-            {
-                this._icons[group.name] = leaflet.icon({
-                    iconUrl: "img/marker-" + group.colour + ".png",
-                    iconRetinaUrl: "img/marker-" + group.colour + "-2x.png",
-                    iconSize: [25, 39],
-                    iconAnchor: [12, 36],
-                    popupAnchor: [0, -30]
-                });
-            }, this);
-        }, this);
+                    var circles = g.selectAll("circle").data(sites);
+
+                    // New circles
+                    circles.enter().append("circle").attr("r", 5);
+                    // New and existing circles
+                    circles.attr("transform", function(d) {
+                        var loc = map.latLngToLayerPoint(d.geometry.coordinates);
+                        return "translate(" + loc.x + "," + loc.y + ")";
+                    });
+                    // Circles to remove
+                    circles.exit().remove();
+
+                    svg.attr("width", bottomRight[0] - topLeft[0] + padding)
+                        .attr("height", bottomRight[1] - topLeft[1] + padding)
+                        .style("left", topLeft[0] + "px")
+                        .style("top", topLeft[1] + "px");
+
+                    g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+                };
+                resetter.reset();
+            });
     };
 
     return SitesView;
