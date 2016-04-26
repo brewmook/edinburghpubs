@@ -5,6 +5,7 @@
     removeCombined: true,
     paths: {
         data: "empty:",
+        d3: "empty:",
         leaflet: "empty:",
         voronoi: "empty:"
     },
