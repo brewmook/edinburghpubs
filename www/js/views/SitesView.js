@@ -87,8 +87,15 @@ function (leaflet, d3) {
     {
         var map = this._map;
 
-        var svg = d3.select(map.getPanes().overlayPane).append("svg");
-        var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+        var svg = d3.select(map.getPanes().overlayPane).append("svg")
+            .attr('xmlns:xlink','http://www.w3.org/1999/xlink')
+        var defs = svg.append('defs');
+        var markers = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+        var r = 11;
+        var tail = 5;
+        var t = 2;
+        var pinPath = ['M', -r+t, -(r+tail-t), 'A', r, r, 0, 1, 1, r-t, -(r+tail-t), 'L', 0, 0, 'Z'].join(' ');
 
         svg.attr('class', 'sites-view');
 
@@ -112,7 +119,7 @@ function (leaflet, d3) {
             .bufferMilliseconds(0)
             .subscribe(function(sites) {
                 resetter.reset = function() {
-                    var padding = 10;
+                    var padding = 40;
                     var bounds = path.bounds({"type": "FeatureCollection", "features": sites});
                     var topLeft = bounds[0];
                     var bottomRight = bounds[1];
@@ -121,27 +128,42 @@ function (leaflet, d3) {
                     bottomRight[0] += padding;
                     bottomRight[1] += padding;
 
-                    var circles = g.selectAll("circle").data(sites);
+                    var pins = markers.selectAll("use").data(sites);
 
-                    // New circles
-                    circles.enter().append("circle").attr("r", 5);
-                    // New and existing circles
-                    circles.attr("transform", function(d) {
-                        var loc = map.latLngToLayerPoint(d.geometry.coordinates);
-                        return "translate(" + loc.x + "," + loc.y + ")";
-                    });
-                    // Circles to remove
-                    circles.exit().remove();
+                    // New pins
+                    pins.enter().append('use');
+                    // New and existing pins
+                    pins.attr('xlink:href', function(site) { return '#'+site.properties.group; })
+                        .attr('transform', function(d)
+                        {
+                            var loc = map.latLngToLayerPoint(d.geometry.coordinates);
+                            return "translate(" + loc.x + "," + loc.y + ")";
+                        });
+                    // Remove unused
+                    pins.exit().remove();
 
                     svg.attr("width", bottomRight[0] - topLeft[0] + padding)
                         .attr("height", bottomRight[1] - topLeft[1] + padding)
                         .style("left", topLeft[0] + "px")
                         .style("top", topLeft[1] + "px");
 
-                    g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+                    markers.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
                 };
                 resetter.reset();
             });
+
+        groupsModel.groups.subscribe(function(groups)
+        {
+            var pins = defs.selectAll('g').data(groups);
+            // New groups only
+            var g = pins.enter().append('g');
+            g.append('path').attr('d', pinPath);
+            g.append('circle').attr('r',4).attr('cx',0).attr('cy',-(r+tail+t+2));
+            // New and existing groups
+            pins.attr('id', function(group) { return group.name; });
+            // Groups to remove
+            pins.exit().remove();
+        });
     };
 
     return SitesView;
