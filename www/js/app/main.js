@@ -147,7 +147,7 @@ function(View,
 
         var sitesModel = new SitesModel();
         sitesModel.setup(filterModel, groupsModel);
-        view.sites.setup(sitesModel, groupsModel);
+        view.sites.setup(sitesModel);
 
         var statsModel = new StatsModel();
         statsModel.setup(sitesModel);

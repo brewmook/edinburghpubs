@@ -81,14 +81,15 @@ function (leaflet, d3) {
 
     /**
      * @param {SitesModel} sitesModel
-     * @param {GroupsModel} groupsModel
      */
-    SitesView.prototype.setup = function(sitesModel, groupsModel)
+    SitesView.prototype.setup = function(sitesModel)
     {
         var map = this._map;
 
         var svg = d3.select(map.getPanes().overlayPane).append("svg")
             .attr('xmlns:xlink','http://www.w3.org/1999/xlink')
+            .attr('class', 'sites-view');
+
         var defs = svg.append('defs');
         var markers = svg.append("g").attr("class", "leaflet-zoom-hide");
 
@@ -97,7 +98,10 @@ function (leaflet, d3) {
         var t = 2;
         var pinPath = ['M', -r+t, -(r+tail-t), 'A', r, r, 0, 1, 1, r-t, -(r+tail-t), 'L', 0, 0, 'Z'].join(' ');
 
-        svg.attr('class', 'sites-view');
+        var pin = defs.append('g');
+        pin.append('path').attr('d', pinPath);
+        pin.append('circle').attr('r',4).attr('cx',0).attr('cy',-(r+tail+t+2));
+        pin.attr('id', 'pin');
 
         var transform = d3.geo.transform({point: projectPoint});
         var path = d3.geo.path().projection(transform);
@@ -133,7 +137,8 @@ function (leaflet, d3) {
                     // New pins
                     pins.enter().append('use');
                     // New and existing pins
-                    pins.attr('xlink:href', function(site) { return '#'+site.properties.group; })
+                    pins.attr('xlink:href', '#pin')
+                        .attr('class', function(site) { return site.properties.group; })
                         .attr('transform', function(d)
                         {
                             var loc = map.latLngToLayerPoint(d.geometry.coordinates);
@@ -151,19 +156,6 @@ function (leaflet, d3) {
                 };
                 resetter.reset();
             });
-
-        groupsModel.groups.subscribe(function(groups)
-        {
-            var pins = defs.selectAll('g').data(groups);
-            // New groups only
-            var g = pins.enter().append('g');
-            g.append('path').attr('d', pinPath);
-            g.append('circle').attr('r',4).attr('cx',0).attr('cy',-(r+tail+t+2));
-            // New and existing groups
-            pins.attr('id', function(group) { return group.name; });
-            // Groups to remove
-            pins.exit().remove();
-        });
     };
 
     return SitesView;
