@@ -132,7 +132,12 @@ function (leaflet, d3) {
                     bottomRight[0] += padding;
                     bottomRight[1] += padding;
 
-                    var pins = markers.selectAll("use").data(sites);
+                    var sortedSites = sites.slice();
+                    sortedSites.sort(function(a,b) {
+                        return b.geometry.coordinates[0] - a.geometry.coordinates[0];
+                    });
+
+                    var pins = markers.selectAll("use").data(sortedSites);
 
                     // New pins
                     pins.enter().append('use');
