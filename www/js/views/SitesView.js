@@ -108,7 +108,31 @@ function (leaflet, d3) {
 
         var resetter = { reset: function() {} };
 
+        var bubble = d3.select(map.getPanes().popupPane).append('div').attr('class','bubble-outer');
+        var bubbleContent = bubble.append('div').attr('class','bubble-content');
+        var bubbleSvgContainer = bubble.append('div').attr('class','bubble-svg-container');
+        var bubbleSvg = bubbleSvgContainer.append('svg')
+                .attr('id', 'bubble-svg')
+                .attr('width', 20)
+                .attr('height', 20)
+                .attr('xmlns', 'http://www.w3.org/2000/svg');
+        bubbleSvg.append('path').attr('d','M 0 0 L 20 0 L 10 20 Z');
+
+        function showBubble(site)
+        {
+            var loc = map.latLngToLayerPoint(site.geometry.coordinates);
+            bubbleContent.html(bubbleHtml(site));
+            bubble.style({display:'block', left:loc.x+'px', top:(loc.y-20)+'px'});
+            d3.event.stopPropagation();
+        }
+
+        function hideBubble() {
+            bubble.style('display','none');
+        }
+
         map.on("viewreset", function() { resetter.reset(); });
+        map.on('zoomstart', hideBubble);
+        map.on('click', hideBubble);
 
         // Use Leaflet to implement a D3 geometric transformation.
         var projectPointLatLng = new leaflet.LatLng(0,0);
@@ -144,18 +168,18 @@ function (leaflet, d3) {
                     // New and existing pins
                     pins.attr('xlink:href', '#pin')
                         .attr('class', function(site) { return site.properties.group; })
-                        .attr('transform', function(d)
+                        .attr('transform', function(site)
                         {
-                            var loc = map.latLngToLayerPoint(d.geometry.coordinates);
+                            var loc = map.latLngToLayerPoint(site.geometry.coordinates);
                             return "translate(" + loc.x + "," + loc.y + ")";
-                        });
+                        })
+                        .on('click', showBubble);
                     // Remove unused
                     pins.exit().remove();
 
                     svg.attr("width", bottomRight[0] - topLeft[0] + padding)
                         .attr("height", bottomRight[1] - topLeft[1] + padding)
-                        .style("left", topLeft[0] + "px")
-                        .style("top", topLeft[1] + "px");
+                        .style({left: topLeft[0] + 'px', top: topLeft[1] + 'px'});
 
                     markers.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
                 };
