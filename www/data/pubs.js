@@ -497,6 +497,31 @@ define(function(){return{
 			"geometry": {
 				"type": "Point",
 				"coordinates": [
+					55.9520517,
+					-3.2036486
+				]
+			},
+			"properties": {
+				"current": {
+					"name": "Badger & Co",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"Castle Street",
+						"Castle View",
+						"Edinburgh",
+						"Food"
+					],
+					"visits": []
+				},
+				"history": []
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
 					55.94814555,
 					-3.1868201999999997
 				]
@@ -523,6 +548,54 @@ define(function(){return{
 							"comment": ""
 						}
 					]
+				},
+				"history": []
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.95176669999999,
+					-3.1913877499999996
+				]
+			},
+			"properties": {
+				"current": {
+					"name": "Booking Office",
+					"opened": "2016/06/14",
+					"closed": "",
+					"tags": [
+						"Cask Ale",
+						"Edinburgh",
+						"Waverly Bridge",
+						"Wetherspoon"
+					],
+					"visits": []
+				},
+				"history": []
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					55.9524547,
+					-3.2003712
+				]
+			},
+			"properties": {
+				"current": {
+					"name": "Bourbon",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"Edinburgh",
+						"Frederick Street"
+					],
+					"visits": []
 				},
 				"history": []
 			}
@@ -1907,6 +1980,17 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
+					"name": "The Library Bar",
+					"opened": "",
+					"closed": "",
+					"tags": [
+						"Edinburgh",
+						"Hotel Bar",
+						"Whitehouse Loan"
+					],
+					"visits": []
+				},
+				"history": [{
 					"name": "Links Bar",
 					"opened": "",
 					"closed": "",
@@ -1930,8 +2014,7 @@ define(function(){return{
 							"comment": ""
 						}
 					]
-				},
-				"history": []
+				}]
 			}
 		},
 		{
@@ -2397,29 +2480,49 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "Cross & Corner",
-					"opened": "",
+					"name": "Brandon's of Canonmills",
+					"opened": "2016/02/16",
 					"closed": "",
 					"tags": [
-						"Burgers",
 						"Canonmills",
 						"Edinburgh",
-						"Food",
-						"Kids Books",
-						"Kids Toys",
-						"Cask Ale",
-						"The Shilling Group"
+						"G1 Group",
+						"Saltire Taverns"
 					],
-					"visits": [
-						{
-							"date": "",
-							"price": 3.66,
-							"link": "/2013/09/16/38-cross-corner-canonmills-edinburgh/",
-							"comment": ""
-						}
-					]
+					"visits": []
 				},
-				"history": []
+				"history": [
+					{
+						"name": "Cross & Corner",
+						"opened": "",
+						"closed": "",
+						"tags": [
+							"Burgers",
+							"Canonmills",
+							"Edinburgh",
+							"Food",
+							"Kids Books",
+							"Kids Toys",
+							"Cask Ale",
+							"The Shilling Group"
+						],
+						"visits": [
+							{
+								"date": "",
+								"price": 3.66,
+								"link": "/2013/09/16/38-cross-corner-canonmills-edinburgh/",
+								"comment": ""
+							}
+						]
+					},
+					{
+						"name": "McLachlan’s",
+						"opened": "",
+						"closed": "",
+						"tags": [],
+						"visits": []
+					}
+				]
 			}
 		},
 		{
@@ -3045,26 +3148,38 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "The Bon Vivant Stockbridge",
-					"opened": "",
+					"name": "Good Brothers Wine Bar",
+					"opened": "2016/05/16",
 					"closed": "",
 					"tags": [
-						"Bon Vivant",
 						"Dean Street",
 						"Edinburgh",
-						"Food",
-						"Cask Ale"
+						"Wine Bar"
 					],
-					"visits": [
-						{
-							"date": "",
-							"price": 3.8,
-							"link": "/2014/02/09/128-the-bon-vivant-stockbridge-dean-street-edinburgh/",
-							"comment": ""
-						}
-					]
+					"visits": []
 				},
-				"history": []
+				"history": [
+					{
+						"name": "The Bon Vivant Stockbridge",
+						"opened": "",
+						"closed": "",
+						"tags": [
+							"Bon Vivant",
+							"Dean Street",
+							"Edinburgh",
+							"Food",
+							"Cask Ale"
+						],
+						"visits": [
+							{
+								"date": "",
+								"price": 3.8,
+								"link": "/2014/02/09/128-the-bon-vivant-stockbridge-dean-street-edinburgh/",
+								"comment": ""
+							}
+						]
+					}
+				]
 			}
 		},
 		{
@@ -6239,13 +6354,24 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "The Makar's Rest",
-					"opened": "2015/07/01",
+					"name": "Makars Gourmet Mash Bar",
+					"opened": "2016/03/17",
 					"closed": "",
-					"tags": [],
+					"tags": [
+						"Castle View",
+						"Edinburgh",
+						"North Bank Street"
+					],
 					"visits": []
 				},
 				"history": [
+					{
+						"name": "The Makar's Rest",
+						"opened": "2015/07/01",
+						"closed": "",
+						"tags": [],
+						"visits": []
+					},
 					{
 						"name": "The Crafters Barn",
 						"opened": "",
@@ -6736,7 +6862,7 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "Playfair",
+					"name": "The Playfair",
 					"opened": "",
 					"closed": "",
 					"tags": [
@@ -7710,13 +7836,23 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "Slighhouse",
+					"name": "George IV Bar",
 					"opened": "",
 					"closed": "",
-					"tags": [],
+					"tags": [
+						"Edinburgh",
+						"George IV Bridge"
+					],
 					"visits": []
 				},
 				"history": [
+					{
+						"name": "Slighhouse",
+						"opened": "",
+						"closed": "",
+						"tags": [],
+						"visits": []
+					},
 					{
 						"name": "Bar Kohl",
 						"opened": "",
@@ -7890,7 +8026,7 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "Last Drop",
+					"name": "The Last Drop",
 					"opened": "",
 					"closed": "",
 					"tags": [
@@ -8733,13 +8869,31 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "Blackfriars",
+					"name": "Salt Horse",
 					"opened": "",
 					"closed": "",
-					"tags": [],
+					"tags": [
+						"Blackfriars Street",
+						"Edinburgh"
+					],
 					"visits": []
 				},
-				"history": []
+				"history": [
+					{
+						"name": "Blackfriars",
+						"opened": "",
+						"closed": "",
+						"tags": [],
+						"visits": []
+					},
+					{
+						"name": "Bo's Bar",
+						"opened": "",
+						"closed": "",
+						"tags": [],
+						"visits": []
+					}
+				]
 			}
 		},
 		{
@@ -10468,13 +10622,24 @@ define(function(){return{
 			},
 			"properties": {
 				"current": {
-					"name": "Velveteen",
-					"opened": "",
+					"name": "Topolabamba",
+					"opened": "2016/07/07",
 					"closed": "",
-					"tags": [],
+					"tags": [
+						"Edinburgh",
+						"Lothian Road"
+					],
 					"visits": []
 				},
-				"history": []
+				"history": [
+					{
+						"name": "Velveteen",
+						"opened": "",
+						"closed": "",
+						"tags": [],
+						"visits": []
+					}
+				]
 			}
 		}
 	]
